@@ -15,6 +15,11 @@ class CreateSucursalTable extends Migration
     {
         Schema::create('sucursal', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre');
+            $table->string('domicilio');
+            $table->string('municipio');
+            $table->string('estado');
+            $table->tinyInteger('telefono', 15);
             $table->timestamps();
         });
     }

@@ -15,6 +15,15 @@ class CreateReservacionTable extends Migration
     {
         Schema::create('reservacion', function (Blueprint $table) {
             $table->increments('id');
+            
+            //Llave Foránea a Usuario
+            $table->unsignedInteger('id_usuario');
+            $table->foreign('id_usuario')->references('id')->on('users');
+            
+            //Llave Foránea a Horario
+            $table->unsignedInteger('id_horario');
+            $table->foreign('id_horario')->references('id')->on('horario');
+            
             $table->timestamps();
         });
     }

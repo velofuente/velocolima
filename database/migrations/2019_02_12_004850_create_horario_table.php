@@ -15,6 +15,22 @@ class CreateHorarioTable extends Migration
     {
         Schema::create('horario', function (Blueprint $table) {
             $table->increments('id');
+            $table->date('dia');
+            $table->time('hora');
+            $table->tinyInteger('cupo');
+            
+            //Llave Foránea a Instructor
+            $table->unsignedInteger('id_instructor');
+            $table->foreign('id_instructor')->references('id')->on('instructor');
+
+            //Llave Foránea a Deporte
+            $table->unsignedInteger('id_deporte');
+            $table->foreign('id_deporte')->references('id')->on('deporte');
+
+            //Llave Foránea a Sucursal
+            $table->unsignedInteger('id_sucursal');
+            $table->foreign('id_sucursal')->references('id')->on('sucursal');            
+            
             $table->timestamps();
         });
     }

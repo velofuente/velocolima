@@ -15,6 +15,7 @@ class CreateDeporteTable extends Migration
     {
         Schema::create('deporte', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre');
             $table->timestamps();
         });
     }
