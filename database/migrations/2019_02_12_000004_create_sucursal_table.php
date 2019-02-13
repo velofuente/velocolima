@@ -19,7 +19,7 @@ class CreateSucursalTable extends Migration
             $table->string('domicilio');
             $table->string('municipio');
             $table->string('estado');
-            $table->tinyInteger('telefono', 15);
+            $table->tinyInteger('telefono');
             $table->timestamps();
         });
     }
