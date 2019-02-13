@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Registro') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -146,20 +146,6 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="n_clases" class="col-md-4 col-form-label text-md-right">{{ __('Numero de Clases') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="n_clases" type="text" class="form-control{{ $errors->has('n_clases') ? ' is-invalid' : '' }}" name="n_clases" value="{{ old('n_clases') }}" required autofocus>
-
-                                @if ($errors->has('n_clases'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('n_clases') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label for="genero" class="col-md-4 col-form-label text-md-right">{{ __('Genero') }}</label>
 
                             <div class="col-md-4">
@@ -176,20 +162,6 @@
                                 @if ($errors->has('genero'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('genero') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="expiracion" class="col-md-4 col-form-label text-md-right">{{ __('Expiracion') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="expiracion" type="date" class="form-control{{ $errors->has('expiracion') ? ' is-invalid' : '' }}" name="expiracion" value="{{ old('expiracion') }}" required autofocus>
-
-                                @if ($errors->has('expiracion'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('expiracion') }}</strong>
                                     </span>
                                 @endif
                             </div>
