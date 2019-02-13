@@ -24,8 +24,8 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('telefono')->unsigned();
             $table->float('peso', 5,2);
             $table->tinyInteger('estatura')->unsigned();
-            $table->tinyInteger('n_clases')->unsigned();
-            $table->date('expiracion');
+            $table->tinyInteger('n_clases')->unsigned()->default('0');
+            $table->date('expiracion')->default('2019-01-01');;
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
