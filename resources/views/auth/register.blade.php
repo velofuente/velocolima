@@ -163,8 +163,7 @@
                             <label for="genero" class="col-md-4 col-form-label text-md-right">{{ __('Genero') }}</label>
 
                             <div class="col-md-4">
-                                <input id="genero" type="radio" class="form-control{{ $errors->has('genero') ? ' is-invalid' : '' }}" name="Hombre" value="{{ old('genero') }}" required autofocus>
-                                <label for="Hombre">Hombre</label>
+                                <input id="genero" type="radio" class="form-control{{ $errors->has('genero') ? ' is-invalid' : '' }}" name="genero" value="Hombre" required autofocus> Hombre<br>
                                 @if ($errors->has('genero'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('genero') }}</strong>
@@ -173,8 +172,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <input id="genero" type="radio" class="form-control{{ $errors->has('genero') ? ' is-invalid' : '' }}" name="Mujer" value="{{ old('genero') }}" required autofocus>
-                                <label for="Mujer">Mujer</label>
+                                <input id="genero" type="radio" class="form-control{{ $errors->has('genero') ? ' is-invalid' : '' }}" name="genero" value="Mujer" required autofocus> Mujer<br>
                                 @if ($errors->has('genero'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('genero') }}</strong>
