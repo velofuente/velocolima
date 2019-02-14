@@ -94,9 +94,7 @@ class RegisterController extends Controller
             'telefono' => $data['telefono'],
             'peso' => $data['peso'],
             'estatura' => $data['estatura'],
-            'n_clases' => $data['n_clases'],
             'genero' => $data['genero'],
-            'expiracion' => $data['expiracion'],
         ]);
     }
 }
