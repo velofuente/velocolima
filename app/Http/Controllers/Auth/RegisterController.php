@@ -49,18 +49,30 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            //Previous validator names
+            // 'name' => ['required', 'string', 'max:60'],
+            // 'apellido_p' => ['required', 'string', 'max:60'],
+            // 'apellido_m' => ['required', 'string', 'max:60'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // 'fecha_nac' => ['required', 'date'],
+            // 'telefono' => ['required', 'int', 'max:999999999999999'],
+            // 'peso' => ['required', 'numeric', 'between:0,999.99'],
+            // 'estatura' => ['required', 'int', 'max:250'],
+            // 'n_clases' => ['required', 'int', 'max:999'],
+            // 'genero' => ['required', 'string', 'max:6'],
+            // 'expiracion' => ['required', 'date'],
+
+            //Actual validator names; n_clases & expiracion were deleted
             'name' => ['required', 'string', 'max:60'],
-            'apellido_p' => ['required', 'string', 'max:60'],
-            'apellido_m' => ['required', 'string', 'max:60'],
+            'last_name' => ['required', 'string', 'max:60'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'fecha_nac' => ['required', 'date'],
-            'telefono' => ['required', 'int', 'max:999999999999999'],
-            'peso' => ['required', 'numeric', 'between:0,999.99'],
-            'estatura' => ['required', 'int', 'max:250'],
-            'n_clases' => ['required', 'int', 'max:999'],
-            'genero' => ['required', 'string', 'max:6'],
-            'expiracion' => ['required', 'date'],
+            'birth_date' => ['required', 'date'],
+            'phone' => ['required', 'int', 'max:999999999999999'],
+            'weight' => ['required', 'numeric', 'between:0,999.99'],
+            'height' => ['required', 'int', 'max:250'],
+            'gender' => ['required', 'string', 'max:6'],
         ]);
     }
 

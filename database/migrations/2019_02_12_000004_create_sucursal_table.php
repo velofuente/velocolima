@@ -14,12 +14,21 @@ class CreateSucursalTable extends Migration
     public function up()
     {
         Schema::create('sucursal', function (Blueprint $table) {
+            // $table->increments('id');
+            // $table->string('nombre');
+            // $table->string('domicilio');
+            // $table->string('municipio');
+            // $table->string('estado');
+            // $table->tinyInteger('telefono');
+            // $table->timestamps();
+
+            //TODO: CHANGE THE NAME OF THE MIGRATION FILE
             $table->increments('id');
-            $table->string('nombre');
-            $table->string('domicilio');
-            $table->string('municipio');
-            $table->string('estado');
-            $table->tinyInteger('telefono');
+            $table->string('name');
+            $table->string('address');
+            $table->string('municipality');
+            $table->string('state');
+            $table->tinyInteger('phone');
             $table->timestamps();
         });
     }

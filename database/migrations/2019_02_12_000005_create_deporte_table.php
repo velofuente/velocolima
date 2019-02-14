@@ -14,8 +14,13 @@ class CreateDeporteTable extends Migration
     public function up()
     {
         Schema::create('deporte', function (Blueprint $table) {
+            // $table->increments('id');
+            // $table->string('nombre');
+            // $table->timestamps();
+
+            //TODO: CHANGE THE NAME OF THE MIGRATION FILE
             $table->increments('id');
-            $table->string('nombre');
+            $table->string('name');
             $table->timestamps();
         });
     }

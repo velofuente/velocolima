@@ -14,16 +14,29 @@ class CreateReservacionTable extends Migration
     public function up()
     {
         Schema::create('reservacion', function (Blueprint $table) {
+            // $table->increments('id');
+
+            // //Llave Foránea a Usuario
+            // $table->unsignedInteger('id_usuario');
+            // $table->foreign('id_usuario')->references('id')->on('users');
+
+            // //Llave Foránea a Horario
+            // $table->unsignedInteger('id_horario');
+            // $table->foreign('id_horario')->references('id')->on('horario');
+
+            // $table->timestamps();
+
+            //TODO: CHANGE THE NAME OF THE MIGRATION FILE
             $table->increments('id');
-            
-            //Llave Foránea a Usuario
+
+            //Foreign Key to table "users"
             $table->unsignedInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users');
-            
-            //Llave Foránea a Horario
+
+            //Foreign Key to table "horario"
             $table->unsignedInteger('id_horario');
             $table->foreign('id_horario')->references('id')->on('horario');
-            
+
             $table->timestamps();
         });
     }
