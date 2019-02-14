@@ -11,8 +11,12 @@
 |
 */
 
+Route::get('/test', 'test@test');
 Route::get('/', function () {
     return view('welcome');
+});
+Route::get('/123', function () {
+    return 1;
 });
 
 Auth::routes();
