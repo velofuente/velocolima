@@ -58,9 +58,7 @@ class RegisterController extends Controller
             'telefono' => ['required', 'int', 'max:999999999999999'],
             'peso' => ['required', 'numeric', 'between:0,999.99'],
             'estatura' => ['required', 'int', 'max:250'],
-            'n_clases' => ['required', 'int', 'max:999'],
             'genero' => ['required', 'string', 'max:6'],
-            'expiracion' => ['required', 'date'],
         ]);
     }
 
@@ -82,9 +80,7 @@ class RegisterController extends Controller
             'telefono' => $data['telefono'],
             'peso' => $data['peso'],
             'estatura' => $data['estatura'],
-            'n_clases' => $data['n_clases'],
             'genero' => $data['genero'],
-            'expiracion' => $data['expiracion'],
         ]);
     }
 }

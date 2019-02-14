@@ -25,9 +25,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'telefono' => $faker->telefono,
         'peso' => $faker->peso,
         'estatura' => $faker->estatura,
-        'n_clases' => $faker->n_clases,
         'genero' => $faker->genero,
-        'expiracion' => $faker->expiracion,
         'remember_token' => str_random(10),
     ];
 });
