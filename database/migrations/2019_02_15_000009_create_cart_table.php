@@ -15,9 +15,6 @@ class CreateCartTable extends Migration
     {
         Schema::create('cart', function (Blueprint $table) {
             $table->increments('id');
-            //Foreign Key from Cart to Product
-            $table->unsignedInteger('id_product');
-            $table->foreign('id_product')->references('id')->on('product');
             $table->timestamps();
         });
     }

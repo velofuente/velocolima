@@ -48,6 +48,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        //{{dd($data);}}
         return Validator::make($data, [
             //Previous validator names
             // 'name' => ['required', 'string', 'max:60'],
@@ -62,12 +63,11 @@ class RegisterController extends Controller
             // 'n_clases' => ['required', 'int', 'max:999'],
             // 'genero' => ['required', 'string', 'max:6'],
             // 'expiracion' => ['required', 'date'],
-
             //Actual validator names; n_clases & expiracion were deleted
             'name' => ['required', 'string', 'max:60'],
             'last_name' => ['required', 'string', 'max:60'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
             'birth_date' => ['required', 'date'],
             'phone' => ['required', 'int', 'max:999999999999999'],
             'weight' => ['required', 'numeric', 'between:0,999.99'],
@@ -86,15 +86,14 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'apellido_p' => $data['apellido_p'],
-            'apellido_m' => $data['apellido_m'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'fecha_nac' => $data['fecha_nac'],
-            'telefono' => $data['telefono'],
-            'peso' => $data['peso'],
-            'estatura' => $data['estatura'],
-            'genero' => $data['genero'],
+            'birth_date' => $data['birth_date'],
+            'phone' => $data['phone'],
+            'weight' => $data['weight'],
+            'height' => $data['height'],
+            'gender' => $data['gender'],
         ]);
     }
 }
