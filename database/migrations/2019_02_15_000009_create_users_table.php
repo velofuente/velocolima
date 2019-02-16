@@ -29,9 +29,6 @@ class CreateUsersTable extends Migration
             //Foreign Key from Users to Role
             $table->unsignedInteger('id_role')->default('3');
             $table->foreign('id_role')->references('id')->on('role');
-            //Foreign Key from User to Cart
-            $table->unsignedInteger('id_cart')->default('1');;
-            $table->foreign('id_cart')->references('id')->on('cart');
 
             $table->rememberToken();
             $table->timestamps();
