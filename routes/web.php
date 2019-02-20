@@ -25,7 +25,12 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+<<<<<<< HEAD
 //Ruta a Página "Instructores"
 Route::get('/instructors', function(){
     return view('instructors');
+=======
+Route::get('/instructor-info', function () {
+    return view('instructor-info');
+>>>>>>> Avance pagina info-instructors con imagen, nombre y descripcion
 });
