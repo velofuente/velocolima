@@ -49091,8 +49091,13 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 __webpack_require__(/*! /Users/christiancagire/Desktop/projects/rolo/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Users/christiancagire/Desktop/projects/rolo/resources/sass/app.scss */"./resources/sass/app.scss");
+=======
+__webpack_require__(/*! /Users/pablogarcia/Desktop/projects/Rolo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/pablogarcia/Desktop/projects/Rolo/resources/sass/app.scss */"./resources/sass/app.scss");
+>>>>>>> user-view-design
 
 
 /***/ })
