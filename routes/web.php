@@ -11,14 +11,21 @@
 |
 */
 
-Route::get('/test', 'test@test');
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/123', function () {
-    return 1;
-});
+// Route::get('/test', 'test@test');
+
+// Route::get('/123', function () {
+//     return 1;
+// });
 
 Auth::routes(['verify' => true]);
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Ruta a Página "Instructores"
+Route::get('/instructors', function(){
+    return view('instructors');
+});
