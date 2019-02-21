@@ -4,23 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <title>Instructor Info</title>
+    <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
 
-    {{-- head --}}
+    {{-- nav --}}
 
     {{-- Content --}}
-    <div class="container-fluid" style="background-color:#222">
-        <div class="container">
+    <div class="container-fluid " style="background-color:#222">
+        <div class="container-fluid">
+            <!-- Section for the General Info of the Instructor -->
             <div class="row">
-                <div class="image col-md-5">
+                <!-- Image -->
+                <div id="instructorImage" class="col-md-5">
                     <img src="https://i.pinimg.com/originals/dd/46/60/dd46604477f46b3e306f5b9600cccb64.png" class="img-fluid" alt="Instructor image">
                 </div>
+                <!-- Name, Description and Phrase -->
                 <div class="info col-md-7">
-                    <h1 style="color:aqua">Dani</h1>
-                    <div class="text-justify" style="color:white">
+                    <h1 id="instructorName" class="text-info">Dani</h1>
+                    <div id="instructorDescription" class="text-justify" style="color:white">
                         Psicóloga en proceso, amante de los viajes y las distintas culturas, pero más importante aún es que es amante de México en todo su esplendor.
                         Todos aquellos que conocemos a Dani podemos decir que es una persona alegre que disfruta de su día al máximo y contagia siempre a los demás de felicidad pura. Precisamente esto es lo que hace que salgas de su clase con una sonrisa de lado a lado.
 
@@ -35,27 +38,78 @@
 
                         Máquina del tiempo: Los años 30’s sería una época en la que le gustaría haber vivido ya que ama el estilo de baile que caracterizaba a esta época (el swing) y le fascina la forma tan peculiar y elegante en la que se vestían.
                     </div>
-                    <div class="phrase" style="color:white">
+                    <div id="instructorPhrase" class="font-weight-bold lead mt-3" style="color:lightsalmon;">
                         "Busca lo que encienda tu alma."
                     </div>
                 </div>
             </div>
 
+            <!-- Section for the Dates available of the Instructor and the Music -->
             <div class="row">
-                <div class="location-date col-md-7">
-                    <select name="Places" class="form-control w-50">
-                        <option selected>Providencia</option>
-                        <option value="Lugar1">Lugar 1</option>
-                        <option value="Lugar2">Lugar 2</option>
-                    </select>
+                <div class="col-md-7 rounded" style="background-color:black; color:white;">
+                    <!-- div for the selection of the place -->
+                    <div class="places mt-2">
+                        <select id="instructorPlace" name="places" class="form-control w-25">
+                            <option selected>Providencia</option>
+                        </select>
+                    </div>
+                    <!-- div for the dates available -->
+                    <div id="calendar" class="row small mt-3">
+                        <div class="col text-center">
+                            <div id="day_num">20</div>
+                            <div id="day_name">Miercoles</div>
+                            <div id="time">6:00 hrs</div>
+                        </div>
+                        <div class="dia col text-center">
+                            <div id="day_num">20</div>
+                            <div id="day_name">Jueves</div>
+                            <div id="time">6:00 hrs</div>
+                            <div class="button rounded-circle bg-dark border border-info">
+                                <a href="#" class="btn text-info small" style="text-decoration:none">
+                                    Gabi <span class="small">7:30 PM</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="dia col text-center">
+                            <div id="day_num">20</div>
+                            <div id="day_name">Viernes</div>
+                            <div id="time">6:00 hrs</div>
+                        </div>
+                        <div class="dia col text-center">
+                            <div id="day_num">20</div>
+                            <div id="day_name">Miercoles</div>
+                            <div id="time">6:00 hrs</div>
+                        </div>
+                        <div class="dia col text-center">
+                            <div id="day_num">20</div>
+                            <div id="day_name">Miercoles</div>
+                            <div id="time">6:00 hrs</div>
+                        </div>
+                        <div class="dia col text-center">
+                            <div id="day_num">20</div>
+                            <div id="day_name">Miercoles</div>
+                            <div id="time">6:00 hrs</div>
+                        </div>
+                        <div class="dia col text-center">
+                            <div id="day_num">20</div>
+                            <div id="day_name">Miercoles</div>
+                            <div id="time">6:00 hrs</div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="music col-md-5">
-                    Music
+                <!-- Should implement Spotify API here -->
+                <div class="col-md-5">
+                    <div class="rounded ml-2" style="background-color:black; color:white">
+                        Implement Spotify API
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    {{-- Footer --}}
+
+    <script src="js/app.js" charset="utf-8"></script>
 
 </body>
 </html>
