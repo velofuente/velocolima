@@ -49094,6 +49094,7 @@ __webpack_require__.r(__webpack_exports__);
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 __webpack_require__(/*! /Users/paul/Desktop/projects/rolo/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Users/paul/Desktop/projects/rolo/resources/sass/app.scss */"./resources/sass/app.scss");
 =======
@@ -49101,13 +49102,20 @@ __webpack_require__(/*! /Users/christiancagire/Desktop/projects/rolo/resources/j
 module.exports = __webpack_require__(/*! /Users/christiancagire/Desktop/projects/rolo/resources/sass/app.scss */"./resources/sass/app.scss");
 >>>>>>> Instalacion de bootstrap
 =======
+__webpack_require__(/*! /Users/christiancagire/Desktop/projects/rolo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/christiancagire/Desktop/projects/rolo/resources/sass/app.scss */"./resources/sass/app.scss");
+>>>>>>> user-view-design
+=======
 __webpack_require__(/*! /Users/pablogarcia/Desktop/projects/Rolo/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Users/pablogarcia/Desktop/projects/Rolo/resources/sass/app.scss */"./resources/sass/app.scss");
 >>>>>>> user-view-design
+<<<<<<< HEAD
 =======
 __webpack_require__(/*! /Users/witanntechnologies/Desktop/Projects/rolo/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Users/witanntechnologies/Desktop/Projects/rolo/resources/sass/app.scss */"./resources/sass/app.scss");
 >>>>>>> adding packages
+=======
+>>>>>>> user-view-design
 
 
 /***/ })
