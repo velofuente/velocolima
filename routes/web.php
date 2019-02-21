@@ -12,11 +12,13 @@
 */
 
 Route::get('/test', 'test@test');
+
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/123', function () {
-    return 1;
+
+Route::get('/user', function(){
+    return view('user');
 });
 
 Auth::routes(['verify' => true]);
