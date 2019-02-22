@@ -28,6 +28,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/instructors', function(){
     return view('instructors');
 });
+
 Route::get('/instructor-info', function () {
     return view('instructor-info');
 });
+
+Auth::routes(['verify' => true]);
