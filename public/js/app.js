@@ -49094,6 +49094,7 @@ __webpack_require__.r(__webpack_exports__);
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 __webpack_require__(/*! /Users/witanntechnologies/Desktop/Projects/rolo/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Users/witanntechnologies/Desktop/Projects/rolo/resources/sass/app.scss */"./resources/sass/app.scss");
 =======
@@ -49103,11 +49104,22 @@ module.exports = __webpack_require__(/*! /Users/christiancagire/Desktop/projects
 =======
 __webpack_require__(/*! /Users/christiancagire/Desktop/projects/rolo/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Users/christiancagire/Desktop/projects/rolo/resources/sass/app.scss */"./resources/sass/app.scss");
+=======
+__webpack_require__(/*! /Users/christiancagire/Desktop/projects/rolo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/christiancagire/Desktop/projects/rolo/resources/sass/app.scss */"./resources/sass/app.scss");
+=======
+__webpack_require__(/*! /Users/pablogarcia/Desktop/projects/Rolo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/pablogarcia/Desktop/projects/Rolo/resources/sass/app.scss */"./resources/sass/app.scss");
+>>>>>>> 3447f4a39f30be8cdc353c9ffcddbb20d7a499a1
 >>>>>>> user-view-design
 =======
 __webpack_require__(/*! /Users/pablogarcia/Desktop/projects/Rolo/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Users/pablogarcia/Desktop/projects/Rolo/resources/sass/app.scss */"./resources/sass/app.scss");
+<<<<<<< HEAD
 >>>>>>> user-view-design
+=======
+>>>>>>> 6e583ce77ce17eabee92070d363f53bae3d6249a
+>>>>>>> 3447f4a39f30be8cdc353c9ffcddbb20d7a499a1
 
 
 /***/ })
