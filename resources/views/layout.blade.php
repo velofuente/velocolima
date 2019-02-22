@@ -9,7 +9,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
          <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
-
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         <!-- Styles -->
         <link rel="stylesheet" href="css/app.css">
         <style>
@@ -104,22 +104,42 @@
             .content-normal{
                 color: #ffffff;
                 margin-top: 2em;
-                
             }
 
             #content-normal{
                 text-align: center;
                 border: solid #87d9de;
-                border-radius: 150px;
-                padding-top: .5em;
-                //margin-left: 2.5em;
-                //margin-right: 2.5em;
-                width: 40%;
+                border-radius: 120px;
+                padding-top: 2.5em;
+                margin-left: 2.5em;
+                margin-top: 2em;
+                width: 60%;
+                height: 100%;
+            }
+
+            #content-special{
+                text-align: center;
+                border: solid #ff8e69;
+                border-radius: 120px;
+                padding-top: 2.5em;
+                margin-left: 2.5em;
+                margin-top: 2em;
+                width: 60%;
                 height: 100%;
             }
 
             #content-normal:hover{
                 background-color: #87d9de;
+            }
+
+            #content-special:hover{
+                background-color: #ff8e69;
+            }
+
+            .info-footer{
+                color: white;
+                margin-top: 9em;
+                text-align: center;
             }
         </style>
     </head>
@@ -140,4 +160,33 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
     </body>
+    <footer>
+    <div class="footer container-fluid">
+    <div class="row info-footer">
+        <div class="col-md-4">
+            <p>AVENIDA PROVIDENCIA 2388,</p>
+            <p>COL. PROVIDENCIA, 44630,</p>
+            <p>GUADALAJARA</p>
+            <p>INFO@ROLO.COM.MX</p>
+            <p>33 11995890</p>
+        </div>
+        <div class="col-md-4">
+            <p>NOSOTROS</p>
+            <p>FAQ's</p>
+            <p>PRENSA</p>
+        </div>
+        <div class="col-md-4">
+            <p>TÉRMINOS Y CONDICIONES</p>
+            <p>AVISO DE PRIVACIDAD</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <i class="fab fa-facebook" ></i>
+            <i class="fab fa-instagram" ></i>
+            <i class="fab fa-spotify" ></i>
+        </div>
+    </div>
+</div>
+    </footer>
 </html>
