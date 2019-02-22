@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Usuario</title>
     <link rel="stylesheet" href="css/app.css">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        .circleDiv{
+            height: 0;
+            padding: 25% 0;
+            width: 50%;
+            overflow: hidden;
+            min-width: 300px;
+            min-height: 300px;
+            text-align: center;
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid">
@@ -12,7 +26,7 @@
                 <div class="jumbotron bg-dark text-white row">
                     <div class="col-md-5">
                         <h1 class="text-center text-info">Pablo Miguel Jimenez Garcia</h1>
-                        <hr>
+                        <br>
                         <h4 class="text-center">Mis Clases</h4>
                         <div id="clases" class="text-center">
                                 <div class="classesButton">
@@ -20,13 +34,13 @@
                                         <span>Classes</span><br>
                                         <small class="text-secondary">* Clases disponibles en tu cuenta</small>
                                 </div>
-                                <button class="btn btn-info" role="button">COMPRAR CLASES</button>
+                                <button class="btn btn-info mb-4" role="button">COMPRAR CLASES</button>
                         </div>
                     </div>
                     <div class="col-md-7">
                         <div id="userGeneralData">
                             <button class="btn text-info d-block mx-auto" style="background-color:transparent">CERRAR SESSION</button>
-                            <hr>
+                            <br>
                             <button type="button" class="btn btn-secondary mb-2 d-block mx-auto" data-toggle="collapse" data-target="#userData">Datos del usuario</button>
                             <div id="userData" class="collapse">
                                 <div class="d-block">
@@ -47,16 +61,23 @@
                                 <button class="btn btn-info mx-auto" role="button">Guardar contraseña</button>
                             </div>
                         </div>
-                        <hr>
+                        <br>
                         <div id="Payments">
                             <h5 class="text-center mx-auto">Formas de Pago</h5>
                             <h5 class="text-center mx-auto">Mis tarjetas</h5>
-                            <hr>
+                            <br>
                             <button class="btn btn-light mb-4 d-block mx-auto" role="button"><small>+ Añadir tarjeta</small></button>
                         </div>
-                        <hr>
+                        <br>
                     </div>
-                    <div id="shareCode" class="col-md-5 rounded-circle border border-info mx-auto">
+                    <div class="col-md-5">
+                        <div id="shareCode" class="border border-info mx-auto circleDiv">
+                            <h3 class="text-info">Invita, Comparte y GANA.</h3>
+                            <h5 class="text-info">Tu código es: </h5>
+                            <h4>1f57b5d5</h4>
+                            <i class="fab fa-whatsapp mr-2" style="color:crimson;"></i><i class="fab fa-twitter" style="color:crimson;"></i>
+                            <i class="fab fa-facebook mr-2" style="color:crimson;"></i><i class="glyphicon glyphicon-envelope" style="color:crimson"></i>
+                        </div>
                     </div>
                     <div class="col-md-7">
                         <div id="extraInfo">
