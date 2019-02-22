@@ -39,52 +39,53 @@ Rolo
         <h5>Se parte de nuestra tribu.</h5>
       </div>
       <div class="row classes">
-              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-3">
+              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
                 <div id="content-normal">
-                  <h3>PRIMERA</h3>
+                  <i class="fa fa-gift" aria-hidden="true"></i>
+                  <h6>PRIMERA</h6>
                   <h5>CLASE</h5>
                   <p class="precio">$100MN</p>
                 </div>
               </div>
-              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-3">
+              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
                 <div id="content-normal">
                   <h3>1</h3>
                   <h5>CLASE</h5>
                   <p class="precio">$190MN</p>
                 </div>
               </div>
-              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                <div id="content-normal">
+              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                <div id="content-special">
                   <h3>3</h3>
                   <h5>CLASES</h5>
                   <p class="precio">$400MN</p>
                 </div>
               </div>
-              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-3">
+              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
                 <div id="content-normal">
                   <h3>5</h3>
                   <h5>CLASES</h5>
                   <p class="precio">$875MN</p>
                 </div>
               </div>
-              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-3">
+              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
                 <div id="content-normal">
                   <h3>10</h3>
                   <h5>CLASES</h5>
                   <p class="precio">$1,590MN</p>
                 </div>
               </div>
-              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-3">
+              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
                 <div id="content-normal">
                   <h3>25</h3>
                   <h5>CLASES</h5>
                   <p class="precio">$3,625MN</p>
                 </div>
               </div>
-              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-3">
+              <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
                 <div id="content-normal">
                   <h3>50</h3>
-                  <h5>CLASE</h5>
+                  <h5>CLASES</h5>
                   <p class="precio">$5,990MN</p>
                 </div>
               </div>
