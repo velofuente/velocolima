@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Route;
 use App\User;
 
 use Illuminate\Http\Request;
@@ -14,6 +15,6 @@ class test extends Controller
      */
     public function test()
     {
-        return User::find(1);
+        return Route::current()->getName();
     }
 }

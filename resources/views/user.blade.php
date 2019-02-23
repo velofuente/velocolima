@@ -1,26 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Usuario</title>
-    <link rel="stylesheet" href="css/app.css">
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <style>
-        .circleDiv{
-            height: 0;
-            padding: 25% 0;
-            width: 50%;
-            overflow: hidden;
-            min-width: 300px;
-            min-height: 300px;
-            text-align: center;
-            border-radius: 50%;
-        }
-    </style>
-</head>
-<body>
+    @extends('layout')
+    @section('title')
+    Usuario
+    @endsection
+@section('extraStyles')
+    <link rel="stylesheet" href="css/user-styles.css">
+@endsection
+    @section('content')
     <div class="container-fluid">
          <div class="flex-center position-ref full-height">
                 <div class="jumbotron bg-dark text-white row">
@@ -90,6 +75,6 @@
                 </div>
          </div>
     </div>
-    <script src="js/app.js" charset="utf-8"></script>
-</body>
-</html>
+    @endsection
+    @section('extraScripts')
+    @endsection
