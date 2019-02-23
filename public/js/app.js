@@ -49095,5 +49095,4 @@ __webpack_require__(/*! /Users/paul/Desktop/projects/rolo/resources/js/app.js */
 module.exports = __webpack_require__(/*! /Users/paul/Desktop/projects/rolo/resources/sass/app.scss */"./resources/sass/app.scss");
 
 /***/ })
-
 /******/ });
