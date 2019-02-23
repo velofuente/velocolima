@@ -2,7 +2,7 @@
 @section('title')
 Rolo
 @endsection
-@section('carousel')
+@section('content')
     <div class="content container-fluid">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -31,8 +31,6 @@ Rolo
             </div>
 
         </div>
-@endsection
-@section('packages')
     <div class="packages container-fluid">
       <div class="description">
         <h3>¡Compra tu pack de clases!!</h3>
