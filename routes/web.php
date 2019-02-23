@@ -33,4 +33,8 @@ Route::get('/instructor-info', function () {
     return view('instructor-info');
 });
 
+Route::get('/bike-selection', function(){
+    return view('bike-selection');
+});
+
 Auth::routes(['verify' => true]);
