@@ -1,73 +1,10 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layout')
 
-        <title>No Rolo - Equipo de Instructores</title>
+@section('title')
+Rolo | Conoce a los Instructores
+@endsection
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-        <!-- CSS Bootstrap -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <!--JS Bootstrap-->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.boo tstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #222;
-                color: #7FDCE0;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
+@section('content')
     <body style="background-color: #222222">
         <div class="container-fluid">
             <div class="title">
@@ -78,101 +15,125 @@
 
             <div class="container mx-auto mt-3" name="instructors" >
                 <div class="row">
-                    <div class="col-md-4 col-sm-6 col-xs-6">
                     {{-- Instructor 1 --}}
+                    <div class="col-md-4 col-sm-6 col-xs-6">
                         <div class="card border-0 mx-auto my-5" style="width:90%; background-color: #222222">
-                            <img src="https://rolo.com.mx/wp-content/uploads/2019/01/38_E-2.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
-                            <div class="card-body" style="background-color: #222222">
-                                <p class="card-text text-center">
-                                    <a href="#" class="h4" style="text-decoration: none; color: #7FDCE0">Paola</a>
-                                </p>
-                            </div>
+                            <a href="/instructor-info">
+                                <img src="https://rolo.com.mx/wp-content/uploads/2019/02/Tania_WebHead-1.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
+                                <div class="card-body" style="background-color: #222222">
+                                    <p class="card-text text-center">
+                                        <a href="/instructor-info" class="h4" style="text-decoration: none; color: #7FDCE0">Tania</a>
+                                    </p>
+                                </div>
+                            </a>
                         </div>
                     </div>
+                    {{-- Instructor 2 --}}
                     <div class="col-md-4 col-sm-6 col-xs-6">
-                        {{-- Instructor 2 --}}
                         <div class="card border-0 mx-auto my-5" style="width:90%; background-color: #222222">
-                            <img src="https://rolo.com.mx/wp-content/uploads/2019/01/IMG_8554_2SQUARE-2.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
-                            <div class="card-body" style="background-color: #222222">
-                                <p class="card-text text-center">
-                                    <a href="#" class="h4" style="text-decoration: none; color: #7FDCE0">Dani</a>
-                                </p>
-                            </div>
+                            <a href="/instructor-info">
+                                <img src="https://rolo.com.mx/wp-content/uploads/2019/01/38_E-2.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
+                                <div class="card-body" style="background-color: #222222">
+                                    <p class="card-text text-center">
+                                        <a href="#" class="h4" style="text-decoration: none; color: #7FDCE0">Paola</a>
+                                    </p>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
                     {{-- Instructor 3 --}}
+                    <div class="col-md-4 col-sm-6 col-xs-6">
                         <div class="card border-0 mx-auto my-5" style="width:90%; background-color: #222222">
-                            <img src="https://rolo.com.mx/wp-content/uploads/2019/01/Mel_37.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
-                            <div class="card-body" style="background-color: #222222">
-                                <p class="card-text text-center">
-                                    <a href="#" class="h4" style="text-decoration: none; color: #7FDCE0">Mel</a>
-                                </p>
-                            </div>
+                            <a href="/instructor-info">
+                                <img src="https://rolo.com.mx/wp-content/uploads/2019/01/IMG_8554_2SQUARE-2.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
+                                <div class="card-body" style="background-color: #222222">
+                                    <p class="card-text text-center">
+                                        <a href="/instructor-info" class="h4" style="text-decoration: none; color: #7FDCE0">Dani</a>
+                                    </p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     {{-- Instructor 4 --}}
                     <div class="col-md-4 col-sm-6 col-xs-6">
                         <div class="card border-0 mx-auto my-5" style="width:90%; background-color: #222222">
-                            <img src="https://rolo.com.mx/wp-content/uploads/2019/01/Gabs_Prof-4.jpg" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
-                            <div class="card-body" style="background-color: #222222">
-                                <p class="card-text text-center">
-                                    <a href="#" class="h4" style="text-decoration: none; color: #7FDCE0">Gabi</a>
-                                </p>
-                            </div>
+                            <a href="/instructor-info">
+                                <img src="https://rolo.com.mx/wp-content/uploads/2019/01/Mel_37.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
+                                <div class="card-body" style="background-color: #222222">
+                                    <p class="card-text text-center">
+                                        <a href="/instructor-info" class="h4" style="text-decoration: none; color: #7FDCE0">Mel</a>
+                                    </p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     {{-- Instructor 5 --}}
                     <div class="col-md-4 col-sm-6 col-xs-6">
                         <div class="card border-0 mx-auto my-5" style="width:90%; background-color: #222222">
-                            <img src="https://rolo.com.mx/wp-content/uploads/2019/01/DSC00169_E-5.jpg" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
-                            <div class="card-body" style="background-color: #222222">
-                                <p class="card-text text-center">
-                                    <a href="#" class="h4" style="text-decoration: none; color: #7FDCE0">Santi</a>
-                                </p>
-                            </div>
+                            <a href="/instructor-info">
+                                <img src="https://rolo.com.mx/wp-content/uploads/2019/01/Gabs_Prof-4.jpg" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
+                                <div class="card-body" style="background-color: #222222">
+                                    <p class="card-text text-center">
+                                        <a href="/instructor-info" class="h4" style="text-decoration: none; color: #7FDCE0">Gabi</a>
+                                    </p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     {{-- Instructor 6 --}}
                     <div class="col-md-4 col-sm-6 col-xs-6">
                         <div class="card border-0 mx-auto my-5" style="width:90%; background-color: #222222">
-                            <img src="https://rolo.com.mx/wp-content/uploads/2019/02/Franz_head2-2.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
-                            <div class="card-body" style="background-color: #222222">
-                                <p class="card-text text-center">
-                                    <a href="#" class="h4" style="text-decoration: none; color: #7FDCE0">Franz</a>
-                                </p>
-                            </div>
+                            <a href="/instructor-info">
+                                <img src="https://rolo.com.mx/wp-content/uploads/2019/01/DSC00169_E-5.jpg" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
+                                <div class="card-body" style="background-color: #222222">
+                                    <p class="card-text text-center">
+                                        <a href="/instructor-info" class="h4" style="text-decoration: none; color: #7FDCE0">Santi</a>
+                                    </p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     {{-- Instructor 7 --}}
-                    <div class="col-md-6 col-sm-6 col-xs-6 ">
+                    <div class="col-md-4 col-sm-6 col-xs-6">
                         <div class="card border-0 mx-auto my-5" style="width:90%; background-color: #222222">
-                            <img src="https://rolo.com.mx/wp-content/uploads/2019/01/44_E-4.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
-                            <div class="card-body" style="background-color: #222222">
-                                <p class="card-text text-center">
-                                    <a href="#" class="h4" style="text-decoration: none; color: #7FDCE0">Lili</a>
-                                </p>
-                            </div>
+                            <a href="/instructor-info">
+                                <img src="https://rolo.com.mx/wp-content/uploads/2019/02/Franz_head2-2.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
+                                <div class="card-body" style="background-color: #222222">
+                                    <p class="card-text text-center">
+                                        <a href="/instructor-info" class="h4" style="text-decoration: none; color: #7FDCE0">Franz</a>
+                                    </p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     {{-- Instructor 8 --}}
-                    <div class="col-md-6 col-sm-6 col-xs-6 mx-auto">
+                    <div class="col-md-4 col-sm-6 col-xs-6">
                         <div class="card border-0 mx-auto my-5" style="width:90%; background-color: #222222">
-                            <img src="https://rolo.com.mx/wp-content/uploads/2019/01/REG32-1.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
-                            <div class="card-body" style="background-color: #222222">
-                                <p class="card-text text-center">
-                                    <a href="#" class="h4" style="text-decoration: none; color: #7FDCE0">Regina</a>
-                                </p>
-                            </div>
+                            <a href="/instructor-info">
+                                <img src="https://rolo.com.mx/wp-content/uploads/2019/01/44_E-4.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
+                                <div class="card-body" style="background-color: #222222">
+                                    <p class="card-text text-center">
+                                        <a href="/instructor-info" class="h4" style="text-decoration: none; color: #7FDCE0">Lili</a>
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {{-- Instructor 9 --}}
+                    <div class="col-md-4 col-sm-6 col-xs-6">
+                        <div class="card border-0 mx-auto my-5" style="width:90%; background-color: #222222">
+                            <a href="/instructor-info">
+                                <img src="https://rolo.com.mx/wp-content/uploads/2019/01/REG32-1.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
+                                <div class="card-body" style="background-color: #222222">
+                                    <p class="card-text text-center">
+                                        <a href="/instructor-info" class="h4" style="text-decoration: none; color: #7FDCE0">Regina</a>
+                                    </p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="links">
-                <!-- <a href="/login">Login</a>
-                <a href="/register">Registro</a> -->
-            </div>
         </div>
     </body>
-</html>
+@endsection
