@@ -61,7 +61,7 @@
                             <h5 class="text-info">Tu código es: </h5>
                             <h4>1f57b5d5</h4>
                             <i class="fab fa-whatsapp mr-2" style="color:crimson;"></i><i class="fab fa-twitter" style="color:crimson;"></i>
-                            <i class="fab fa-facebook mr-2" style="color:crimson;"></i><i class="glyphicon glyphicon-envelope" style="color:crimson"></i>
+                            <i class="fab fa-facebook mr-2" style="color:crimson;"></i><i class="fas fa-envelope" style="color:crimson"></i>
                         </div>
                     </div>
                     <div class="col-md-7">
