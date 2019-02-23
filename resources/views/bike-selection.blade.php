@@ -2,10 +2,10 @@
 @section('title')
 Reservar Bici
 @endsection
-@section('style')
+@section('extraStyles')
     <link rel="stylesheet" href="css/style-bike.css">
 @endsection
-@section('bikes')
+@section('content')
     <div class="container-fluid">
         <div class="select">
             <a href=""id="regresa">Regresar al calendario</a>
@@ -16,8 +16,7 @@ Reservar Bici
 
         </div>
     </div>
-@endsection
-@section('info_confirmation')
+
     <div class="container-fluid">
 
     </div>
