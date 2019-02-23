@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="css/layout-styles.css">
         @yield('extraStyles')
     </head>
-    <nav class="navbar flex-center position-ref ">
+    <nav class="navbar flex-center top-fixed">
         <div class="top-left home">
             <a href="{{ url('/') }}">Rolo</a>
         </div>
