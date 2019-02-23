@@ -8,7 +8,7 @@
     @section('content')
     <div class="container-fluid">
          <div class="flex-center position-ref full-height">
-                <div class="jumbotron bg-dark text-white row">
+                <div class="text-white row">
                     <div class="col-md-5">
                         <h1 class="text-center text-info">Pablo Miguel Jimenez Garcia</h1>
                         <br>
