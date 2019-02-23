@@ -148,6 +148,10 @@
                 <a href="{{ url('/') }}">Rolo</a>
             </div>
             <div class="top-right links">
+                    <a href="">PRIMERA VISITA</a>
+                    <a href="">INSTRUCTORES</a>
+                    <a href="">COMPRAR CLASES</a>
+                    <a href="">RESERVAR</a>
                     <a href="{{ route('login') }}">Inicia Sesión</a>
                     <a href="{{ route('register') }}">Regístrate</a>
             </div>
