@@ -1,0 +1,30 @@
+#title1, #title2 {
+    color: white;
+    margin-top: 3rem;
+    font-size: 26pt;
+}
+
+#title2{
+    margin-bottom: 3rem;
+}
+
+.block{
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+.icon{
+    font-size: 4rem;
+    color: orange;
+}
+
+.header{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.description{
+    font-size: 14pt;
+    color: white;
+    text-align: left;
+}
