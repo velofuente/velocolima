@@ -1,0 +1,7 @@
+.branch{
+    background-image:url(/img/branch.png);
+    background-size: 450px 300px;
+}
+#branch-col{
+    display: inline-grid;
+}
