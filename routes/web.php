@@ -41,4 +41,8 @@ Route::get('/bike-selection', function(){
     return view('bike-selection');
 });
 
+Route::get('/first-visit', function (){
+    return view('first-visit');
+});
+
 Auth::routes(['verify' => true]);
