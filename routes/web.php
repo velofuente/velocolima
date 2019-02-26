@@ -37,6 +37,10 @@ Route::get('/instructor-info', function () {
     return view('instructor-info');
 });
 
+Route::get('/book', function(){
+    return view('book');
+});
+
 Route::get('/bike-selection', function(){
     return view('bike-selection');
 });
