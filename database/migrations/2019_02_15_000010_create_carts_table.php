@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserScheduleTable extends Migration
+class CreateCartsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateUserScheduleTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_schedule', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->increments('id');
             //Foreign Key to User
-            $table->unsignedInteger('id_user');
-            $table->foreign('id_user')->references('id')->on('users');
-            //Foreign Key to Schedule
-            $table->unsignedInteger('id_schedule');
-            $table->foreign('id_schedule')->references('id')->on('schedule');
+            $table->unsignedInteger('id_users');
+            $table->foreign('id_users')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateUserScheduleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_schedule');
+        Schema::dropIfExists('carts');
     }
 }

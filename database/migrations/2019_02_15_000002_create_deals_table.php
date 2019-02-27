@@ -1,10 +1,10 @@
-<?php
+s<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePurchaseTable extends Migration
+class CreateDealsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreatePurchaseTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchase', function (Blueprint $table) {
+        Schema::create('deals', function (Blueprint $table) {
             $table->increments('id');
-            //Foreign Key from Purchase to Product
-            $table->unsignedInteger('id_cart');
-            $table->foreign('id_cart')->references('id')->on('cart');
+            $table->string('name', 60);
+            $table->text('description');
+            $table->string('promo_code'); //We need to verify this one, maybe this is another table
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreatePurchaseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase');
+        Schema::dropIfExists('deals');
     }
 }
