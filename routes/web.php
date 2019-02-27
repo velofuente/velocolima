@@ -29,6 +29,10 @@ Route::get('/instructors', function(){
     return view('instructors');
 });
 
+Route::get('/schedule', function(){
+    return view ('schedule');
+});
+
 Route::get('/instructor-info', function () {
     return view('instructor-info');
 });

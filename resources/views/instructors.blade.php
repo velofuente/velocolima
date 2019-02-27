@@ -9,7 +9,7 @@ Rolo | Conoce a los Instructores
         <div class="container-fluid">
             <div class="title">
                 <div class="display-4 font-weight-bold text-center pt-3 pb-3">
-                    INSTRUCTORES
+                    ROLO TRIBE
                 </div>
             </div>
 
@@ -19,7 +19,7 @@ Rolo | Conoce a los Instructores
                     <div class="col-md-4 col-sm-6 col-xs-6">
                         <div class="card border-0 mx-auto my-5" style="width:90%; background-color: #222222">
                             <a href="/instructor-info">
-                                <img src="https://rolo.com.mx/wp-content/uploads/2019/02/Tania_WebHead-1.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
+                                <img src="https://rolo.com.mx/wp-content/uploads/2019/02/Site_Head.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
                                 <div class="card-body" style="background-color: #222222">
                                     <p class="card-text text-center">
                                         <a href="/instructor-info" class="h4" style="text-decoration: none; color: #7FDCE0">Tania</a>
