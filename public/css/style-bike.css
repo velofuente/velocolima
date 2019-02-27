@@ -1,0 +1,55 @@
+.select{
+    color: white;
+    margin-top: 4em;
+}
+#goBack{
+    padding-left: 3em;
+    color:white;
+    font-weight: bold;
+    padding-right: 2em;
+}
+#goBack:hover{
+    border-radius: 120px;
+    background-color: #87d9de;
+}
+#selection{
+    text-align: center;
+}
+#profilePic{
+    border-radius: 120px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.places{
+    text-align: center;
+    color: white;
+    margin-top: 3em;
+    margin-right: 15em;
+    margin-left: 15em;
+
+}
+.bikes{
+    border: solid #87d9de;
+    border-radius: 120px;
+    padding: 1em;
+}
+.bikes:hover{
+    background-color: #ff8e69;
+}
+.selected{
+    border: solid #87d9de;
+    border-radius: 120px;
+    padding: 1em;
+    background-color: #87d9de;
+}
+.details{
+    color: white;
+    margin-top: 3em;
+    margin-left: 15em;
+    margin-right: 15em;
+}
+.first{
+    border-bottom: solid 1px #87d9de;
+    margin-top: 2em;
+}

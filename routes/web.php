@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,13 +14,39 @@
 */
 
 Route::get('/test', 'test@test');
+
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/123', function () {
-    return 1;
+
+Route::get('/user', function(){
+    return view('user');
+});
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/instructors', function(){
+    return view('instructors');
+});
+
+Route::get('/schedule', function(){
+    return view ('schedule');
+});
+
+Route::get('/instructor-info', function () {
+    return view('instructor-info');
+});
+
+Route::get('/book', function(){
+    return view('book');
+});
+
+Route::get('/bike-selection', function(){
+    return view('bike-selection');
+});
+
+Route::get('/first-visit', function (){
+    return view('first-visit');
 });
 
 Auth::routes(['verify' => true]);
-
-Route::get('/home', 'HomeController@index')->name('home');

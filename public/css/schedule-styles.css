@@ -1,0 +1,45 @@
+.scheduleDayText{
+    padding: 2em;
+    padding-right: 3em;
+    padding-left: 3em;
+    font-size: 11px;
+    font-weight: bold;
+    list-style: none;
+    line-height: 21px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #ffffff;
+}
+.centrarCosas{
+    position: relative;
+    display: block;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+}
+.scheduleItem{
+    color: #87dadf;
+    text-align: center;
+    margin-bottom: 6px;
+    list-style: none;
+    background-color: #222222;
+    border: 1px solid #87dadf;
+    border-radius: 30px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.scheduleItem:hover{
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 6px;
+    list-style: none;
+    background-color: #87dadf;
+    border: 1px solid #87dadf;
+    border-radius: 30px;
+}
+
+.scheduleItemText{
+    margin-bottom: 0px;
+    font-weight: bold;
+}
