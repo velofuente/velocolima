@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateScheduleTable extends Migration
+class CreateSchedulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,19 @@ class CreateScheduleTable extends Migration
      */
     public function up()
     {
-        Schema::create('schedule', function (Blueprint $table) {
+        Schema::create('schedules', function (Blueprint $table) {
             $table->increments('id');
             $table->date('day');
             $table->time('hour');
             //Foreign Key from Schedule to Instructor
-            $table->unsignedInteger('id_instructor');
-            $table->foreign('id_instructor')->references('id')->on('instructor');
+            $table->unsignedInteger('id_instructors');
+            $table->foreign('id_instructors')->references('id')->on('instructors');
             //Foreign Key from Schedule to Class
-            $table->unsignedInteger('id_class');
-            $table->foreign('id_class')->references('id')->on('class');
+            $table->unsignedInteger('id_classes');
+            $table->foreign('id_classes')->references('id')->on('classes');
             //Foreign Key from Schedule to Room
-            $table->unsignedInteger('id_room');
-            $table->foreign('id_room')->references('id')->on('room');
+            $table->unsignedInteger('id_rooms');
+            $table->foreign('id_rooms')->references('id')->on('rooms');
 
             $table->tinyInteger('reservation_limit');
             $table->timestamps();
@@ -39,6 +39,6 @@ class CreateScheduleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schedule');
+        Schema::dropIfExists('schedules');
     }
 }

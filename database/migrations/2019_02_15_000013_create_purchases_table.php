@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateToolTable extends Migration
+class CreatePurchasesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateToolTable extends Migration
      */
     public function up()
     {
-        Schema::create('tool', function (Blueprint $table) {
+        Schema::create('purchases', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type');
-            $table->string('position');
+            //Foreign Key from Purchase to Product
+            $table->unsignedInteger('id_carts');
+            $table->foreign('id_carts')->references('id')->on('carts');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateToolTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tool');
+        Schema::dropIfExists('purchases');
     }
 }
