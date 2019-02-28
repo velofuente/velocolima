@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Rolo | {{-- instructor name --}}
+    Rolo | {{$instructor->name}}
 @endsection
 
 @section('content')
@@ -12,11 +12,11 @@
             <div class="row">
                 <!-- Image -->
                 <div id="instructorImage" class="col-md-5">
-                    <img src="/resources/views/img/instructors/{{-- instructor name --}}-body.jpg" class="img-fluid" alt="Instructor image">
+                    <img src="/resources/views/img/instructors/{{-- instructor name --}}-body.png" class="img-fluid" alt="Instructor image">
                 </div>
                 <!-- Name, Description and Phrase -->
                 <div class="info col-md-7">
-                    <h1 id="instructorName" class="text-info mt-3">Dani</h1>
+                    <h1 id="instructorName" class="text-info mt-3">{{$instructor->name}}</h1>
                     <div id="instructorDescription" class="text-justify mt-3" style="color:white">
                         <p>
                             Psicóloga en proceso, amante de los viajes y las distintas culturas, pero más importante aún es que es amante de México en todo su esplendor.
