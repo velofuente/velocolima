@@ -10,7 +10,8 @@
         <div class="flex-center position-ref full-height">
             <div class="text-white row">
                 <div class="col-md-5">
-                    <h1 class="text-center text-info">Pablo Miguel Jimenez Garcia</h1>
+                    <h1 class="text-center text-info">{{ Auth::user()->name }}</h1>
+                    <h1 class="text-center text-info">{{ Auth::user()->last_name }}</h1>
                     <br>
                     <h4 class="text-center">Mis Clases</h4>
                     <div id="clases" class="text-center">
@@ -24,16 +25,20 @@
                 </div>
                 <div class="col-md-7">
                     <div id="userGeneralData">
-                        <button class="btn text-info d-block mx-auto" style="background-color:transparent">CERRAR SESSION</button>
+                        <button class="btn text-info d-block mx-auto" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();" style="background-color:transparent">CERRAR SESSION</button>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         <br>
                         <button type="button" class="btn btn-secondary mb-2 d-block mx-auto" data-toggle="collapse" data-target="#userData">Datos del usuario</button>
                         <div id="userData" class="collapse">
                             <div class="d-block">
-                                <input type="text" class="form-control pl-3" style="background-color:white" placeholder="Nombre">
-                                <input type="text" class="form-control pl-3" style="background-color:white" placeholder="Apellido">
-                                <input type="email" class="form-control pl-3" style="background-color:white" placeholder="Email">
-                                <input type="date" class="form-control pl-3" style="background-color:white" placeholder="Fecha de nacimiento">
-                                <input type="text" class="form-control pl-3" style="background-color:white" placeholder="Numero de telefono">
+                                <input type="text" class="form-control pl-3" style="background-color:white" value="{{ Auth::user()->name }}">
+                                <input type="text" class="form-control pl-3" style="background-color:white" value="{{ Auth::user()->last_name }}">
+                                <input type="email" class="form-control pl-3" style="background-color:white" value="{{ Auth::user()->email }}">
+                                <input type="date" class="form-control pl-3" style="background-color:white" value="{{ Auth::user()->birth_date }}">
+                                <input type="text" class="form-control pl-3" style="background-color:white" value="{{ Auth::user()->phone }}">
                             </div>
                             <button class="btn btn-info" role="button">Actualizar</button>
                         </div>
