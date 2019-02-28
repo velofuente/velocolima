@@ -38,7 +38,7 @@ class InstructorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti asperiores sunt voluptas dolorum vero delectus deserunt, perspiciatis modi numquam repellat?
     }
 
     /**
