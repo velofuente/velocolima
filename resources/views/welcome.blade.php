@@ -30,7 +30,7 @@ Rolo
       </a>
     </div>
   </div>
-  <div class="packages container-fluid">
+  <div id="packages" class="packages container-fluid">
     <div class="description">
       <h3>¡Compra tu pack de clases!!</h3>
       <h5>Se parte de nuestra tribu.</h5>

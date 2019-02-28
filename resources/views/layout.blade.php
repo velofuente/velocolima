@@ -21,7 +21,7 @@
         <div class="top-center links">
             <a href="{{ url('/first-visit') }}">PRIMERA VISITA</a>
             <a href="{{ url('/instructors') }}">INSTRUCTORES</a>
-            <a href="{{ url('/') }} .packages">COMPRAR CLASES</a>
+            <a id="buy" >COMPRAR CLASES</a>
             <a href="{{ url('/book') }}">RESERVAR</a>
         @guest
                 <a href="{{ route('login') }}">INICIAR SESIÓN</a>
