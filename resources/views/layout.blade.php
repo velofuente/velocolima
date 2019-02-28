@@ -15,16 +15,37 @@
         @yield('extraStyles')
     </head>
     <nav class="navbar flex-center top-fixed">
-        <div class="top-left home">
+        <div class="home">
             <a href="{{ url('/') }}">Rolo</a>
         </div>
-        <div class="top-right links">
-            <a href="">PRIMERA VISITA</a>
-            <a href="">INSTRUCTORES</a>
-            <a href="">COMPRAR CLASES</a>
-            <a href="">RESERVAR</a>
-            <a href="{{ route('login') }}">Inicia Sesión</a>
-            <a href="{{ route('register') }}">Regístrate</a>
+        <div class="top-center links">
+            <a href="{{ url('/first-visit') }}">PRIMERA VISITA</a>
+            <a href="{{ url('/instructors') }}">INSTRUCTORES</a>
+            <a href="{{ url('/') }} .packages">COMPRAR CLASES</a>
+            <a href="{{ url('/book') }}">RESERVAR</a>
+        @guest
+                <a href="{{ route('login') }}">INICIAR SESIÓN</a>
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}">REGÍSTRATE</a>
+            @endif
+        @endguest
+        @auth
+            <div class="top-right dropdown account">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ Auth::user()->name }}    <span class="caret"></span>
+                </a>
+                <div class="dropdown-menu account" aria-labelledby="dropdownMenuButton">
+                    <a href="{{ url('/user') }}">Mi Cuenta</a>
+                    <a class="" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+            </div>
+        @endauth
         </div>
     </nav>
     <body>
