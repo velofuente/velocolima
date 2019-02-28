@@ -47,7 +47,9 @@ class InstructorController extends Controller
      */
     public function show($id)
     {
-        //
+        //redirect to instructor-info page
+        $instructor = Instructor::find($id);
+        return view('instructor-info', compact('instructor'));
     }
 
     /**
