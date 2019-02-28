@@ -50,3 +50,5 @@ Route::get('/first-visit', function (){
 });
 
 Auth::routes(['verify' => true]);
+
+Route::resource('user', 'UserController');
