@@ -31,10 +31,6 @@ Route::get('/schedule', function(){
     return view ('schedule');
 });
 
-Route::get('/instructor-info', function () {
-    return view('instructor-info');
-});
-
 Route::get('/book', function(){
     return view('book');
 });
