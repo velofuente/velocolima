@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="register row justify-content-center">
         <div class="col-md-8">
             <div>
                     <h3 class="mx-auto">Registro</h3>
