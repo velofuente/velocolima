@@ -31,7 +31,7 @@ html, body {
     text-align: center;
     padding-left: 0;
     padding-right: 0;
-    padding-top: 2em;
+    margin-top: 6em;
 }
 
 .title {
@@ -39,6 +39,18 @@ html, body {
 }
 
 .links > a{
+    color: #87d9de;
+    padding: 0 25px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-bottom: 1em;
+    vertical-align: .325em;
+}
+
+.account > a{
     color: #87d9de;
     padding: 0 25px;
     font-size: 13px;
@@ -56,8 +68,7 @@ html, body {
     letter-spacing: .1rem;
     text-decoration: none;
     text-transform: uppercase;
-    margin-right: 80em;
-    margin-top: -2em;
+    vertical-align: .325em;
 }
 
 .m-b-md {
@@ -70,11 +81,13 @@ html, body {
     top: 0;
 }
 
-nav{
+.navbar{
+    background-color: #222222;
     position: fixed;
+    z-index: 2;
     top: 0;
     width: 100%;
-    height: 5em;
+    height: 6em;
 }
 
 .packages{
@@ -125,4 +138,16 @@ nav{
     color: white;
     margin-top: 9em;
     text-align: center;
+}
+
+.register{
+    margin-top: 6em;
+}
+
+.login{
+    margin-top: 6em;
+}
+
+.navbar-toggler-icon{
+    background-color: white;
 }
