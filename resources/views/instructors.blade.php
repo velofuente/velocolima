@@ -13,6 +13,14 @@ Rolo | Conoce a los Instructores
                 </div>
             </div>
 
+            <div>
+                @foreach ($instructors as $instructor)
+                <p>
+                        {{$instructor->name}}
+                </p>
+                @endforeach
+            </div>
+
             <div class="container mx-auto mt-3" name="instructors" >
                 <div class="row">
                     {{-- Instructor 1 --}}

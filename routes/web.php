@@ -25,9 +25,7 @@ Route::get('/user', function(){
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/instructors', function(){
-    return view('instructors');
-});
+Route::resource('instructors', 'InstructorController');
 
 Route::get('/schedule', function(){
     return view ('schedule');
