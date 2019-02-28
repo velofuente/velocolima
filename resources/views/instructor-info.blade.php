@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Informaciòn del Instructor
+    Rolo | {{-- instructor name --}}
 @endsection
 
 @section('content')
@@ -11,8 +11,8 @@
             <!-- Section for the General Info of the Instructor -->
             <div class="row">
                 <!-- Image -->
-            <div id="instructorImage" class="col-md-5">
-                    <img src="https://i.pinimg.com/originals/dd/46/60/dd46604477f46b3e306f5b9600cccb64.png" class="img-fluid" alt="Instructor image">
+                <div id="instructorImage" class="col-md-5">
+                    <img src="/resources/views/img/instructors/{{-- instructor name --}}-body.jpg" class="img-fluid" alt="Instructor image">
                 </div>
                 <!-- Name, Description and Phrase -->
                 <div class="info col-md-7">
