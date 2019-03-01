@@ -16,7 +16,7 @@
             <div class="row">
                 <!-- Image -->
                 <div id="instructorImage" class="col-md-5">
-                    <img src="/resources/views/img/instructors/{{$instructor->name}}-body.png" class="img-fluid" alt="Instructor image">
+                    <img src="/img/instructors/{{$instructor->name}}-body.png" class="img-fluid" alt="Instructor image">
                 </div>
                 <!-- Name, Description and Phrase -->
                 <div class="info col-md-7">
@@ -31,7 +31,7 @@
             </div>
 
             <!-- Section for the Dates available of the Instructor and the Music -->
-            <div class="row">
+            <div class="row mt-4">
                 <div class="dateSelector col-md-7 rounded">
                     <!-- div for the selection of the place -->
                     <div class="places mt-2">
