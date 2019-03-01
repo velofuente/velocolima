@@ -36,56 +36,77 @@ Rolo
       <h5>Se parte de nuestra tribu.</h5>
     </div>
     <div class="row classes">
-            <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-              <div id="content-normal">
-                <i class="fa fa-gift" aria-hidden="true"></i>
-                <h6>PRIMERA</h6>
-                <h5>CLASE</h5>
-                <p class="precio">$100MN</p>
+          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <div id="content-normal" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('primera')">
+              <i class="fa fa-gift" aria-hidden="true"></i>
+              <h6 id="amount1">PRIMERA</h6>
+              <h5>CLASE</h5>
+              <p class="precio">$100MN</p>
+            </div>
+          </div>
+          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <div id="content-normal" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('1')">
+              <h3 id="amount2">1</h3>
+              <h5>CLASE</h5>
+              <p class="precio">$190MN</p>
+            </div>
+          </div>
+          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <div id="content-special" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('3')">
+              <h3 id="amount3">3</h3>
+              <h5>CLASES</h5>
+              <p class="precio">$400MN</p>
+            </div>
+          </div>
+          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <div id="content-normal" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('5')">
+              <h3 id="amount4">5</h3>
+              <h5>CLASES</h5>
+              <p class="precio">$875MN</p>
+            </div>
+          </div>
+          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <div id="content-normal" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('10')">
+              <h3 id="amount5">10</h3>
+              <h5>CLASES</h5>
+              <p class="precio">$1,590MN</p>
+            </div>
+          </div>
+          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <div id="content-normal" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('25')">
+              <h3 id="amount6">25</h3>
+              <h5>CLASES</h5>
+              <p class="precio">$3,625MN</p>
+            </div>
+          </div>
+          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <div id="content-normal" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('50')">
+              <h3 id="amount7">50</h3>
+              <h5>CLASES</h5>
+              <p class="precio">$5,990MN</p>
+            </div>
+          </div>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  ...
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary">Comprar</button>
+                </div>
               </div>
             </div>
-            <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-              <div id="content-normal">
-                <h3>1</h3>
-                <h5>CLASE</h5>
-                <p class="precio">$190MN</p>
-              </div>
-            </div>
-            <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-              <div id="content-special">
-                <h3>3</h3>
-                <h5>CLASES</h5>
-                <p class="precio">$400MN</p>
-              </div>
-            </div>
-            <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-              <div id="content-normal">
-                <h3>5</h3>
-                <h5>CLASES</h5>
-                <p class="precio">$875MN</p>
-              </div>
-            </div>
-            <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-              <div id="content-normal">
-                <h3>10</h3>
-                <h5>CLASES</h5>
-                <p class="precio">$1,590MN</p>
-              </div>
-            </div>
-            <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-              <div id="content-normal">
-                <h3>25</h3>
-                <h5>CLASES</h5>
-                <p class="precio">$3,625MN</p>
-              </div>
-            </div>
-            <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-              <div id="content-normal">
-                <h3>50</h3>
-                <h5>CLASES</h5>
-                <p class="precio">$5,990MN</p>
-              </div>
-            </div>
+          </div>
     </div>
   </div>
 @endsection
