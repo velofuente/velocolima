@@ -1,0 +1,19 @@
+#instructorDescription, .dateSelector{
+    color: white;
+}
+
+#instructorPhrase{
+    color:lightsalmon;
+}
+
+.dateSelector{
+    background-color: black;
+}
+
+.link{
+    text-decoration: none;
+}
+
+.btn:Hover{
+    background-color: #87d9de;
+}
