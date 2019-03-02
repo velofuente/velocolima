@@ -41,46 +41,27 @@
                     </div>
                     <!-- div for the dates available -->
                     <div id="calendar" class="row small mt-3">
-                        <div class="col text-center">
-                            <div id="day_num">20</div>
-                            <div id="day_name">Miercoles</div>
-                            <div id="time">6:00 hrs</div>
-                        </div>
-                        <div class="dia col text-center">
-                            <div id="day_num">20</div>
-                            <div id="day_name">Jueves</div>
-                            <div id="time">6:00 hrs</div>
-                            <div class="btn rounded-circle border border-info">
-                                <a href="#" class="link small">
-                                    Gabi <span class="small">7:30 PM</span>
-                                </a>
+                        {{date_default_timezone_set('America/Mexico_City')}}
+                        {{$today = now()}}
+                        @for ($i = 0; $i < 7; $i++)
+                            <div class="dia col text-center">
+                                <div id="day_num"> {{date('l', strtotime($today->format('d-m-Y')))}} </div>
+                                <div id="day_name"> {{date('d', strtotime($today->format('d-m-Y')))}} </div>
                             </div>
-                        </div>
-                        <div class="dia col text-center">
-                            <div id="day_num">20</div>
-                            <div id="day_name">Viernes</div>
-                            <div id="time">6:00 hrs</div>
-                        </div>
-                        <div class="dia col text-center">
-                            <div id="day_num">20</div>
-                            <div id="day_name">Miercoles</div>
-                            <div id="time">6:00 hrs</div>
-                        </div>
-                        <div class="dia col text-center">
-                            <div id="day_num">20</div>
-                            <div id="day_name">Miercoles</div>
-                            <div id="time">6:00 hrs</div>
-                        </div>
-                        <div class="dia col text-center">
-                            <div id="day_num">20</div>
-                            <div id="day_name">Miercoles</div>
-                            <div id="time">6:00 hrs</div>
-                        </div>
-                        <div class="dia col text-center">
-                            <div id="day_num">20</div>
-                            <div id="day_name">Miercoles</div>
-                            <div id="time">6:00 hrs</div>
-                        </div>
+                            <input type="hidden" value="{{$today->modify('+1 day')}}">
+                        @endfor
+                        {{-- @foreach ($instructor->schedules as $schedule)
+                            <input type="hidden" value="{{$date = strtotime($schedule->day)}}">
+                            <div class="dia col text-center">
+                                <div id="day_num"> {{ date('l', $date)." ".date('d', $date)}} </div>
+                                <div id="day_name"> {{ date('F', $date) }} </div>
+                                <div class="btn rounded-circle border border-info">
+                                    <a href="#" class="link small">
+                                        {{ $instructor->name }} <span class="small">{{ date('g:i A', strtotime($schedule->hour)) }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach --}}
                     </div>
                 </div>
                 <!-- Should implement Spotify API here -->
