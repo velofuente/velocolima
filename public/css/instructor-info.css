@@ -16,4 +16,5 @@
 
 .btn:Hover{
     background-color: #87d9de;
+    cursor: pointer;
 }
