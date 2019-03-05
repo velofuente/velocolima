@@ -1,6 +1,13 @@
+import { selectAll } from "css-select";
+
 var bikes = $('.bikes');
-$(bikes).click(function() {
+var selected = $('.selected');
+
+bikes.click(function() {
     $(this).toggleClass('bikes');
     $(this).toggleClass('selected');
-    $('#placeNum').html(bikes.text());
+    $('#placeNum').html($(this).text());
+    selectAll
 });
+
+
