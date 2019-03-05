@@ -22,7 +22,10 @@ Rolo | Horario
                                     Instructor
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Instructor</a>
+                                    @foreach ($instructors as $instructor)
+                                        <a class="dropdown-item" href="#">{{$instructor->name}}</a>
+                                    @endforeach
+                                    {{-- <a class="dropdown-item" href="#">Instructor</a>
                                     <a class="dropdown-item" href="#">Santi</a>
                                     <a class="dropdown-item" href="#">Franz</a>
                                     <a class="dropdown-item" href="#">Lili</a>
@@ -31,7 +34,7 @@ Rolo | Horario
                                     <a class="dropdown-item" href="#">Gabi</a>
                                     <a class="dropdown-item" href="#">Dani</a>
                                     <a class="dropdown-item" href="#">Paola</a>
-                                    <a class="dropdown-item" href="#">Tania</a>
+                                    <a class="dropdown-item" href="#">Tania</a> --}}
                                 </div>
                             </div>
                         </div>
@@ -53,10 +56,21 @@ Rolo | Horario
                 <div class="container centrarCosas" name="calendar">
                     <div class="row" name="dates">
                         <div class="scheduleColumn">
+                            <input type="hidden" name="timezoneSet" value="{{date_default_timezone_set('America/Mexico_City')}}">
+                            <input type="hidden" name="actualDay" value="{{$today=now()}}">
+                            @for ($i = 0; $i < 7; $i++)
                             <section class="day" id="scheduleDayColumn">
                                 <ul class="list-group list-group-horizontal-sm">
-                                    <li class="scheduleDayText">25 Lunes</li>
+                                    <li class="scheduleDayText">
+                                        <div class="dia col text-center">
+                                            <div id="day_num"> {{date('l', strtotime($today->format('d-m-Y')))}} </div>
+                                            <div id="day_name"> {{date('d', strtotime($today->format('d-m-Y')))}} </div>
+                                        </div>
+                                        <input type="hidden" value="{{$today->modify('+1 day')}}">
+                                    </li>
                                 </ul>
+                            </section>
+                            @endfor
                                 <section>
                                     <li class="scheduleItem">
                                         <p class="scheduleItemText">Instructor</p>
@@ -74,19 +88,10 @@ Rolo | Horario
                                         <p class="scheduleItemText">Instructor</p>
                                         <p class="scheduleItemText">16:30 PM</p>
                                     </li>
-                                    {{-- <li class="scheduleItem">
-                                        <p class="scheduleItemText">Instructor</p>
-                                        <p class="scheduleItemText">18:30 PM</p>
-                                    </li>
-                                    <li class="scheduleItem">
-                                        <p class="scheduleItemText">Instructor</p>
-                                        <p class="scheduleItemText">66:66 PM</p>
-                                    </li> --}}
                                 </section>
                             </section>
-                        </div>
 
-                        <section class="day" id="scheduleDayColumn">
+                        {{-- <section class="day" id="scheduleDayColumn">
                             <ul class="list-group list-group-horizontal-sm">
                                 <li class="scheduleDayText">26 Martes</li>
                             </ul>
@@ -103,18 +108,6 @@ Rolo | Horario
                                     <p class="scheduleItemText">Instructor</p>
                                     <p class="scheduleItemText">14:30 PM</p>
                                 </li>
-                                {{-- <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">16:30 PM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">18:30 PM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">66:66 PM</p>
-                                </li> --}}
                             </section>
                         </section>
 
@@ -143,10 +136,6 @@ Rolo | Horario
                                     <p class="scheduleItemText">Instructor</p>
                                     <p class="scheduleItemText">18:30 PM</p>
                                 </li>
-                                {{-- <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">66:66 PM</p>
-                                </li> --}}
                             </section>
                         </section>
 
@@ -171,14 +160,6 @@ Rolo | Horario
                                     <p class="scheduleItemText">Instructor</p>
                                     <p class="scheduleItemText">16:30 PM</p>
                                 </li>
-                                {{-- <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">18:30 PM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">66:66 PM</p>
-                                </li> --}}
                             </section>
                         </section>
 
@@ -207,10 +188,6 @@ Rolo | Horario
                                     <p class="scheduleItemText">Instructor</p>
                                     <p class="scheduleItemText">18:30 PM</p>
                                 </li>
-                                {{-- <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">66:66 PM</p>
-                                </li> --}}
                             </section>
                         </section>
 
@@ -235,14 +212,6 @@ Rolo | Horario
                                     <p class="scheduleItemText">Instructor</p>
                                     <p class="scheduleItemText">16:30 PM</p>
                                 </li>
-                                {{-- <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">18:30 PM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">66:66 PM</p>
-                                </li> --}}
                             </section>
                         </section>
 
@@ -263,20 +232,8 @@ Rolo | Horario
                                     <p class="scheduleItemText">Instructor</p>
                                     <p class="scheduleItemText">14:30 PM
                                 </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">16:30 PM</p>
-                                </li>
-                                {{-- <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">18:30 PM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">66:66 PM</p>
-                                </li> --}}
                             </section>
-                        </section>
+                        </section> --}}
                     </div>
                 </div>
             </div>

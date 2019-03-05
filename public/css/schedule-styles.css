@@ -9,6 +9,8 @@
     text-transform: uppercase;
     letter-spacing: 3px;
     color: #ffffff;
+    list-style: none;
+    text-align: center;
 }
 .centrarCosas{
     position: relative;
