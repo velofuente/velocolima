@@ -27,9 +27,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('instructors', 'InstructorController');
 
-Route::get('/schedule', function(){
-    return view ('schedule');
-});
+Route::get('/schedule', 'InstructorController@schedule');
+
+// Route::get('/schedule', function(){
+//     return view ('schedule');
+// });
 
 Route::get('/book', function(){
     return view('book');
