@@ -1,3 +1,5 @@
+import { selectAll } from "css-select";
+
 var bikes = $('.bikes');
 var selected;
 bikes.click(function() {
