@@ -41,12 +41,21 @@
                     </div>
                     <!-- div for the dates available -->
                     <div id="calendar" class="row small mt-3">
-                        {{date_default_timezone_set('America/Mexico_City')}}
-                        {{$today = now()}}
+                        <input type="hidden" name="timezone" value="{{date_default_timezone_set('America/Mexico_City')}}">
+                        <input type="hidden" name="now" value="{{$today = now()}}">
                         @for ($i = 0; $i < 7; $i++)
                             <div class="dia col text-center">
                                 <div id="day_num"> {{date('l', strtotime($today->format('d-m-Y')))}} </div>
                                 <div id="day_name"> {{date('d', strtotime($today->format('d-m-Y')))}} </div>
+                                @foreach ($instructor->schedules as $schedule)
+                                    @if ($schedule->day == $today->format('Y-m-d'))
+                                        <div class="btn rounded-circle border border-info">
+                                            <a href="#" class="link small">
+                                                {{ $instructor->name }} <span class="small">{{ date('g:i A', strtotime($schedule->hour)) }}</span>
+                                            </a>
+                                        </div>
+                                    @endif
+                                @endforeach
                             </div>
                             <input type="hidden" value="{{$today->modify('+1 day')}}">
                         @endfor

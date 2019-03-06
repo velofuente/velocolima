@@ -18,8 +18,8 @@ class CreateSchedulesTable extends Migration
             $table->date('day');
             $table->time('hour');
             //Foreign Key from Schedule to Instructor
-            $table->unsignedInteger('id_instructors');
-            $table->foreign('id_instructors')->references('id')->on('instructors');
+            $table->unsignedInteger('instructor_id');
+            $table->foreign('instructor_id')->references('id')->on('instructors');
             //Foreign Key from Schedule to Class
             $table->unsignedInteger('id_classes');
             $table->foreign('id_classes')->references('id')->on('classes');
