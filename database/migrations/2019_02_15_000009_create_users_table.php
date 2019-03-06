@@ -27,8 +27,8 @@ class CreateUsersTable extends Migration
             $table->float('weight', 5,2);
             $table->tinyInteger('height')->unsigned();
             //Foreign Key from Users to Role
-            $table->unsignedInteger('id_roles')->default('3');
-            $table->foreign('id_roles')->references('id')->on('roles');
+            $table->unsignedInteger('role_id')->default('3');
+            $table->foreign('role_id')->references('id')->on('roles');
 
             $table->rememberToken();
             $table->timestamps();
