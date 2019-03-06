@@ -12,13 +12,15 @@
     list-style: none;
     text-align: center;
 }
-.centrarCosas{
-    position: relative;
-    display: block;
-    text-align: center;
-    align-content: center;
-    align-items: center;
+
+#scheduleDayColumn{
+    padding: 0%;
 }
+
+p.number{
+    margin: 0px;
+}
+
 .scheduleItem{
     color: #87dadf;
     text-align: center;

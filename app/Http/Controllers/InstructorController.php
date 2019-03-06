@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Instructor;
+use App\Branch;
+use App\Schedule;
 
 class InstructorController extends Controller
 {
@@ -53,7 +55,10 @@ class InstructorController extends Controller
     public function schedule()
     {
         $instructors = Instructor::all();
-        return view('schedule', compact('instructors'));
+        $branches = Branch::all();
+        $schedules = Schedule::all();
+
+        return view('schedule', compact('instructors', 'branches', 'schedules'));
     }
 
     /**

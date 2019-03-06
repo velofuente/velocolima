@@ -6,237 +6,82 @@ Rolo | Horario
 
 @section('extraStyles')
     <link rel="stylesheet" type="text/css" href="css/schedule-styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 @endsection
 
 @section('content')
     <body style="background-color: #222222">
         <div class="container pt-4">
             <div class="container-fluid pt-4">
-
                 {{-- Instructor Dropdown --}}
                 <div class="container mb-4">
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="dropdown">
-                                <a class="btn dropdown-toggle rounded-pill text-dark text-center bg-white" style="width: 90%" href="#" role="button" id="btnScheduleInstructor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Instructor
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <select class="btn dropdown-toggle rounded-pill text-dark text-center bg-white" style="width: 90%" href="#" role="button" id="btnScheduleInstructor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     @foreach ($instructors as $instructor)
-                                        <a class="dropdown-item" href="#">{{$instructor->name}}</a>
+                                        <option value="{{$instructor->name}}">{{$instructor->name}}</option>
                                     @endforeach
-                                    {{-- <a class="dropdown-item" href="#">Instructor</a>
-                                    <a class="dropdown-item" href="#">Santi</a>
-                                    <a class="dropdown-item" href="#">Franz</a>
-                                    <a class="dropdown-item" href="#">Lili</a>
-                                    <a class="dropdown-item" href="#">Regina</a>
-                                    <a class="dropdown-item" href="#">Mel</a>
-                                    <a class="dropdown-item" href="#">Gabi</a>
-                                    <a class="dropdown-item" href="#">Dani</a>
-                                    <a class="dropdown-item" href="#">Paola</a>
-                                    <a class="dropdown-item" href="#">Tania</a> --}}
-                                </div>
+                                </select>
                             </div>
                         </div>
                         {{-- Branch Dropdown --}}
                         <div class="dropdown col-sm-9 d-md-flex">
-                            <a class="btn dropdown-toggle rounded-pill text-dark text-center bg-white" style="width: 30%" href="#" role="button" id="btnScheduleInstructor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                PROVIDENCIA
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">SUCURSAL 2</a>
-                                <a class="dropdown-item" href="#">SUCURSAL 3</a>
-                                <a class="dropdown-item" href="#">SUCURSAL 4</a>
-                            </div>
+                            <select class="btn dropdown-toggle rounded-pill text-dark text-center bg-white" style="width: 30%" href="#" role="button" id="btnScheduleInstructor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @foreach ($branches as $branch)
+                                    <option value="{{$branch->name}}">{{$branch->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
 
                 {{-- Schedule Section --}}
+                <input type="hidden" name="timezoneSet" value="{{date_default_timezone_set('America/Mexico_City')}}">
+                <input type="hidden" name="actualDay" value="{{$today=now()}}">
                 <div class="container centrarCosas" name="calendar">
                     <div class="row" name="dates">
-                        <div class="scheduleColumn">
-                            <input type="hidden" name="timezoneSet" value="{{date_default_timezone_set('America/Mexico_City')}}">
-                            <input type="hidden" name="actualDay" value="{{$today=now()}}">
-                            @for ($i = 0; $i < 7; $i++)
-                            <section class="day" id="scheduleDayColumn">
-                                <ul class="list-group list-group-horizontal-sm">
-                                    <li class="scheduleDayText">
-                                        <div class="dia col text-center">
-                                            <div id="day_num"> {{date('l', strtotime($today->format('d-m-Y')))}} </div>
-                                            <div id="day_name"> {{date('d', strtotime($today->format('d-m-Y')))}} </div>
-                                        </div>
-                                        <input type="hidden" value="{{$today->modify('+1 day')}}">
-                                    </li>
-                                </ul>
-                            </section>
-                            @endfor
-                                <section>
-                                    <li class="scheduleItem">
-                                        <p class="scheduleItemText">Instructor</p>
-                                        <p class="scheduleItemText">09:30 AM</p>
-                                    </li>
-                                    <li class="scheduleItem">
-                                        <p class="scheduleItemText">Instructor</p>
-                                        <p class="scheduleItemText">11:30 AM</p>
-                                    </li>
-                                    <li class="scheduleItem">
-                                        <p class="scheduleItemText">Instructor</p>
-                                        <p class="scheduleItemText">14:30 PM</p>
-                                    </li>
-                                    <li class="scheduleItem">
-                                        <p class="scheduleItemText">Instructor</p>
-                                        <p class="scheduleItemText">16:30 PM</p>
-                                    </li>
-                                </section>
-                            </section>
-
-                        {{-- <section class="day" id="scheduleDayColumn">
+                        @for ($i = 0; $i < 7; $i++)
+                        <section class="col" id="scheduleDayColumn">
                             <ul class="list-group list-group-horizontal-sm">
-                                <li class="scheduleDayText">26 Martes</li>
+                                <li class="scheduleDayText">
+                                    <p class="number">{{date('d', strtotime($today->format('d-m-Y')))}}</p>
+                                    <p>{{date('l', strtotime($today->format('d-m-Y')))}}</p>
+                                    <input type="hidden" value="{{$today->modify('+1 day')}}">
+                                </li>
                             </ul>
-                            <section>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">09:30 AM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">11:30 AM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">14:30 PM</p>
-                                </li>
-                            </section>
+
+                            {{-- @foreach ($instructor->schedules as $schedule)
+                                @if ($schedule->day == $today->format('Y-m-d'))
+                                    <div class="btn rounded-circle border border-info">
+                                        <a href="#" class="link small">
+                                            {{ $instructor->name }} <span class="small">{{ date('g:i A', strtotime($schedule->hour)) }}</span>
+                                        </a>
+                                    </div>
+                                @endif
+                            @endforeach --}}
+
+                            @foreach ($schedules as $schedule)
+                                @if ($schedule->day == $today->format('Y-m-d') && $instructor->instructor_id)
+                                    <section>
+                                        <li class="scheduleItem">
+                                            <p class="scheduleItemText">{{$instructor->name}}</p>
+                                            <p class="scheduleItemText">{{ date('g:i A', strtotime($schedule->hour)) }}</p>
+                                        </li>
+                                    </section>
+                                @endif
+                            @endforeach
                         </section>
-
-                        <section class="day" id="scheduleDayColumn">
-                            <ul class="list-group list-group-horizontal-sm">
-                                <li class="scheduleDayText">27 Miércoles</li>
-                            </ul>
-                            <section>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">09:30 AM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">11:30 AM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">14:30 PM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">16:30 PM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">18:30 PM</p>
-                                </li>
-                            </section>
-                        </section>
-
-                        <section class="day" id="scheduleDayColumn">
-                            <ul class="list-group list-group-horizontal-sm">
-                                <li class="scheduleDayText">28 Jueves</li>
-                            </ul>
-                            <section>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">09:30 AM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">11:30 AM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">14:30 PM
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">16:30 PM</p>
-                                </li>
-                            </section>
-                        </section>
-
-                        <section class="day" id="scheduleDayColumn">
-                            <ul class="list-group list-group-horizontal-sm">
-                                <li class="scheduleDayText">1 Viernes</li>
-                            </ul>
-                            <section>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">09:30 AM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">11:30 AM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">14:30 PM
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">16:30 PM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">18:30 PM</p>
-                                </li>
-                            </section>
-                        </section>
-
-                        <section class="day" id="scheduleDayColumn">
-                            <ul class="list-group list-group-horizontal-sm">
-                                <li class="scheduleDayText">2 Sábado</li>
-                            </ul>
-                            <section>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">09:30 AM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">11:30 AM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">14:30 PM
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">16:30 PM</p>
-                                </li>
-                            </section>
-                        </section>
-
-                        <section class="day" id="scheduleDayColumn">
-                            <ul class="list-group list-group-horizontal-sm">
-                                <li class="scheduleDayText">3 Domingo</li>
-                            </ul>
-                            <section>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">09:30 AM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">11:30 AM</p>
-                                </li>
-                                <li class="scheduleItem">
-                                    <p class="scheduleItemText">Instructor</p>
-                                    <p class="scheduleItemText">14:30 PM
-                                </li>
-                            </section>
-                        </section> --}}
+                        @endfor
                     </div>
                 </div>
             </div>
         </div>
     </body>
 @endsection
+
+@section('extraScripts')
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+@endsection('')
