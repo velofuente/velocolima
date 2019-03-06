@@ -9,14 +9,18 @@
     text-transform: uppercase;
     letter-spacing: 3px;
     color: #ffffff;
-}
-.centrarCosas{
-    position: relative;
-    display: block;
+    list-style: none;
     text-align: center;
-    align-content: center;
-    align-items: center;
 }
+
+#scheduleDayColumn{
+    padding: 0%;
+}
+
+p.number{
+    margin: 0px;
+}
+
 .scheduleItem{
     color: #87dadf;
     text-align: center;

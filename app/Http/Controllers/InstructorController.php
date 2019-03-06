@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Instructor;
+use App\Branch;
+use App\Schedule;
 
 class InstructorController extends Controller
 {
@@ -36,7 +38,7 @@ class InstructorController extends Controller
      */
     public function store(Request $request)
     {
-        //Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti asperiores sunt voluptas dolorum vero delectus deserunt, perspiciatis modi numquam repellat?
+        //
     }
 
     /**
@@ -48,6 +50,15 @@ class InstructorController extends Controller
     public function show(Instructor $instructor)
     {
         return view('instructor-info', compact('instructor'));
+    }
+
+    public function schedule()
+    {
+        $instructors = Instructor::all();
+        $branches = Branch::all();
+        $schedules = Schedule::all();
+
+        return view('schedule', compact('instructors', 'branches', 'schedules'));
     }
 
     /**
