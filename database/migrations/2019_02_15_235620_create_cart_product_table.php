@@ -16,11 +16,11 @@ class CreateCartProductTable extends Migration
         Schema::create('cart_product', function (Blueprint $table) {
             $table->increments('id');
             //Foreign Key to Cart
-            $table->unsignedInteger('id_carts');
-            $table->foreign('id_carts')->references('id')->on('carts');
+            $table->unsignedInteger('cart_id');
+            $table->foreign('cart_id')->references('id')->on('carts');
             //Foreign Key to Product
-            $table->unsignedInteger('id_products');
-            $table->foreign('id_products')->references('id')->on('products');
+            $table->unsignedInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
         });
     }

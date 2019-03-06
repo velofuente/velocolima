@@ -16,11 +16,11 @@ class CreateToolRoomTable extends Migration
         Schema::create('tool_room', function (Blueprint $table) {
             $table->increments('id');
             //Foreign Key to Tool
-            $table->unsignedInteger('id_tools');
-            $table->foreign('id_tools')->references('id')->on('tools');
+            $table->unsignedInteger('tool_id');
+            $table->foreign('tool_id')->references('id')->on('tools');
             //Foreign Key to Room
-            $table->unsignedInteger('id_rooms');
-            $table->foreign('id_rooms')->references('id')->on('rooms');
+            $table->unsignedInteger('room_id');
+            $table->foreign('room_id')->references('id')->on('rooms');
             $table->timestamps();
         });
     }
