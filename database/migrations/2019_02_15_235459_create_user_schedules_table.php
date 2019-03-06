@@ -16,11 +16,11 @@ class CreateUserSchedulesTable extends Migration
         Schema::create('user_schedules', function (Blueprint $table) {
             $table->increments('id');
             //Foreign Key to User
-            $table->unsignedInteger('id_users');
-            $table->foreign('id_users')->references('id')->on('users');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             //Foreign Key to Schedule
-            $table->unsignedInteger('id_schedules');
-            $table->foreign('id_schedules')->references('id')->on('schedules');
+            $table->unsignedInteger('schedule_id');
+            $table->foreign('schedule_id')->references('id')->on('schedules');
             $table->timestamps();
         });
     }

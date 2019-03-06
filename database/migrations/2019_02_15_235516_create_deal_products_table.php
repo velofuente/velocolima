@@ -16,11 +16,11 @@ class CreateDealProductsTable extends Migration
         Schema::create('deal_products', function (Blueprint $table) {
             $table->increments('id');
             //Foreign Key to Deal
-            $table->unsignedInteger('id_deals');
-            $table->foreign('id_deals')->references('id')->on('deals');
+            $table->unsignedInteger('deal_id');
+            $table->foreign('deal_id')->references('id')->on('deals');
             //Foreign Key to Product
-            $table->unsignedInteger('id_products');
-            $table->foreign('id_products')->references('id')->on('products');
+            $table->unsignedInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
         });
     }
