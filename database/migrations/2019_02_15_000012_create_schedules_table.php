@@ -21,11 +21,11 @@ class CreateSchedulesTable extends Migration
             $table->unsignedInteger('instructor_id');
             $table->foreign('instructor_id')->references('id')->on('instructors');
             //Foreign Key from Schedule to Class
-            $table->unsignedInteger('id_classes');
-            $table->foreign('id_classes')->references('id')->on('classes');
+            $table->unsignedInteger('class_id');
+            $table->foreign('class_id')->references('id')->on('classes');
             //Foreign Key from Schedule to Room
-            $table->unsignedInteger('id_rooms');
-            $table->foreign('id_rooms')->references('id')->on('rooms');
+            $table->unsignedInteger('room_id');
+            $table->foreign('room_id')->references('id')->on('rooms');
 
             $table->tinyInteger('reservation_limit');
             $table->timestamps();

@@ -16,8 +16,8 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->increments('id');
             //Foreign Key from Purchase to Product
-            $table->unsignedInteger('id_carts');
-            $table->foreign('id_carts')->references('id')->on('carts');
+            $table->unsignedInteger('cart_id');
+            $table->foreign('cart_id')->references('id')->on('carts');
             $table->timestamps();
         });
     }
