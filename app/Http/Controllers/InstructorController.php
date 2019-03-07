@@ -61,13 +61,13 @@ class InstructorController extends Controller
         return view('schedule', compact('instructors', 'branches', 'schedules'));
     }
 
-    public function bikeSelection()
+    public function bikeSelection(Instructor $instructor)
     {
-        $instructors = Instructor::all();
+        //$instructors = Instructor::all();
         $branches = Branch::all();
         $schedules = Schedule::all();
 
-        return view('bike-selection', compact('instructors', 'branches', 'schedules'));
+        return view('bike-selection', compact('branches', 'schedules'));
     }
 
     /**
