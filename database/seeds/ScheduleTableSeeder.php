@@ -16,8 +16,8 @@ class ScheduleTableSeeder extends Seeder
         $schedule->day = "2019-03-07";
         $schedule->hour = "10:00:00";
         $schedule->instructor_id = "1";
-        $schedule->id_classes = "1";
-        $schedule->id_rooms = "1";
+        $schedule->class_id = "1";
+        $schedule->room_id = "1";
         $schedule->reservation_limit = "5";
         $schedule->save();
 

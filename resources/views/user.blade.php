@@ -28,7 +28,7 @@
                     <div id="userGeneralData">
                         <button type="button" class="btn btn-secondary mb-2 mt-2 d-block mx-auto" data-toggle="collapse" data-target="#userData">Datos del usuario</button>
                         <div id="userData" class="collapse">
-                            <form method="post" action="{{ route('user.update', $user->id) }}">
+                            <form {{--method="post" action="{{ route('user.update', $user->id) }}"--}}>
                                 @method('PATCH')
                                 @csrf
                                 <div class="d-block">
