@@ -7,7 +7,7 @@ use App\Instructor;
 use App\Branch;
 use App\Schedule;
 
-class InstructorController extends Controller
+class MachineController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -56,18 +56,9 @@ class InstructorController extends Controller
     {
         $instructors = Instructor::all();
         $branches = Branch::all();
-        $schedules = Schedule::all()->sortBy('hour');
-
-        return view('schedule', compact('instructors', 'branches', 'schedules'));
-    }
-
-    public function bikeSelection()
-    {
-        $instructors = Instructor::all();
-        $branches = Branch::all();
         $schedules = Schedule::all();
 
-        return view('bike-selection', compact('instructors', 'branches', 'schedules'));
+        return view('schedule', compact('instructors', 'branches', 'schedules'));
     }
 
     /**
