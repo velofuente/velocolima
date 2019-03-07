@@ -18,12 +18,12 @@ Rolo | Conoce a los Instructores
                     @foreach ($instructors as $instructor)
                     <div class="col-md-4 col-sm-6 col-xs-6">
                         <div class="card border-0 mx-auto my-5" style="width:90%; background-color: #222222">
-                            <a href="/instructor-info">
+                            <a href="/instructors/{{$instructor->id}}">
                                 {{-- Image Name: Instructor's Name + "-Head" + ".png" --}}
                             <img src="img/instructors/{{$instructor->name}}-Head.png" class="card-img-top" style="border-radius: 50%; background-color:#222222" alt="Instructor 1">
                                 <div class="card-body" style="background-color: #222222">
                                     <p class="card-text text-center">
-                                        <a href="/instructor-info" class="h4" style="text-decoration: none; color: #7FDCE0">{{$instructor->name}}</a>
+                                    <a href="/instructors/{{$instructor->id}}" class="h4" style="text-decoration: none; color: #7FDCE0">{{$instructor->name}}</a>
                                     </p>
                                 </div>
                             </a>

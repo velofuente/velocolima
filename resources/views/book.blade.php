@@ -7,7 +7,7 @@
 @endsection
 @section('content')
     <div class="container-fluid">
-        <div class="row">
+        <div class="row main">
             <div id="branch-col" class="col-md-4">
                 <div class="branch">
                     <div class="mx-auto">
