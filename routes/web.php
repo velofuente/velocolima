@@ -37,9 +37,7 @@ Route::get('/book', function(){
     return view('book');
 });
 
-Route::get('/bike-selection', function(){
-    return view('bike-selection');
-});
+Route::get('/bike-selection', 'InstructorController@bikeSelection');
 
 Route::get('/first-visit', function (){
     return view('first-visit');
