@@ -8,18 +8,18 @@ Reservar Bici
 @section('content')
     <div class="container-fluid">
         <div class="select">
-            <a href=""id="goBack">Regresar al calendario</a>
+            <a href="/schedule"id="goBack">Regresar al calendario</a>
             <h3 id="selection">SELECCIONA TU BICI</h3>
             <img id="profilePic" src="/img/lili.png" width="100em" height="100em" alt="">
         </div>
         <div class="places">
             <div class="row">
-                @foreach ($instructors->schedules as $schedule)
+                @foreach ($schedules as $schedule)
+                @for ($i = 1; $i <= $schedule->reservation_limit; $i++)
                 <div class="col">
-                    @for ($i = 0; $i < $schedule->reservation_limit; $i++)
                         <p class="bikes">{{$i}}</p>
-                    @endfor
                 </div>
+                @endfor
                 @endforeach
             </div>
         </div>
