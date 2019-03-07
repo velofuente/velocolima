@@ -25,17 +25,13 @@ Route::get('/user', function(){
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/instructors', function(){
-    return view('instructors');
-});
+Route::resource('instructors', 'InstructorController');
 
-Route::get('/schedule', function(){
-    return view ('schedule');
-});
+Route::get('/schedule', 'InstructorController@schedule');
 
-Route::get('/instructor-info', function () {
-    return view('instructor-info');
-});
+// Route::get('/schedule', function(){
+//     return view ('schedule');
+// });
 
 Route::get('/book', function(){
     return view('book');
