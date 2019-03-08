@@ -56,7 +56,7 @@ class InstructorController extends Controller
     {
         $instructors = Instructor::all();
         $branches = Branch::all();
-        $schedules = Schedule::all();
+        $schedules = Schedule::all()->sortBy('hour');
 
         return view('schedule', compact('instructors', 'branches', 'schedules'));
     }
