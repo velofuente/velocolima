@@ -18,16 +18,17 @@ Rolo | Horario
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="dropdown">
-                                <select class="btn dropdown-toggle rounded-pill text-dark text-center bg-white" style="width: 90%" href="#" role="button" id="btnScheduleInstructor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <select class="dropdown" style="width: 90%" href="#" role="button" id="btnScheduleInstructor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <option value="AllInstructors" selected="selected">Instructor</option>
                                     @foreach ($instructors as $instructor)
-                                        <option value="{{$instructor->name}}">{{$instructor->name}}</option>
+                                        <option value="{{$instructor->id}}">{{$instructor->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         {{-- Branch Dropdown --}}
                         <div class="dropdown col-sm-9 d-md-flex">
-                            <select class="btn dropdown-toggle rounded-pill text-dark text-center bg-white" style="width: 30%" href="#" role="button" id="btnScheduleInstructor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select class="dropdown" style="width: 30%" href="#" role="button" id="btnScheduleInstructor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @foreach ($branches as $branch)
                                     <option value="{{$branch->name}}">{{$branch->name}}</option>
                                 @endforeach
@@ -47,7 +48,6 @@ Rolo | Horario
                                 <li class="scheduleDayText">
                                     <p class="number">{{date('d', strtotime($today->format('d-m-Y')))}}</p>
                                     <p>{{date('l', strtotime($today->format('d-m-Y')))}}</p>
-                                    <input type="hidden" value="{{$today->modify('+1 day')}}">
                                 </li>
                             </ul>
 
@@ -60,18 +60,20 @@ Rolo | Horario
                                     </div>
                                 @endif
                             @endforeach --}}
-
                             @foreach ($schedules as $schedule)
-                                @if ($schedule->day == $today->format('Y-m-d') && $instructor->instructor_id)
+                                @if ($schedule->day == $today->format('Y-m-d'))
                                     <section>
                                         <li class="scheduleItem">
-                                            <p class="scheduleItemText">{{$instructor->name}}</p>
+                                            <p class="scheduleItemText">
+                                                {{$schedule->instructor->name}}
+                                            </p>
                                             <p class="scheduleItemText">{{ date('g:i A', strtotime($schedule->hour)) }}</p>
                                         </li>
                                     </section>
                                 @endif
                             @endforeach
                         </section>
+                        <input type="hidden" value="{{$today->modify('+1 day')}}">
                         @endfor
                     </div>
                 </div>
