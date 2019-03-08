@@ -47,3 +47,7 @@ p.number{
     margin-bottom: 0px;
     font-weight: bold;
 }
+
+select.dropdown{
+    border-radius: 100px;
+}
