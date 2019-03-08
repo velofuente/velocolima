@@ -64,8 +64,10 @@ Rolo | Horario
                                 @if ($schedule->day == $today->format('Y-m-d'))
                                     <section>
                                         <li class="scheduleItem">
-                                            <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemText">{{$schedule->instructor->name}}</a>
-                                            <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemText">{{ date('g:i A', strtotime($schedule->hour)) }}</a>
+                                            <p class="scheduleItemText">
+                                                {{$schedule->instructor->name}}
+                                            </p>
+                                            <p class="scheduleItemText">{{ date('g:i A', strtotime($schedule->hour)) }}</p>
                                         </li>
                                     </section>
                                 @endif
