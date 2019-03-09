@@ -37,7 +37,7 @@ Route::get('/book', function(){
     return view('book');
 });
 
-Route::get('/bike-selection', 'InstructorController@bikeSelection');
+Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
 
 Route::get('/first-visit', function (){
     return view('first-visit');
