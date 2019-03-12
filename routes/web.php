@@ -19,9 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/user', function(){
-    return view('user');
-});
+Route::get('user', 'UserController@index')->name('user');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -48,3 +46,9 @@ Route::get('/first-visit', function (){
 Auth::routes(['verify' => true]);
 
 Route::resource('user', 'UserController');
+
+Route::post('login', 'Auth\LoginController@login')->name('login');
+
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::patch('user', 'UserController@updatePassword')->name('updatePassword');

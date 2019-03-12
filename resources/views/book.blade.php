@@ -3,7 +3,7 @@
     Reservar
 @endsection
 @section('extraStyles')
-    <link rel="stylesheet" href="css/book-styles.css">
+    <link rel="stylesheet" href="{{('css/book-styles.css')}}">
 @endsection
 @section('content')
     <div class="container-fluid">

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class UserController extends Controller
 {
@@ -13,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('/user');
+        return view('user');
     }
 
     /**
@@ -34,6 +36,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
+
         $this->validate($request, [
             'name' => ['required', 'string', 'max:60'],
             'last_name' => ['required', 'string', 'max:60'],
@@ -45,19 +49,32 @@ class UserController extends Controller
             'height' => ['required', 'int', 'max:250'],
             'gender' => ['required', 'string', 'max:6'],
         ]);
+
+        // Available alpha caracters
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        // generate a pin based on 2 * 7 digits + a random character
+        $pin = mt_rand(10000, 99999)
+        . $characters[rand(0, strlen($characters) - 1)]
+        . $characters[rand(0, strlen($characters) - 1)]
+        . $characters[rand(0, strlen($characters) - 1)];
+        // shuffle the result
+        $share_code = str_shuffle($pin);
+
         $user = new User([
             'name' => $request->get('name'),
             'last_name' => $request->get('last_name'),
             'email' => $request->get('email'),
-            'password' => Hash::make($request('password')),
+            'password' => Hash::make($request->get('password')),
             'birth_date' => $request->get('birth_date'),
             'phone' => $request->get('phone'),
             'weight' => $request->get('weight'),
             'height' => $request->get('height'),
             'gender' => $request->get('gender'),
+            'share_code' => $share_code
         ]);
+        //dd($user);
         $user->save();
-        return redirect()->route('/')->with('success','Data Added');
+        return redirect()->route('user.index')->with('success','Data Added');
     }
 
     /**
@@ -92,19 +109,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //dd($request->get('name'));
         $request->validate([
             'name' => ['required', 'string', 'max:60'],
             'last_name' => ['required', 'string', 'max:60'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'int', 'max:999999999999999'],
         ]);
         $user = User::find($id);
         $user->name = $request->get('name');
         $user->last_name = $request->get('last_name');
-        $user->email = $request->get('email');
         $user->phone = $request->get('phone');
         $user->save();
-        return redirect('/user')->with('success', 'Data has been updated');
+        return redirect('user')->with('success', 'Data has been updated');
     }
 
     /**
@@ -116,5 +132,16 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function updatePassword(Request $request)
+    {
+        //dd($request->get('password'));
+        $request->validate([
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+        $user = User::find(Auth::user()->id);
+        $user->password = Hash::make($request->get('password'));
+        $user->save();
+        return redirect('user')->with('success', 'Data has been updated');
     }
 }
