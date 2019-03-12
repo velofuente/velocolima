@@ -136,8 +136,8 @@ Rolo
                         <img src="/img/mastercard.png" alt="mastercard" width="83px" height="40px">
                         <img src="/img/express.png" alt="express" width="85px" height="50px">
                       </div>
-                      <input class="data" type="text" name="" id="cOwner" placeholder="Nombre del tarjetahabiente">
-                      <input class="data" type="text" name="" id="cNumber" placeholder="Número de la tarjeta">
+                      <input class="data" type="text" name="" id="cOwner" placeholder="Nombre del tarjetahabiente" maxlength="35">
+                      <input class="data" type="text" name="" id="cNumber" placeholder="Número de la tarjeta"  maxlength="16">
                       <select class="data" name="" id="monthExpiration">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -165,12 +165,12 @@ Rolo
                         <option value="2028">2028</option>
                         <option value="2029">2029</option>
                       </select>
-                      <input class="data" type="text" name="" id="Code" placeholder="CVV">
+                      <input class="data" type="text" name="" id="Code" placeholder="CVV" maxlength="3">
                       <div class="data">
                         <input type="checkbox" name="data" id="data">
                         <label for="data">Guarda datos de mi tarjeta</label>
                       </div>
-                      <input class="data" type="text" name="" id="Discount" placeholder="Código de descuento">
+                      <input class="data" type="text" name="" id="Discount" placeholder="Código de descuento" maxlength="10">
                       <button type="button" class="btn btn-info">Aplicar código</button>
                       <div class="data">
                         <input type="checkbox" name="conditions" id="conditions">

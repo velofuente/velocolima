@@ -35,7 +35,7 @@ Reservar Bici
                         <h5 class="first">FECHA & HORA</h5>
                         <h5><?php
                             setlocale(LC_TIME, 'es_ES.utf8');
-                            Carbon::now()->formatLocalized('%A %d %B %Y');
+                            //Carbon::now()->formatLocalized('%A %d %B %Y');
                          ?>
                          </h5>
                         <h5>{{date('l', strtotime($schedules->day))}} {{date('d', strtotime($schedules->day))}} {{date('F', strtotime($schedules->day))}} {{date('Y', strtotime($schedules->day))}}</h5>
