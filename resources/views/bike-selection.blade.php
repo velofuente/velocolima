@@ -33,8 +33,13 @@ Reservar Bici
                     </div>
                     <div>
                         <h5 class="first">FECHA & HORA</h5>
-                        <h5>{{$schedules->day}} / {{$schedules->hour}}</h5>
-                        <h5>{{date('l', strtotime($schedules->day))}} / {{date('d', strtotime($schedules->day))}} / {{date('yy', strtotime($schedules->day))}}</h5>
+                        <h5><?php
+                            setlocale(LC_TIME, 'es_ES.utf8');
+                            Carbon::now()->formatLocalized('%A %d %B %Y');
+                         ?>
+                         </h5>
+                        <h5>{{date('l', strtotime($schedules->day))}} {{date('d', strtotime($schedules->day))}} {{date('F', strtotime($schedules->day))}} {{date('Y', strtotime($schedules->day))}}</h5>
+                        <h5>{{date('h', strtotime($schedules->hour))}}:{{date('i', strtotime($schedules->hour))}}</h5>
                     </div>
                 </div>
                 <div class="col">
