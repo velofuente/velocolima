@@ -11,3 +11,9 @@
 .main{
     margin-top: 6em;
 }
+#media_icon{
+    color:crimson;
+}
+.input_custom{
+    background-color:white;
+}
