@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         <!-- Styles -->
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="{{asset('css/layout-styles.css')}}">
         @yield('extraStyles')
     </head>
@@ -19,11 +19,24 @@
         <div class="home">
             <a href="{{ url('/') }}">Rolo</a>
         </div>
-        <div class="top-center links">
+        <div class="top-center links d-none d-lg-block">
             <a href="{{ url('/first-visit') }}">PRIMERA VISITA</a>
             <a href="{{ url('/instructors') }}">INSTRUCTORES</a>
             <a href="{{ url('/#packages') }}">COMPRAR CLASES</a>
             <a href="{{ url('/book') }}">RESERVAR</a>
+        </div>
+        <div class="top-right dropdown account d-block d-lg-none">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-bars" aria-hidden="true"></i>    <span class="caret"></span>
+            </a>
+            <div class="dropdown-menu account" aria-labelledby="dropdownMenuButton">
+                <a href="{{ url('/first-visit') }}">PRIMERA VISITA</a>
+                <a href="{{ url('/instructors') }}">INSTRUCTORES</a>
+                <a href="{{ url('/#packages') }}">COMPRAR CLASES</a>
+                <a href="{{ url('/book') }}">RESERVAR</a>
+            </div>
+        </div>
+        <div class="top-center links">
         @guest
                 <a href="{{ route('login') }}">INICIAR SESIÓN</a>
             @if (Route::has('register'))
