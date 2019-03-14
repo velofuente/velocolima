@@ -27,12 +27,19 @@ p.number{
     margin-bottom: 6px;
     list-style: none;
     background-color: #222222;
-    border: 1px solid #87dadf;
+    border: 2px solid #87dadf;
     border-radius: 30px;
     width: 100%;
-    cursor: pointer;
+    cursor: auto;
 }
 
+.scheduleItem > a{
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+    font-weight: bold;
+}
 .scheduleItem:hover{
     color: #ffffff;
     text-align: center;
@@ -44,7 +51,6 @@ p.number{
 }
 
 .scheduleItemText{
-    text-decoration: none;
     margin-bottom: 0px;
     font-weight: bold;
 }

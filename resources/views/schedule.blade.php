@@ -6,7 +6,6 @@ Rolo | Horario
 
 @section('extraStyles')
     <link rel="stylesheet" type="text/css" href="{{asset('css/schedule-styles.css')}}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 @endsection
 
 @section('content')
@@ -64,10 +63,8 @@ Rolo | Horario
                                 @if ($schedule->day == $today->format('Y-m-d'))
                                     <section>
                                         <li class="scheduleItem">
-                                            <p class="scheduleItemText">
-                                                {{$schedule->instructor->name}}
-                                            </p>
-                                            <p class="scheduleItemText">{{ date('g:i A', strtotime($schedule->hour)) }}</p>
+                                            <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemText">{{$schedule->instructor->name}}</a>
+                                            <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemText">{{ date('g:i A', strtotime($schedule->hour)) }}</a>
                                         </li>
                                     </section>
                                 @endif
@@ -84,4 +81,4 @@ Rolo | Horario
 
 @section('extraScripts')
     <script src="{{asset('js/schedule-script.js')}}"></script>
-@endsection('')
+@endsection
