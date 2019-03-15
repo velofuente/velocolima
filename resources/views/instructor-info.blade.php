@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Rolo | {{$instructor->name}}
+    {{$instructor->name}}
 @endsection
 
 @section('extraStyles')
@@ -40,8 +40,10 @@
                 </div>
                 <!-- div for the dates available -->
                 <div id="calendar" class="row small mt-3">
-                    <input type="hidden" name="timezone" value="{{date_default_timezone_set('America/Mexico_City')}}">
-                    <input type="hidden" name="now" value="{{$today = now()}}">
+                    @php
+                        //date_default_timezone_set('America/Mexico_City');
+                        $today = now();
+                    @endphp
                     @for ($i = 0; $i < 7; $i++)
                         <div class="dia col text-center">
                             <div id="day_num"> {{date('l', strtotime($today->format('d-m-Y')))}} </div>
@@ -56,7 +58,7 @@
                                 @endif
                             @endforeach
                         </div>
-                        <input type="hidden" value="{{$today->modify('+1 day')}}">
+                        @php $today->modify('+1 day'); @endphp
                     @endfor
                 </div>
             </div>

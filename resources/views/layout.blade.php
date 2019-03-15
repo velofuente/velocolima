@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>@yield('title')</title>
+        <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
     </head>
     <nav class="navbar flex-center top-fixed">
         <div class="home">
-            <a href="{{ url('/') }}">Rolo</a>
+            <a href="{{ url('/') }}">BICI</a>
         </div>
         <div class="top-center links d-none d-lg-block">
             <a href="{{ url('/first-visit') }}">PRIMERA VISITA</a>

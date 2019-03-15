@@ -1,8 +1,12 @@
 .main{
     margin-top: 5em;
 }
-#instructorDescription, .dateSelector{
+
+.container-fluid{
     color: white;
+}
+#instructorDescription{
+    font-size: 20px;
 }
 
 #instructorPhrase{
