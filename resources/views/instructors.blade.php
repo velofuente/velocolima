@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-Rolo | Conoce a los Instructores
+    Conoce a los Instructores
 @endsection
 
 @section('content')

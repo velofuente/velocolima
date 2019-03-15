@@ -1,6 +1,6 @@
 @extends('layout')
 @section('title')
-Rolo
+  Home
 @endsection
 @section('content')
   <div class="content container-fluid">

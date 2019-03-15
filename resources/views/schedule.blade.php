@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-Rolo | Horario
+    Horario
 @endsection
 
 @section('extraStyles')
@@ -50,15 +50,6 @@ Rolo | Horario
                                 </li>
                             </ul>
 
-                            {{-- @foreach ($instructor->schedules as $schedule)
-                                @if ($schedule->day == $today->format('Y-m-d'))
-                                    <div class="btn rounded-circle border border-info">
-                                        <a href="#" class="link small">
-                                            {{ $instructor->name }} <span class="small">{{ date('g:i A', strtotime($schedule->hour)) }}</span>
-                                        </a>
-                                    </div>
-                                @endif
-                            @endforeach --}}
                             @foreach ($schedules as $schedule)
                                 @if ($schedule->day == $today->format('Y-m-d'))
                                     <section>

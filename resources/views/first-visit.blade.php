@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Rolo | Primera visita
+    Primera visita
 @endsection
 
 @section('extraStyles')

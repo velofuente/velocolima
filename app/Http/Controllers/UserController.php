@@ -74,6 +74,7 @@ class UserController extends Controller
         ]);
         //dd($user);
         $user->save();
+        Auth::login($user);
         return redirect()->route('user.index')->with('success','Data Added');
     }
 
