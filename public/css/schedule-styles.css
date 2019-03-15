@@ -58,3 +58,7 @@ p.number{
 select.dropdown{
     border-radius: 100px;
 }
+
+.main{
+    margin-top: 5em;
+}

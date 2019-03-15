@@ -10,7 +10,7 @@ Rolo | Horario
 
 @section('content')
     <body style="background-color: #222222">
-        <div class="container pt-4">
+        <div class="container pt-4 main">
             <div class="container-fluid pt-4">
                 {{-- Instructor Dropdown --}}
                 <div class="container mb-4">
