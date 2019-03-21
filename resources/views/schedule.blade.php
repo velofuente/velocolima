@@ -67,7 +67,7 @@
                         @foreach ($schedules as $schedule)
                             @if ($schedule->day == $today->format('Y-m-d'))
                                 <section>
-                                    <a href="#" class="scheduleItemLink">
+                                    <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
                                         <li class="scheduleItem" id="{{$schedule->instructor->name}}">
                                             <p class="scheduleItemTextInstructor">
                                                 {{$schedule->instructor->name}}
