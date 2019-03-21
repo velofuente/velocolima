@@ -9,24 +9,32 @@ Rolo | Horario
 @endsection
 
 @section('content')
-    <body style="background-color: #222222">
-        <div class="container pt-4">
-            <div class="container-fluid pt-4">
-                {{-- Instructor Dropdown --}}
-                <div class="container mb-4">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="dropdown">
-                                <select class="dropdown" style="width: 90%" data-dependent="" role="button" id="ScheduleInstructor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onchange="hideSchedules()">
-                                    <option value="allInstructors" selected="selected">Instructor</option>
-                                    @foreach ($instructors as $instructor)
-                                        <option value="{{$instructor->name}}">{{$instructor->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+    <body>
+        <div class="container-fluid pt-4 mb-4">
+            <div class="container mb-4">
+                <div class="row" id="topNavBar">
+                    {{-- Message Actual Week --}}
+                    <div class="col-4">
+                        <input type="hidden" name="timezoneSet" value="{{date_default_timezone_set('America/Mexico_City')}}">
+                        <input type="hidden" name="actualDay" value="{{$weekShown=now()}}">
+                        <p class="weekShown">
+                            del {{date('d')}} al {{date('d', strtotime($weekShown->modify("+6 days")))}} de {{date('F')}}
+                        </p>
+                    </div>
+                    {{-- Instructor Dropdown --}}
+                    <div class="col-4">
+                        <div class="dropdown">
+                            <select class="dropdown" style="width: 90%" data-dependent="" role="button" id="ScheduleInstructor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onchange="hideSchedules()">
+                                <option value="allInstructors" selected="selected">Instructores</option>
+                                @foreach ($instructors as $instructor)
+                                    <option value="{{$instructor->name}}">{{$instructor->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        {{-- Branch Dropdown --}}
-                        <div class="dropdown col-sm-9 d-md-flex">
+                    </div>
+                    {{-- Branch Dropdown --}}
+                    <div class="col-4">
+                        <div class="dropdown">
                             <select class="dropdown" style="width: 30%" data-dependent="" role="button" id="ScheduleBranch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="Sucursal">Sucursal</option>
                                 @foreach ($branches as $branch)
@@ -36,61 +44,70 @@ Rolo | Horario
                         </div>
                     </div>
                 </div>
+            </div>
 
-                {{-- Schedule Section --}}
-                <input type="hidden" name="timezoneSet" value="{{date_default_timezone_set('America/Mexico_City')}}">
-                <input type="hidden" name="actualDay" value="{{$today=now()}}">
-                <div class="container centrarCosas" name="calendar">
-                    <div class="row" name="dates">
-                        @for ($i = 0; $i < 7; $i++)
-                        <section class="col" id="scheduleDayColumn">
-                            <ul class="list-group list-group-horizontal-sm">
-                                <li class="scheduleDayText">
-                                    <p class="number">{{date('d', strtotime($today->format('d-m-Y')))}}</p>
-                                    <p>{{date('l', strtotime($today->format('d-m-Y')))}}</p>
-                                </li>
-                            </ul>
+            {{-- Schedule Section --}}
+            {{-- Set TimeZone to México --}}
+            <input type="hidden" name="actualDay" value="{{$today=now()}}">
+            <div class="container-fluid" id="calendar">
+                <div class="row" name="dates">
+                    @for ($i = 0; $i < 7; $i++)
+                    <section class="col" id="scheduleDayColumn">
+                        <ul class="text-center list-unstyled">
+                            <li >
+                                <p class="scheduleDayText">
+                                    {{date('D', strtotime($today->format('d-m-Y')))}}.
+                                    <span class="number">
+                                        {{date('d', strtotime($today->format('d-m-Y')))}}
+                                    </span>
+                                </p>
+                            </li>
+                        </ul>
 
-                            @foreach ($schedules as $schedule)
-                                @if ($schedule->day == $today->format('Y-m-d'))
-                                    <section>
-                                    <li class="scheduleItem" id="{{$schedule->instructor->name}}">
-                                        <p class="scheduleItemText">
+                        @foreach ($schedules as $schedule)
+                            @if ($schedule->day == $today->format('Y-m-d'))
+                                <section>
+                                    <a href="#" class="scheduleItemLink">
+                                        <li class="scheduleItem" id="{{$schedule->instructor->name}}">
+                                            <p class="scheduleItemTextInstructor">
                                                 {{$schedule->instructor->name}}
-                                        </p>
-                                        <p class="scheduleItemText">{{ date('g:i A', strtotime($schedule->hour)) }}</p>
+                                            </p>
+                                            <p class="scheduleItemTextHour">
+                                                {{ date('g:i A', strtotime($schedule->hour)) }}
+                                            </p>
                                         </li>
-                                    </section>
-                                @endif
-                            @endforeach
-                        </section>
-                        <input type="hidden" value="{{$today->modify('+1 day')}}">
-                        @endfor
-                    </div>
+                                    </a>
+                                </section>
+                            @endif
+                        @endforeach
+                    </section>
+                    <input type="hidden" value="{{$today->modify('+1 day')}}">
+                    @endfor
                 </div>
             </div>
         </div>
-    <script>
-        function hideSchedules() {
-            var selectInstructor = document.getElementById("ScheduleInstructor").value;
-            var scheduleBox = document.getElementsByClassName("scheduleItem");
 
-            if (selectInstructor == "allInstructors"){
-                for (let item of scheduleBox){
-                    item.style.display = 'block';
-                }
-            } else {
-                for (let item of scheduleBox){
-                    if (selectInstructor === item.id){
+        <script>
+            function hideSchedules() {
+                var selectInstructor = document.getElementById("ScheduleInstructor").value;
+                var scheduleBox = document.getElementsByClassName("scheduleItem");
+
+                if (selectInstructor == "allInstructors"){
+                    for (let item of scheduleBox){
                         item.style.display = 'block';
                     }
-                    else {
-                        item.style.display = 'none';
+                } else {
+                    for (let item of scheduleBox){
+                        if (selectInstructor === item.id){
+                            item.style.display = 'block';
+                        }
+                        else {
+                            item.style.display = 'none';
+                        }
                     }
                 }
             }
-        }
-    </script>
+        </script>
     </body>
 @endsection
 
