@@ -1,7 +1,7 @@
 html, body {
-    background-color: #222222;
-    color: #87d9de;
-    font-family: 'Nunito', sans-serif;
+    background-color: white;
+    color: #18c2cd;
+    font-family: 'gotham2';
     font-weight: 200;
     height: 100vh;
     margin: 0;
@@ -20,18 +20,11 @@ html, body {
 .position-ref {
     position: relative;
 }
-
+/* header css */
 .top-right {
     position: absolute;
     right: 10px;
     top: 2em;
-}
-
-.content {
-    text-align: center;
-    padding-left: 0;
-    padding-right: 0;
-    margin-top: 6em;
 }
 
 .title {
@@ -39,7 +32,7 @@ html, body {
 }
 
 .links > a{
-    color: #87d9de;
+    color: #18c2cd;
     padding: 0 25px;
     font-size: 13px;
     font-weight: 600;
@@ -66,6 +59,7 @@ html, body {
     text-transform: uppercase;
     margin-bottom: 1em;
 }
+
 .account2 > a{
     color: #87d9de;
     padding: 0 25px;
@@ -76,6 +70,7 @@ html, body {
     text-transform: uppercase;
     margin-bottom: 1em;
 }
+
 .home >a{
     color: #87d9de;
     padding: 0 25px;
@@ -98,56 +93,82 @@ html, body {
 }
 
 .navbar{
-    background-color: #222222;
+    background-color: white;
     position: fixed;
     z-index: 2;
     top: 0;
     width: 100%;
     height: 6em;
 }
+/* body css */
+.content {
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 6em;
+}
 
 .packages{
     padding-top: 3em;
     padding-left: 2em;
 }
-
+.description{
+    color:#efeeee;
+    text-align: center;
+}
 .classes{
     justify-content: center;
+    margin-left: 11em;
+    margin-right: 11em;
 }
 
 .content-normal{
-    color: #ffffff;
     margin-top: 2em;
 }
 
 #content-normal{
+    color: black;
     text-align: center;
-    border: solid #87d9de;
-    border-radius: 120px;
+    border: solid .5px #ecebeb;
     padding-top: 2.5em;
     margin-left: 2.5em;
     margin-top: 2em;
     width: 60%;
     height: 100%;
+    cursor: pointer;
 }
 
-#content-special{
+#content-normal2{
+    position: absolute;
+    left: 0;
+    background-color: #18c2cd;
+    width: 100%;
+    height: 100%;
+    padding: 0 3px;
+}
+
+.content-n .content-n2 {
+    opacity: 1;
+    top: 100%;
+    transition: .2s ease;
+    pointer-events: none;
+}
+
+#first-class{
+    color: white;
+    background-color: #3accd5;
     text-align: center;
-    border: solid #ff8e69;
-    border-radius: 120px;
+    border: solid .5px #ecebeb;
     padding-top: 2.5em;
     margin-left: 2.5em;
     margin-top: 2em;
     width: 60%;
     height: 100%;
+    cursor: pointer;
 }
 
-#content-normal:hover{
-    background-color: #87d9de;
-}
-
-#content-special:hover{
-    background-color: #ff8e69;
+#first-class:hover{
+    color: #c4f0f2;
 }
 
 .data{
@@ -169,10 +190,50 @@ html, body {
     text-decoration: none;
 }
 
+/* footer css */
 .info-footer{
-    color: white;
+    color: black;
     margin-top: 9em;
     text-align: center;
+}
+.form{
+    margin-top: 3em;
+    margin-left: 11em;
+    margin-right: 11em;
+}
+#prospectPosition{
+    background: #fff!important;
+    border-bottom: 1px solid #eee!important;
+    border-radius: 0!important;
+    text-transform: uppercase!important;
+    color: gray;
+}
+/* For IE10 */
+select::-ms-expand{
+    display: none;
+}
+/* For Chrome and Firefox */
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+}
+
+.prospectText{
+    border-width: 0px 0px 1px 0px;
+    width: 100%;
+}
+
+.prospectBtn{
+    color: #fff!important;
+    width: 43px;
+    line-height: 46px;
+    background-color: #000!important;
+    border: 0;
+    -webkit-appearance: button;
+    cursor: pointer;
+    font-family: Verdana,Helvetica;
 }
 
 .register{

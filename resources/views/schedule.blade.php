@@ -44,23 +44,21 @@
                 </div>
             </div>
 
-            {{-- Schedule Section --}}
-            {{-- Set TimeZone to México --}}
-            <input type="hidden" name="actualDay" value="{{$today=now()}}">
-            <div class="container-fluid mt-4" id="calendar">
-                <div class="row" name="dates">
-                    @for ($i = 0; $i < 7; $i++)
-                    <section class="col" id="scheduleDayColumn">
-                        <ul class="text-center list-unstyled">
-                            <li >
-                                <p class="scheduleDayText">
-                                    {{date('D', strtotime($today->format('d-m-Y')))}}.
-                                    <span class="number">
-                                        {{date('d', strtotime($today->format('d-m-Y')))}}
-                                    </span>
-                                </p>
-                            </li>
-                        </ul>
+                {{-- Schedule Section --}}
+                <input type="hidden" name="timezoneSet" value="{{date_default_timezone_set('America/Mexico_City')}}">
+                <input type="hidden" name="actualDay" value="{{$today=now()}}">
+                <div class="container centrarCosas" name="calendar">
+                    <div class="row" name="dates">
+                        @for ($i = 0; $i < 7; $i++)
+                        <section class="col" id="scheduleDayColumn">
+                            <ul class="list-group list-group-horizontal-sm">
+                                <li class="scheduleDayText">
+                                    <?php setlocale(LC_TIME,'es_MX.utf8'); $dayNumber=strftime('%d', strtotime($today));?>
+                                    <p class="number">{{$dayNumber}}</p>
+                                    <?php $dayName = strftime("%A", strtotime($today));?>
+                                    <p>{{$dayName}}</p>
+                                </li>
+                            </ul>
 
                         @foreach ($schedules as $schedule)
                             @if ($schedule->day == $today->format('Y-m-d'))

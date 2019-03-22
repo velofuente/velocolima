@@ -32,55 +32,55 @@
   </div>
   <div id="packages" class="packages container-fluid">
     <div class="description">
-      <h3>¡Compra tu pack de clases!!</h3>
-      <h5>Se parte de nuestra tribu.</h5>
+      <h1>¡Compra tu pack de clases!!</h3>
+      <h3>Se parte de nuestra tribu.</h5>
     </div>
     <div class="row classes">
-          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-            <div id="content-normal" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('primera')">
+          <div class="content-normal col col-sm col-md col-lg">
+            <div id="first-class" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('primera')">
               <i class="fa fa-gift" aria-hidden="true"></i>
               <h6 id="amount1">PRIMERA</h6>
               <h5>CLASE</h5>
               <p class="precio">$100MN</p>
             </div>
           </div>
-          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-            <div id="content-normal" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('1')">
+          <div class="content-normal col col-sm col-md col-lg">
+            <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('1')">
               <h3 id="amount2">1</h3>
               <h5>CLASE</h5>
               <p class="precio">$190MN</p>
             </div>
           </div>
-          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-            <div id="content-special" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('3')">
+          <div class="content-normal col col-sm col-md col-lg">
+            <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('3')">
               <h3 id="amount3">3</h3>
               <h5>CLASES</h5>
               <p class="precio">$400MN</p>
             </div>
           </div>
-          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-            <div id="content-normal" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('5')">
+          <div class="content-normal col col-sm col-md col-lg">
+            <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('5')">
               <h3 id="amount4">5</h3>
               <h5>CLASES</h5>
               <p class="precio">$875MN</p>
             </div>
           </div>
-          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-            <div id="content-normal" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('10')">
+          <div class="content-normal col col-sm col-md col-lg">
+            <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('10')">
               <h3 id="amount5">10</h3>
               <h5>CLASES</h5>
               <p class="precio">$1,590MN</p>
             </div>
           </div>
-          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-            <div id="content-normal" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('25')">
+          <div class="content-normal col col-sm col-md col-lg">
+            <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('25')">
               <h3 id="amount6">25</h3>
               <h5>CLASES</h5>
               <p class="precio">$3,625MN</p>
             </div>
           </div>
-          <div class="content-normal col-xs-12 col-sm-6 col-md-3 col-lg-2">
-            <div id="content-normal" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('50')">
+          <div class="content-normal col col-sm col-md col-lg">
+            <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('50')">
               <h3 id="amount7">50</h3>
               <h5>CLASES</h5>
               <p class="precio">$5,990MN</p>
