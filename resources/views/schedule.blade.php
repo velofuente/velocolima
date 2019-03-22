@@ -45,8 +45,10 @@
                         <section class="col" id="scheduleDayColumn">
                             <ul class="list-group list-group-horizontal-sm">
                                 <li class="scheduleDayText">
-                                    <p class="number">{{date('d', strtotime($today->format('d-m-Y')))}}</p>
-                                    <p>{{date('l', strtotime($today->format('d-m-Y')))}}</p>
+                                    <?php setlocale(LC_TIME,'es_MX.utf8'); $dayNumber=strftime('%d', strtotime($today));?>
+                                    <p class="number">{{$dayNumber}}</p>
+                                    <?php $dayName = strftime("%A", strtotime($today));?>
+                                    <p>{{$dayName}}</p>
                                 </li>
                             </ul>
 
