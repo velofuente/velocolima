@@ -13,13 +13,18 @@ use Carbon\Carbon;
         <div class="select">
             <a href="/schedule"id="goBack">Regresar al calendario</a>
             <h3 id="selection">SELECCIONA TU BICI</h3>
-                <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" width="100em" height="100em" alt="">
+            <div class="row">
+                <h6 class="first">ESTUDIO: {{$schedules->room->branch->name}}</h6>
+                <?php setlocale(LC_TIME,'es_MX.utf8'); $dt = Carbon::now(); $inicio = strftime("%A %d de %B,", strtotime($schedules->day));?>
+                <h6 class="first">FECHA: <span id="date">{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i', strtotime($schedules->hour))}} </span></h6>
+            </div>
+            <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" width="100em" height="100em" alt="">
         </div>
-        <div class="places">
+        <div class="main-bikes">
             <div class="row">
                 @for ($i = 1; $i <= $schedules->reservation_limit; $i++)
-                <div class="col">
-                        <p class="bikes">{{$i}}</p>
+                <div class="col places">
+                    <p class="bikes">{{$i}}</p>
                 </div>
                 @endfor
             </div>
@@ -28,18 +33,6 @@ use Carbon\Carbon;
 
                 <input type="hidden" name="actualDay" value="{{$day=now()}}">
             <div class="row">
-                <div class="col">
-                    <div>
-                        <h5 class="first">UBICACIÓN</h5>
-                        <h5>{{$schedules->room->branch->name}}</h5>
-                    </div>
-                    <div>
-                        <h5 class="first">FECHA & HORA</h5>
-                        <?php setlocale(LC_TIME,'es_MX.utf8'); $dt = Carbon::now(); $inicio = strftime("%A, %d de %B del %Y", strtotime($schedules->day));?>
-                        <h5 id="date" onload="modified()">{{$inicio}}</h5>
-                        <h5>{{date('h', strtotime($schedules->hour))}}:{{date('i', strtotime($schedules->hour))}}</h5>
-                    </div>
-                </div>
                 <div class="col">
                     <div>
                         <h5 class="first" >INSTRUCTOR</h5>
