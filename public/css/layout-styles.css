@@ -20,6 +20,7 @@ html, body {
 .position-ref {
     position: relative;
 }
+
 /* header css */
 .top-right {
     position: absolute;
@@ -100,6 +101,7 @@ html, body {
     width: 100%;
     height: 6em;
 }
+
 /* body css */
 .content {
     text-align: center;
@@ -111,11 +113,14 @@ html, body {
 .packages{
     padding-top: 3em;
     padding-left: 2em;
+    margin-top: 6em;
 }
+
 .description{
     color:#efeeee;
     text-align: center;
 }
+
 .classes{
     justify-content: center;
     margin-left: 11em;
@@ -191,7 +196,13 @@ html, body {
 }
 
 /* footer css */
+@font-face{
+    font-family: "Gotham Bold";
+    src: url("fonts/GothamBold.ttf");
+    src: url("fonts/Gotham-Bold.otf")format("opentype");
+}
 .info-footer{
+    font-family: 'Gotham Bold';
     color: black;
     margin-top: 9em;
     text-align: center;
@@ -200,6 +211,7 @@ html, body {
     margin-top: 3em;
     margin-left: 11em;
     margin-right: 11em;
+    width: 100%;
 }
 #prospectPosition{
     background: #fff!important;
