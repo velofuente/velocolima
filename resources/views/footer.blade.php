@@ -38,12 +38,5 @@
                 <p>Preguntas frecuentes</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <i class="fab fa-facebook" ></i>
-                <i class="fab fa-instagram" ></i>
-                <i class="fab fa-spotify" ></i>
-            </div>
-        </div>
     </div>
 </footer>

@@ -32,8 +32,30 @@ html, body {
     font-size: 84px;
 }
 
-.links > a{
+.home{
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 3%;
+    margin-right: 15px;
+    line-height: 39px;
+    padding-right: 10px;
+}
+
+.home >a{
+    color: black;
+    padding: 0 25px;
+    font-size: 33px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+}
+
+.home > a >span{
     color: #18c2cd;
+}
+
+.links > a{
+    color: black;
     padding: 0 25px;
     font-size: 13px;
     font-weight: 600;
@@ -41,7 +63,6 @@ html, body {
     text-decoration: none;
     text-transform: uppercase;
     margin-bottom: 1em;
-    vertical-align: .325em;
 }
 
 .account{
@@ -72,17 +93,6 @@ html, body {
     margin-bottom: 1em;
 }
 
-.home >a{
-    color: #87d9de;
-    padding: 0 25px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: .1rem;
-    text-decoration: none;
-    text-transform: uppercase;
-    vertical-align: .325em;
-}
-
 .m-b-md {
     margin-bottom: 30px;
 }
@@ -95,11 +105,35 @@ html, body {
 
 .navbar{
     background-color: white;
+    border-top: 16px solid #18c2cd;
+    border-bottom: 1px solid #e9eded;
     position: fixed;
     z-index: 2;
     top: 0;
     width: 100%;
     height: 6em;
+}
+
+.redes-fijas {
+    text-align: left;
+    padding-left: 10px;
+    position: fixed;
+    right: 2%;
+    top: 24%;
+    z-index: 3;
+    color: black;
+    width: 60px;
+}
+
+.redes-fijas > a{
+    text-decoration: none;
+    color: black;
+    height: 30px;
+    width: 30px;
+}
+
+.redes-fijas > a:hover{
+    color: #808080;
 }
 
 /* body css */
@@ -200,6 +234,10 @@ html, body {
     font-family: "Gotham Bold";
     src: url("fonts/GothamBold.ttf");
     src: url("fonts/Gotham-Bold.otf")format("opentype");
+}
+@font-face{
+    font-family: "Gotham Thin";
+    src: url("fonts/Gotham-Thin.otf")format("opentype");
 }
 .info-footer{
     font-family: 'Gotham Bold';
