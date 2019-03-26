@@ -15,13 +15,9 @@ bikes.click(function() {
     }
 });
 
-var date = document.getElementById('date').innerHTML;
-var splitDate = date.split(" ");
-var day = splitDate[0].charAt(0).toUpperCase();
-var month = splitDate[3].charAt(0).toUpperCase();
+document.getElementById('date').innerHTML = document.getElementById('date').innerHTML.toLocaleUpperCase();
 
-var modifiedDate = day + splitDate[0].slice(1) +" "+ splitDate[1]+" "+ splitDate[2]+" "+ month + splitDate[3].slice(1) +" ";
-document.getElementById('date').innerHTML = modifiedDate;
+document.getElementById('branch').innerHTML = document.getElementById('branch').innerHTML.toLocaleUpperCase();
 
 $('#profilePic').click(function(){
     document.location.href = "/instructors";

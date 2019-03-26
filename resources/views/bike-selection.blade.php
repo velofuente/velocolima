@@ -11,13 +11,18 @@ use Carbon\Carbon;
 ?>
     <div class="container-fluid">
         <div class="select">
-            <a href="/schedule"id="goBack">Regresar al calendario</a>
-            <h3 id="selection">SELECCIONA TU BICI</h3>
-            <div class="row">
-                <h6 class="first">ESTUDIO: {{$schedules->room->branch->name}}</h6>
-                <?php setlocale(LC_TIME,'es_MX.utf8'); $dt = Carbon::now(); $inicio = strftime("%A %d de %B,", strtotime($schedules->day));?>
-                <h6 class="first">FECHA: <span id="date">{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i', strtotime($schedules->hour))}} </span></h6>
-            </div>
+            <a href="/schedule" id="goBack">Volver al calendario</a>
+                <div class="row">
+                    <div class="col">
+                        <h6 class="first">ESTUDIO: <span id="branch">{{$schedules->room->branch->name}}</span></h6>
+                        <?php setlocale(LC_TIME,'es_MX.utf8'); $dt = Carbon::now(); $inicio = strftime("%A %d de %B,", strtotime($schedules->day));?>
+                        <h6 class="first"> FECHA: <span id="date">{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i', strtotime($schedules->hour))}} </span></h6>
+                    </div>
+                    <div id="sel" class="col">
+                        <span id="selection">Selecciona tu bici y entra en el <span>S</span>iclo.</span>
+                        <span id="selection">¡Ponte a <span>rodar</span>! </span>
+                    </div>
+                </div>
             <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" width="100em" height="100em" alt="">
         </div>
         <div class="main-bikes">
