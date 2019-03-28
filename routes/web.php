@@ -35,6 +35,10 @@ Route::get('/book', function(){
     return view('book');
 });
 
+Route::get('/who-are-we', function(){
+    return view('who-are-we');
+});
+
 Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
 
 Route::get('/first-visit', function (){
