@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="col-12">
-                <i class="fab fa-instagram"></i>
+                <i class="fab fa-instagram fa-2x"></i>
                 <p>@siclo</p>
             </div>
             <div class="col-12">

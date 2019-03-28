@@ -51,6 +51,8 @@ use Carbon\Carbon;
             </div>
         </div>
     </div>
+
+    @include('packages')
 @endsection
 @section('extraScripts')
     <script src="{{asset('js/bike-selection-script.js')}}"></script>

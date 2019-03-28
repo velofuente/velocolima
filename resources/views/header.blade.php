@@ -37,7 +37,7 @@
     </div>
     @guest
     <div class="top-right links">
-            <a href="{{ route('login') }}">INICIAR SESIÓN</a>
+            <a href="{{ route('login') }}"><i class="far fa-user fa-2x"></i></a>
         @if (Route::has('register'))
             <a href="{{ route('register') }}">REGÍSTRATE</a>
         @endif
@@ -65,7 +65,7 @@
 <div class="row">
     <div class="col-12">
         <div class="redes-fijas">
-            <a href="https://www.facebook.com/Siclomx" class="red " target="_blank"><i class="fab fa-facebook fa-2x" ></i></a>
+            <a href="https://www.facebook.com/Siclomx" class="red " target="_blank"><i class="fab fa-facebook fa-2x"></i></a>
             <a href="//apple.co/Siclo" class="red " target="_blank"><i class="fab fa-spotify fa-2x" ></i></a>
             <a href="https://www.snapchat.com/add/yohagosiclo" class="red " target="_blank"><i class="fab fa-snapchat fa-2x"></i></a>
             <a href="https://www.instagram.com/siclo/" class="red " target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
