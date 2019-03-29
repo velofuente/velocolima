@@ -1,7 +1,7 @@
 <div id="packages" class="packages container-fluid">
     <div class="description">
-        <h1>¡Compra tu pack de clases!!</h3>
-        <h3>Se parte de nuestra tribu.</h5>
+        <h1>¡Compra tu pack de clases!!</h1>
+        <h3>Se parte de nuestra tribu.</h3>
     </div>
     <div class="row classes">
             <div class="content-normal col col-sm col-md col-lg">

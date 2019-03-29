@@ -21,6 +21,13 @@ html, body {
     position: relative;
 }
 
+button:focus {outline:0;}
+
+input:focus {outline:0;}
+
+select:focus {outline:0;}
+
+
 /* header css */
 .top-right {
     position: absolute;
@@ -136,6 +143,59 @@ html, body {
     color: #808080;
 }
 
+.hambBtn{
+    z-index: 4;
+}
+/*overlay css */
+.overlay {
+  height: 0%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-y: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 42px;
+  color: black;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #5dd4dc;
+  padding-left: 1em;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay {overflow-y: auto;}
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
+}
 /* body css */
 .content {
     text-align: center;
@@ -153,6 +213,7 @@ html, body {
 .description{
     color:#efeeee;
     text-align: center;
+    text-size-adjust: 90px;
 }
 
 .classes{
