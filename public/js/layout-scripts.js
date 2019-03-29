@@ -23,3 +23,16 @@ function classQuantity(x) {
         document.getElementById("exampleModalLongTitle").innerHTML = "Comprar "+x+" clase";
     }
 }
+var hamburger = $('.hamburger');
+hamburger.css("padding", "0em .9em");
+hamburger.css("z-index", "3");
+hamburger.click(function(){
+    $(this).toggleClass('is-active');
+
+    if($('#hambBtn').hasClass('is-active')){
+        $('#myNav').height('100%');
+    }
+    else{
+        $('#myNav').height('0%');
+    }
+});

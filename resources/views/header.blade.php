@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('css/dist/hamburgers.css')}}">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/layout-styles.css')}}">
@@ -36,7 +37,7 @@
         </div>
     </div>
     @guest
-    <div class="top-right links">
+    <div class="links">
             <a href="{{ route('login') }}"><i class="far fa-user fa-2x"></i></a>
         @if (Route::has('register'))
             <a href="{{ route('register') }}">REGÍSTRATE</a>
@@ -60,6 +61,31 @@
         </div>
     </div>
     @endauth
+    <div class="top-right hambBtn">
+        <button id="hambBtn" class="hamburger hamburger--slider" type="button">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </button>
+    </div>
+
+    <div id="myNav" class="overlay">
+        <div class="overlay-content">
+            <a href="">Ubicaciones</a>
+            <a href="{{ url('/instructors') }}">Instructores</a>
+            <a href="{{ url('/book') }}">Reservar</a>
+            <a href="{{ url('/#packages') }}">Comprar clases</a>
+            <a href="{{ url('/who-are-we') }}">¿Quiénes somos?</a>
+            <a href="#">Legales</a>
+            <a class="" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+            {{ __('Logout') }}</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        </div>
+    </div>
 
 </nav>
 <div class="row">
