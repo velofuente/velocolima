@@ -15,17 +15,11 @@
     <link rel="stylesheet" href="{{asset('css/layout-styles.css')}}">
     @yield('extraStyles')
 </head>
-<nav class="navbar flex-center top-fixed container-fluid">
+<nav class="navbar top-fixed container-fluid">
     <div class="home">
         <a href="{{ url('/') }}"><span>Sí</span>clo</a>
     </div>
-    <div class="top-center links d-none d-lg-block">
-        <a href="{{ url('/first-visit') }}">PRIMERA VISITA</a>
-        <a href="{{ url('/instructors') }}">INSTRUCTORES</a>
-        <a href="{{ url('/#packages') }}">COMPRAR CLASES</a>
-        <a href="{{ url('/book') }}">RESERVAR</a>
-    </div>
-    <div class="top-center dropdown account d-block d-lg-none">
+    <div class="dropdown account d-block d-lg-none">
         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-bars" aria-hidden="true"></i>    <span class="caret"></span>
         </a>
@@ -36,12 +30,31 @@
             <a href="{{ url('/book') }}">RESERVAR</a>
         </div>
     </div>
+    <div class="locations">
+        <select name="" id="">
+            <option value="">Colima</option>
+        </select>
+    </div>
+    <div class="branches">
+        <select name="" id="">
+            <option value="">Zentralia</option>
+            <option value="">Providencia</option>
+        </select>
+    </div>
     @guest
     <div class="links">
             <a href="{{ route('login') }}"><i class="far fa-user fa-2x"></i></a>
-        @if (Route::has('register'))
+       <!-- @if (Route::has('register'))
             <a href="{{ route('register') }}">REGÍSTRATE</a>
-        @endif
+            @endif
+        -->
+        <a class="" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+            <i class="fas fa-sign-out-alt fa-2x"></i></a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
     </div>
     @endguest
     @auth
@@ -61,7 +74,7 @@
         </div>
     </div>
     @endauth
-    <div class="top-right hambBtn">
+    <div class="hambBtn">
         <button id="hambBtn" class="hamburger hamburger--slider" type="button">
             <span class="hamburger-box">
                 <span class="hamburger-inner"></span>
