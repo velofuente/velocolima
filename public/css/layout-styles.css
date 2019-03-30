@@ -31,7 +31,7 @@ select:focus {outline:0;}
 /* header css */
 .top-right {
     position: absolute;
-    right: 10px;
+    right: 2em;
     top: 2em;
 }
 
@@ -42,7 +42,6 @@ select:focus {outline:0;}
 .home{
     display: inline-block;
     vertical-align: middle;
-    margin-left: 3%;
     margin-right: 15px;
     line-height: 39px;
     padding-right: 10px;
@@ -55,15 +54,42 @@ select:focus {outline:0;}
     font-weight: 600;
     letter-spacing: .1rem;
     text-decoration: none;
+    left: 0;
 }
 
 .home > a >span{
     color: #18c2cd;
 }
+.locations{
+    position: absolute;
+    right: 29em;
+    border-left: 1.5px solid #e9eded;
+    padding: 1.6em 1em;
+}
+.branches{
+    position: absolute;
+    right: 18em;
+    border-left: 1.5px solid #e9eded;
+    padding: 1.6em 1em;
+}
+.locations > select, .branches > select{
+    background: #fff!important;
+    border-radius: 0!important;
+    text-transform: uppercase!important;
+    color: black;
+    font-family: 'Gotham Thin';
+}
 
+.links{
+    position: absolute;
+    right: 6em;
+    border-right: 1.5px solid #e9eded;
+    border-left: 1.5px solid #e9eded;
+    padding: 1.5em 1em;
+}
 .links > a{
     color: black;
-    padding: 0 25px;
+    padding: 0 15px;
     font-size: 13px;
     font-weight: 600;
     letter-spacing: .1rem;
@@ -161,8 +187,8 @@ select:focus {outline:0;}
 
 .overlay-content {
   position: relative;
-  top: 25%;
-  width: 100%;
+  top: 15%;
+  width: 20%;
   margin-top: 30px;
 }
 
@@ -178,13 +204,6 @@ select:focus {outline:0;}
 .overlay a:hover, .overlay a:focus {
   color: #5dd4dc;
   padding-left: 1em;
-}
-
-.overlay .closebtn {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
 }
 
 @media screen and (max-height: 450px) {
