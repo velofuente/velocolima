@@ -17,7 +17,7 @@
 </head>
 <nav class="navbar top-fixed container-fluid">
     <div class="home">
-        <a href="{{ url('/') }}"><span>Sí</span>clo</a>
+        <a class="navbar-brand" href="{{ url('/') }}"><span>Sí</span>clo</a>
     </div>
     <div class="dropdown account d-block d-lg-none">
         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

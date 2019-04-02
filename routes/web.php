@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Route::get('user', 'UserController@index')->name('user');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/welcome', 'HomeController@index')->name('home');
 
 Route::resource('instructors', 'InstructorController');
 
