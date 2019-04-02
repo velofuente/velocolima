@@ -1,6 +1,19 @@
 <?php
 
 return [
+  "driver" => "smtp",
+  "host" => "smtp.mailtrap.io",
+  "port" => 2525,
+  "from" => array(
+      "address" => "from@example.com",
+      "name" => "Example"
+  ),
+  "username" => "df74304ee19c98",
+  "password" => "c1c262af9d3657",
+  "sendmail" => "/usr/sbin/sendmail -bs"
+];
+
+//return [
 
     /*
     |--------------------------------------------------------------------------
@@ -16,7 +29,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+ //   'driver' => env('MAIL_DRIVER', 'smtp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +42,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+  //  'host' => env('MAIL_HOST', 'smtp.mailtrap.org'),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +55,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+//    'port' => env('MAIL_PORT', 2525),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,10 +68,10 @@ return [
     |
     */
 
-    'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
-    ],
+ /*   'from' => array (
+        'address' => env('MAIL_FROM_ADDRESS', 'Bicino@reply.com'),
+        'name' => env('MAIL_FROM_NAME', 'Bici'),
+    ),
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +84,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+  //  'encryption' => env('MAIL_ENCRYPTION', 'tls'),
 
     /*
     |--------------------------------------------------------------------------
@@ -84,9 +97,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
+  /*  'username' => env('MAIL_USERNAME', 'df74304ee19c98'),
 
-    'password' => env('MAIL_PASSWORD'),
+    'password' => env('MAIL_PASSWORD', 'c1c262af9d3657'),
 
     /*
     |--------------------------------------------------------------------------
@@ -99,7 +112,7 @@ return [
     |
     */
 
-    'sendmail' => '/usr/sbin/sendmail -bs',
+  //  'sendmail' => '/usr/sbin/sendmail -bs',
 
     /*
     |--------------------------------------------------------------------------
@@ -112,7 +125,7 @@ return [
     |
     */
 
-    'markdown' => [
+  /*  'markdown' => [
         'theme' => 'default',
 
         'paths' => [
@@ -131,6 +144,6 @@ return [
     |
     */
 
-    'log_channel' => env('MAIL_LOG_CHANNEL'),
+  //  'log_channel' => env('MAIL_LOG_CHANNEL'),
 
-];
+//];
