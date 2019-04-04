@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-Rolo | Horario
+    Horario
 @endsection
 
 @section('extraStyles')

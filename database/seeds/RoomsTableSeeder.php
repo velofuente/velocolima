@@ -14,7 +14,7 @@ class RoomsTableSeeder extends Seeder
     {
         $room = new Room();
         $room->name = "room1";
-        $room->id_branches = "1";
+        $room->branch_id = "1";
         $room->save();
     }
 }

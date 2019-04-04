@@ -1,11 +1,11 @@
 @extends('layout')
 
 @section('title')
-    Rolo | Primera visita
+    Primera visita
 @endsection
 
 @section('extraStyles')
-    <link rel="stylesheet" href="css/first-visit.css">
+    <link rel="stylesheet" href="{{asset('css/first-visit.css')}}">
 @endsection
 
 @section('content')

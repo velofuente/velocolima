@@ -16,8 +16,4 @@ class Schedule extends Model
     public function room(){
         return $this->belongsTo(Room::class);
     }
-
-    // public function schedules(){
-    //     return $this->hasMany(Schedule::class);
-    // }
 }

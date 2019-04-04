@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 use App\Instructor;
 use App\Branch;
 use App\Schedule;
-use Response;
 
-class InstructorController extends Controller
+class MachineController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -57,21 +56,9 @@ class InstructorController extends Controller
     {
         $instructors = Instructor::all();
         $branches = Branch::all();
-
-        date_default_timezone_set('America/Mexico_City');
-        $schedules = Schedule::whereBetween('day', [now()->format('Y-m-d'), now()->modify('+7 days')])
-                    ->get()
-                    ->sortBy('hour');
+        $schedules = Schedule::all();
 
         return view('schedule', compact('instructors', 'branches', 'schedules'));
-    }
-
-    public function bikeSelection(Schedule $schedules)
-    {
-        $instructors = Instructor::all();
-        $branches = Branch::all();
-
-        return view('bike-selection', compact('instructors', 'branches', 'schedules'));
     }
 
     /**

@@ -1,7 +1,11 @@
 @extends('layout')
 
 @section('title')
-Rolo | Conoce a los Instructores
+    Conoce a los Instructores
+@endsection
+
+@section('extraStyles')
+    <link rel="stylesheet" type="text/css" href="{{asset('css/instructors-styles.css')}}">
 @endsection
 
 @section('extraStyles')

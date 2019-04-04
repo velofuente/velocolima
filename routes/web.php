@@ -19,9 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/user', function(){
-    return view('user');
-});
+Route::get('user', 'UserController@index')->name('user');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -37,12 +35,18 @@ Route::get('/book', function(){
     return view('book');
 });
 
-Route::get('/bike-selection', function(){
-    return view('bike-selection');
-});
+Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
 
 Route::get('/first-visit', function (){
     return view('first-visit');
 });
 
 Auth::routes(['verify' => true]);
+
+Route::resource('user', 'UserController');
+
+Route::post('login', 'Auth\LoginController@login')->name('login');
+
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::patch('user', 'UserController@updatePassword')->name('updatePassword');

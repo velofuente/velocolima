@@ -85,6 +85,13 @@ span.number{
     transition: 0.2s;
 }
 
+.scheduleItem > a{
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+    font-weight: bold;
+}
 .scheduleItem:hover{
     background-color: #26C6CF;
 }
