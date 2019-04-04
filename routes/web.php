@@ -19,9 +19,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes(['verify' => true]);
+
 Route::get('user', 'UserController@index')->name('user');
 
-Route::get('/welcome', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('instructors', 'InstructorController');
 
@@ -45,7 +47,7 @@ Route::get('/first-visit', function (){
     return view('first-visit');
 });
 
-Auth::routes(['verify' => true]);
+
 
 Route::resource('user', 'UserController');
 
