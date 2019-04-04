@@ -34,7 +34,7 @@
                 {{-- Branch Dropdown --}}
                 <div class="col-4">
                     <div class="dropdown">
-                        <select class="dropdown" data-dependent="" role="button" id="ScheduleBranch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onchange="scheduleByBranch()">
+                        <select class="dropdown" data-dependent="" role="button" id="ScheduleBranch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option value="allBranches">Sucursal</option>
                             @foreach ($branches as $branch)
                                 <option value="{{$branch->name}}">{{$branch->name}}</option>
@@ -100,24 +100,6 @@
                             item.style.display = 'block';
                         }
                         else {
-                            item.style.display = 'none';
-                        }
-                    }
-                }
-            }
-            function scheduleByBranch(){
-                var selectBranch = document.getElementById("ScheduleBranch").value;
-                var scheduleBox = document.getElementsByClassName("scheduleItem");
-
-                if (selectBranch == "allBranches"){
-                    for (let item of scheduleBox){
-                        item.style.display = 'block';
-                    }
-                } else {
-                    for (let item of scheduleBox) {
-                        if (selectBranch === item.id_rooms){
-                            item.style.display = 'block';
-                        } else {
                             item.style.display = 'none';
                         }
                     }
