@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{asset('css/layout-styles.css')}}">
     @yield('extraStyles')
 </head>
-<nav class="navbar top-fixed container-fluid">
+<nav class="navbar top-fixed container-fluid" id="nav">
     <div class="home">
         <a class="navbar-brand" href="{{ url('/') }}"><span>Sí</span>clo</a>
     </div>
@@ -48,6 +48,15 @@
             <a href="{{ route('register') }}">REGÍSTRATE</a>
             @endif
         -->
+    </div>
+    @endguest
+    @auth
+    <div class="links">
+            <a href="{{ url('/user') }}"><i class="far fa-user fa-2x"></i></a>
+       <!-- @if (Route::has('register'))
+            <a href="{{ route('register') }}">REGÍSTRATE</a>
+            @endif
+        -->
         <a class="" href="{{ route('logout') }}"
             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
@@ -56,9 +65,7 @@
             @csrf
         </form>
     </div>
-    @endguest
-    @auth
-    <div class="top-right dropdown account2">
+  <!--  <div class="top-right dropdown account2">
         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ Auth::user()->name }}    <span class="caret"></span>
         </a>
@@ -72,7 +79,7 @@
                 @csrf
             </form>
         </div>
-    </div>
+    </div>-->
     @endauth
     <div class="hambBtn">
         <button id="hambBtn" class="hamburger hamburger--slider" type="button">
