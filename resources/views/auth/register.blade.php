@@ -10,7 +10,6 @@
         <div class="col-md-8">
             <div>
                 <h3 class="mx-auto">Registro</h3>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" class="registration">
                         @csrf
@@ -82,7 +81,7 @@
                         <div class="form-group row pb-3">
                             <label for="birth_date" class="col-md-4 col-form-label text-md-right">{{ __('Fecha de Nacimiento') }}</label>
                             <div class="col-md-6">
-                                <input id="birth_date" placeholder="Fecha de Nacimiento" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required autofocus>
+                                <input id="birth_date" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required autofocus>
                                 @if ($errors->has('birth_date'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('birth_date') }}</strong>
