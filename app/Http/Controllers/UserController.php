@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Auth;
+use Illuminate\Support\Facades\Mail;
+use Auth, Log;
 
 class UserController extends Controller
 {
@@ -76,7 +77,17 @@ class UserController extends Controller
         //dd($user);
         $user->save();
         Auth::login($user);
-        return redirect()->route('user.index')->with('success','Data Added');
+        Log::info("Entra pre Mail Send");
+        Mail::send([], [], function ($message) use ($request){
+            $message->to($request->email)
+              ->subject("Welcome")
+              // here comes what you want
+            //   ->setBody('Hi, welcome user!'); // assuming text/plain
+              // or:
+              ->setBody('<h1>Hi, welcome user!</h1>', 'text/html'); // for HTML rich messages
+          });
+          Log::info("Entra pos Mail Send");
+        return redirect()->route('home')->with('success','Data Added');
     }
 
     /**

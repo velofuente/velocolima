@@ -45,6 +45,7 @@ select:focus {outline:0;}
     margin-right: 15px;
     line-height: 39px;
     padding-right: 10px;
+    z-index: 6;
 }
 
 .home >a{
@@ -187,9 +188,8 @@ select:focus {outline:0;}
 
 .overlay-content {
   position: relative;
-  top: 15%;
+  top: 10%;
   width: 20%;
-  margin-top: 30px;
 }
 
 .overlay a {
