@@ -1,4 +1,8 @@
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
 var packages = $('.content-n');
 
 packages.on({

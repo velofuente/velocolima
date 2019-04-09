@@ -154,7 +154,7 @@ select:focus {outline:0;}
     position: fixed;
     right: 2%;
     top: 24%;
-    z-index: 3;
+    z-index: 1;
     color: black;
     width: 60px;
 }
@@ -179,7 +179,7 @@ select:focus {outline:0;}
   width: 100%;
   position: fixed;
   z-index: 1;
-  top: 0;
+  top: 2%;
   left: 0;
   background-color: white;
   overflow-y: hidden;
@@ -190,6 +190,7 @@ select:focus {outline:0;}
   position: relative;
   top: 10%;
   width: 20%;
+  left: 75%;
 }
 
 .overlay a {

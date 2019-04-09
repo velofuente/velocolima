@@ -43,7 +43,7 @@
     </div>
     @guest
     <div class="links">
-            <a href="{{ route('login') }}"><i class="far fa-user fa-2x"></i></a>
+            <a href="{{ route('login') }}"><i class="far fa-user fa-2x" data-toggle="tooltip" data-placement="bottom" title="Ingresar"></i></a>
        <!-- @if (Route::has('register'))
             <a href="{{ route('register') }}">REGÍSTRATE</a>
             @endif
@@ -52,7 +52,7 @@
     @endguest
     @auth
     <div class="links">
-            <a href="{{ url('/user') }}"><i class="far fa-user fa-2x"></i></a>
+            <a href="{{ url('/user') }}"><i class="far fa-user fa-2x" data-toggle="tooltip" data-placement="bottom" title="Mi Cuenta"></i></a>
        <!-- @if (Route::has('register'))
             <a href="{{ route('register') }}">REGÍSTRATE</a>
             @endif
@@ -60,7 +60,7 @@
         <a class="" href="{{ route('logout') }}"
             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
-            <i class="fas fa-sign-out-alt fa-2x"></i></a>
+            <i class="fas fa-sign-out-alt fa-2x" data-toggle="tooltip" data-placement="bottom" title="Salir"></i></a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
