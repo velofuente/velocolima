@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->float('weight', 5,2);
             $table->tinyInteger('height')->unsigned();
             $table->string('share_code',8);
+            $table->boolean('verified')->default(false);
             //Foreign Key from Users to Role
             $table->unsignedInteger('role_id')->default('3');
             $table->foreign('role_id')->references('id')->on('roles');

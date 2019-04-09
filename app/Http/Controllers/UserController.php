@@ -78,14 +78,14 @@ class UserController extends Controller
         $user->save();
         Auth::login($user);
         Log::info("Entra pre Mail Send");
-        Mail::send([], [], function ($message) use ($request){
-            $message->to($request->email)
-              ->subject("Welcome")
-              // here comes what you want
-            //   ->setBody('Hi, welcome user!'); // assuming text/plain
-              // or:
-              ->setBody('<h1>Hi, welcome user!</h1>', 'text/html'); // for HTML rich messages
-          });
+        // Mail::send([], [], function ($message) use ($request){
+        //     $message->to($request->email)
+        //       ->subject("Welcome")
+        //       // here comes what you want
+        //     //   ->setBody('Hi, welcome user!'); // assuming text/plain
+        //       // or:
+        //       ->setBody('<h1>Hi, welcome user!</h1>', 'text/html'); // for HTML rich messages
+        //   });
           Log::info("Entra pos Mail Send");
         return redirect()->route('home')->with('success','Data Added');
     }
