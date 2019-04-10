@@ -4,6 +4,10 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/register-styles.css')}}">
 @endsection
 
+@section('title')
+    Rolo | Regístrate
+@endsection
+
 @section('content')
 <div class="container">
     <div class="register row justify-content-center">
@@ -136,6 +140,19 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="shoe_size" class="col-md-4 col-form-label text-md-right">{{ __('Tamaño de Calzado') }}</label>
+                            <div class="col-md-6 pb-3">
+                                <div class="input-group">
+                                    <input id="shoe_size" placeholder="Tamaño de Calzado" type="text" class="form-control{{ $errors->has('shoe_size') ? ' is-invalid' : '' }}" name="shoe_size" value="{{ old('shoe_size') }}" required autofocus>
+                                </div>
+                                @if ($errors->has('shoe_size'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('shoe_size') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Genero') }}</label>
                             <div class="col-md-4">
                                 <input id="gender" type="radio" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender" value="Hombre" required autofocus> Hombre<br>
@@ -207,7 +224,7 @@
         },
         {
             isInvalid: function(input){
-                var illegalCharacters = input.value.match((/[^a-zA-Z0-9]/g));
+                var illegalCharacters = input.value.match((/[^a-zA-ZÀ-ÿ\u00f1\u00d1]/g));
                 return illegalCharacters ? true : false;
             },
             invalidityMessage: 'Solamente se permiten letras y números',
@@ -225,7 +242,7 @@
         },
         {
             isInvalid: function(input){
-                var illegalCharacters = input.value.match((/[^a-zA-Z0-9]/g));
+                var illegalCharacters = input.value.match((/[^a-zA-ZÀ-ÿ\u00f1\u00d1]/g));
                 return illegalCharacters ? true : false;
             },
             invalidityMessage: 'Solamente se permiten letras y números',

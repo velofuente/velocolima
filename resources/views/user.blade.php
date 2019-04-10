@@ -63,7 +63,7 @@
                         <span class="align-middle">
                             <h3 class="text-body">Invita, Comparte y GANA.</h3>
                             <h5 class="text-muted">Tu código es: </h5>
-                        <h4 class="text-danger">{{ Auth::user()->share_code }}Ejemplo</h4>
+                        <h4 class="text-danger">{{ Auth::user()->share_code }}</h4>
                             <i class="fab fa-whatsapp mr-2" id="media_icon" ></i><i class="fab fa-twitter" id="media_icon" ></i>
                             <i class="fab fa-facebook mr-2" id="media_icon" ></i><i class="fas fa-envelope" id="media_icon"></i>
                         </span>
