@@ -80,9 +80,4 @@
         </div>
     </div>
 </body>
-<script>
-    $document.ready(function(){
-        $("#notificationAlert").fadeToggle("slow");
-    });
-</script>
 @endsection

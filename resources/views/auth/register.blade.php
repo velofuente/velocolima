@@ -96,9 +96,10 @@
                         <div class="form-group row">
                             <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Teléfono') }}</label>
                             <div class="col-md-6">
-                                <input id="phone" placeholder="Teléfono" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus>
+                                <input id="phone" placeholder="Teléfono" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" maxlength="15" required autofocus>
                                 <ul class="input-requirements">
                                     <li>LADA (3 dígitos) + Número (10 dígitos)</li>
+                                    <li>No debe contener espacios ni caracteres especiales</li>
                                 </ul>
                                 @if ($errors->has('phone'))
                                     <span class="invalid-feedback" role="alert">
