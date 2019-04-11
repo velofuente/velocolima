@@ -23,6 +23,8 @@ Auth::routes(['verify' => true]);
 
 Route::get('user', 'UserController@index')->name('user');
 
+Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('instructors', 'InstructorController');
