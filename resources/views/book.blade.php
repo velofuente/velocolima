@@ -3,11 +3,11 @@
     Reservar
 @endsection
 @section('extraStyles')
-    <link rel="stylesheet" href="css/book-styles.css">
+    <link rel="stylesheet" href="{{('css/book-styles.css')}}">
 @endsection
 @section('content')
     <div class="container-fluid">
-        <div class="row">
+        <div class="row main">
             <div id="branch-col" class="col-md-4">
                 <div class="branch">
                     <div class="mx-auto">

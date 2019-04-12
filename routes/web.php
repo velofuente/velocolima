@@ -19,34 +19,42 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/user', function(){
-    return view('user');
-});
+Auth::routes(['verify' => true]);
+
+Route::get('user', 'UserController@index')->name('user');
+
+Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/instructors', function(){
-    return view('instructors');
-});
+Route::resource('instructors', 'InstructorController');
 
-Route::get('/schedule', function(){
-    return view ('schedule');
-});
+Route::get('/schedule', 'InstructorController@schedule');
 
-Route::get('/instructor-info', function () {
-    return view('instructor-info');
-});
+// Route::get('/schedule', function(){
+//     return view ('schedule');
+// });
 
 Route::get('/book', function(){
     return view('book');
 });
 
-Route::get('/bike-selection', function(){
-    return view('bike-selection');
+Route::get('/who-are-we', function(){
+    return view('who-are-we');
 });
+
+Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
 
 Route::get('/first-visit', function (){
     return view('first-visit');
 });
 
-Auth::routes(['verify' => true]);
+
+
+Route::resource('user', 'UserController');
+
+Route::post('login', 'Auth\LoginController@login')->name('login');
+
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::patch('user', 'UserController@updatePassword')->name('updatePassword');

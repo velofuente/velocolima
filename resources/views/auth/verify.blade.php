@@ -1,21 +1,26 @@
 @extends('layout')
-
+@section('title')
+    Verify
+@endsection
+@section('extraStyles')
+    <link rel="stylesheet" href="{{asset('css/home.css')}}">
+@endsection
 @section('content')
-<div class="container">
+<div class="container main">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div>
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+                <div class="">{{ __('Verifique su correo electronico') }}</div>
 
-                <div class="card-body">
+                <div class="">
                     @if (session('resent'))
                         <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
+                            {{ __('Se ha vuelto a enviar un correo de confirmación.') }}
                         </div>
                     @endif
 
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
+                    {{ __('Antes de proceder, por favor buscar en su correo electronico el link de verificación.') }}
+                    {{ __('Si no recibiste el correo') }}, <a href="{{ route('verification.resend') }}">{{ __('haz click aqui para mandar uno nuevo') }}</a>.
                 </div>
             </div>
         </div>

@@ -16,11 +16,11 @@ class CreateClassInstructorTable extends Migration
         Schema::create('class_instructor', function (Blueprint $table) {
             $table->increments('id');
             //Foreign Key to Class
-            $table->unsignedInteger('id_class');
-            $table->foreign('id_class')->references('id')->on('class');
+            $table->unsignedInteger('class_id');
+            $table->foreign('class_id')->references('id')->on('classes');
             //Foreign Key to Instructor
-            $table->unsignedInteger('id_instructor');
-            $table->foreign('id_instructor')->references('id')->on('instructor');
+            $table->unsignedInteger('instructor_id');
+            $table->foreign('instructor_id')->references('id')->on('instructors');
             $table->timestamps();
         });
     }

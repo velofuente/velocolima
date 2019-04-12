@@ -1,11 +1,14 @@
-#title1, #title2 {
+#title1{
     color: white;
-    margin-top: 3rem;
+    margin-top: 5rem;
     font-size: 26pt;
 }
 
 #title2{
+    color: white;
+    margin-top: 3rem;
     margin-bottom: 3rem;
+    font-size: 26pt;
 }
 
 .block{

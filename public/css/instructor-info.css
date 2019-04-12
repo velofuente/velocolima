@@ -1,0 +1,33 @@
+.main{
+    margin-top: 5em;
+}
+
+.container-fluid{
+    color: white;
+}
+#instructorDescription{
+    font-size: 20px;
+}
+
+#instructorPhrase{
+    color:lightsalmon;
+}
+
+.dateSelector{
+    background-color: black;
+}
+
+.link > a{
+    text-decoration: none;
+    color: white;
+    text-decoration: none;
+
+    margin-bottom: 0px;
+    font-weight: bold;
+}
+
+
+.btn:Hover{
+    background-color: #87d9de;
+    cursor: pointer;
+}
