@@ -26,7 +26,7 @@
                 <div class="row">
                     @foreach ($instructors as $instructor)
                     <div class="col-md-4 col-sm-6 col-xs-6">
-                        <a href="/instructor-info" class="h4" style="text-decoration: none">
+                    <a href="/instructors/{{$instructor->id}}" class="h4" style="text-decoration: none">
                         <div class="card border-0 mx-auto my-3">
                             {{-- Image Name: Instructor's Name + "-Head" + ".png" --}}
                             <img src="img/instructors/{{$instructor->name}}-Head.png" class="card-img-top" style="border-radius: 50%" alt="{{$instructor->name}}">
