@@ -52,30 +52,16 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        //{{dd($data);}}
         return Validator::make($data, [
-            //Previous validator names
-            // 'name' => ['required', 'string', 'max:60'],
-            // 'apellido_p' => ['required', 'string', 'max:60'],
-            // 'apellido_m' => ['required', 'string', 'max:60'],
-            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
-            // 'fecha_nac' => ['required', 'date'],
-            // 'telefono' => ['required', 'int', 'max:999999999999999'],
-            // 'peso' => ['required', 'numeric', 'between:0,999.99'],
-            // 'estatura' => ['required', 'int', 'max:250'],
-            // 'n_clases' => ['required', 'int', 'max:999'],
-            // 'genero' => ['required', 'string', 'max:6'],
-            // 'expiracion' => ['required', 'date'],
-            //Actual validator names; n_clases & expiracion were deleted
-            'name' => ['required', 'string', 'max:60'],
-            'last_name' => ['required', 'string', 'max:60'],
+            'name' => ['required', 'string', 'min:3' , 'max:60'],
+            'last_name' => ['required', 'string', 'min:3', 'max:60'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'password' => ['required', 'string', 'min:7', 'max:100', 'confirmed'],
             'birth_date' => ['required', 'date'],
             'phone' => ['required', 'int', 'max:999999999999999'],
             'weight' => ['required', 'numeric', 'between:0,999.99'],
             'height' => ['required', 'int', 'max:250'],
+            'shoe_size' => ['required', 'numeric', 'between: 10.0, 34.5'],
             'gender' => ['required', 'string', 'max:6'],
         ]);
     }
@@ -102,23 +88,18 @@ class RegisterController extends Controller
     // }
     protected function create(array $data)
     {
-    $user = User::create([
-        'name' => $data['name'],
-        'last_name' => $data['last_name'],
-        'email' => $data['email'],
-        'password' => Hash::make($data['password']),
-        'birth_date' => $data['birth_date'],
-        'phone' => $data['phone'],
-        'weight' => $data['weight'],
-        'height' => $data['height'],
-        'gender' => $data['gender'],
-    ]);
-    $verifyUser = VerifyUser::create([
-        'user_id' => $user->id,
-        'token' => sha1(time())
-    ]);
-    \Mail::to($user->email)->send(new VerifyMail($user));
-    return $user;
+        return User::create([
+            'name' => $data['name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'birth_date' => $data['birth_date'],
+            'phone' => $data['phone'],
+            'weight' => $data['weight'],
+            'height' => $data['height'],
+            'shoe_size' => $data['shoe_size'],
+            'gender' => $data['gender']
+        ]);
     }
 
     public function verifyUser($token)

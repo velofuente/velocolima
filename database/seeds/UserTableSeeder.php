@@ -22,6 +22,7 @@ class UserTableSeeder extends Seeder
         $user->phone = "3141234567";
         $user->weight = "123";
         $user->height = "123";
+        $user->shoe_size = "29.5";
         $user->share_code = '123a45bc';
         $user->save();
     }

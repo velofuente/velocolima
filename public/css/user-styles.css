@@ -1,19 +1,23 @@
+body{
+    background-color: #FFF;
+}
+
 .circleDiv{
     height: 0;
-    padding: 25% 0;
+    padding: 19% 0;
     width: 50%;
     overflow: hidden;
-    min-width: 300px;
-    min-height: 300px;
+    min-width: 250px;
+    min-height: 250px;
     text-align: center;
-    border-radius: 50%;
+    border-radius: 100%;
 }
 .main{
     margin-top: 6em;
 }
 #media_icon{
-    color:crimson;
+    columns: #FFF;
 }
 .input_custom{
-    background-color:white;
+    background-color:#F4F4F4;
 }
