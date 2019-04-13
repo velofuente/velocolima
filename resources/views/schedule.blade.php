@@ -12,16 +12,28 @@
     <body>
         <div class="container-fluid pt-4 mb-4">
             <div class="row" id="topNavBar">
+                {{-- Empty Section at the Far LeftNavBar --}}
+                <div class="col-1">
+                    <span class="weekShown">
+
+                    </span>
+                </div>
                 {{-- Message Actual Week --}}
-                <div class="col-4">
+                <div class="col-2">
                     <input type="hidden" name="timezoneSet" value="{{date_default_timezone_set('America/Mexico_City')}}">
+                    {{-- TODO: Cambiar el Idioma del Mes a Español--}}
                     <input type="hidden" name="actualDay" value="{{$weekShown=now()}}">
-                    <p class="weekShown">
+                    <span class="weekShown">
                         del {{date('d')}} al {{date('d', strtotime($weekShown->modify("+6 days")))}} de {{date('F')}}
-                    </p>
+                    </span>
+                </div>
+                {{-- Empty Section at the Middle of the NavBar --}}
+                <div class="col-6">
+                    <span class="weekShown">
+                    </span>
                 </div>
                 {{-- Instructor Dropdown --}}
-                <div class="col-4">
+                <div class="col-2">
                     <div class="dropdown">
                         <select class="dropdown" data-dependent="" role="button" id="ScheduleInstructor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onchange="scheduleByInstructor()">
                             <option value="allInstructors" selected="selected">Instructores</option>
@@ -31,8 +43,13 @@
                         </select>
                     </div>
                 </div>
+                {{-- Empty Section at the Far Right NavBar --}}
+                <div class="col-1">
+                    <span class="weekShown">
+                    </span>
+                </div>
                 {{-- Branch Dropdown --}}
-                <div class="col-4">
+                {{-- <div class="col-4">
                     <div class="dropdown">
                         <select class="dropdown" data-dependent="" role="button" id="ScheduleBranch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option value="allBranches">Sucursal</option>
@@ -41,22 +58,21 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
                 {{-- Schedule Section --}}
                 <input type="hidden" name="timezoneSet" value="{{date_default_timezone_set('America/Mexico_City')}}">
                 <input type="hidden" name="actualDay" value="{{$today=now()}}">
-                <div class="container centrarCosas" name="calendar">
+                <div class="container" name="calendar">
                     <div class="row" name="dates">
                         @for ($i = 0; $i < 7; $i++)
                         <section class="col" id="scheduleDayColumn">
                             <ul class="list-group list-group-horizontal-sm">
                                 <li class="scheduleDayText">
-                                    <?php setlocale(LC_TIME,'es_MX.utf8'); $dayNumber=strftime('%d', strtotime($today));?>
-                                    <p class="number">{{$dayNumber}}</p>
-                                    <?php $dayName = strftime("%A", strtotime($today));?>
-                                    <p>{{$dayName}}</p>
+                                    <input type="hidden" name="langLocal" value="<?php setlocale(LC_TIME,'es_MX.utf8'); $dayNumber=strftime('%d', strtotime($today));?>">
+                                    <input type="hidden" name="langLocal" value="<?php $dayName = strftime("%a", strtotime($today));?>">
+                                <span class="number"> {{$dayName}}.{{$dayNumber}}</span>
                                 </li>
                             </ul>
 
