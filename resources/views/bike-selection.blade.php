@@ -9,7 +9,7 @@ Reservar Bici
 <?php
 use Carbon\Carbon;
 ?>
-    <div class="container-fluid">
+    <div class="container-fluid main">
         <div class="select">
             <a href="/schedule" id="goBack">Volver al calendario</a>
                 <div class="row">
@@ -18,11 +18,10 @@ use Carbon\Carbon;
                         <?php setlocale(LC_TIME,'es_MX.utf8'); $dt = Carbon::now(); $inicio = strftime("%A %d de %B,", strtotime($schedules->day));?>
                         <h6 class="first"> FECHA: <span id="date">{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i', strtotime($schedules->hour))}} </span></h6>
                     </div>
-                    <div id="sel" class="col">
-                        <span id="selection">Selecciona tu bici y entra en el <span>S</span>iclo.</span>
-                        <span id="selection">¡Ponte a <span>rodar</span>! </span>
-                    </div>
                 </div>
+            <div class="description">
+                <img src="/img/iconos/2.png" width="400px" height="35px" alt="">
+            </div>
             <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" width="100em" height="100em" alt="">
         </div>
         <div class="main-bikes">
@@ -35,8 +34,7 @@ use Carbon\Carbon;
             </div>
         </div>
         <div class="details">
-
-                <input type="hidden" name="actualDay" value="{{$day=now()}}">
+            <input type="hidden" name="actualDay" value="{{$day=now()}}">
             <div class="row">
                 <div class="col">
                     <div>
