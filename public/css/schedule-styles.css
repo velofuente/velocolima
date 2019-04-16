@@ -89,6 +89,51 @@ span.number{
     padding: 1px;
 }
 
+/* CSS Style in case the Schedule shown is out of date  */
+.scheduleItemLinkDisabled{
+    color: #a50b2ae2;
+    background-color: #282828;
+    text-decoration: none;
+    text-align: center;
+    text-transform: capitalize;
+    cursor: default;
+}
+
+.scheduleItemLinkDisabled:hover{
+    text-decoration: none;
+    color: #a5a5a5d0;
+    background-color: #FDFDFD;
+}
+
+.scheduleItemDisabled{
+    background-color: #282828;
+    margin-bottom: 6px;
+    list-style: none;
+    border: 1px solid #ffffff66;
+    width: 98%;
+    height: 100px;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.scheduleItemDisabled:hover{
+    /* Red Hover */
+    background-color: rgba(253, 13, 61, 0.838);
+
+    /* Gradient Hover */
+    /* background: linear-gradient(0.25turn, #fd0d3de5, #9100ff); */
+}
+
+.scheduleItemTextHourDisabled{
+    padding-bottom: 20px;
+    color: #a5a5a5d0;
+    margin: 0px;
+    font-size: 16px;
+    font-family: 'Avenir';
+    letter-spacing: 1px;
+}
+
+/* CSS Style in case the Schedule Shown is up to date */
 .scheduleItemLink{
     color: #fd0d3df1;
     background-color: #282828;

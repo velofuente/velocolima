@@ -66,6 +66,18 @@
                                 @foreach ($schedules as $schedule)
                                     @if ($schedule->day == $today->format('Y-m-d'))
                                     <section>
+                                        @if ($schedule->hour <= $today=now())
+                                        <span class="scheduleItemLinkDisabled">
+                                            <li class="scheduleItemDisabled" id="{{$schedule->instructor->name}}">
+                                                <p class="scheduleItemTextInstructor">
+                                                    {{$schedule->instructor->name}}
+                                                </p>
+                                                <p class="scheduleItemTextHourDisabled">
+                                                    {{ date('g:i A', strtotime($schedule->hour)) }}
+                                                </p>
+                                            </li>
+                                        </span>
+                                        @else
                                         <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
                                             <li class="scheduleItem" id="{{$schedule->instructor->name}}">
                                                 <p class="scheduleItemTextInstructor">
@@ -76,6 +88,7 @@
                                                 </p>
                                             </li>
                                         </a>
+                                        @endif
                                     </section>
                                     @endif
                                 @endforeach
