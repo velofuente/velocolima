@@ -1,7 +1,81 @@
+/* fonts */
+@font-face{
+    font-family: "AvenirNextCondensed Bold";
+    src: url("fonts/AvenirNextCondensed-Bold.ttf");
+}
+@font-face{
+    font-family: "AvenirNextLTPro Bold";
+    src: url("fonts/AvenirNextLTPro-Bold.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro BoldCn";
+    src: url("fonts/AvenirNextLTPro-BoldCn.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro BoldCnit";
+    src: url("fonts/AvenirNextLTPro-BoldCnIt.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro Cn";
+    src: url("fonts/AvenirNextLTPro-Cn.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro Cnit";
+    src: url("fonts/AvenirNextLTPro-CnIt.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro Demi";
+    src: url("fonts/AvenirNextLTPro-Demi.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro DemiCn";
+    src: url("fonts/AvenirNextLTPro-DemiCn.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro DemiCnIt";
+    src: url("fonts/AvenirNextLTPro-DemiCnIt.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro DemiIt";
+    src: url("fonts/AvenirNextLTPro-DemiIt.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro HeavyCn";
+    src: url("fonts/AvenirNextLTPro-HeavyCn.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro HeavyCnIt";
+    src: url("fonts/AvenirNextLTPro-HeavyCnIt.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro It";
+    src: url("fonts/AvenirNextLTPro-It.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro MediumCn";
+    src: url("fonts/AvenirNextLTPro-MediumCn.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro MediumCnit";
+    src: url("fonts/AvenirNextLTPro-MediumCnIt.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro Regular";
+    src: url("fonts/AvenirNextLTPro-Regular.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro UltLtCn";
+    src: url("fonts/AvenirNextLTPro-UltLtCn.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro UltLtCnIt";
+    src: url("fonts/AvenirNextLTPro-UltLtCnIt.otf")format("opentype");
+}
+/* whole html */
 html, body {
-    background-color: white;
-    color: #18c2cd;
-    font-family: 'gotham2';
+    background-color: rgb(25,26,34)	;
+    color: white;
+    font-family: 'AvenirNextLTPro Regular';
     font-weight: 200;
     height: 100vh;
     margin: 0;
@@ -32,7 +106,11 @@ select:focus {outline:0;}
 .top-right {
     position: absolute;
     right: 2em;
-    top: 2em;
+
+}
+.line{
+    top: 0;
+    margin-bottom: .2em;
 }
 
 .title {
@@ -61,6 +139,9 @@ select:focus {outline:0;}
 .home > a >span{
     color: #18c2cd;
 }
+.hicon{
+    border-left: .7px solid #FF0E3B;
+}
 .locations{
     position: absolute;
     right: 29em;
@@ -84,8 +165,8 @@ select:focus {outline:0;}
 .links{
     position: absolute;
     right: 6em;
-    border-right: 1.5px solid #e9eded;
-    border-left: 1.5px solid #e9eded;
+    border-right: .7px solid #FF0E3B;
+    border-left: .7px solid #FF0E3B;
     padding: 1.5em 1em;
 }
 .links > a{
@@ -138,12 +219,11 @@ select:focus {outline:0;}
 }
 
 .navbar{
-    background-color: white;
-    border-top: 16px solid #18c2cd;
+    background-color: rgb(25,26,34);
+   /* border-top: 16px solid linear-gradient(0.25turn, #F70E0E, #9100FF);*/
     border-bottom: 1px solid #e9eded;
     position: fixed;
     z-index: 2;
-    top: 0;
     width: 100%;
     height: 6em;
 }
@@ -179,16 +259,16 @@ select:focus {outline:0;}
   width: 100%;
   position: fixed;
   z-index: 1;
-  top: 2%;
+  top: 1%;
   left: 0;
-  background-color: white;
+  background-color: rgb(36,36,36);
   overflow-y: hidden;
   transition: 0.5s;
 }
 
 .overlay-content {
   position: relative;
-  top: 10%;
+  top: 9%;
   width: 20%;
   left: 75%;
 }
@@ -197,13 +277,13 @@ select:focus {outline:0;}
   padding: 8px;
   text-decoration: none;
   font-size: 42px;
-  color: black;
+  color: #FF0E3B;
   display: block;
   transition: 0.3s;
 }
 
 .overlay a:hover, .overlay a:focus {
-  color: #5dd4dc;
+  color: #6133AB;
   padding-left: 1em;
 }
 
@@ -234,6 +314,7 @@ select:focus {outline:0;}
     color:#efeeee;
     text-align: center;
     text-size-adjust: 90px;
+    margin-bottom: 1em;
 }
 
 .classes{
@@ -247,9 +328,9 @@ select:focus {outline:0;}
 }
 
 #content-normal{
-    color: black;
+    color: #FF0E3B;
     text-align: center;
-    border: solid .5px #ecebeb;
+    border: solid .3px #ecebeb;
     padding-top: 2.5em;
     margin-left: 2.5em;
     margin-top: 2em;
@@ -257,11 +338,16 @@ select:focus {outline:0;}
     height: 100%;
     cursor: pointer;
 }
+#content-normal:hover{
+    background: linear-gradient(0.25turn, #F70E0E, #9100FF);
+    color: white;
+    border: none;
+}
 
 #content-normal2{
     position: absolute;
     left: 0;
-    background-color: #18c2cd;
+    background: linear-gradient(0.25turn, #F70E0E, #9100FF);
     width: 100%;
     height: 100%;
     padding: 0 3px;
@@ -276,9 +362,9 @@ select:focus {outline:0;}
 
 #first-class{
     color: white;
-    background-color: #3accd5;
+    background: linear-gradient(0.25turn, #F70E0E, #9100FF);
     text-align: center;
-    border: solid .5px #ecebeb;
+    border: none;
     padding-top: 2.5em;
     margin-left: 2.5em;
     margin-top: 2em;
@@ -311,34 +397,33 @@ select:focus {outline:0;}
 }
 
 /* footer css */
-@font-face{
-    font-family: "Gotham Bold";
-    src: url("fonts/GothamBold.ttf");
-    src: url("fonts/Gotham-Bold.otf")format("opentype");
-}
-@font-face{
-    font-family: "Gotham Thin";
-    src: url("fonts/Gotham-Thin.otf")format("opentype");
-}
 .info-footer{
-    font-family: 'Gotham Bold';
-    color: black;
+    font-family: 'AvenirNextLTPro Regular';
+    color: #FF0E3B;
     margin-top: 9em;
     text-align: center;
 }
+.info-footer2{
+    background-color: rgb(11,3,30);
+    text-align: center;
+    font-family: 'AvenirNextLTPro Regular';
+}
 .form{
     margin-top: 3em;
-    margin-left: 11em;
-    margin-right: 11em;
     width: 100%;
 }
+.hi{
+    border: .5px solid rgb(65, 65, 65);
+    color: rgb(65, 65, 65);
+}
+/*
 #prospectPosition{
-    background: #fff!important;
+    background: rgb(25,26,34)!important;
     border-bottom: 1px solid #eee!important;
     border-radius: 0!important;
     text-transform: uppercase!important;
-    color: gray;
-}
+    color: rgb(65, 65, 65);
+}*/
 /* For IE10 */
 select::-ms-expand{
     display: none;
@@ -352,10 +437,28 @@ select{
 }
 
 .prospectText{
-    border-width: 0px 0px 1px 0px;
+    background: rgb(25,26,34)!important;
+    border-width: 1px 0px 1px 0px;
     width: 100%;
+    padding: 1em 0 1em 0;
+    color: white;
 }
 
+#prospectName{
+    border-left: 1px solid white;
+    padding-left: 2em;
+}
+
+#prospectInsta{
+    border-right: 1px solid white;
+    padding-right: 0;
+}
+
+.pad{
+    padding: 1em 0 1em 0;
+}
+
+/*
 .prospectBtn{
     color: #fff!important;
     width: 43px;
@@ -365,6 +468,10 @@ select{
     -webkit-appearance: button;
     cursor: pointer;
     font-family: Verdana,Helvetica;
+}
+*/
+.info-top{
+    margin-top: 3em;
 }
 
 .register{

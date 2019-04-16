@@ -11,13 +11,15 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/dist/hamburgers.css')}}">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/layout-styles.css')}}">
     @yield('extraStyles')
 </head>
-<nav class="navbar top-fixed container-fluid" id="nav">
+<div class="fixed-top line" ><img src="/img/iconos/LINEA.png" alt="" width="100%" height="10px"></div>
+<nav class="navbar container-fluid" id="nav">
     <div class="home">
-        <a class="navbar-brand" href="{{ url('/') }}"><span>Sí</span>clo</a>
+        <a class="navbar-brand " href="{{ url('/') }}"><img src="/img/iconos/HOME.png" alt="logo" width="35px" height="35px"></a>
+        <a class="navbar-brand hicon" href="{{ url('/') }}"><img src="/img/iconos/LOGO.png" alt="logo" width="100px" height="50px"></a>
     </div>
     <div class="dropdown account d-block d-lg-none">
         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -30,7 +32,7 @@
             <a href="{{ url('/book') }}">RESERVAR</a>
         </div>
     </div>
-    <div class="locations">
+   <!-- <div class="locations">
         <select name="" id="">
             <option value="">Colima</option>
         </select>
@@ -40,10 +42,10 @@
             <option value="">Zentralia</option>
             <option value="">Providencia</option>
         </select>
-    </div>
+    </div>-->
     @guest
     <div class="links">
-            <a href="{{ route('login') }}"><i class="far fa-user fa-2x" data-toggle="tooltip" data-placement="bottom" title="Ingresar"></i></a>
+            <a href="{{ route('login') }}"><img src="/img/iconos/USUARIO.png" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Ingresar"></a>
        <!-- @if (Route::has('register'))
             <a href="{{ route('register') }}">REGÍSTRATE</a>
             @endif
@@ -83,9 +85,7 @@
     @endauth
     <div class="hambBtn">
         <button id="hambBtn" class="hamburger hamburger--slider" type="button">
-            <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-            </span>
+            <img src="/img/iconos/CIRCULOS1.png" alt="tel" width="40px" height="15px">
         </button>
     </div>
 
@@ -111,10 +111,9 @@
 <div class="row">
     <div class="col-12">
         <div class="redes-fijas">
-            <a href="https://www.facebook.com/Siclomx" class="red " target="_blank"><i class="fab fa-facebook fa-2x"></i></a>
-            <a href="//apple.co/Siclo" class="red " target="_blank"><i class="fab fa-spotify fa-2x" ></i></a>
-            <a href="https://www.snapchat.com/add/yohagosiclo" class="red " target="_blank"><i class="fab fa-snapchat fa-2x"></i></a>
-            <a href="https://www.instagram.com/siclo/" class="red " target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
+            <a href="https://www.facebook.com/Siclomx" class="red " style="padding-bottom:1em" target="_blank"><img src="/img/iconos/FACEBOOK.png" width="50px" height="50px" alt=""></i></a>
+            <br>
+            <a href="https://www.instagram.com/siclo/" class="red " target="_blank"><img src="/img/iconos/INSTAGRAM.png" width="50px" height="50px" alt=""></i></a>
         </div>
     </div>
 </div>

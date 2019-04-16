@@ -1,3 +1,7 @@
+.main{
+    color: #6133AB;
+    font-family: 'AvenirNextLTPro Regular';
+}
 .select{
     color: black;
     margin-top: 8em;
@@ -17,7 +21,9 @@
     background-color: #5dd4dc;
 }
 #sel{
-   margin-top: 2em;
+    color:#efeeee;
+    text-align: center;
+    text-size-adjust: 90px;
 }
 #selection{
     text-align: center;
@@ -76,7 +82,8 @@
     align-items: center;
     justify-content: center;
     border-radius: 100%;
-    background: #eee;
+    border: 1px solid #FF0E3B;
+    background: none;
     color: #bababa;
     text-align: center;
     transition: .3s ease;
@@ -84,7 +91,7 @@
 }
 
 .bikes:hover{
-    background-color: #18c2cd;
+    background-color: #FF0E3B;
     color: white;
 }
 
@@ -96,7 +103,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 100%;
-    background: #18c2cd;
+    background: #FF0E3B;
     color: #bababa;
     text-align: center;
     transition: .3s ease;
@@ -104,17 +111,19 @@
 }
 
 .details{
-    color: black;
+    font-family: 'AvenirNextLTPro Regular';
+    color: #6133AB;
+    text-align: center;
     margin-top: 3em;
     margin-left: 15em;
     margin-right: 15em;
 }
 
 .first{
+    font-family: 'Gotham Thin';
+    color: #6133AB;
     margin-top: 2em;
     margin-left: 2em;
-    color: black;
     font-size: .8em;
     font-weight: bold;
-    font-family: 'Gotham Thin';
 }

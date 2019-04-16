@@ -1,12 +1,11 @@
 <div id="packages" class="packages container-fluid">
     <div class="description">
-        <h1>¡Compra tu pack de clases!!</h1>
-        <h3>Se parte de nuestra tribu.</h3>
+        <img src="/img/iconos/1.png" width="500px" height="70px" alt="">
     </div>
     <div class="row classes">
             <div class="content-normal col col-sm col-md col-lg">
             <div id="first-class" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('primera')">
-                <i class="fa fa-gift" aria-hidden="true"></i>
+                <img src="img/iconos/BICI.png" width="50px" height="70px" alt="">
                 <h6 id="amount1">PRIMERA</h6>
                 <h5>CLASE</h5>
                 <p class="precio">$100MN</p>
