@@ -20,11 +20,11 @@
                 </div>
                 {{-- Message Actual Week --}}
                 <div class="col-2">
-                    <input type="hidden" name="timezoneSet" value="{{date_default_timezone_set('America/Mexico_City')}}">
-                    {{-- TODO: Cambiar el Idioma del Mes a Español--}}
+                    <input type="hidden" name="timezoneSet" value="{{setlocale(LC_TIME,'es_MX.utf8')}}">
                     <input type="hidden" name="actualDay" value="{{$weekShown=now()}}">
+                    <input type="hidden" name="setMonth" value="{{$month=strftime('%B', strtotime($weekShown))}}">
                     <span class="weekShown">
-                        del {{date('d')}} al {{date('d', strtotime($weekShown->modify("+6 days")))}} de {{date('F')}}
+                        del {{date('d')}} al {{date('d', strtotime($weekShown->modify("+6 days")))}} de {{$month}}
                     </span>
                 </div>
                 {{-- Empty Section at the Middle of the NavBar --}}
@@ -34,8 +34,8 @@
                 </div>
                 {{-- Instructor Dropdown --}}
                 <div class="col-2">
-                    <div class="dropdown">
-                        <select class="dropdown" data-dependent="" role="button" id="ScheduleInstructor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onchange="scheduleByInstructor()">
+                    <div class="container-fluid">
+                        <select class="dropdown" id="ScheduleInstructor" onchange="scheduleByInstructor()">
                             <option value="allInstructors" selected="selected">Instructores</option>
                             @foreach ($instructors as $instructor)
                                 <option value="{{$instructor->name}}">{{$instructor->name}}</option>
@@ -48,17 +48,6 @@
                     <span class="weekShown">
                     </span>
                 </div>
-                {{-- Branch Dropdown --}}
-                {{-- <div class="col-4">
-                    <div class="dropdown">
-                        <select class="dropdown" data-dependent="" role="button" id="ScheduleBranch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <option value="allBranches">Sucursal</option>
-                            @foreach ($branches as $branch)
-                                <option value="{{$branch->name}}">{{$branch->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div> --}}
             </div>
 
                 {{-- Schedule Section --}}
@@ -68,30 +57,29 @@
                     <div class="row" name="dates">
                         @for ($i = 0; $i < 7; $i++)
                         <section class="col" id="scheduleDayColumn">
-                            <ul class="list-group list-group-horizontal-sm">
+                            <ul>
                                 <li class="scheduleDayText">
                                     <input type="hidden" name="langLocal" value="<?php setlocale(LC_TIME,'es_MX.utf8'); $dayNumber=strftime('%d', strtotime($today));?>">
                                     <input type="hidden" name="langLocal" value="<?php $dayName = strftime("%a", strtotime($today));?>">
                                 <span class="number"> {{$dayName}}.{{$dayNumber}}</span>
                                 </li>
+                                @foreach ($schedules as $schedule)
+                                    @if ($schedule->day == $today->format('Y-m-d'))
+                                    <section>
+                                        <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
+                                            <li class="scheduleItem" id="{{$schedule->instructor->name}}">
+                                                <p class="scheduleItemTextInstructor">
+                                                    {{$schedule->instructor->name}}
+                                                </p>
+                                                <p class="scheduleItemTextHour">
+                                                    {{ date('g:i A', strtotime($schedule->hour)) }}
+                                                </p>
+                                            </li>
+                                        </a>
+                                    </section>
+                                    @endif
+                                @endforeach
                             </ul>
-
-                        @foreach ($schedules as $schedule)
-                            @if ($schedule->day == $today->format('Y-m-d'))
-                                <section>
-                                    <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
-                                        <li class="scheduleItem" id="{{$schedule->instructor->name}}">
-                                            <p class="scheduleItemTextInstructor">
-                                                {{$schedule->instructor->name}}
-                                            </p>
-                                            <p class="scheduleItemTextHour">
-                                                {{ date('g:i A', strtotime($schedule->hour)) }}
-                                            </p>
-                                        </li>
-                                    </a>
-                                </section>
-                            @endif
-                        @endforeach
                     </section>
                     <input type="hidden" value="{{$today->modify('+1 day')}}">
                     @endfor
