@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Auth, Log;
 
-class UserController extends Controller
+class UserController extends Controller implements JWTSubject
 {
 
     /**
@@ -156,5 +156,13 @@ class UserController extends Controller
         $user->password = Hash::make($request->get('password'));
         $user->save();
         return redirect('user')->with('success', 'Data has been updated');
+    }
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

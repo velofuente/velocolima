@@ -58,3 +58,7 @@ Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::patch('user', 'UserController@updatePassword')->name('updatePassword');
+
+Route::get('/client', function(){
+    return view('client');
+})->middleware('auth');
