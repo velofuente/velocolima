@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 
-class UserController extends Controller
+class UserController extends Controller implements JWTSubject
 {
     /**
      * Display a listing of the resource.
@@ -144,5 +144,13 @@ class UserController extends Controller
         $user->password = Hash::make($request->get('password'));
         $user->save();
         return redirect('user')->with('success', 'Data has been updated');
+    }
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }
