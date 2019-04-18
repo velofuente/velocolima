@@ -79,6 +79,7 @@ html, body {
     font-weight: 200;
     height: 100vh;
     margin: 0;
+    padding: 0;
 }
 
 .full-height {
@@ -266,6 +267,15 @@ select:focus {outline:0;}
   transition: 0.5s;
 }
 
+@media screen and (max-width: 679px) {
+    .overlay-content {
+        position: relative;
+        top: 7%;
+        width: 7%;
+        left: 70%;
+    }
+}
+
 .overlay-content {
   position: relative;
   top: 9%;
@@ -318,9 +328,10 @@ select:focus {outline:0;}
 }
 
 .classes{
-    justify-content: center;
-    margin-left: 11em;
-    margin-right: 11em;
+    width: 100%;
+    margin: 30px auto 0;
+    text-align: center;
+    margin-bottom: 100px;
 }
 
 .content-normal{
@@ -330,27 +341,19 @@ select:focus {outline:0;}
 #content-normal{
     color: #FF0E3B;
     text-align: center;
-    border: solid .3px #ecebeb;
-    padding-top: 2.5em;
-    margin-left: 2.5em;
-    margin-top: 2em;
-    width: 60%;
-    height: 100%;
+    width: 168px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: .8%;
+    border: solid 1px #ecebeb;
+    overflow: hidden;
+    min-height: 250px;
     cursor: pointer;
 }
 #content-normal:hover{
     background: linear-gradient(0.25turn, #F70E0E, #9100FF);
     color: white;
     border: none;
-}
-
-#content-normal2{
-    position: absolute;
-    left: 0;
-    background: linear-gradient(0.25turn, #F70E0E, #9100FF);
-    width: 100%;
-    height: 100%;
-    padding: 0 3px;
 }
 
 .content-n .content-n2 {
@@ -364,17 +367,61 @@ select:focus {outline:0;}
     color: white;
     background: linear-gradient(0.25turn, #F70E0E, #9100FF);
     text-align: center;
-    border: none;
-    padding-top: 2.5em;
-    margin-left: 2.5em;
-    margin-top: 2em;
-    width: 60%;
-    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: .8%;
+    border: solid 1px #ecebeb;
+    overflow: hidden;
+    min-height: 250px;
     cursor: pointer;
 }
 
 #first-class:hover{
     color: #c4f0f2;
+}
+@media screen and (max-width: 679px){
+    .classes {
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 679px){
+    #first-class{
+        width: 130px;
+    }
+    #content-normal{
+        width: 130px;
+    }
+}
+@media screen and (max-width: 800px){
+    #first-class{
+        width: 150px;
+        margin-bottom: 5px;
+    }
+    #content-normal{
+        width: 150px;
+        margin-bottom: 5px;
+    }
+}
+@media screen and (max-width: 1200px){
+    #first-class{
+        width: 127px;
+        padding-top: 0;
+        padding-bottom: 26px;
+    }
+    #content-normal{
+        width: 127px;
+        padding-top: 0;
+        padding-bottom: 26px;
+    }
+}
+@media screen and (max-width: 1439px){
+    #first-class{
+        width: 150px;
+    }
+    #content-normal{
+        width: 150px;
+    }
 }
 
 .data{
