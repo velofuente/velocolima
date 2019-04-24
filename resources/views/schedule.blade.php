@@ -66,7 +66,7 @@
                             </li>
                             @foreach ($schedules as $schedule)
                                 @if ($schedule->day == $today->format('Y-m-d'))
-                                    {{-- If the Schedule Day == Actual Day of the Real Week then check for  --}}
+                                    {{-- If the Schedule Day == Actual (Real) Day of the Week then check the hour scheduled --}}
                                     @if ($schedule->day == $thisDay->format('Y-m-d'))
                                         @if ($schedule->hour < $today->format('H:i:s'))
                                             {{-- Disabled Boxes --}}
