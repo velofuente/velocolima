@@ -175,7 +175,7 @@ class OpenPayController extends Controller
     {
         return [
             env('OPENPAY_ID','default'),
-            env('OPENPAY_PRIVATE_KEY','default'),
+            env('OPENPAY_PUBLIC_KEY','default'),
         ];
     }
 }
