@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -15,7 +16,7 @@ class LoginController extends Controller
     {
         return  view('auth.login');
     }
-    public function login()
+    public function login(Request $request)
     {
         $credentials = $this->validate(request(),[
             'email' => 'email|required|string',
@@ -24,6 +25,7 @@ class LoginController extends Controller
         //return $credentials;
         if(Auth::attempt($credentials))
         {
+            app('App\Http\Controllers\UserController')->authenticate($request);
             return redirect()->route('user.index');
         }
 
