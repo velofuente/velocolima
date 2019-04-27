@@ -1,4 +1,3 @@
-{{--{{dd($user)}}--}}
 @extends('layout')
 @section('title')
     Usuario
