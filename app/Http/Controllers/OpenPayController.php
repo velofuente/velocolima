@@ -74,7 +74,7 @@ class OpenPayController extends Controller
 
         try{
             $customer = $openpay->customers->add($customerData);
-            app('App\Http\Controllers\UserController')->updateCostumerId($customer->id);
+            app('App\Http\Controllers\UserController')->updateCustomerId($customer->id);
             return json_encode($customer->id);
         }catch(Exception $e){
             return "No se pudo agregar el cliente: ".$e->getMessage();
