@@ -1,36 +1,88 @@
-.scheduleDayText{
-    padding: 2em;
-    padding-right: 3em;
-    padding-left: 3em;
-    font-size: 11px;
-    font-weight: bold;
-    list-style: none;
-    line-height: 21px;
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color: #F4F4F4;
+}
+
+
+#topNavBar{
+    background-color: #FFF;
+    border:1px solid #E9EDED;
+}
+
+#topNavBar > .col-4{
+    border-right: 1px solid #E9EDED;
+}
+
+select{
+    font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    color: #ffffff;
-    list-style: none;
+    text-align-last: center;
+    border: none;
+    background-color: #FFF;
+}
+
+.dropdown{
+    line-height: 43px;
+    width: 100%
+}
+
+.weekShown{
     text-align: center;
+    color: #B7B4B4;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+#calendar{
+    padding-left: 11%;
+    padding-right: 11%;
+}
+
+.scheduleDayText{
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #000;
+    list-style: none;
+}
+
+span.number{
+    display: inline;
+    font-weight: bold;
+    margin: 0px;
+    color: #000;
 }
 
 #scheduleDayColumn{
     padding: 0%;
 }
 
-p.number{
-    margin: 0px;
+.scheduleItemLink{
+    color: #140E0E;
+    background-color: #FFF;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.scheduleItemLink:hover
+{
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .scheduleItem{
-    color: #87dadf;
-    text-align: center;
-    margin-bottom: 6px;
+    background-color: #FFF;
+    margin-bottom: 5px;
     list-style: none;
-    background-color: #222222;
-    border: 2px solid #87dadf;
-    border-radius: 30px;
-    width: 100%;
-    cursor: auto;
+    border: 2px solid #f4f4f4;
+    width: 98%;
+    height: 100px;
+    transition: 0.2s;
 }
 
 .scheduleItem > a{
@@ -41,22 +93,19 @@ p.number{
     font-weight: bold;
 }
 .scheduleItem:hover{
-    color: #ffffff;
-    text-align: center;
-    margin-bottom: 6px;
-    list-style: none;
-    background-color: #87dadf;
-    border: 1px solid #87dadf;
-    border-radius: 30px;
+    background-color: #26C6CF;
 }
 
-.scheduleItemText{
-    margin-bottom: 0px;
+.scheduleItemTextInstructor{
+    margin-bottom: 1%;
     font-weight: bold;
+    font-size: 15px;
+    line-height: 45px;
 }
 
-select.dropdown{
-    border-radius: 100px;
+.scheduleItemTextHour{
+    font-size: 15px;
+    font-weight: normal;
 }
 
 .main{

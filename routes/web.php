@@ -19,7 +19,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes(['verify' => true]);
+
 Route::get('user', 'UserController@index')->name('user');
+
+Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -35,13 +39,17 @@ Route::get('/book', function(){
     return view('book');
 });
 
+Route::get('/who-are-we', function(){
+    return view('who-are-we');
+});
+
 Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
 
 Route::get('/first-visit', function (){
     return view('first-visit');
 });
 
-Auth::routes(['verify' => true]);
+
 
 Route::resource('user', 'UserController');
 

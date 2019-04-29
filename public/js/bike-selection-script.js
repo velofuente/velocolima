@@ -14,3 +14,11 @@ bikes.click(function() {
         $('#placeNum').html('--');
     }
 });
+
+document.getElementById('date').innerHTML = document.getElementById('date').innerHTML.toLocaleUpperCase();
+
+document.getElementById('branch').innerHTML = document.getElementById('branch').innerHTML.toLocaleUpperCase();
+
+$('#profilePic').click(function(){
+    document.location.href = "/instructors";
+});

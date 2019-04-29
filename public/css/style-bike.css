@@ -1,56 +1,120 @@
 .select{
-    color: white;
+    color: black;
     margin-top: 8em;
 }
+
 #goBack{
-    padding-left: 3em;
     color:white;
-    font-weight: bold;
     text-decoration: none;
-    padding-right: 2em;
-}
-#goBack:hover{
+    padding: .6em 5em .6em 5em;
+    background-color: #18c2cd;
     border-radius: 120px;
-    background-color: #87d9de;
+    margin: 0 1em 0 1em;
+    font-family: 'Gotham Thin';
+}
+
+#goBack:hover{
+    background-color: #5dd4dc;
+}
+#sel{
+   margin-top: 2em;
 }
 #selection{
     text-align: center;
+    font-family: 'Gotham Thin';
 }
+#selection > span{
+    color: #89e0e5;
+}
+
 #profilePic{
     border-radius: 120px;
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
+
+@media screen and (max-width: 1300px) {
+    .main-bikes{
+        margin: 2em 25% 0em 25%;
+    }
+}
+
+@media screen and (max-width: 969px) {
+    .main-bikes{
+        margin: 2em 15% 0em 15%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .main-bikes{
+        margin: 2em 4% 0em 4%;
+    }
+}
+
+@media screen and (min-width: 1301px) {
+    .main-bikes{
+        margin: 2em 35% 0em 35%;
+    }
+}
+
 .places{
     text-align: center;
-    color: white;
-    margin-top: 3em;
-    margin-right: 15em;
-    margin-left: 15em;
+    width: 47px;
+    height: 47px;
+    margin: 5px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-}
 .bikes{
-    border: solid #87d9de;
-    border-radius: 120px;
-    padding: 1em;
+    cursor: pointer;
+    width: 47px;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background: #eee;
+    color: #bababa;
+    text-align: center;
+    transition: .3s ease;
+    font-size: 12px;
 }
+
 .bikes:hover{
-    background-color: #ff8e69;
-}
-.selected{
-    border: solid #87d9de;
-    border-radius: 120px;
-    padding: 1em;
-    background-color: #87d9de;
-}
-.details{
+    background-color: #18c2cd;
     color: white;
+}
+
+.selected{
+    cursor: pointer;
+    width: 47px;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background: #18c2cd;
+    color: #bababa;
+    text-align: center;
+    transition: .3s ease;
+    font-size: 12px;
+}
+
+.details{
+    color: black;
     margin-top: 3em;
     margin-left: 15em;
     margin-right: 15em;
 }
+
 .first{
-    border-bottom: solid 1px #87d9de;
     margin-top: 2em;
+    margin-left: 2em;
+    color: black;
+    font-size: .8em;
+    font-weight: bold;
+    font-family: 'Gotham Thin';
 }

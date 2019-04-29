@@ -6,18 +6,30 @@ Reservar Bici
     <link rel="stylesheet" href="{{asset('css/style-bike.css')}}">
 @endsection
 @section('content')
-
+<?php
+use Carbon\Carbon;
+?>
     <div class="container-fluid">
         <div class="select">
-            <a href="/schedule"id="goBack">Regresar al calendario</a>
-            <h3 id="selection">SELECCIONA TU BICI</h3>
-                <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" width="100em" height="100em" alt="">
+            <a href="/schedule" id="goBack">Volver al calendario</a>
+                <div class="row">
+                    <div class="col">
+                        <h6 class="first">ESTUDIO: <span id="branch">{{$schedules->room->branch->name}}</span></h6>
+                        <?php setlocale(LC_TIME,'es_MX.utf8'); $dt = Carbon::now(); $inicio = strftime("%A %d de %B,", strtotime($schedules->day));?>
+                        <h6 class="first"> FECHA: <span id="date">{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i', strtotime($schedules->hour))}} </span></h6>
+                    </div>
+                    <div id="sel" class="col">
+                        <span id="selection">Selecciona tu bici y entra en el <span>S</span>iclo.</span>
+                        <span id="selection">¡Ponte a <span>rodar</span>! </span>
+                    </div>
+                </div>
+            <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" width="100em" height="100em" alt="">
         </div>
-        <div class="places">
+        <div class="main-bikes">
             <div class="row">
                 @for ($i = 1; $i <= $schedules->reservation_limit; $i++)
-                <div class="col">
-                        <p class="bikes">{{$i}}</p>
+                <div class="col places">
+                    <p class="bikes">{{$i}}</p>
                 </div>
                 @endfor
             </div>
@@ -28,23 +40,7 @@ Reservar Bici
             <div class="row">
                 <div class="col">
                     <div>
-                        <h5 class="first">UBICACIÓN</h5>
-                        <h5>{{$schedules->room->branch->name}}</h5>
-                    </div>
-                    <div>
-                        <h5 class="first">FECHA & HORA</h5>
-                        <h5><?php
-                            setlocale(LC_TIME, 'es_ES.utf8');
-                            //Carbon::now()->formatLocalized('%A %d %B %Y');
-                         ?>
-                         </h5>
-                        <h5>{{date('l', strtotime($schedules->day))}} {{date('d', strtotime($schedules->day))}} {{date('F', strtotime($schedules->day))}} {{date('Y', strtotime($schedules->day))}}</h5>
-                        <h5>{{date('h', strtotime($schedules->hour))}}:{{date('i', strtotime($schedules->hour))}}</h5>
-                    </div>
-                </div>
-                <div class="col">
-                    <div>
-                        <h5 class="first">INSTRUCTOR</h5>
+                        <h5 class="first" >INSTRUCTOR</h5>
                         <h5>{{$schedules->instructor->name}}</h5>
                     </div>
                     <div>
@@ -55,6 +51,8 @@ Reservar Bici
             </div>
         </div>
     </div>
+
+    @include('packages')
 @endsection
 @section('extraScripts')
     <script src="{{asset('js/bike-selection-script.js')}}"></script>

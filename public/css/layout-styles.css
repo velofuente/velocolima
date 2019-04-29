@@ -1,7 +1,7 @@
 html, body {
-    background-color: #222222;
-    color: #87d9de;
-    font-family: 'Nunito', sans-serif;
+    background-color: white;
+    color: #18c2cd;
+    font-family: 'gotham2';
     font-weight: 200;
     height: 100vh;
     margin: 0;
@@ -21,33 +21,82 @@ html, body {
     position: relative;
 }
 
+button:focus {outline:0;}
+
+input:focus {outline:0;}
+
+select:focus {outline:0;}
+
+
+/* header css */
 .top-right {
     position: absolute;
-    right: 10px;
+    right: 2em;
     top: 2em;
-}
-
-.content {
-    text-align: center;
-    padding-left: 0;
-    padding-right: 0;
-    margin-top: 6em;
 }
 
 .title {
     font-size: 84px;
 }
 
-.links > a{
-    color: #87d9de;
+.home{
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+    line-height: 39px;
+    padding-right: 10px;
+    z-index: 6;
+}
+
+.home >a{
+    color: black;
     padding: 0 25px;
+    font-size: 33px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    left: 0;
+}
+
+.home > a >span{
+    color: #18c2cd;
+}
+.locations{
+    position: absolute;
+    right: 29em;
+    border-left: 1.5px solid #e9eded;
+    padding: 1.6em 1em;
+}
+.branches{
+    position: absolute;
+    right: 18em;
+    border-left: 1.5px solid #e9eded;
+    padding: 1.6em 1em;
+}
+.locations > select, .branches > select{
+    background: #fff!important;
+    border-radius: 0!important;
+    text-transform: uppercase!important;
+    color: black;
+    font-family: 'Gotham Thin';
+}
+
+.links{
+    position: absolute;
+    right: 6em;
+    border-right: 1.5px solid #e9eded;
+    border-left: 1.5px solid #e9eded;
+    padding: 1.5em 1em;
+}
+.links > a{
+    color: black;
+    padding: 0 15px;
     font-size: 13px;
     font-weight: 600;
     letter-spacing: .1rem;
     text-decoration: none;
     text-transform: uppercase;
     margin-bottom: 1em;
-    vertical-align: .325em;
 }
 
 .account{
@@ -66,6 +115,7 @@ html, body {
     text-transform: uppercase;
     margin-bottom: 1em;
 }
+
 .account2 > a{
     color: #87d9de;
     padding: 0 25px;
@@ -75,16 +125,6 @@ html, body {
     text-decoration: none;
     text-transform: uppercase;
     margin-bottom: 1em;
-}
-.home >a{
-    color: #87d9de;
-    padding: 0 25px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: .1rem;
-    text-decoration: none;
-    text-transform: uppercase;
-    vertical-align: .325em;
 }
 
 .m-b-md {
@@ -98,7 +138,9 @@ html, body {
 }
 
 .navbar{
-    background-color: #222222;
+    background-color: white;
+    border-top: 16px solid #18c2cd;
+    border-bottom: 1px solid #e9eded;
     position: fixed;
     z-index: 2;
     top: 0;
@@ -106,48 +148,147 @@ html, body {
     height: 6em;
 }
 
+.redes-fijas {
+    text-align: left;
+    padding-left: 10px;
+    position: fixed;
+    right: 2%;
+    top: 24%;
+    z-index: 1;
+    color: black;
+    width: 60px;
+}
+
+.redes-fijas > a{
+    text-decoration: none;
+    color: black;
+    height: 30px;
+    width: 30px;
+}
+
+.redes-fijas > a:hover{
+    color: #808080;
+}
+
+.hambBtn{
+    z-index: 4;
+}
+/*overlay css */
+.overlay {
+  height: 0%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 2%;
+  left: 0;
+  background-color: white;
+  overflow-y: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  top: 10%;
+  width: 20%;
+  left: 75%;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 42px;
+  color: black;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #5dd4dc;
+  padding-left: 1em;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay {overflow-y: auto;}
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
+}
+/* body css */
+.content {
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 6em;
+}
+
 .packages{
     padding-top: 3em;
     padding-left: 2em;
+    margin-top: 6em;
+}
+
+.description{
+    color:#efeeee;
+    text-align: center;
+    text-size-adjust: 90px;
 }
 
 .classes{
     justify-content: center;
+    margin-left: 11em;
+    margin-right: 11em;
 }
 
 .content-normal{
-    color: #ffffff;
     margin-top: 2em;
 }
 
 #content-normal{
+    color: black;
     text-align: center;
-    border: solid #87d9de;
-    border-radius: 120px;
+    border: solid .5px #ecebeb;
     padding-top: 2.5em;
     margin-left: 2.5em;
     margin-top: 2em;
     width: 60%;
     height: 100%;
+    cursor: pointer;
 }
 
-#content-special{
+#content-normal2{
+    position: absolute;
+    left: 0;
+    background-color: #18c2cd;
+    width: 100%;
+    height: 100%;
+    padding: 0 3px;
+}
+
+.content-n .content-n2 {
+    opacity: 1;
+    top: 100%;
+    transition: .2s ease;
+    pointer-events: none;
+}
+
+#first-class{
+    color: white;
+    background-color: #3accd5;
     text-align: center;
-    border: solid #ff8e69;
-    border-radius: 120px;
+    border: solid .5px #ecebeb;
     padding-top: 2.5em;
     margin-left: 2.5em;
     margin-top: 2em;
     width: 60%;
     height: 100%;
+    cursor: pointer;
 }
 
-#content-normal:hover{
-    background-color: #87d9de;
-}
-
-#content-special:hover{
-    background-color: #ff8e69;
+#first-class:hover{
+    color: #c4f0f2;
 }
 
 .data{
@@ -169,10 +310,61 @@ html, body {
     text-decoration: none;
 }
 
+/* footer css */
+@font-face{
+    font-family: "Gotham Bold";
+    src: url("fonts/GothamBold.ttf");
+    src: url("fonts/Gotham-Bold.otf")format("opentype");
+}
+@font-face{
+    font-family: "Gotham Thin";
+    src: url("fonts/Gotham-Thin.otf")format("opentype");
+}
 .info-footer{
-    color: white;
+    font-family: 'Gotham Bold';
+    color: black;
     margin-top: 9em;
     text-align: center;
+}
+.form{
+    margin-top: 3em;
+    margin-left: 11em;
+    margin-right: 11em;
+    width: 100%;
+}
+#prospectPosition{
+    background: #fff!important;
+    border-bottom: 1px solid #eee!important;
+    border-radius: 0!important;
+    text-transform: uppercase!important;
+    color: gray;
+}
+/* For IE10 */
+select::-ms-expand{
+    display: none;
+}
+/* For Chrome and Firefox */
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+}
+
+.prospectText{
+    border-width: 0px 0px 1px 0px;
+    width: 100%;
+}
+
+.prospectBtn{
+    color: #fff!important;
+    width: 43px;
+    line-height: 46px;
+    background-color: #000!important;
+    border: 0;
+    -webkit-appearance: button;
+    cursor: pointer;
+    font-family: Verdana,Helvetica;
 }
 
 .register{
