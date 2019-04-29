@@ -14,6 +14,7 @@ class OpenPayController extends Controller
     }
     public function addCustomerCard(Request $request)
     {
+        log::info($request->all());
         $openpay = self::openPay();
 
         $cardDataRequest = [
@@ -64,7 +65,6 @@ class OpenPayController extends Controller
     public function addCustomer(Request $request)
     {
         $openpay = self::openPay();
-        //Log::info($request->all());
         $customerData = [
 	        'name' => $request->name,
 	        'last_name' => $request->last_name,
@@ -169,6 +169,39 @@ class OpenPayController extends Controller
         try{
             $fee = $openpay->fees->create($feeData);
             return $fee;
+        }catch(OpenpayApiTransactionError $e){
+            switch ($e->getErrorCode()) {
+                case 3001:
+                    return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                    break;
+                case 3002:
+                    return "La tarjeta ha expirado.";
+                    break;
+                case 3003:
+                    return "La tarjeta no tiene fondos suficientes.";
+                    break;
+                case 3006:
+                    return "La operación no esta permitida para este cliente o esta transacción. Contacta a tu banco.";
+                    break;
+                case 3007:
+                    return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                    break;
+                case 3008:
+                    return "La tarjeta no es soportada en transacciones en línea. Contacta a tu banco.";
+                    break;
+                case 3010:
+                    return "El banco ha restringido la tarjeta. Contacta a tu banco.";
+                    break;
+                case 3012:
+                    return "Se requiere solicitar al banco autorización para realizar este pago. Contacta a tu banco.";
+                    break;
+                default:
+                    return "Tarjeta no válida. Contacta a tu banco.";
+            }
+        }catch(OpenpayApiRequestError $e){
+            return "Tarjeta no válida. Contacta a tu banco.";
+        }catch(Exception $e){
+            return "No se pudo agregar la tarjeta, inténtalo nuevamente.";
         }
     }
     public function getApiKeyAndSessionId()

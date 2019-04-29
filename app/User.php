@@ -19,7 +19,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'last_name', 'email', 'password', 'birth_date', 'phone', 'weight', 'height', 'gender', 'shoe_size', 'id_role', 'id_cart', 'share_code'
+        'name', 'last_name', 'email', 'password', 'birth_date', 'phone', 'weight', 'height', 'gender', 'shoe_size', 'id_role', 'id_cart', 'share_code','customer_id',
     ];
 
     /**
@@ -39,4 +39,9 @@ class User extends Authenticatable implements JWTSubject
         {
             return [];
         }
+
+    public function verifyUser()
+    {
+        return $this->hasOne('App\VerifyUser');
+    }
 }
