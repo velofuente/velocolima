@@ -5,7 +5,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Auth, Log;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Auth, Log, JWTAuth;
 
 class UserController extends Controller
 {
@@ -194,7 +195,7 @@ class UserController extends Controller
 
         return response()->json(compact('user'));
     }
-    public function updateCostumerId(string $id_costumer)
+    public function updateCustomerId(string $id_costumer)
     {
         $user = User::find(self::getAuthenticatedUser()->getData()->user->id);
         $user->costumer_id = $id_costumer;
