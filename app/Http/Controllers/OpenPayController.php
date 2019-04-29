@@ -15,6 +15,10 @@ class OpenPayController extends Controller
     public function addCustomerCard(Request $request)
     {
         log::info($request->all());
+        $customer_data = app('App\Http\Controllers\UserController')->getAuthenticatedUser()->getData()->user;
+        if($customer_data->customer_id == null){
+            self::addCustomer($customer_data);
+        }
         $openpay = self::openPay();
 
         $cardDataRequest = [
