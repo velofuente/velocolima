@@ -16,3 +16,15 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('register', 'UserController@store');
+Route::post('login', 'UserController@authenticate');
+Route::get('open', 'DataController@open');
+Route::post('addCard','OpenPayController@addCustomerCard');
+Route::post('addClient', 'OpenPayController@addCustomer');
+Route::post('getClient', 'OpenPayController@getCustomer');
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('user', 'UserController@getAuthenticatedUser');
+    Route::get('closed', 'DataController@closed');
+});

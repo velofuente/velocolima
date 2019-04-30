@@ -5,7 +5,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Auth, Log;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Auth, Log, JWTAuth;
 
 class UserController extends Controller
 {
@@ -38,7 +39,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
 
         $this->validate($request, [
             'name' => ['required', 'string', 'max:60'],
@@ -72,9 +72,9 @@ class UserController extends Controller
             'weight' => $request->get('weight'),
             'height' => $request->get('height'),
             'gender' => $request->get('gender'),
-            'share_code' => $share_code
+            'share_code' => $share_code,
+            'customer_id' => null,
         ]);
-        //dd($user);
         $user->save();
         Auth::login($user);
         Log::info("Entra pre Mail Send");
@@ -156,5 +156,49 @@ class UserController extends Controller
         $user->password = Hash::make($request->get('password'));
         $user->save();
         return redirect('user')->with('success', 'Data has been updated');
+    }
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        try {
+            if (! $token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'invalid_credentials'], 400);
+            }
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'could_not_create_token'], 500);
+        }
+
+        return response()->json(compact('token'));
+    }
+    public function getAuthenticatedUser()
+    {
+        try {
+
+            if (! $user = JWTAuth::parseToken()->authenticate()) {
+                return response()->json(['user_not_found'], 404);
+            }
+
+        } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+
+            return response()->json(['token_expired'], $e->getStatusCode());
+
+        } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+
+            return response()->json(['token_invalid'], $e->getStatusCode());
+
+        } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+
+            return response()->json(['token_absent'], $e->getStatusCode());
+
+        }
+
+        return response()->json(compact('user'));
+    }
+    public function updateCustomerId(string $id_costumer)
+    {
+        $user = User::find(self::getAuthenticatedUser()->getData()->user->id);
+        $user->costumer_id = $id_costumer;
+        $user->save();
     }
 }
