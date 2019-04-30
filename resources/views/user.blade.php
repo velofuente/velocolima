@@ -163,6 +163,7 @@
             var sucess_callbak = function(response) {
                 var token_id = response.data.id;
                 $('#token_id').val(token_id);
+                // Submit Form
                 // $('#add-card-form').submit();
                 console.log('deviceSessionId: ',deviceSessionId);
                 console.log('token_id: ', token_id);
@@ -174,27 +175,25 @@
                 alert("ERROR [" + response.status + "] " + desc);
                 $("#add-card-button").prop("disabled", false);
             };
+
+            function addCard(){
+                console.log('si entro');
+                $.ajax({
+                    url: "http://192.168.1.200/api/addCard",
+                    method: 'post',
+                    data: {
+                        // token_id: token_id,
+                        // device_session_id: deviceSessionId,
+                        // customer_id: 'asdf'
+                    },
+                    success: function(result){
+                    console.log(result);
+                    }
+                });
+            };
         });
     </script>
     <script>
-        function addCard(){
-            console.log("si entró");
-            $.ajax({
-                url: "http://192.168.1.200/api/addCard",
-                method: 'post',
-                data: {
-                    token_id: token_id,
-                    device_session_id: deviceSessionId,
-                    customer_id: 'asdf'
-                },
-                success: function(result){
-                console.log(result);
-                // console.log(token_id);
-                // console.log(deviceSessionId);
-                // console.log(customer_id);
-                }
-            });
-        };
     </script>
 @endsection
 
