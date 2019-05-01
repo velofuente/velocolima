@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Exception;
 use Openpay, Log, Config, Auth, DB;
+use function GuzzleHttp\json_encode;
 
 class OpenPayController extends Controller
 {
@@ -34,8 +35,8 @@ class OpenPayController extends Controller
         }
         else{
             //TODO: Validar si existe la tarjeta en mi base de datos con los datos obtenidos de getCardToken
-            $existsCard = DB::table('users')->select('{$cardData->card->card_number}','{$cardData->brand}')->get();
-            if (isset($existsCard)) {
+            $existsCard = DB::table('cards')->where('card_number', '=', "{$cardData->card->card_number}")->get();
+            if (!isset($existsCard)) {
                 return "La trjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
             }
             else{

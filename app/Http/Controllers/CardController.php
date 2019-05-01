@@ -13,17 +13,16 @@ class CardController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($card)
     {
         $card = new Card([
-            'token_id' => $request->get('token_id'),
-            'brand' => $request->get('brand'),
-            'card_number' => $request->get('card_number'),
-            'holder_name' => $request->get('holder_name'),
-            'expiration_year' => $request->get('expiration_year'),
-            'expiration_moth' => $request->get('expiration_moth'),
-            'bank_name' => $request->get('bank_name'),
-            'selected' => $request->get('selected'),
+            'token_id' => $card->id,
+            'card_number' => $card->card->card_number,
+            'holder_name' => $card->card->holder_name,
+            'expiration_year' => $card->card->expiration_year,
+            'expiration_moth' => $card->card->expiration_month,
+            'brand' => $card->card->brand,
+            'selected' => true,
         ]);
         $card->save();
     }
