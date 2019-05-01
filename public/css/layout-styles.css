@@ -335,13 +335,14 @@ select:focus {outline:0;}
 }
 
 .content-normal{
-    margin-top: 2em;
+    margin: 2em 0 0 0;
 }
 
 #content-normal{
+    font-family: 'AvenirNextLTPro UltLtCn';
     color: #FF0E3B;
     text-align: center;
-    width: 168px;
+    width: 188px;
     display: inline-block;
     vertical-align: top;
     margin-right: .8%;
@@ -350,18 +351,30 @@ select:focus {outline:0;}
     min-height: 250px;
     cursor: pointer;
 }
+
 #content-normal:hover{
     background: linear-gradient(0.25turn, #F70E0E, #9100FF);
     color: white;
     border: none;
 }
 
-.content-n .content-n2 {
+#amount2, #amount3, #amount4, #amount5, #amount6{
+    font-size: 7em;
+    padding: .3em 0 0 0;
+}
+
+.class, .exp{
+    color: white;
+    padding: 0 0 0 0;
+}
+
+
+/*.content-n .content-n2 {
     opacity: 1;
     top: 100%;
     transition: .2s ease;
     pointer-events: none;
-}
+}*/
 
 #first-class{
     color: white;
@@ -407,12 +420,12 @@ select:focus {outline:0;}
     #first-class{
         width: 127px;
         padding-top: 0;
-        padding-bottom: 26px;
+        padding-bottom: 20px;
     }
     #content-normal{
         width: 127px;
         padding-top: 0;
-        padding-bottom: 26px;
+        padding-bottom: 20px;
     }
 }
 @media screen and (max-width: 1439px){
