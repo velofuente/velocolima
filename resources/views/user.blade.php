@@ -99,7 +99,9 @@
                                 </div>
                                 {{-- Form Add Card --}}
                                 <form method="post" id="add-card-form">
+                                    @csrf
                                     <input type="hidden" name="token_id" id="token_id">
+                                    <input type="hidden" name="deviceSessionId" id="deviceSessionId">
                                     <div class="col-7">
                                         <div class="data">
                                             <img id="visa" src="/img/visa.png" alt="visa" width="83px" height="40px">
@@ -138,12 +140,9 @@
         </div>
     </div>
 
-    <script type="text/javascript"
-    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript"
-    src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
-    <script type='text/javascript'
-    src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
+    <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
 
     <script type="text/javascript">
         var deviceSessionId = null;
@@ -166,11 +165,12 @@
 
             var sucess_callbak = function(response) {
                 tokenId = response.data.id;
+
                 // Submit Form
                 // $('#add-card-form').submit();
                 console.log('deviceSessionId: ', deviceSessionId);
                 console.log('token_id: ', tokenId);
-                addCard();
+                // addCard();
             };
 
             var error_callbak = function(response) {
@@ -188,7 +188,7 @@
                         _token: crfsToken,
                         token_id: tokenId,
                         deviceSessionId: deviceSessionId,
-                        customer_id: 'asdasd'
+                        customer_id: '',
                     },
                     success: function(result){
                     console.log(result);
@@ -196,8 +196,6 @@
                 });
             };
         });
-    </script>
-    <script>
     </script>
 @endsection
 
