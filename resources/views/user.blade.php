@@ -17,7 +17,7 @@
                     <div id="clases" class="text-center">
                         <div class="classesButton">
                             <h1 class="text-dark">0</h1>
-                                <span class="font-weight-bold">Classes</span><br>
+                                <span class="font-weight-bold">Clases</span><br>
                                 <small class="text-secondary font-weight-bold">* Clases disponibles en tu cuenta</small>
                         </div>
                         <a href="{{ url('/#packages') }}" class="btn text-white mb-4" style="background-color: #26C6CF" role="button">COMPRAR CLASES</a>
@@ -31,7 +31,6 @@
                                 @method('PATCH')
                                 @csrf
                                 <div class="d-block">
-                                    {{--<input type="hidden" value="{{ Auth::user()->id }}">--}}
                                     <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto" name="name" value="{{ Auth::user()->name }}">
                                     <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto" name="last_name" value="{{ Auth::user()->last_name }}">
                                     <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto" name="phone" value="{{ Auth::user()->phone }}">
@@ -98,37 +97,105 @@
                                 <div class="col-5">
                                     <p id="oName">{{ Auth::user()->name }} {{ Auth::user()->last_name}}</p>
                                 </div>
-                                <div class="col-7">
-                                    <div class="data">
-                                        <img id="visa" src="/img/visa.png" alt="visa" width="83px" height="40px">
-                                        <img src="/img/mastercard.png" alt="mastercard" width="83px" height="40px">
-                                        <img src="/img/express.png" alt="express" width="85px" height="50px">
+                                {{-- Form Add Card --}}
+                                <form method="post" id="add-card-form">
+                                    <input type="hidden" name="token_id" id="token_id">
+                                    <div class="col-7">
+                                        <div class="data">
+                                            <img id="visa" src="/img/visa.png" alt="visa" width="83px" height="40px">
+                                            <img src="/img/mastercard.png" alt="mastercard" width="83px" height="40px">
+                                            <img src="/img/express.png" alt="express" width="85px" height="50px">
+                                        </div>
+                                        <input class="data" type="text" id="cardOwner" placeholder="Nombre del tarjetahabiente" value="Juan Perez Ramirez" data-openpay-card="holder_name">
+                                        <input class="data" type="text" id="cardNumber" placeholder="Número de la tarjeta" value="4111111111111111" data-openpay-card="card_number">
+
+                                        {{-- <select class="data" name="" id="monthExpiration" value="12" data-openpay-card="expiration_month">
+                                            @for ($i = 1; $i <= 12; $i++)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+                                        </select> --}}
+                                        <input class="data" type="text" id="monthExpiration" placeholder="Mes de Expiración" value="12" data-openpay-card="expiration_month">
+
+                                        {{-- <select class="data" name="" id="yearExpiration" value="20" data-openpay-card="expiration_year">
+                                            @for ($i = 0; $i <= 10; $i++)
+                                                <option value="{{ now()->format('Y') }}">{{ now()->modify('+'. $i .' year')->format('Y') }}</option>
+                                            @endfor
+                                        </select> --}}
+                                        <input class="data" type="text" id="yearExpiration" placeholder="Año de Expiración" value="20" data-openpay-card="expiration_year">
+                                        <input class="data" type="text" name="" id="cvv" placeholder="CVV" value="110" data-openpay-card="cvv2">
                                     </div>
-                                    <input class="data" type="text" name="" id="cOwner" placeholder="Nombre del tarjetahabiente">
-                                    <input class="data" type="text" name="" id="cNumber" placeholder="Número de la tarjeta">
-                                    <select class="data" name="" id="monthExpiration">
-                                        @for ($i = 1; $i <= 12; $i++)
-                                            <option value="{{ $i }}">{{ $i }}</option>
-                                        @endfor
-                                    </select>
-                                    <select class="data" name="" id="yearExpiration">
-                                        @for ($i = 0; $i <= 10; $i++)
-                                            <option value="{{ now()->format('Y') }}">{{ now()->modify('+'. $i .' year')->format('Y') }}</option>
-                                        @endfor
-                                    </select>
-                                    <input class="data" type="text" name="" id="Code" placeholder="CVV">
-                                </div>
+                                </form>
+                                {{-- End Form Add Card --}}
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-dark">Agregar</button>
+                            <button type="button" class="btn btn-dark" id="add-card-button">Agregar</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript"
+    src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
+    <script type='text/javascript'
+    src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            OpenPay.setId('mwykro9vagcgwumpqaxb');
+            OpenPay.setApiKey('pk_d72eec48f13042949140a7873ee1b3c2');
+            OpenPay.setSandboxMode(true);
+            //Se genera el id de dispositivo
+            var deviceSessionId = OpenPay.deviceData.setup("add-card-form", "deviceIdHiddenFieldName");
+
+            $('#add-card-button').on('click', function(event) {
+                event.preventDefault();
+                $("#add-card-button").prop( "disabled", true);
+                OpenPay.token.extractFormAndCreate('add-card-form', sucess_callbak, error_callbak);
+                console.log(OpenPay);
+            });
+
+            var sucess_callbak = function(response) {
+                var token_id = response.data.id;
+                $('#token_id').val(token_id);
+                // Submit Form
+                // $('#add-card-form').submit();
+                console.log('deviceSessionId: ',deviceSessionId);
+                console.log('token_id: ', token_id);
+                addCard();
+            };
+
+            var error_callbak = function(response) {
+                var desc = response.data.description != undefined ? response.data.description : response.message;
+                alert("ERROR [" + response.status + "] " + desc);
+                $("#add-card-button").prop("disabled", false);
+            };
+
+            function addCard(){
+                console.log('si entro');
+                $.ajax({
+                    url: "http://192.168.1.200/api/addCard",
+                    method: 'post',
+                    data: {
+                        // token_id: token_id,
+                        // device_session_id: deviceSessionId,
+                        // customer_id: 'asdf'
+                    },
+                    success: function(result){
+                    console.log(result);
+                    }
+                });
+            };
+        });
+    </script>
+    <script>
+    </script>
 @endsection
+
 @section('extraScripts')
 @endsection
