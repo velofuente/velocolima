@@ -146,8 +146,9 @@
 
     <script type="text/javascript">
         var deviceSessionId = null;
-        var tokenId = null;
-        var crfsToken = "{{ csrf_token() }}";
+        var token_id = null;
+        var crfsToken = '{{ csrf_token() }}';
+
         $(document).ready(function() {
             OpenPay.setId('mwykro9vagcgwumpqaxb');
             OpenPay.setApiKey('pk_d72eec48f13042949140a7873ee1b3c2');
@@ -164,13 +165,11 @@
             });
 
             var sucess_callbak = function(response) {
-                tokenId = response.data.id;
-
+                token_id = response.data.id;
+                $('#token_id').val(token_id);
                 // Submit Form
                 // $('#add-card-form').submit();
-                console.log('deviceSessionId: ', deviceSessionId);
-                console.log('token_id: ', tokenId);
-                // addCard();
+                addCard();
             };
 
             var error_callbak = function(response) {
@@ -179,6 +178,10 @@
                 $("#add-card-button").prop("disabled", false);
             };
 
+            $.get("App/Http/Controllers/Auth/LoginController.php", function(data, status){
+                alert("Token:" + data + "\nStatus" + status);
+            });
+
             function addCard(){
                 console.log('si entro');
                 $.ajax({
@@ -186,14 +189,17 @@
                     method: 'post',
                     data: {
                         _token: crfsToken,
-                        token_id: tokenId,
-                        deviceSessionId: deviceSessionId,
-                        customer_id: '',
+                        token_id: token_id, //$('#token_id').val(),
+                        deviceSessionId: deviceSessionId, //$('#deviceSessionId').val(),
+                        customer_id: 'asdasd'
                     },
                     success: function(result){
-                    console.log(result);
+                        console.log(result);
                     }
                 });
+                console.log('token_id: ', token_id);
+                console.log('deviceSessionId: ', deviceSessionId);
+                console.log('Token CRSF: ', crfsToken);
             };
         });
     </script>

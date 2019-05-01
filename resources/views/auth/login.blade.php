@@ -15,7 +15,6 @@
             <div class="col-md-8">
                 <div>
                     <h3 class="mx-auto">Login</h3>
-
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
