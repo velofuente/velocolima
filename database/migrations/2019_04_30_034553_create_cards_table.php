@@ -16,12 +16,11 @@ class CreateCardsTable extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('token_id');
-            $table->string('brand');
             $table->integer('card_number');
             $table->string('holder_name');
             $table->integer('expiration_year');
             $table->integer('expiration_moth');
-            $table->string('bank_name');
+            $table->string('brand');
             $table->boolean('selected');
             $table->timestamps();
         });

@@ -29,59 +29,61 @@ class OpenPayController extends Controller
         }
         //Obtener el usuaro de OpenPay
         $cardData = $this->getCardToken($request->token_id);
-        // return json_encode($cardData);
         if (!isset($cardData->card)) {
-            return "ño ".json_encode($cardData);
+            return "No se encontró la tarjeta ingrasada, pruebe de nuevo ".json_encode($cardData);
         }
-        //TODO: Validar si existe la tarjeta en mi base de datos con los datos obtenidos de getCardToken
-        //$existsCard = Cards::where("card_number", $cardData->card->card_number)........->get
-        // $existsCard = true;
-        // if ($existsCard) {
-        //     //TODO: Implementar lógica
-        // }
-        $cardDataRequest = [
-            'token_id' => $cardData->id,
-            'device_session_id' => $request->device_session_id
-        ];
-        // $customer = $openpay->customers->get($openPayCustomer->id);
-
-        try{
-            $card = $openPayCustomer->cards->add($cardDataRequest);
-            return json_encode($card);
-            return $card; //TODO: preguntar cómo agregar la tarjeta a la base de datos
-        }catch(OpenpayApiTransactionError $e){
-            switch ($e->getErrorCode()) {
-                case 3001:
-                    return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
-                    break;
-                case 3002:
-                    return "La tarjeta ha expirado.";
-                    break;
-                case 3003:
-                    return "La tarjeta no tiene fondos suficientes.";
-                    break;
-                case 3006:
-                    return "La operación no esta permitida para este cliente o esta transacción. Contacta a tu banco.";
-                    break;
-                case 3007:
-                    return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
-                    break;
-                case 3008:
-                    return "La tarjeta no es soportada en transacciones en línea. Contacta a tu banco.";
-                    break;
-                case 3010:
-                    return "El banco ha restringido la tarjeta. Contacta a tu banco.";
-                    break;
-                case 3012:
-                    return "Se requiere solicitar al banco autorización para realizar este pago. Contacta a tu banco.";
-                    break;
-                default:
-                    return "Tarjeta no válida. Contacta a tu banco.";
+        else{
+            //TODO: Validar si existe la tarjeta en mi base de datos con los datos obtenidos de getCardToken
+            $existsCard = DB::table('users')->select('{$cardData->card->card_number}','{$cardData->brand}')->get();
+            if (isset($existsCard)) {
+                return "La trjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
             }
-        }catch(OpenpayApiRequestError $e){
-            return "Tarjeta no válida. Contacta a tu banco.";
-        }catch(Exception $e){
-            return "No se pudo agregar la tarjeta, inténtalo nuevamente.";
+            else{
+                app('App\Http\Controllers\CardController')->store($cardData);
+                $cardDataRequest = [
+                    'token_id' => $cardData->id,
+                    'device_session_id' => $request->device_session_id
+                ];
+
+                try{
+                    $card = $openPayCustomer->cards->add($cardDataRequest);
+                    return json_encode($card);
+                    return $card;
+                }catch(OpenpayApiTransactionError $e){
+                    switch ($e->getErrorCode()) {
+                        case 3001:
+                            return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                            break;
+                        case 3002:
+                            return "La tarjeta ha expirado.";
+                            break;
+                        case 3003:
+                            return "La tarjeta no tiene fondos suficientes.";
+                            break;
+                        case 3006:
+                            return "La operación no esta permitida para este cliente o esta transacción. Contacta a tu banco.";
+                            break;
+                        case 3007:
+                            return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                            break;
+                        case 3008:
+                            return "La tarjeta no es soportada en transacciones en línea. Contacta a tu banco.";
+                            break;
+                        case 3010:
+                            return "El banco ha restringido la tarjeta. Contacta a tu banco.";
+                            break;
+                        case 3012:
+                            return "Se requiere solicitar al banco autorización para realizar este pago. Contacta a tu banco.";
+                            break;
+                        default:
+                            return "Tarjeta no válida. Contacta a tu banco.";
+                    }
+                }catch(OpenpayApiRequestError $e){
+                    return "Tarjeta no válida. Contacta a tu banco.";
+                }catch(Exception $e){
+                    return "No se pudo agregar la tarjeta, inténtalo nuevamente.";
+                }
+            }
         }
     }
 
@@ -115,7 +117,6 @@ class OpenPayController extends Controller
     public function getCustomer(Request $request)
     {
         $openpay = self::openPay();
-        //Log::info($request->all());
         try{
             $customer = $openpay->customers->get($request->customer_id);
             return response()->json($customer->serializableData);
@@ -146,9 +147,7 @@ class OpenPayController extends Controller
     {
         $openpay = self::openPay();
 
-        /*
-            obtener la tarjeta seleccionada
-        */
+        //obtener la tarjeta seleccionada
 
         $customer = $openpay->customers->get($request->customer_id);
 
