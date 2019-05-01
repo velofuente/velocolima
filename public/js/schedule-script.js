@@ -1,4 +1,19 @@
+function scheduleByInstructor() {
+  var selectInstructor = document.getElementById("ScheduleInstructor").value;
+  var scheduleBox = document.getElementsByClassName("scheduleItem");
 
-//$('.scheduleItem').click(function(){
-  //  window.location.href='/bike-selection/{{$schedule->id}}';
-//});
+  if (selectInstructor == "allInstructors"){
+      for (let item of scheduleBox){
+          item.style.display = 'block';
+      }
+  } else {
+      for (let item of scheduleBox){
+          if (selectInstructor === item.id){
+              item.style.display = 'block';
+          }
+          else {
+              item.style.display = 'none';
+          }
+      }
+  }
+}
