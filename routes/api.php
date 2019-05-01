@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\OpenPayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,5 @@ Route::post('deleteClient', 'OpenPayController@deleteCustomer');
 Route::group(['middleware' => ['jwt.verify', 'cors']], function() {
     Route::post('addCard','OpenPayController@addCustomerCard');
     Route::get('user', 'UserController@getAuthenticatedUser');
+    Route::post('makeCharge', 'OpenPayController@makeChargeCustomer');
 });

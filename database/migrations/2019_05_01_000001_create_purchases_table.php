@@ -21,6 +21,9 @@ class CreatePurchasesTable extends Migration
             //Foreign Key from Purchase to Cards
             $table->unsignedInteger('card_id');
             $table->foreign('card_id')->references('id')->on('cards');
+            //Foreign Key from Purchase to Users
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
