@@ -169,11 +169,12 @@
 
             var sucess_callbak = function(response) {
                 tokenId = response.data.id;
+
                 // Submit Form
                 // $('#add-card-form').submit();
                 console.log('deviceSessionId: ', deviceSessionId);
                 console.log('token_id: ', tokenId);
-                addCard();
+                // addCard();
             };
 
             var error_callbak = function(response) {
@@ -195,7 +196,7 @@
                         _token: crfsToken,
                         token_id: tokenId,
                         deviceSessionId: deviceSessionId,
-                        customer_id: 'asdasd'
+                        customer_id: '',
                     },
                     success: function(result){
                         console.log(result);
