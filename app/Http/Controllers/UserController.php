@@ -16,8 +16,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // return $request->user();
         return view('user');
     }
 
@@ -194,11 +195,5 @@ class UserController extends Controller
         }
 
         return response()->json(compact('user'));
-    }
-    public function updateCustomerId(string $id_costumer)
-    {
-        $user = User::find(self::getAuthenticatedUser()->getData()->user->id);
-        $user->costumer_id = $id_costumer;
-        $user->save();
     }
 }

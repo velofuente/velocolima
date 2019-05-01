@@ -20,11 +20,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('register', 'UserController@store');
 Route::post('login', 'UserController@authenticate');
 Route::get('open', 'DataController@open');
-Route::post('addCard','OpenPayController@addCustomerCard');
 Route::post('addClient', 'OpenPayController@addCustomer');
 Route::post('getClient', 'OpenPayController@getCustomer');
+Route::post('deleteClient', 'OpenPayController@deleteCustomer');
 
-Route::group(['middleware' => ['jwt.verify']], function() {
+Route::group(['middleware' => ['jwt.verify', 'cors']], function() {
+    Route::post('addCard','OpenPayController@addCustomerCard');
     Route::get('user', 'UserController@getAuthenticatedUser');
     Route::get('closed', 'DataController@closed');
 });

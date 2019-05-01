@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', 'test@test');
-Route::get('/test2', 'OpenPayController@addCustomerCard');
+Route::get('/addCard', 'OpenPayController@addCustomerCard');
 
 Route::get('/', function () {
     return view('welcome');
