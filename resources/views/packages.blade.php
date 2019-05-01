@@ -7,50 +7,47 @@
             <div id="first-class" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('primera')">
                 <img src="img/iconos/BICI.png" width="50px" height="70px" alt="">
                 <h6 id="amount1">PRIMERA</h6>
-                <h5>CLASE</h5>
-                <p class="precio">$100MN</p>
+                <h5 class="class">CLASE</h5>
             </div>
         </div>
         <div class="content-normal col col-sm col-md col-lg">
             <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('1')">
                 <h3 id="amount2">1</h3>
-                <h5>CLASE</h5>
-                <p class="precio">$190MN</p>
-            </div>
-        </div>
-        <div class="content-normal col col-sm col-md col-lg">
-            <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('3')">
-                <h3 id="amount3">3</h3>
-                <h5>CLASES</h5>
-                <p class="precio">$400MN</p>
+                <h5 class="class">CLASE</h5>
+                <p class="precio">$150</p>
+                <p class="exp">Expira: 30 días</p>
             </div>
         </div>
         <div class="content-normal col col-sm col-md col-lg">
             <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('5')">
-                <h3 id="amount4">5</h3>
-                <h5>CLASES</h5>
-                <p class="precio">$875MN</p>
+                <h3 id="amount3">5</h3>
+                <h5 class="class">CLASES</h5>
+                <p class="precio">$150</p>
+                <p class="exp">Expira: 60 días</p>
             </div>
         </div>
         <div class="content-normal col col-sm col-md col-lg">
             <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('10')">
-                <h3 id="amount5">10</h3>
-                <h5>CLASES</h5>
-                <p class="precio">$1,590MN</p>
+                <h3 id="amount4">10</h3>
+                <h5 class="class">CLASES</h5>
+                <p class="precio">$150</p>
+                <p class="exp">Expira: 120 días</p>
             </div>
         </div>
         <div class="content-normal col col-sm col-md col-lg">
             <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('25')">
-                <h3 id="amount6">25</h3>
-                <h5>CLASES</h5>
-                <p class="precio">$3,625MN</p>
+                <h3 id="amount5">25</h3>
+                <h5 class="class">CLASES</h5>
+                <p class="precio">$150</p>
+                <p class="exp">Expira: 180 días</p>
             </div>
         </div>
         <div class="content-normal col col-sm col-md col-lg">
             <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('50')">
-                <h3 id="amount7">50</h3>
-                <h5>CLASES</h5>
-                <p class="precio">$5,990MN</p>
+                <h3 id="amount6">50</h3>
+                <h5 class="class">CLASES</h5>
+                <p class="precio">$150</p>
+                <p class="exp">Expira: 365 días</p>
             </div>
         </div>
 
