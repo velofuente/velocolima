@@ -99,7 +99,9 @@
                                 </div>
                                 {{-- Form Add Card --}}
                                 <form method="post" id="add-card-form">
+                                    @csrf
                                     <input type="hidden" name="token_id" id="token_id">
+                                    <input type="hidden" name="deviceSessionId" id="deviceSessionId">
                                     <div class="col-7">
                                         <div class="data">
                                             <img id="visa" src="/img/visa.png" alt="visa" width="83px" height="40px">
@@ -138,20 +140,21 @@
         </div>
     </div>
 
-    <script type="text/javascript"
-    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript"
-    src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
-    <script type='text/javascript'
-    src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
+    <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
 
     <script type="text/javascript">
+        var deviceSessionId = null;
+        var tokenId = null;
+        var crfsToken = "{{ csrf_token() }}";
         $(document).ready(function() {
             OpenPay.setId('mwykro9vagcgwumpqaxb');
             OpenPay.setApiKey('pk_d72eec48f13042949140a7873ee1b3c2');
             OpenPay.setSandboxMode(true);
             //Se genera el id de dispositivo
-            var deviceSessionId = OpenPay.deviceData.setup("add-card-form", "deviceIdHiddenFieldName");
+            deviceSessionId = OpenPay.deviceData.setup("add-card-form", "deviceIdHiddenFieldName");
+            $('#deviceSessionId').val(deviceSessionId);
 
             $('#add-card-button').on('click', function(event) {
                 event.preventDefault();
@@ -161,13 +164,13 @@
             });
 
             var sucess_callbak = function(response) {
-                var token_id = response.data.id;
-                $('#token_id').val(token_id);
+                tokenId = response.data.id;
+
                 // Submit Form
                 // $('#add-card-form').submit();
-                console.log('deviceSessionId: ',deviceSessionId);
-                console.log('token_id: ', token_id);
-                addCard();
+                console.log('deviceSessionId: ', deviceSessionId);
+                console.log('token_id: ', tokenId);
+                // addCard();
             };
 
             var error_callbak = function(response) {
@@ -182,9 +185,10 @@
                     url: "http://192.168.1.200/api/addCard",
                     method: 'post',
                     data: {
-                        // token_id: token_id,
-                        // device_session_id: deviceSessionId,
-                        // customer_id: 'asdf'
+                        _token: crfsToken,
+                        token_id: tokenId,
+                        deviceSessionId: deviceSessionId,
+                        customer_id: '',
                     },
                     success: function(result){
                     console.log(result);
@@ -192,8 +196,6 @@
                 });
             };
         });
-    </script>
-    <script>
     </script>
 @endsection
 
