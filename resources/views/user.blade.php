@@ -146,9 +146,8 @@
 
     <script type="text/javascript">
         var deviceSessionId = null;
-        var token_id = null;
-        var crfsToken = '{{ csrf_token() }}';
-
+        var tokenId = null;
+        var crfsToken = "{{ csrf_token() }}";
         $(document).ready(function() {
             OpenPay.setId('mwykro9vagcgwumpqaxb');
             OpenPay.setApiKey('pk_d72eec48f13042949140a7873ee1b3c2');
@@ -165,10 +164,11 @@
             });
 
             var sucess_callbak = function(response) {
-                token_id = response.data.id;
-                $('#token_id').val(token_id);
+                tokenId = response.data.id;
                 // Submit Form
                 // $('#add-card-form').submit();
+                console.log('deviceSessionId: ', deviceSessionId);
+                console.log('token_id: ', tokenId);
                 addCard();
             };
 
@@ -189,8 +189,8 @@
                     method: 'post',
                     data: {
                         _token: crfsToken,
-                        token_id: token_id, //$('#token_id').val(),
-                        deviceSessionId: deviceSessionId, //$('#deviceSessionId').val(),
+                        token_id: tokenId,
+                        deviceSessionId: deviceSessionId,
                         customer_id: 'asdasd'
                     },
                     success: function(result){
