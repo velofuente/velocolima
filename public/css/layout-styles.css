@@ -378,6 +378,7 @@ select:focus {outline:0;}
     min-height: 250px;
     cursor: pointer;
 }
+
 #content-normal:hover{
     background: linear-gradient(0.25turn, #F70E0E, #9100FF);
     color: white;
