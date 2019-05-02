@@ -17,6 +17,8 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->float('price',6,2);
+            $table->string('description');
+            $table->integer('expiration_date');
             $table->timestamps();
         });
     }
