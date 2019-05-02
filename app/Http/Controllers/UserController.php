@@ -51,6 +51,7 @@ class UserController extends Controller
             'weight' => ['required', 'numeric', 'between:0,999.99'],
             'height' => ['required', 'int', 'max:250'],
             'gender' => ['required', 'string', 'max:6'],
+            'shoe_size' => ['required', 'numeric', 'between:0,32.5'],
         ]);
 
         // Available alpha caracters
@@ -73,6 +74,7 @@ class UserController extends Controller
             'weight' => $request->get('weight'),
             'height' => $request->get('height'),
             'gender' => $request->get('gender'),
+            'shoe_size' => $request->get('shoe_size'),
             'share_code' => $share_code,
             'customer_id' => null,
         ]);

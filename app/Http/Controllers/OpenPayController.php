@@ -35,12 +35,18 @@ class OpenPayController extends Controller
         }
         else{
             //TODO: Validar si existe la tarjeta en mi base de datos con los datos obtenidos de getCardToken
-            $existsCard = DB::table('cards')->where('card_number', '=', "{$cardData->card->card_number}")->get();
+            $existsCard = DB::table('cards')->where(
+                'card_number', '=', "{$cardData->card->card_number}"
+                )->get();
             if (!isset($existsCard)) {
-                return "La trjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
+                return "La tarjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
             }
             else{
                 app('App\Http\Controllers\CardController')->store($cardData);
+                /*DB::table('card_user')->insert([
+                    'card_id' => DB::table('cards')->select('id')->where('card_number', '=', "{$cardData->card->card_number}")->get(),
+                    'user_id' => $requestUser->id
+                ]);*/
                 $cardDataRequest = [
                     'token_id' => $cardData->id,
                     'device_session_id' => $request->device_session_id
