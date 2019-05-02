@@ -14,6 +14,10 @@
                     <h1 class="text-center text-info">{{ Auth::user()->last_name }}</h1>
                     <br>
                     <h4 class="text-center font-weight-bold">Mis Clases</h4>
+                    <h1><?php
+                    $value = new Request();
+                    $value = $request->session()->get('key'); ?></h1>
+
                     <div id="clases" class="text-center">
                         <div class="classesButton">
                             <h1 class="text-dark">0</h1>
