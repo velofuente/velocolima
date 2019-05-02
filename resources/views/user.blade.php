@@ -15,8 +15,10 @@
                     <br>
                     <h4 class="text-center font-weight-bold">Mis Clases</h4>
                     <h1><?php
-                    $value = new Request();
-                    $value = $request->session()->get('key'); ?></h1>
+                    echo '<script>console.log('.json_encode(Session::get("tokenBearer")).')</script>'
+
+                    // $value = new Request();
+                    // $value = $request->session()->get('key'); ?></h1>
 
                     <div id="clases" class="text-center">
                         <div class="classesButton">
@@ -182,15 +184,15 @@
                 $("#add-card-button").prop("disabled", false);
             };
 
-            $.get("App/Http/Controllers/Auth/LoginController.php", function(data, status){
-                alert("Token:" + data + "\nStatus" + status);
-            });
+            // $.get("App/Http/Controllers/Auth/LoginController.php", function(data, status){
+            //     alert("Token:" + data + "\nStatus" + status);
+            // });
 
             function addCard(){
                 console.log('si entro');
                 $.ajax({
-                    url: "http://192.168.1.201/api/addCard",
-                    method: 'post',
+                    url: "http://192.168.1.200/addCard",
+                    method: 'POST',
                     data: {
                         _token: crfsToken,
                         token_id: token_id, //$('#token_id').val(),
