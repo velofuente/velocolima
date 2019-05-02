@@ -25,7 +25,8 @@ class LoginController extends Controller
         //return $credentials;
         if(Auth::attempt($credentials))
         {
-            app('App\Http\Controllers\UserController')->authenticate($request);
+            $token = app('App\Http\Controllers\UserController')->authenticate($request);
+            dd($token);
             return redirect()->route('user.index');
         }
 
