@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-use Auth;
+use Auth, Session;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -28,15 +28,16 @@ class LoginController extends Controller
         {
             //Bearer Token
             $tokenBearer = app('App\Http\Controllers\UserController')->authenticate($request);
-            $_SESSION["tokenasd"] = $tokenBearer->getData();
+            Session::push("tokenBearer", $tokenBearer);
+            // $_SESSION["tokenasd"] = $tokenBearer->getData();
             // dd($_SESSION["tokenasd"]);
 
-            $value = session('key');
-            $value = session('key', 'default');
-            session(['key' => $_SESSION["tokenasd"]]);
-            //En Vista
-            $value = $request->session()->get('key');
-            dd($value);
+            // $value = session('key');
+            // $value = session('key', 'default');
+            // session(['key' => $_SESSION["tokenasd"]]);
+            // //En Vista
+            // $value = $request->session()->get('key');
+            // dd($value);
 
             return redirect()->route('user.index');
         }
