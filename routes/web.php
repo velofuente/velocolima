@@ -63,3 +63,5 @@ Route::patch('user', 'UserController@updatePassword')->name('updatePassword');
 Route::get('/client', function(){
     return view('client');
 })->middleware('auth');
+
+//Route::post('addCard','OpenPayController@addCustomerCard')->middleware('auth','cors');
