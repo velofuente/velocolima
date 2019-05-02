@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-use Auth;
+use Auth, Session;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use function GuzzleHttp\json_encode;
 
 class LoginController extends Controller
 {
@@ -14,7 +15,7 @@ class LoginController extends Controller
     }
     public function showLoginForm()
     {
-        return  view('auth.login');
+        return view('auth.login');
     }
     public function login(Request $request)
     {
@@ -25,11 +26,21 @@ class LoginController extends Controller
         //return $credentials;
         if(Auth::attempt($credentials))
         {
-            $token = app('App\Http\Controllers\UserController')->authenticate($request);
-            dd($token);
+            //Bearer Token
+            $tokenBearer = app('App\Http\Controllers\UserController')->authenticate($request);
+            Session::push("tokenBearer", $tokenBearer);
+            // $_SESSION["tokenasd"] = $tokenBearer->getData();
+            // dd($_SESSION["tokenasd"]);
+
+            // $value = session('key');
+            // $value = session('key', 'default');
+            // session(['key' => $_SESSION["tokenasd"]]);
+            // //En Vista
+            // $value = $request->session()->get('key');
+            // dd($value);
+
             return redirect()->route('user.index');
         }
-
         return back()
             ->withErrors(['email' => trans('auth.failed')])
             ->withInput(request(['email']));
@@ -37,7 +48,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-
         return redirect('/');
     }
 

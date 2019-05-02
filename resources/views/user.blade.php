@@ -14,6 +14,12 @@
                     <h1 class="text-center text-info">{{ Auth::user()->last_name }}</h1>
                     <br>
                     <h4 class="text-center font-weight-bold">Mis Clases</h4>
+                    <h1><?php
+                    echo '<script>console.log('.json_encode(Session::get("tokenBearer")).')</script>'
+
+                    // $value = new Request();
+                    // $value = $request->session()->get('key'); ?></h1>
+
                     <div id="clases" class="text-center">
                         <div class="classesButton">
                             <h1 class="text-dark">0</h1>
@@ -99,7 +105,9 @@
                                 </div>
                                 {{-- Form Add Card --}}
                                 <form method="post" id="add-card-form">
+                                    @csrf
                                     <input type="hidden" name="token_id" id="token_id">
+                                    <input type="hidden" name="deviceSessionId" id="deviceSessionId">
                                     <div class="col-7">
                                         <div class="data">
                                             <img id="visa" src="/img/visa.png" alt="visa" width="83px" height="40px">
@@ -138,17 +146,15 @@
         </div>
     </div>
 
-    <script type="text/javascript"
-    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript"
-    src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
-    <script type='text/javascript'
-    src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
+    <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
 
     <script type="text/javascript">
         var deviceSessionId = null;
-        var tokenId = null;
-        var crfsToken = "{{ csrf_token() }}";
+        var token_id = null;
+        var crfsToken = '{{ csrf_token() }}';
+
         $(document).ready(function() {
             OpenPay.setId('mwykro9vagcgwumpqaxb');
             OpenPay.setApiKey('pk_d72eec48f13042949140a7873ee1b3c2');
@@ -165,11 +171,10 @@
             });
 
             var sucess_callbak = function(response) {
-                tokenId = response.data.id;
+                token_id = response.data.id;
+                $('#token_id').val(token_id);
                 // Submit Form
                 // $('#add-card-form').submit();
-                console.log('deviceSessionId: ', deviceSessionId);
-                console.log('token_id: ', tokenId);
                 addCard();
             };
 
@@ -179,25 +184,30 @@
                 $("#add-card-button").prop("disabled", false);
             };
 
+            // $.get("App/Http/Controllers/Auth/LoginController.php", function(data, status){
+            //     alert("Token:" + data + "\nStatus" + status);
+            // });
+
             function addCard(){
                 console.log('si entro');
                 $.ajax({
-                    url: "http://192.168.1.201/api/addCard",
-                    method: 'post',
+                    url: "http://192.168.1.200/addCard",
+                    method: 'POST',
                     data: {
                         _token: crfsToken,
-                        token_id: tokenId,
-                        deviceSessionId: deviceSessionId,
+                        token_id: token_id, //$('#token_id').val(),
+                        deviceSessionId: deviceSessionId, //$('#deviceSessionId').val(),
                         customer_id: 'asdasd'
                     },
                     success: function(result){
-                    console.log(result);
+                        console.log(result);
                     }
                 });
+                console.log('token_id: ', token_id);
+                console.log('deviceSessionId: ', deviceSessionId);
+                console.log('Token CRSF: ', crfsToken);
             };
         });
-    </script>
-    <script>
     </script>
 @endsection
 
