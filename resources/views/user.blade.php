@@ -14,12 +14,6 @@
                     <h1 class="text-center text-info">{{ Auth::user()->last_name }}</h1>
                     <br>
                     <h4 class="text-center font-weight-bold">Mis Clases</h4>
-                    <h1><?php
-                    echo '<script>console.log('.json_encode(Session::get("tokenBearer")).')</script>'
-
-                    // $value = new Request();
-                    // $value = $request->session()->get('key'); ?></h1>
-
                     <div id="clases" class="text-center">
                         <div class="classesButton">
                             <h1 class="text-dark">0</h1>
@@ -107,7 +101,8 @@
                                 <form method="post" id="add-card-form">
                                     @csrf
                                     <input type="hidden" name="token_id" id="token_id">
-                                    <input type="hidden" name="deviceSessionId" id="deviceSessionId">
+                                    <input type="hidden" name="device_session_id" id="device_session_id">
+                                    <input type="hidden" name="tokenBearer" id="tokenBearer" value="{{ Session::get("tokenBearer")[0]}}">
                                     <div class="col-7">
                                         <div class="data">
                                             <img id="visa" src="/img/visa.png" alt="visa" width="83px" height="40px">
@@ -153,6 +148,7 @@
     <script type="text/javascript">
         var deviceSessionId = null;
         var token_id = null;
+        var tokenBearer = null;
         var crfsToken = '{{ csrf_token() }}';
 
         $(document).ready(function() {
@@ -160,8 +156,9 @@
             OpenPay.setApiKey('pk_d72eec48f13042949140a7873ee1b3c2');
             OpenPay.setSandboxMode(true);
             //Se genera el id de dispositivo
-            deviceSessionId = OpenPay.deviceData.setup("add-card-form", "deviceIdHiddenFieldName");
-            $('#deviceSessionId').val(deviceSessionId);
+            device_session_id = OpenPay.deviceData.setup("add-card-form", "deviceIdHiddenFieldName");
+            $('#device_session_id').val(device_session_id);
+            //Bearer en Variable del Script
 
             $('#add-card-button').on('click', function(event) {
                 event.preventDefault();
@@ -189,23 +186,28 @@
             // });
 
             function addCard(){
+                tokenBearer = $('#tokenBearer').val();
                 console.log('si entro');
                 $.ajax({
-                    url: "http://192.168.1.200/addCard",
+                    url: "/api/addCard",
                     method: 'POST',
+                    headers: {
+                      'Authorization': `Bearer ${tokenBearer}`,
+                    },
                     data: {
                         _token: crfsToken,
-                        token_id: token_id, //$('#token_id').val(),
-                        deviceSessionId: deviceSessionId, //$('#deviceSessionId').val(),
-                        customer_id: 'asdasd'
+                        token_id: token_id,
+                        device_session_id: device_session_id,
+                        customer_id: 'customerId'
                     },
                     success: function(result){
                         console.log(result);
                     }
                 });
                 console.log('token_id: ', token_id);
-                console.log('deviceSessionId: ', deviceSessionId);
+                console.log('device_session_id: ', device_session_id);
                 console.log('Token CRSF: ', crfsToken);
+                console.log('Bearer: ', tokenBearer);
             };
         });
     </script>

@@ -5,7 +5,7 @@ use Auth, Session;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use function GuzzleHttp\json_encode;
+use Log;
 
 class LoginController extends Controller
 {
@@ -28,16 +28,8 @@ class LoginController extends Controller
         {
             //Bearer Token
             $tokenBearer = app('App\Http\Controllers\UserController')->authenticate($request);
+            Log::info(json_encode($tokenBearer));
             Session::push("tokenBearer", $tokenBearer);
-            // $_SESSION["tokenasd"] = $tokenBearer->getData();
-            // dd($_SESSION["tokenasd"]);
-
-            // $value = session('key');
-            // $value = session('key', 'default');
-            // session(['key' => $_SESSION["tokenasd"]]);
-            // //En Vista
-            // $value = $request->session()->get('key');
-            // dd($value);
 
             return redirect()->route('user.index');
         }
