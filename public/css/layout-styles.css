@@ -380,7 +380,7 @@ select:focus {outline:0;}
 }
 
 #content-normal:hover{
-    background: linear-gradient(0.25turn, #F70E0E, #9100FF);
+    background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
     color: white;
     border: none;
 }
