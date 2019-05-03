@@ -73,7 +73,7 @@
 }
 /* whole html */
 html, body {
-    background-color: rgb(25,26,34)	;
+    background-color: #282828;
     color: white;
     font-family: 'AvenirNextLTPro Regular';
     font-weight: 200;
@@ -220,13 +220,21 @@ select:focus {outline:0;}
 }
 
 .navbar{
-    background-color: rgb(25,26,34);
+    background-color:  #282828;
    /* border-top: 16px solid linear-gradient(0.25turn, #F70E0E, #9100FF);*/
     border-bottom: 1px solid #e9eded;
     position: fixed;
     z-index: 2;
     width: 100%;
     height: 6em;
+}
+
+.gradient{
+    position: fixed;
+    z-index: 3;
+    width: 100%;
+    background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
+    height: 7px;
 }
 
 .redes-fijas {
@@ -260,7 +268,7 @@ select:focus {outline:0;}
   width: 100%;
   position: fixed;
   z-index: 1;
-  top: 1%;
+  top: 0%;
   left: 0;
   background-color: rgb(36,36,36);
   overflow-y: hidden;
@@ -283,10 +291,29 @@ select:focus {outline:0;}
   left: 75%;
 }
 
+.overlay-locations {
+    position: relative;
+    bottom: 10%;
+    width: 40%;
+    left: 52%;
+}
+.overlay-locations > a{
+    color: #6133AB !important;
+    padding: 0 !important;
+    width: 40% !important;
+    text-align: right !important;
+}
+
+.overlay-locations > p{
+    margin: 0 !important;
+    width: 40% !important;
+    text-align: right !important;
+}
+
 .overlay a {
   padding: 8px;
   text-decoration: none;
-  font-size: 42px;
+  font-size: 52px;
   color: #FF0E3B;
   display: block;
   transition: 0.3s;
@@ -353,14 +380,22 @@ select:focus {outline:0;}
 }
 
 #content-normal:hover{
-    background: linear-gradient(0.25turn, #F70E0E, #9100FF);
+    background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
     color: white;
     border: none;
+}
+
+#amount1{
+    margin: 3em 0 0 0;
 }
 
 #amount2, #amount3, #amount4, #amount5, #amount6{
     font-size: 7em;
     padding: .3em 0 0 0;
+}
+
+.f-class{
+    margin: 0 0 1.8em 0;
 }
 
 .class, .exp{
@@ -377,9 +412,11 @@ select:focus {outline:0;}
 }*/
 
 #first-class{
+    font-family: 'AvenirNextLTPro UltLtCn';
     color: white;
-    background: linear-gradient(0.25turn, #F70E0E, #9100FF);
+    background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
     text-align: center;
+    width: 188px;
     display: inline-block;
     vertical-align: top;
     margin-right: .8%;
@@ -430,12 +467,23 @@ select:focus {outline:0;}
 }
 @media screen and (max-width: 1439px){
     #first-class{
-        width: 150px;
+        width: 185px;
+        height: 290px;
     }
     #content-normal{
-        width: 150px;
+        width: 185px;
+        height: 290px;
+    }
+    .overlay a {
+        font-size: 31px;
     }
 }
+@media screen and (min-width: 1740 px){
+    .gradient{
+        height: 10px;
+    }
+}
+
 
 .data{
     margin-top: .5em;
@@ -468,6 +516,10 @@ select:focus {outline:0;}
     text-align: center;
     font-family: 'AvenirNextLTPro Regular';
 }
+.p-info{
+    margin: 1.5em 0 1.5em 0;
+}
+
 .form{
     margin-top: 3em;
     width: 100%;
@@ -497,7 +549,7 @@ select{
 }
 
 .prospectText{
-    background: rgb(25,26,34)!important;
+    background:  #282828!important;
     border-width: 1px 0px 1px 0px;
     width: 100%;
     padding: 1em 0 1em 0;
