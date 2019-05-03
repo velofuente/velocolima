@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Rolo | Iniciar Sesión
+    Velo | Iniciar Sesión
 @endsection
 
 @section('extraStyles')
@@ -65,12 +65,12 @@
                                         {{ __('¡Se Véloz!') }}
                                     </button>
 
-                                    @if (Route::has('password.request'))
+                                    {{-- @if (Route::has('password.request'))
                                     <br>
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Olvidaste tu Contraseña?') }}
                                         </a>
-                                    @endif
+                                    @endif --}}
                                 </div>
                             </div>
                         </form>
