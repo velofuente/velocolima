@@ -28,15 +28,24 @@
             <div class="col-12 description info-top">
                 <a class="navbar-brand" href="{{ url('/') }}"><img src="/img/iconos/LOGO.png" alt="logo" width="120px" height="65px"></a>
             </div>
-            <div class="row description">
-                <div class="col-3">
-                   <a href=""><img src="/img/iconos/TEL.png" alt="tel" width="110px" height="110px"></a>
-                </div>
-                <div class="col-3">
-                    <a href=""><img src="/img/iconos/MAIL.png" alt="mail" width="110px" height="110px"></a>
-                </div>
-                <div class="col-3">
-                    <a href=""><img src="/img/iconos/UBICACION.png" alt="ubi" width="110px" height="110px"></a>
+            <div class="col-12 description">
+                <div class="row">
+                    <div class="col">
+                        <a href=""><img src="/img/iconos/TEL.png" alt="tel" width="110px" height="110px"></a>
+                        <h5 class="p-info">CONTÁCTANOS</h5>
+                        <h5>3120000000</h5>
+                    </div>
+                    <div class="col">
+                        <a href=""><img src="/img/iconos/MAIL.png" alt="mail" width="110px" height="110px"></a>
+                        <h5 class="p-info">E-MAIL</h5>
+                        <h5>velocycling@gmail.com</h5>
+                    </div>
+                    <div class="col">
+                        <a href=""><img src="/img/iconos/UBICACION.png" alt="ubi" width="110px" height="110px"></a>
+                        <h5 class="p-info">UBICACIÓN</h5>
+                        <h5>IGNACIO SANDOVAL</h5>
+                        <h5>115892</h5>
+                    </div>
                 </div>
             </div>
         </div>
