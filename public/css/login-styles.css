@@ -57,6 +57,7 @@ input > #email, #password {
     background-size: 100% auto;
     border-style: none;
     padding: .6em 7em;
+    margin-left: -2em;
 }
 
 #submitButton:hover {
