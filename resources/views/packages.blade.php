@@ -3,14 +3,14 @@
         <img src="/img/iconos/1.png" width="500px" height="70px" alt="">
     </div>
     <div class="row classes">
-        <div class="content-normal col col-sm col-md col-lg">
+        <div class="content-normal col col-sm col-md col-lg" style=" padding: 0;">
             <div id="first-class" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('primera')">
-                <img src="img/iconos/BICI.png" width="50px" height="70px" alt="">
+                <img src="img/iconos/BICI.png" width="115px" height="160px" alt="">
                 <h6 id="amount1">PRIMERA</h6>
-                <h5 class="class">CLASE</h5>
+                <h5 class="class f-class">CLASE</h5>
             </div>
         </div>
-        <div class="content-normal col col-sm col-md col-lg">
+        <div class="content-normal col col-sm col-md col-lg" style=" padding: 0;">
             <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('1')">
                 <h3 id="amount2">1</h3>
                 <h5 class="class">CLASE</h5>
@@ -18,7 +18,7 @@
                 <p class="exp">Expira: 30 días</p>
             </div>
         </div>
-        <div class="content-normal col col-sm col-md col-lg">
+        <div class="content-normal col col-sm col-md col-lg" style=" padding: 0;">
             <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('5')">
                 <h3 id="amount3">5</h3>
                 <h5 class="class">CLASES</h5>
@@ -26,7 +26,7 @@
                 <p class="exp">Expira: 60 días</p>
             </div>
         </div>
-        <div class="content-normal col col-sm col-md col-lg">
+        <div class="content-normal col col-sm col-md col-lg" style=" padding: 0;">
             <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('10')">
                 <h3 id="amount4">10</h3>
                 <h5 class="class">CLASES</h5>
@@ -34,7 +34,7 @@
                 <p class="exp">Expira: 120 días</p>
             </div>
         </div>
-        <div class="content-normal col col-sm col-md col-lg">
+        <div class="content-normal col col-sm col-md col-lg" style=" padding: 0;">
             <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('25')">
                 <h3 id="amount5">25</h3>
                 <h5 class="class">CLASES</h5>
@@ -42,7 +42,7 @@
                 <p class="exp">Expira: 180 días</p>
             </div>
         </div>
-        <div class="content-normal col col-sm col-md col-lg">
+        <div class="content-normal col col-sm col-md col-lg" style=" padding: 0;">
             <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('50')">
                 <h3 id="amount6">50</h3>
                 <h5 class="class">CLASES</h5>

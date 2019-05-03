@@ -15,8 +15,9 @@
     <link rel="stylesheet" href="{{asset('css/layout-styles.css')}}">
     @yield('extraStyles')
 </head>
-<div class="fixed-top line" ><img src="/img/iconos/LINEA.png" alt="" width="100%" height="10px"></div>
+<div class="gradient"></div>
 <nav class="navbar container-fluid" id="nav">
+    
     <div class="home">
         <a class="navbar-brand " href="{{ url('/') }}"><img src="/img/iconos/HOME.png" alt="logo" width="35px" height="35px"></a>
         <a class="navbar-brand hicon" href="{{ url('/') }}"><img src="/img/iconos/LOGO.png" alt="logo" width="100px" height="50px"></a>
@@ -85,13 +86,14 @@
     @endauth
     <div class="hambBtn">
         <button id="hambBtn" class="hamburger hamburger--slider" type="button">
-            <img src="/img/iconos/CIRCULOS1.png" alt="tel" width="40px" height="15px">
+            <img src="{{asset ('/img/iconos/CIRCULOS1.png')}}" alt="tel" width="40px" height="15px">
+            
         </button>
     </div>
 
     <div id="myNav" class="overlay">
         <div class="overlay-content">
-            <a href="">Ubicaciones</a>
+            <a href="">Ubicación</a>
             <a href="{{ url('/instructors') }}">Instructores</a>
             <a href="{{ url('/book') }}">Reservar</a>
             <a href="{{ url('/#packages') }}">Comprar clases</a>
@@ -104,6 +106,13 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
+        </div>
+        <div class="overlay-locations">
+            <a href="" class="location">Colima</a>
+            <p>Dirección</p>
+            <p>Ignacio Sandoval xxxxx</p>
+            <p>Teléfono</p>
+            <p>xxxxxxx</p>
         </div>
     </div>
 

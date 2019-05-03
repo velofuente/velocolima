@@ -11,7 +11,7 @@
     color:white;
     text-decoration: none;
     padding: .6em 5em .6em 5em;
-    background-color: #18c2cd;
+    background-color: #FF0E3B;
     border-radius: 120px;
     margin: 0 1em 0 1em;
     font-family: 'Gotham Thin';
@@ -112,7 +112,7 @@
 
 .details{
     font-family: 'AvenirNextLTPro Regular';
-    color: #6133AB;
+    color: white;
     text-align: center;
     margin-top: 3em;
     margin-left: 15em;
@@ -121,7 +121,7 @@
 
 .first{
     font-family: 'Gotham Thin';
-    color: #6133AB;
+    color: white;
     margin-top: 2em;
     margin-left: 2em;
     font-size: .8em;
