@@ -1,9 +1,72 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@font-face {
+    font-family: Avenir;
+    src: url("css/fonts/velo/AvenirNextCondensed-Bold.ttf");
+    src: url("css/fonts/velo/AvenirNextLTPro-Bold.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-BoldCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-BoldCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-Cn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-CnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-Demi.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-DemiCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-DemiCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-It.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-MediumCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-MediumCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-Regular.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCn.oto") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCnIt.otf") format("opentype");
+}
 
 body{
-    background: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    color: #000;
+    background: #282828;
+    font-family: 'Avenir';
+    font-weight: 400;
+    color: #FFF;
+}
+
+#registerTitle {
+    font-size: 23px;
+    color: #9902EB;
+    text-align: center;
+    font-family: 'Avenir';
+}
+
+#welcomeMessage {
+    font-size: 18px;
+    color: #FFF;
+    text-align: center;
+}
+
+
+#welcomeLogo {
+    width: 5%;
+    height: 5%;
+}
+
+.form-group{
+    margin-bottom: 0px;
+    align-items: center;
+    align-self: center;
+    left: auto;
+    right: auto;
+}
+
+#submitButton {
+    font-family: 'Avenir Next Condensed';
+    color: #FFF;
+    background-image: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
+    border-radius: 120px;
+    transition: 0.5s;
+    background-size: 100% auto;
+    border-style: none;
+    padding: .6em 7em;
+    margin-left: -3em;
+}
+
+.col-md-6, .col-md-4 {
+    font-family: 'Avenir Next';
 }
 
 input:not([type="submit"]) + .input-requirements{
@@ -26,7 +89,7 @@ input:not([type="submit"]):active + .input-requirements {
 }
 
 .input-requirements li.invalid {
-	color: #e74d3ce5;
+    color: #e74d3ce5;
 }
 .input-requirements li.valid {
 	color: #2ecc70e5;
