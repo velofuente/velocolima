@@ -14,14 +14,16 @@
 @endsection
 
 @section('content')
-    <body style="background-color: #F4F4F4">
+    <body>
         <div class="container-fluid">
+            {{-- Header & Search Bar --}}
             <div class="title">
                 <div class="display-4 text-center pt-3 pb-3">
                 INSTRUCTORES
                 </div>
             </div>
 
+            {{-- Instructors --}}
             <div class="container mx-auto mt-4" name="instructors" >
                 <div class="row">
                     @foreach ($instructors as $instructor)
@@ -29,9 +31,9 @@
                     <a href="/instructors/{{$instructor->id}}" class="h4" style="text-decoration: none">
                         <div class="card border-0 mx-auto my-3">
                             {{-- Image Name: Instructor's Name + "-Head" + ".png" --}}
-                            <img src="img/instructors/{{$instructor->name}}-Head.png" class="card-img-top" style="border-radius: 50%" alt="{{$instructor->name}}">
+                            <img src="img/instructors/{{$instructor->name}}-Head.png" class="card-img-top" alt="{{$instructor->name}}">
                             <div class="card-body">
-                                <p class="card-text text-center">
+                                <p class="card-text text-center" id="instructorName">
                                     {{$instructor->name}}
                                 </p>
                             </div>

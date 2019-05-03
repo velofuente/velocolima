@@ -1,36 +1,60 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@font-face {
+    font-family: Avenir;
+    src: url("css/fonts/velo/AvenirNextCondensed-Bold.ttf");
+    src: url("css/fonts/velo/AvenirNextLTPro-Bold.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-BoldCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-BoldCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-Cn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-CnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-Demi.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-DemiCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-DemiCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-It.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-MediumCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-MediumCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-Regular.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCn.oto") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCnIt.otf") format("opentype");
+}
 
 body{
-    font-family: 'Montserrat', sans-serif;
-    background-color: #F4F4F4;
+    font-family: 'Avenir';
+    background-color: #282828;
 }
-
 
 #topNavBar{
-    background-color: #FFF;
-    border:1px solid #E9EDED;
+    background-color: #282828;
+    border-top: 1px solid #c72744a5;
+    border-bottom: 1px solid #c72744;
+    border-left: none;
+    border-right: none;
+    padding: 5px 0px;
+    text-align: center;
+    margin-bottom: 2%;
 }
 
-#topNavBar > .col-4{
-    border-right: 1px solid #E9EDED;
-}
-
-select{
-    font-size: 12px;
-    text-transform: uppercase;
-    text-align-last: center;
-    border: none;
-    background-color: #FFF;
+#topNavBar > .col-1, .col-2, .col-6{
+    border-right: 1px solid #c72744cd;
 }
 
 .dropdown{
-    line-height: 43px;
-    width: 100%
+    text-align-last: center;
+    background-color: #282828;
+    color: #FDFDFD;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+ul{
+    padding-left: 0px;
+    margin-bottom: 0px;
 }
 
 .weekShown{
-    text-align: center;
-    color: #B7B4B4;
+    color: #FDFDFD;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 12px;
@@ -38,35 +62,83 @@ select{
 }
 
 #calendar{
-    padding-left: 11%;
-    padding-right: 11%;
+    padding-left: 0%;
+    padding-right: 0%;
 }
 
 .scheduleDayText{
-    font-size: 12px;
+    font-size: 14px;
+    font-family: 'Avenir Next';
+    font-weight: 200;
+    text-align: center;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #000;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    color: rgb(255, 255, 255);
     list-style: none;
 }
 
+
 span.number{
     display: inline;
-    font-weight: bold;
     margin: 0px;
-    color: #000;
+    color: #FFF;
 }
 
 #scheduleDayColumn{
-    padding: 0%;
+    padding: 1px;
 }
 
-.scheduleItemLink{
-    color: #140E0E;
-    background-color: #FFF;
+/* CSS Style in case the Schedule shown is out of date  */
+.scheduleItemLinkDisabled{
+    color: #a50b2ae2;
+    background-color: #282828;
     text-decoration: none;
     text-align: center;
-    text-transform: uppercase;
+    text-transform: capitalize;
+    cursor: default;
+}
+
+.scheduleItemLinkDisabled:hover{
+    text-decoration: none;
+    color: #a5a5a5d0;
+    background-color: #FDFDFD;
+}
+
+.scheduleItemDisabled{
+    background-color: #282828;
+    margin-bottom: 6px;
+    list-style: none;
+    border: 1px solid #ffffff66;
+    width: 98%;
+    height: 100px;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.scheduleItemDisabled:hover{
+    /* Red Hover */
+    /* background-color: rgba(253, 13, 61, 0.838); */
+
+    background-color: rgba(253, 13, 61, 0.315);
+}
+
+.scheduleItemTextHourDisabled{
+    padding-bottom: 20px;
+    color: #a5a5a5d0;
+    margin: 0px;
+    font-size: 16px;
+    font-family: 'Avenir';
+    letter-spacing: 1px;
+}
+
+/* CSS Style in case the Schedule Shown is up to date */
+.scheduleItemLink{
+    color: #fd0d3df1;
+    background-color: #282828;
+    text-decoration: none;
+    text-align: center;
+    text-transform: capitalize;
 }
 
 .scheduleItemLink:hover
@@ -76,36 +148,38 @@ span.number{
 }
 
 .scheduleItem{
-    background-color: #FFF;
-    margin-bottom: 5px;
+    background-color: #282828;
+    margin-bottom: 6px;
     list-style: none;
-    border: 2px solid #f4f4f4;
+    border: 1px solid #ffffff66;
     width: 98%;
     height: 100px;
+    font-size: 18px;
     transition: 0.2s;
 }
 
-.scheduleItem > a{
-    color: white;
-    text-decoration: none;
-    text-transform: uppercase;
-    margin-bottom: 0px;
-    font-weight: bold;
-}
 .scheduleItem:hover{
-    background-color: #26C6CF;
+    /* Red Hover */
+    /* background-color: rgba(253, 13, 61, 0.673); */
+
+    /* Gradient Hover */
+    background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
 }
 
 .scheduleItemTextInstructor{
-    margin-bottom: 1%;
-    font-weight: bold;
-    font-size: 15px;
-    line-height: 45px;
+    padding-top: 21px;
+    margin: 0;
+    font-family: 'Avenir Next';
+    font-weight: 400;
 }
 
 .scheduleItemTextHour{
-    font-size: 15px;
-    font-weight: normal;
+    padding-bottom: 20px;
+    color: rgba(255, 255, 255, 0.824);
+    margin: 0px;
+    font-size: 16px;
+    font-family: 'Avenir';
+    letter-spacing: 1px;
 }
 
 .main{
