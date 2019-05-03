@@ -11,7 +11,7 @@
     color:white;
     text-decoration: none;
     padding: .6em 5em .6em 5em;
-    background-color: #FF0E3B;
+    background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
     border-radius: 120px;
     margin: 0 1em 0 1em;
     font-family: 'Gotham Thin';

@@ -383,6 +383,7 @@ select:focus {outline:0;}
     background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
     color: white;
     border: none;
+    transition: 0.5s;
 }
 
 #amount1{
