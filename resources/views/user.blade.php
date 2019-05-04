@@ -6,24 +6,18 @@
     <link rel="stylesheet" href="{{asset('css/user-styles.css')}}">
 @endsection
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid main">
         <div class="flex-center position-ref full-height">
             <div class="text-dark row main">
                 <div class="col-md-5">
-                    <h1 class="text-center text-info">{{ Auth::user()->name }}</h1>
-                    <h1 class="text-center text-info">{{ Auth::user()->last_name }}</h1>
+                    <h1 class="text-center name">{{ Auth::user()->name }}</h1>
+                    <h1 class="text-center name">{{ Auth::user()->last_name }}</h1>
                     <br>
-                    <h4 class="text-center font-weight-bold">Mis Clases</h4>
-                    <h1><?php
-                    echo '<script>console.log('.json_encode(Session::get("tokenBearer")).')</script>'
-
-                    // $value = new Request();
-                    // $value = $request->session()->get('key'); ?></h1>
-
+                    <h4 class="text-center font-weight-bold myclss">Mis Clases</h4>
                     <div id="clases" class="text-center">
                         <div class="classesButton">
-                            <h1 class="text-dark">0</h1>
-                                <span class="font-weight-bold">Clases</span><br>
+                            <h1 class="myclss">0</h1>
+                                <span class="font-weight-bold myclss">Clases</span><br>
                                 <small class="text-secondary font-weight-bold">* Clases disponibles en tu cuenta</small>
                         </div>
                         <a href="{{ url('/#packages') }}" class="btn text-white mb-4" style="background-color: #26C6CF" role="button">COMPRAR CLASES</a>
@@ -65,8 +59,8 @@
                 </div>
                 <div class="col-md-5">
                     <div id="shareCode" class="border border-info mx-auto circleDiv">
-                        <span class="align-middle">
-                            <h3 class="text-body">Invita, Comparte y GANA.</h3>
+                        <span class="align-middle invite">
+                            <h3 class="text-body invite">Invita, Comparte y GANA.</h3>
                             <h5 class="text-muted">Tu código es: </h5>
                         <h4 class="text-danger">{{ Auth::user()->share_code }}</h4>
                             <i class="fab fa-whatsapp mr-2" id="media_icon" ></i><i class="fab fa-twitter" id="media_icon" ></i>
@@ -76,8 +70,8 @@
                 </div>
                 <div class="col-md-7">
                     <div id="Payments" class="mb-4">
-                        <h5 class="text-center mx-auto">Formas de Pago</h5>
-                        <h5 class="text-center mx-auto mb-2">Mis tarjetas</h5>
+                        <h5 class="text-center mx-auto myclss">Formas de Pago</h5>
+                        <h5 class="text-center mx-auto mb-2 myclss">Mis tarjetas</h5>
                         <button class="btn btn-dark text-white mb-4 w-50 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></button>
                     </div>
                     <div id="extraInfo">

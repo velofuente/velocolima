@@ -1,7 +1,19 @@
 body{
-    background-color: #FFF;
+    background-color: #282828;
 }
 
+.main {
+    margin-top: 6em;
+}
+.name{
+    color: white;
+}
+.myclss{
+    color: #FF0E3B;
+}
+.invite{
+    color: #6133AB !important;
+}
 .circleDiv{
     height: 0;
     padding: 19% 0;
@@ -16,8 +28,8 @@ body{
     margin-top: 6em;
 }
 #media_icon{
-    columns: #FFF;
+    columns: #282828;
 }
 .input_custom{
-    background-color:#F4F4F4;
+    background-color: #282828;
 }
