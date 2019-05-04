@@ -10,7 +10,7 @@
 
 @section('content')
     <body>
-        <div class="container-fluid pt-4 mb-4">
+        <div class="container-fluid pt-4 mb-4 main">
             <div class="row" id="topNavBar">
                 {{-- Empty Section at the Far LeftNavBar --}}
                 <div class="col-1">
