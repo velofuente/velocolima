@@ -15,9 +15,15 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->increments('id');
-            //Foreign Key from Purchase to Product
-            $table->unsignedInteger('cart_id');
-            $table->foreign('cart_id')->references('id')->on('carts');
+            //Foreign Key from Purchase to Cards
+            $table->unsignedInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
+            //Foreign Key from Purchase to Cards
+            $table->unsignedInteger('card_id');
+            $table->foreign('card_id')->references('id')->on('cards');
+            //Foreign Key from Purchase to Users
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

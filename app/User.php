@@ -2,15 +2,16 @@
 
 namespace App;
 
-//use Laravel\Passport\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements JWTSubject
 {
-    //use HasApiTokens, Notifiable;
-    use Notifiable;
+    use HasApiTokens, Notifiable;
+    //use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'last_name', 'email', 'password', 'birth_date', 'phone', 'weight', 'height', 'gender', 'shoe_size', 'id_role', 'id_cart', 'share_code'
+        'name', 'last_name', 'email', 'password', 'birth_date', 'phone', 'weight', 'height', 'gender', 'shoe_size', 'id_role', 'id_cart', 'share_code','customer_id',
     ];
 
     /**
@@ -29,6 +30,15 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getJWTIdentifier()
+        {
+            return $this->getKey();
+        }
+        public function getJWTCustomClaims()
+        {
+            return [];
+        }
 
     public function verifyUser()
     {
