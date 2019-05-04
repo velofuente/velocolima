@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Exception;
 use Openpay, Log, Config, Auth, DB;
-use function GuzzleHttp\json_encode;
+use App\Purchase;
 
 class OpenPayController extends Controller
 {
@@ -42,11 +42,8 @@ class OpenPayController extends Controller
                 return "La tarjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
             }
             else{
-                app('App\Http\Controllers\CardController')->store($cardData);
-                /*DB::table('card_user')->insert([
-                    'card_id' => DB::table('cards')->select('id')->where('card_number', '=', "{$cardData->card->card_number}")->get(),
-                    'user_id' => $requestUser->id
-                ]);*/
+                //return $requestUser->id;
+                app('App\Http\Controllers\CardController')->store($cardData,$requestUser->id);
                 $cardDataRequest = [
                     'token_id' => $cardData->id,
                     'device_session_id' => $request->device_session_id
@@ -153,25 +150,29 @@ class OpenPayController extends Controller
     public function makeChargeCustomer(Request $request)
     {
         $openpay = self::openPay();
-
-        //obtener la tarjeta seleccionada
-
-        $customer = $openpay->customers->get($request->customer_id);
-
-        $chargeData = [
-            'method' => 'card',
-            'source_id' => $request->token_id,
-            'amount' => $request->amount,
-            'description' => $request->description,
-            'order_id' => 'ORDEN-00071',
-            'device_session_id' => $request->device_session,
-            'customer' => $customer,
-        ];
-
+        $requestUser = $request->user();
+        $card = DB::table('cards')->select('id','token_id')->where('user_id', '=', "{$requestUser->id}")->first();
+        $customer = $openpay->customers->get($requestUser->customer_id);
         try{
+            DB::beginTransaction();
+            $compra = Purchase::create([
+                'product_id' => $request->product_id,
+                'card_id' => $card->id,
+                'user_id' => $requestUser->id
+            ]);
+            $chargeData = [
+                'method' => 'card',
+                'source_id' => $card->token_id,
+                'amount' => $request->amount,
+                'description' => $request->description,
+                'order_id' => 'ORDEN-'.$compra->id,
+                'device_session_id' => $request->device_session_id
+            ];
             $charge = $customer->charges->create($chargeData);
-            return $charge;
+            DB::commit();
+            return json_encode($charge);
         }catch(OpenpayApiTransactionError $e){
+            DB::rollback();
             switch ($e->getErrorCode()) {
                 case 3001:
                     return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";

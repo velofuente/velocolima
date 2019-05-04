@@ -27,4 +27,5 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function() {
     Route::post('addCard','OpenPayController@addCustomerCard');
     Route::get('user', 'UserController@getAuthenticatedUser');
     Route::post('makeCharge', 'OpenPayController@makeChargeCustomer');
+    //Route::post('comprar', 'PurchaseController@store');
 });

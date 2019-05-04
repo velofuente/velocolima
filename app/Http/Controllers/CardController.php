@@ -13,7 +13,7 @@ class CardController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($card)
+    public function store($card, $user_id)
     {
         $card = new Card([
             'token_id' => $card->id,
@@ -23,6 +23,7 @@ class CardController extends Controller
             'expiration_moth' => $card->card->expiration_month,
             'brand' => $card->card->brand,
             'selected' => true,
+            'user_id' => $user_id
         ]);
         $card->save();
     }

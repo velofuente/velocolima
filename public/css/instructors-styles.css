@@ -1,19 +1,48 @@
-.body{
-    background-color: #F4F4F4;
-    color: #000;
+@font-face {
+    font-family: Avenir;
+    src: url("css/fonts/velo/AvenirNextCondensed-Bold.ttf");
+    src: url("css/fonts/velo/AvenirNextLTPro-Bold.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-BoldCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-BoldCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-Cn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-CnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-Demi.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-DemiCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-DemiCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-It.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-MediumCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-MediumCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-Regular.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCn.oto") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCnIt.otf") format("opentype");
 }
 
-.title{
-    color: #000;
+body{
+    font-family: 'Avenir';
+    color: #F11635;
+    background-color: #282828;
+}
+
+.title {
+	background: linear-gradient(0.25turn, #961260, #BE1131, #9100FE);
+    -webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+#instructorName {
+    color: #F4113A
 }
 
 .card{
-    background-color: #F4F4F4;
+    background-color: #282828;
     color: #000;
     transition: 0.3s;
 }
 
 .card:hover{
-    background-color: #26c7cfc9;
+    background-color: #c72744cd;
+    background-color: #4B4B4D;
     color: #FFF;
 }
