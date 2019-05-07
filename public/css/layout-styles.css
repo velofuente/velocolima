@@ -73,7 +73,7 @@
 }
 /* whole html */
 html, body {
-    background-color: #282828;
+    background-color: black;
     color: white;
     font-family: 'AvenirNextLTPro Regular';
     font-weight: 200;
@@ -220,9 +220,9 @@ select:focus {outline:0;}
 }
 
 .navbar{
-    background-color:  #282828;
+    background-color:  black;
    /* border-top: 16px solid linear-gradient(0.25turn, #F70E0E, #9100FF);*/
-    border-bottom: 1px solid #e9eded;
+    border-bottom: 1px solid #FF0E3B;
     position: fixed;
     z-index: 2;
     width: 100%;
@@ -333,7 +333,44 @@ select:focus {outline:0;}
   right: 35px;
   }
 }
+
 /* body css */
+.main{
+    margin-top: 1em;
+  
+}
+.icon{
+    position:absolute;
+    top: 10%;
+    left: -15%;
+    z-index: 1;
+    width: 680px;
+    height: 650px;
+}
+.veloBrand{
+    position:absolute;
+    top: 43%;
+    left: 37%;
+    z-index: 1;
+    width: 370px;
+    height: 190px;
+}
+.music{
+    position:absolute;
+    top: 85%;
+    left: 85%;
+    z-index: 1;
+    width: 140px;
+    height: 30px;
+}
+.imusic{
+    position:absolute;
+    top: 90%;
+    left: 90%;
+    z-index: 1;
+    width:50px; 
+    height:50px;
+}
 .content {
     text-align: center;
     padding-left: 0;
@@ -454,6 +491,51 @@ select:focus {outline:0;}
         margin-bottom: 5px;
     }
 }
+@media screen and (max-width: 1000px){
+    #first-class{
+        width: 127px;
+        padding-top: 0;
+        padding-bottom: 20px;
+    }
+    #content-normal{
+        width: 127px;
+        padding-top: 0;
+        padding-bottom: 20px;
+    }
+    .icon{
+        position:absolute;
+        top: 10%;
+        left: -15%;
+        z-index: 1;
+        width: 450px;
+        height: 450px;
+    }
+    .veloBrand{
+        position:absolute;
+        top: 43%;
+        left: 37%;
+        z-index: 1;
+        width: 220px;
+        height: 110px;
+    }
+    .music{
+        position:absolute;
+        top: 85%;
+        left: 85%;
+        z-index: 1;
+        width: 110px;
+        height: 25px;
+    }
+    .imusic{
+        position:absolute;
+        top: 90%;
+        left: 90%;
+        z-index: 1;
+        width:30px; 
+        height:30px;
+    }
+    
+}
 @media screen and (max-width: 1200px){
     #first-class{
         width: 127px;
@@ -465,6 +547,39 @@ select:focus {outline:0;}
         padding-top: 0;
         padding-bottom: 20px;
     }
+    .icon{
+        position:absolute;
+        top: 10%;
+        left: -15%;
+        z-index: 1;
+        width: 520px;
+        height: 560px;
+    }
+    .veloBrand{
+        position:absolute;
+        top: 43%;
+        left: 37%;
+        z-index: 1;
+        width: 300px;
+        height: 140px;
+    }
+    .music{
+        position:absolute;
+        top: 85%;
+        left: 85%;
+        z-index: 1;
+        width: 110px;
+        height: 25px;
+    }
+    .imusic{
+        position:absolute;
+        top: 90%;
+        left: 90%;
+        z-index: 1;
+        width:30px; 
+        height:30px;
+    }
+    
 }
 @media screen and (max-width: 1439px){
     #first-class{
@@ -478,10 +593,68 @@ select:focus {outline:0;}
     .overlay a {
         font-size: 31px;
     }
+    .icon{
+        position:absolute;
+        top: 10%;
+        left: -15%;
+        z-index: 1;
+        width: 670px;
+        height: 650px;
+    }
+    .veloBrand{
+        position:absolute;
+        top: 43%;
+        left: 37%;
+        z-index: 1;
+        width: 370px;
+        height: 190px;
+    }
+    .music{
+        position:absolute;
+        top: 85%;
+        left: 85%;
+        z-index: 1;
+        width: 140px;
+        height: 30px;
+    }
+    .imusic{
+        position:absolute;
+        top: 90%;
+        left: 90%;
+        z-index: 1;
+        width:50px; 
+        height:50px;
+    }
 }
-@media screen and (min-width: 1740 px){
+@media screen and (max-width: 1640 px){
     .gradient{
         height: 10px;
+    }
+    .icon{
+        position:absolute;
+        top: 10%;
+        left: -15%;
+        z-index: 1;
+    }
+    .veloBrand{
+        position:absolute;
+        top: 43%;
+        left: 37%;
+        z-index: 1;
+        width: 500px;
+        height: 250px;
+    }
+    .music{
+        position:absolute;
+        top: 85%;
+        left: 85%;
+        z-index: 1;
+    }
+    .imusic{
+        position:absolute;
+        top: 90%;
+        left: 90%;
+        z-index: 1;
     }
 }
 

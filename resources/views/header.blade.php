@@ -22,7 +22,7 @@
         <a class="navbar-brand " href="{{ url('/') }}"><img src="/img/iconos/HOME.png" alt="logo" width="35px" height="35px"></a>
         <a class="navbar-brand hicon" href="{{ url('/') }}"><img src="/img/iconos/LOGO.png" alt="logo" width="100px" height="50px"></a>
     </div>
-    <div class="dropdown account d-block d-lg-none">
+    <!-- <div class="dropdown account d-block d-lg-none">
         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-bars" aria-hidden="true"></i>    <span class="caret"></span>
         </a>
@@ -33,7 +33,7 @@
             <a href="{{ url('/book') }}">RESERVAR</a>
         </div>
     </div>
-   <!-- <div class="locations">
+   <div class="locations">
         <select name="" id="">
             <option value="">Colima</option>
         </select>

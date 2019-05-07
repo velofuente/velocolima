@@ -11,5 +11,4 @@
         <script src="{{asset('js/layout-scripts.js')}}"></script>
         @yield('extraScripts')
     </body>
-        @include('footer')
 </html>
