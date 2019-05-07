@@ -3,7 +3,7 @@
   Home
 @endsection
 @section('content')
-<div class="main">
+<div class="main" onclick="location.href='/schedule'; ">
     <img src="img/homepage/1.jpg" alt="principal" width="100%" height="50%">
     <img class="icon" src="img/iconos/ICONO_O.png" alt="">
     <img class="veloBrand" src="img/iconos/LOGO.png" alt="">
