@@ -38,16 +38,24 @@
                                 {{-- <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Contraseña') }}</label> --}}
                                 <div class="col-md-6 mx-auto">
                                     <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Contraseña">
-
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>
                                         </span>
                                     @endif
+                                    <div class="text-right">
+                                        @if (Route::has('password.request'))
+                                        <br>
+                                            <a class="btn btn-link forgot-password" href="{{ route('password.request') }}">
+                                                {{ __('¿Olvidaste tu Contraseña?') }}
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            {{-- Checkbox Recordar Sesión --}}
+                            {{-- <div class="form-group row">
                                 <div class="col-md-6 offset-md-4 mx-auto">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -57,20 +65,20 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group row mb-0 mx-auto">
-                                <div class="col-md-8 offset-md-4">
+                                <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn" id="submitButton">
                                         {{ __('¡Se Véloz!') }}
                                     </button>
-
-                                    {{-- @if (Route::has('password.request'))
-                                    <br>
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Olvidaste tu Contraseña?') }}
-                                        </a>
-                                    @endif --}}
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0 mx-auto">
+                                <div class="col-md-6 offset-md-4">
+                                    <a class="btn btn-link register-account" href="{{ url('/register') }}">
+                                        {{ __('¿Aún no tienes una cuenta?') }}
+                                    </a>
                                 </div>
                             </div>
                         </form>
