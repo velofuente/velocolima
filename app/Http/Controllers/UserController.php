@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Auth, Log, JWTAuth;
+use Auth, Log, JWTAuth,DB;
 
 class UserController extends Controller
 {
@@ -18,8 +18,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        // return $request->user();
-        return view('user');
+        $requestUser = $request->user();
+        $cards = DB::table('cards')->where('user_id', '=', "{$requestUser->id}");
+        return view('user', compact('cards'));
     }
 
     /**
