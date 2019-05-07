@@ -717,7 +717,7 @@ select:focus {outline:0;}
     }
     .veloBrand{
         position:absolute;
-        top: 43%;
+        top: 47%;
         left: 37%;
         z-index: 1;
         width: 270px ;
