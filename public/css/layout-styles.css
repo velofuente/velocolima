@@ -337,7 +337,7 @@ select:focus {outline:0;}
 /* body css */
 .main{
     margin-top: 1em;
-  
+    cursor: pointer;
 }
 .icon{
     position:absolute;
@@ -349,7 +349,7 @@ select:focus {outline:0;}
 }
 .veloBrand{
     position:absolute;
-    top: 43%;
+    top: 45%;
     left: 37%;
     z-index: 1;
     width: 370px;
@@ -603,7 +603,7 @@ select:focus {outline:0;}
     }
     .veloBrand{
         position:absolute;
-        top: 43%;
+        top: 47%;
         left: 37%;
         z-index: 1;
         width: 370px;
