@@ -5,9 +5,11 @@
     <div class="row classes">
         <div class="content-normal col col-sm col-md col-lg" style=" padding: 0;">
             <div id="first-class" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('primera')">
-                <img src="img/iconos/BICI.png" width="115px" height="160px" alt="">
+                <img class="bicImg" src="/img/iconos/BICI.png" alt="">
                 <h6 id="amount1">PRIMERA</h6>
                 <h5 class="class f-class">CLASE</h5>
+                <p class="price">$150</p>
+                <p class="exp">Expira: 30 días</p>
             </div>
         </div>
         @php
