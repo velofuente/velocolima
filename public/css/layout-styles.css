@@ -682,30 +682,47 @@ select:focus {outline:0;}
     }
     
 }
-
-@media screen and (max-width: 1055px){
+@media screen and (max-width: 1439px){
     .classes{
-        padding: 0 14em;
-    }
-    .buyClass{
-        width:500px;
-        height:70px;
-    }
-    .resClass{
-        width:390px;
-        height:40px;
+       padding: 0 9em;
     }
     #first-class{
-        width: 100px !important;
-        height: 180px !important;
-        padding-top: 0;
-        padding-bottom: 20px !important;
+        width: 150px;
+        height: 260px;
     }
     #content-normal{
-        width: 100px !important;
-        height: 180px !important;
-        padding-top: 0;
-        padding-bottom: 20px !important;
+        width: 150px;
+        height: 260px;
+    }
+    .bicImg{
+        width:90px;
+        height:130px;
+        margin-top: .5em;
+    }
+    #amount1{
+        margin: 1em 0 0 0;
+    }
+    
+    #amount2, #amount3, #amount4, #amount5, #amount6{
+        font-size: 6em;
+        padding: .3em 0 0 0;
+    }
+    
+    .f-class{
+        margin: 0 0 .3em 0;
+    }
+    
+    .class{
+        color: white;
+        padding: 0 0 0 0;
+    }
+    .exp{
+        color: white;
+        padding: 0 0 0 0;
+        margin-top: -.9em;
+    }
+    .overlay a {
+        font-size: 31px;
     }
     .icon{
         position:absolute;
