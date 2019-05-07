@@ -14,7 +14,7 @@
     background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
     border-radius: 120px;
     margin: 0 1em 0 1em;
-    font-family: 'Gotham Thin';
+    font-family: 'AvenirNextLTPro Regular';
 }
 
 #goBack:hover{
@@ -32,12 +32,16 @@
 #selection > span{
     color: #89e0e5;
 }
-
+.description{
+    margin-top: 1em;
+}
 #profilePic{
     border-radius: 120px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 120px;
+    height: 120px;
 }
 
 @media screen and (max-width: 1300px) {
@@ -76,8 +80,8 @@
 
 .bikes{
     cursor: pointer;
-    width: 47px;
-    height: 47px;
+    width: 80px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -97,8 +101,8 @@
 
 .selected{
     cursor: pointer;
-    width: 47px;
-    height: 47px;
+    width: 80px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -111,7 +115,7 @@
 }
 
 .details{
-    font-family: 'AvenirNextLTPro Regular';
+    font-family: 'AvenirNextLTPro DemiCn';
     color: white;
     text-align: center;
     margin-top: 3em;
@@ -120,10 +124,31 @@
 }
 
 .first{
-    font-family: 'Gotham Thin';
-    color: white;
+    font-family: 'AvenirNextLTPro DemiCn';
+    color: #FF0E3B;
     margin-top: 2em;
     margin-left: 2em;
     font-size: .8em;
     font-weight: bold;
+}
+
+.first > span{
+    color: white;
+}
+.bnd{
+    margin-top: 3em;
+}
+#date{
+    margin-top: -1.7em;
+    margin-left: 12em;
+}
+.ent{
+    color: white;
+}
+
+.cropLogo{
+    width: 50px;
+    height: 20px;
+    margin-bottom: .1em;
+    
 }

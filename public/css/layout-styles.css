@@ -78,8 +78,8 @@ html, body {
     font-family: 'AvenirNextLTPro Regular';
     font-weight: 200;
     height: 100vh;
-    margin: 0;
     padding: 0;
+    margin: 0;
 }
 
 .full-height {
@@ -582,13 +582,43 @@ select:focus {outline:0;}
     
 }
 @media screen and (max-width: 1439px){
+    .classes{
+       padding: 0 9em;
+    }
     #first-class{
-        width: 185px;
-        height: 290px;
+        width: 150px;
+        height: 260px;
     }
     #content-normal{
-        width: 185px;
-        height: 290px;
+        width: 150px;
+        height: 260px;
+    }
+    .bicImg{
+        width:90px;
+        height:130px;
+        margin-top: .5em;
+    }
+    #amount1{
+        margin: 1em 0 0 0;
+    }
+    
+    #amount2, #amount3, #amount4, #amount5, #amount6{
+        font-size: 6em;
+        padding: .3em 0 0 0;
+    }
+    
+    .f-class{
+        margin: 0 0 .3em 0;
+    }
+    
+    .class{
+        color: white;
+        padding: 0 0 0 0;
+    }
+    .exp{
+        color: white;
+        padding: 0 0 0 0;
+        margin-top: -.9em;
     }
     .overlay a {
         font-size: 31px;
@@ -684,9 +714,10 @@ select:focus {outline:0;}
     color: #FF0E3B;
     margin-top: 9em;
     text-align: center;
+ 
 }
 .info-footer2{
-    background-color: rgb(11,3,30);
+    
     text-align: center;
     font-family: 'AvenirNextLTPro Regular';
 }
@@ -723,7 +754,7 @@ select{
 }
 
 .prospectText{
-    background:  #282828!important;
+    background:  black!important;
     border-width: 1px 0px 1px 0px;
     width: 100%;
     padding: 1em 0 1em 0;
@@ -770,4 +801,10 @@ select{
 
 .navbar-toggler-icon{
     background-color: white;
+}
+
+.footerImg{
+    width: 100%;
+    height: 55em;
+    margin: -10em 0;
 }

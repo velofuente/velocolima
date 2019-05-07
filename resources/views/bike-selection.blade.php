@@ -13,16 +13,23 @@ use Carbon\Carbon;
         <div class="select">
             <a href="/schedule" id="goBack">Volver al calendario</a>
                 <div class="row">
-                    <div class="col">
-                        <h6 class="first">ESTUDIO: <span id="branch">{{$schedules->room->branch->name}}</span></h6>
+                    <div class="col-5 bnd">
                         <?php setlocale(LC_TIME,'es_MX.utf8'); $dt = Carbon::now(); $inicio = strftime("%A %d de %B,", strtotime($schedules->day));?>
-                        <h6 class="first"> FECHA: <span id="date">{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i', strtotime($schedules->hour))}} </span></h6>
+                        <h6 class="first" id="branch">ESTUDIO: <span>{{$schedules->room->branch->name}}</span></h6>
+                        <h6 class="first" id="date"> FECHA: <span>{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i', strtotime($schedules->hour))}} </span></h6>
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col">
+                        <h5 class="ent">Selecciona tu bici y entra a 
+                                <img class="cropLogo" src="/img/iconos/CroppedLogo.png" alt="">
+                        </h5>
+                        
                     </div>
                 </div>
             <div class="description">
                 <img src="/img/iconos/2.png" width="400px" height="35px" alt="">
             </div>
-            <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" width="100em" height="100em" alt="">
+            <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" alt="">
         </div>
         <div class="main-bikes">
             <div class="row">
@@ -33,6 +40,7 @@ use Carbon\Carbon;
                 @endfor
             </div>
         </div>
+        <!--
         <div class="details">
             <input type="hidden" name="actualDay" value="{{$day=now()}}">
             <div class="row">
@@ -48,9 +56,11 @@ use Carbon\Carbon;
                 </div>
             </div>
         </div>
+    -->
     </div>
 
     @include('packages')
+    @include('footer')
 @endsection
 @section('extraScripts')
     <script src="{{asset('js/bike-selection-script.js')}}"></script>
