@@ -60,22 +60,27 @@ body{
 }
 
 #submitButton {
-    font-family: 'Avenir';
+    font-family: 'Avenir Next';
+    text-align: center;
+    transition: 0.2s;
+    background-size: 200% auto;
     color: #FFF;
-    background-image: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
     border-radius: 120px;
-    transition: 0.5s;
-    background-size: 100% auto;
     border-style: none;
-    padding: .6em 7em;
-    margin-left: -3em;
+    padding: .6em 5em;
+
+    background-image: linear-gradient(0.25turn, #fd0d3dc7 0%, #9000ffd3 51%, #fd0d3dc7 100%);
+}
+
+#submitButton:hover {
+    background-position: right center;
 }
 
 .col-md-6, .col-md-4 {
     font-family: 'Avenir';
 }
 
-/* Birth Date "Nacimiento" Placeholder inside the Input */
+/* "Nacimiento" Placeholder inside the Birth Date Input */
 input[type="date"]:after {
     content: attr(placeholder) !important;
     color: rgb(110, 110, 110);

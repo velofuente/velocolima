@@ -6,47 +6,62 @@
     <link rel="stylesheet" href="{{asset('css/user-styles.css')}}">
 @endsection
 @section('content')
-    <div class="container-fluid main_div">
+    <div class="container main_div">
         {{-- <div class="flex-center position-ref full-height"> --}}
-            <div class="row">
-                {{-- User Name & Share Code --}}
-                <div class="col-xs-6 col-sm-6 col-md-5 mb-4">
+
+            {{-- User Name & Share Code --}}
+            <div class="row justify-content-center mb-4 border-bottom border-danger">
+                <div class="col-0 col-xs-6 col-sm-6 col-md-5 mb-4">
                     <div class="text-center">
-                        <span class="text-center hola_gradient"> Hola </span>
+                        <span class="text-center text_gradient"> Hola </span>
                         <span class="text-center user_name"> {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
                     </div>
                 </div>
-                <div class="col-xs-0 col-sm-0 col-md-1 mb-4">
+                <div class="col-0 col-xs-0 col-sm-0 col-md-2 mb-0">
                     <div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 mb-4">
+                <div class="col-6 col-xs-6 col-sm-6 col-md-5 mb-4">
                     <div class="text-center text_share_code">
                         <span>Tu código es:  </span>
                         <span class="text-center share_code"> {{ Auth::user()->share_code }} </span>
                     </div>
                 </div>
+            </div>
 
-                {{-- Available Classes & Classes Buttons --}}
-                <div class="col-md-5">
+            <div class="row justify-content-center">
+                {{-- Available Classes & User Data Buttons --}}
+                <div class="col-md-4 mb-3 text-center">
                     <div class="text-center" id="clases">
                         <span class="text-center text_my_classes">Mis Clases</span>
-                        <div class="classesButton">
-                            <p class="available_classes">0{{Auth::user()->classes}}</p>
-                            <small class=" ">Clases disponibles en tu cuenta</small>
+                        <p class="available_classes mb-0">0</p>
+                        <span class="classes_message">Clases disponibles en tu cuenta</span>
+                        <a href="{{ url('/#packages') }}" class="btn gradient_button mx-auto" id="buyPackages" role="button">Comprar Clases</a>
+                    </div>
+                </div>
+                {{-- Classes Buttons --}}
+                <div class="col-md-8 mb-3">
+                    <div class="row text-center">
+                        <div class="col-md-3 mb-3">
+                            <button type="submit" class="btn regular_button mx-auto" id="submitButton">
+                                    {{ __('Próximas Clases') }}
+                            </button>
                         </div>
-                        <a href="{{ url('/#packages') }}" class="btn mx-auto" id="buyPackages" role="button">Comprar Clases</a>
-                    </div>
-                </div>
-                {{-- Límite de Grid --}}
-                <div class="col-md-1">
-                    <div id="clases" class="text-center">
-                        <h4 class="text-center">Límite de Grid</h4>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div id="clases" class="text-left">
-                        <h4 class="text-left">Límite de Grid</h4>
+                        <div class="col-md-3 mb-3">
+                            <button type="submit" class="btn regular_button mx-auto" id="submitButton">
+                                    {{ __('Clases Pasadas') }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button type="submit" class="btn regular_button mx-auto" id="submitButton">
+                                    {{ __('Waitlist') }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button type="submit" class="btn regular_button mx-auto" id="submitButton">
+                                    {{ __('Historial de Compras') }}
+                            </button>
+                        </div>
                     </div>
                 </div>
 
