@@ -23,11 +23,10 @@ use Carbon\Carbon;
                         <h5 class="ent">Selecciona tu bici y entra a 
                                 <img class="cropLogo" src="/img/iconos/CroppedLogo.png" alt="">
                         </h5>
-                        
                     </div>
                 </div>
             <div class="description">
-                <img src="/img/iconos/2.png" width="400px" height="35px" alt="">
+                <img class="resClass" src="/img/iconos/2.png" alt="">
             </div>
             <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" alt="">
         </div>

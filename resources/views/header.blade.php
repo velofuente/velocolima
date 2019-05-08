@@ -55,7 +55,7 @@
     @endguest
     @auth
     <div class="links">
-            <a href="{{ url('/user') }}"><i class="far fa-user fa-2x" data-toggle="tooltip" data-placement="bottom" title="Mi Cuenta"></i></a>
+            <a href="{{ url('/user') }}"><img src="/img/iconos/USUARIO.png" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Mi Cuenta"></a>
        <!-- @if (Route::has('register'))
             <a href="{{ route('register') }}">REGÍSTRATE</a>
             @endif
@@ -63,7 +63,7 @@
         <a class="" href="{{ route('logout') }}"
             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
-            <i class="fas fa-sign-out-alt fa-2x" data-toggle="tooltip" data-placement="bottom" title="Salir"></i></a>
+            <i class="fas fa-sign-out-alt fa-3x" data-toggle="tooltip" data-placement="bottom" title="Salir"></i></a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
@@ -87,7 +87,6 @@
     <div class="hambBtn">
         <button id="hambBtn" class="hamburger hamburger--slider" type="button">
             <img src="{{asset ('/img/iconos/CIRCULOS1.png')}}" alt="tel" width="40px" height="15px">
-            
         </button>
     </div>
 
