@@ -21,11 +21,11 @@
 
 body{
     font-family: 'Avenir';
-    background-color: #282828;
+    background-color: #000;
 }
 
 #topNavBar{
-    background-color: #282828;
+    background-color: #000;
     border-top: 1px solid #c72744a5;
     border-bottom: 1px solid #c72744;
     border-left: none;
@@ -35,13 +35,13 @@ body{
     margin-bottom: 2%;
 }
 
-#topNavBar > .col-1, .col-2, .col-6{
+#topNavBar > div{
     border-right: 1px solid #c72744cd;
 }
 
 .dropdown{
     text-align-last: center;
-    background-color: #282828;
+    background-color: #000;
     color: #FDFDFD;
     font-weight: bold;
     font-size: 14px;
@@ -110,7 +110,7 @@ span.number{
 }
 
 .scheduleItemDisabled{
-    background-color: #282828;
+    background-color: #000;
     margin-bottom: 6px;
     list-style: none;
     border: 1px solid #ffffff66;
@@ -139,7 +139,7 @@ span.number{
 /* CSS Style in case the Schedule Shown is up to date */
 .scheduleItemLink{
     color: #fd0d3df1;
-    background-color: #282828;
+    background-color: #000;
     text-decoration: none;
     text-align: center;
     text-transform: capitalize;
@@ -152,7 +152,7 @@ span.number{
 }
 
 .scheduleItem{
-    background-color: #282828;
+    background-color: #000;
     margin-bottom: 6px;
     list-style: none;
     border: 1px solid #ffffff66;
