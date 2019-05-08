@@ -1,6 +1,6 @@
 @extends('layout')
 @section('title')
-    Usuario
+    Velo | Usuario
 @endsection
 @section('extraStyles')
     <link rel="stylesheet" href="{{asset('css/user-styles.css')}}">
@@ -206,6 +206,7 @@
             </div>
         {{-- </div> --}}
     </div>
+@include('footer')
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
