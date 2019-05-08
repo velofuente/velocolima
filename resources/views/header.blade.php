@@ -119,9 +119,9 @@
 <div class="row">
     <div class="col-12">
         <div class="redes-fijas">
-            <a href="https://www.facebook.com/Siclomx" class="red " style="padding-bottom:1em" target="_blank"><img src="/img/iconos/FACEBOOK.png" width="50px" height="50px" alt=""></i></a>
+            <a href="https://www.facebook.com/Siclomx" class="red " style="padding-bottom:1em" target="_blank"><img class="network" src="/img/iconos/FACEBOOK.png" alt=""></i></a>
             <br>
-            <a href="https://www.instagram.com/siclo/" class="red " target="_blank"><img src="/img/iconos/INSTAGRAM.png" width="50px" height="50px" alt=""></i></a>
+            <a href="https://www.instagram.com/siclo/" class="red " target="_blank"><img  class="network" src="/img/iconos/INSTAGRAM.png" alt=""></i></a>
         </div>
     </div>
 </div>
