@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
+    <title>@yield('title')</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -22,7 +22,7 @@
         <a class="navbar-brand " href="{{ url('/') }}"><img src="/img/iconos/HOME.png" alt="logo" width="35px" height="35px"></a>
         <a class="navbar-brand hicon" href="{{ url('/') }}"><img src="/img/iconos/LOGO.png" alt="logo" width="100px" height="50px"></a>
     </div>
-    <div class="dropdown account d-block d-lg-none">
+    <!-- <div class="dropdown account d-block d-lg-none">
         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-bars" aria-hidden="true"></i>    <span class="caret"></span>
         </a>
@@ -33,7 +33,7 @@
             <a href="{{ url('/book') }}">RESERVAR</a>
         </div>
     </div>
-   <!-- <div class="locations">
+   <div class="locations">
         <select name="" id="">
             <option value="">Colima</option>
         </select>
@@ -55,7 +55,7 @@
     @endguest
     @auth
     <div class="links">
-            <a href="{{ url('/user') }}"><i class="far fa-user fa-2x" data-toggle="tooltip" data-placement="bottom" title="Mi Cuenta"></i></a>
+            <a href="{{ url('/user') }}"><img src="/img/iconos/USUARIO.png" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Mi Cuenta"></a>
        <!-- @if (Route::has('register'))
             <a href="{{ route('register') }}">REGÍSTRATE</a>
             @endif
@@ -63,7 +63,7 @@
         <a class="" href="{{ route('logout') }}"
             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
-            <i class="fas fa-sign-out-alt fa-2x" data-toggle="tooltip" data-placement="bottom" title="Salir"></i></a>
+            <i class="fas fa-sign-out-alt fa-3x" data-toggle="tooltip" data-placement="bottom" title="Salir"></i></a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
@@ -87,7 +87,6 @@
     <div class="hambBtn">
         <button id="hambBtn" class="hamburger hamburger--slider" type="button">
             <img src="{{asset ('/img/iconos/CIRCULOS1.png')}}" alt="tel" width="40px" height="15px">
-            
         </button>
     </div>
 
@@ -120,9 +119,9 @@
 <div class="row">
     <div class="col-12">
         <div class="redes-fijas">
-            <a href="https://www.facebook.com/Siclomx" class="red " style="padding-bottom:1em" target="_blank"><img src="/img/iconos/FACEBOOK.png" width="50px" height="50px" alt=""></i></a>
+            <a href="https://www.facebook.com/Siclomx" class="red " style="padding-bottom:1em" target="_blank"><img class="network" src="/img/iconos/FACEBOOK.png" alt=""></i></a>
             <br>
-            <a href="https://www.instagram.com/siclo/" class="red " target="_blank"><img src="/img/iconos/INSTAGRAM.png" width="50px" height="50px" alt=""></i></a>
+            <a href="https://www.instagram.com/siclo/" class="red " target="_blank"><img  class="network" src="/img/iconos/INSTAGRAM.png" alt=""></i></a>
         </div>
     </div>
 </div>
