@@ -1,6 +1,6 @@
 <div id="packages" class="packages container-fluid">
     <div class="description">
-        <img src="/img/iconos/1.png" width="500px" height="70px" alt="">
+        <img class="buyClass" src="/img/iconos/1.png" alt="">
     </div>
     <div class="row classes">
         <div class="content-normal col col-sm col-md col-lg" style=" padding: 0;">
