@@ -139,6 +139,7 @@
         </script> --}}
     </body>
 @include('packages')
+@include('footer')
 @endsection
 
 @section('extraScripts')
