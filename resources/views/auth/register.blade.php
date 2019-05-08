@@ -13,7 +13,7 @@
     <div class="register row justify-content-center">
         <div class="col-md-8">
             <div>
-                <div class="mx-auto" id="registerTitle">Registrar una cuenta nueva</div>
+                <div class="mx-auto" id="registerTitle">Registrar una nueva cuenta</div>
                 <div class="mx-auto" id="welcomeMessage">Bienvenido a <img src="{{asset('img/iconos/CroppedLogo.png')}}" id="welcomeLogo"></div>
 
                 <div class="card-body">
@@ -65,12 +65,10 @@
                                     </span>
                                 @endif
                             </div>
-
                             <div class="col-md-6 pb-3 mx-auto">
                                 <input id="password-confirm" placeholder="Confirmar Contraseña" type="password" class="form-control" name="password_confirmation" required>
                             </div>
-                        <div class="form-group row pb-3">
-                            <div class="col-md-6 mx-auto">
+                            <div class="col-md-6 pb-3 mx-auto">
                                 <input id="birth_date" min="1900-01-01" max="2100-12-31" type="date" placeholder="Nacimiento" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required autofocus>
                                 @if ($errors->has('birth_date'))
                                     <span class="invalid-feedback" role="alert">
@@ -78,8 +76,10 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
-                            <div class="col-md-6 mx-auto">
+
+                            {{-- Input Phone --}}
+                            <input type="hidden" placeholder="Teléfono"  name="phone" value="3121234567" maxlength="15" required autofocus>
+                            {{-- <div class="col-md-6 mx-auto">
                                 <input id="phone" placeholder="Teléfono" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" maxlength="15" required autofocus>
                                 <ul class="input-requirements">
                                     <li>LADA (3 dígitos) + Número (10 dígitos)</li>
@@ -90,9 +90,11 @@
                                         <strong>{{ $errors->first('phone') }}</strong>
                                     </span>
                                 @endif
-                            </div>
+                            </div> --}}
 
-                            <div class="col-md-6 pb-3 mx-auto">
+                            {{-- Input Weight --}}
+                            <input type="hidden" id="weight" name="weight" value="86.5" required autofocus>
+                            {{-- <div class="col-md-6 pb-3 mx-auto">
                                 <div class="input-group">
                                     <input id="weight" placeholder="Peso" type="text" class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight" value="{{ old('weight') }}" required autofocus>
                                     <div class="input-group-append">
@@ -104,9 +106,11 @@
                                     <strong>{{ $errors->first('weight') }}</strong>
                                 </span>
                                 @endif
-                            </div>
+                            </div> --}}
 
-                            <div class="col-md-6 pb-3 mx-auto">
+                            {{-- Input Height --}}
+                            <input type="hidden" id="height" name="height" value="186" required autofocus>
+                            {{-- <div class="col-md-6 pb-3 mx-auto">
                                 <div class="input-group">
                                     <input id="height" placeholder="Estatura" type="text" class="form-control{{ $errors->has('height') ? ' is-invalid' : '' }}" name="height" value="{{ old('height') }}" required autofocus>
                                     <div class="input-group-append">
@@ -118,7 +122,8 @@
                                         <strong>{{ $errors->first('height') }}</strong>
                                     </span>
                                 @endif
-                            </div>
+                            </div> --}}
+
                             <div class="col-md-6 pb-3 mx-auto">
                                 <div class="input-group">
                                     <input id="shoe_size" placeholder="Tamaño de Calzado" type="text" class="form-control{{ $errors->has('shoe_size') ? ' is-invalid' : '' }}" name="shoe_size" value="{{ old('shoe_size') }}" required autofocus>
@@ -149,7 +154,7 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn" id="submitButton">
+                                <button type="submit" class="btn mx-auto" id="submitButton">
                                     {{ __('Registrarme') }}
                                 </button>
                             </div>
