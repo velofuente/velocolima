@@ -44,6 +44,15 @@
     height: 120px;
 }
 
+@media screen and (max-width: 1500px) {
+    .first{
+        font-size: .8em !important;
+    }
+    .main-bikes{
+        margin: 2em 35% 0em 35%;
+    }
+}
+
 @media screen and (max-width: 1300px) {
     .main-bikes{
         margin: 2em 25% 0em 25%;
@@ -62,9 +71,17 @@
     }
 }
 
-@media screen and (min-width: 1301px) {
+@media screen and (min-width: 1501px) {
     .main-bikes{
         margin: 2em 35% 0em 35%;
+    }
+    .ent {
+        color: white;
+        font-size: 1.6em;
+    }
+    #goBack{
+        
+        font-size: 1.3em;
     }
 }
 
@@ -128,7 +145,7 @@
     color: #FF0E3B;
     margin-top: 2em;
     margin-left: 2em;
-    font-size: .8em;
+    font-size: 1.1em;
     font-weight: bold;
 }
 
