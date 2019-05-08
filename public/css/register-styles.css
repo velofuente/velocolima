@@ -21,24 +21,30 @@
 
 body{
     background: #000;
-    font-family: 'Avenir';
+    font-family: 'Avenir Next';
     font-weight: 400;
     color: #FFF;
+}
+
+.justify-content-center{
+    margin-top: 15%;
 }
 
 #registerTitle {
     font-size: 23px;
     color: #9902EB;
     text-align: center;
-    font-weight: bold;
+    font-family: 'Avenir Next';
+    letter-spacing: 0px;
+    font-weight: 500;
 }
 
 #welcomeMessage {
     font-size: 18px;
     color: #FFF;
     text-align: center;
+    font-weight: 300;
 }
-
 
 #welcomeLogo {
     width: 5%;
@@ -69,7 +75,7 @@ body{
     font-family: 'Avenir';
 }
 
-/* Birth Date Placeholder inside the Input */
+/* Birth Date "Nacimiento" Placeholder inside the Input */
 input[type="date"]:after {
     content: attr(placeholder) !important;
     color: rgb(110, 110, 110);
@@ -85,17 +91,17 @@ input[type="date"]:valid:after {
 /* Input Requirements Lists */
 input:not([type="submit"]) + .input-requirements{
     list-style-type:circle;
-    color: color: rgb(116, 116, 116);
+    color: rgb(116, 116, 116);
     overflow: hidden;
     max-height: 0;
-    transition: max-height 1.8s;
+    transition: max-height 2s;
 }
 
 input:not([type="submit"]):hover + .input-requirements,
 input:not([type="submit"]):focus + .input-requirements,
 input:not([type="submit"]):active + .input-requirements {
     max-height: 1000px;
-    transition: max-height 3.6s;
+    transition: max-height 4s;
 }
 
 .input-requirements li {

@@ -43,6 +43,7 @@
                                             <strong>{{ $errors->first('password') }}</strong>
                                         </span>
                                     @endif
+                                    <div class="container"></div>
                                     <div class="text-right">
                                         @if (Route::has('password.request'))
                                         <br>
@@ -55,7 +56,7 @@
                             </div>
 
                             {{-- Checkbox Recordar Sesión --}}
-                            {{-- <div class="form-group row">
+                        {{-- <div class="form-group row">
                                 <div class="col-md-6 offset-md-4 mx-auto">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -67,15 +68,15 @@
                                 </div>
                             </div> --}}
 
-                            <div class="form-group row mb-0 mx-auto">
+                            <div class="form-group row mx-auto">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn" id="submitButton">
+                                    <button type="submit" class="btn mt-0 mx-auto" id="submitButton">
                                         {{ __('¡Se Véloz!') }}
                                     </button>
                                 </div>
                             </div>
-                            <div class="form-group row mb-0 mx-auto">
-                                <div class="col-md-6 offset-md-4">
+                            <div class="form-group row mb-0 mt-4 mx-auto">
+                                <div class="col-md-6 mx-auto text-center">
                                     <a class="btn btn-link register-account" href="{{ url('/register') }}">
                                         {{ __('¿Aún no tienes una cuenta?') }}
                                     </a>

@@ -6,23 +6,69 @@
     <link rel="stylesheet" href="{{asset('css/user-styles.css')}}">
 @endsection
 @section('content')
-    <div class="container-fluid main">
-        <div class="flex-center position-ref full-height">
-            <div class="text-dark row main">
+    <div class="container-fluid main_div">
+        {{-- <div class="flex-center position-ref full-height"> --}}
+            <div class="row">
+                {{-- User Name & Share Code --}}
+                <div class="col-xs-6 col-sm-6 col-md-5 mb-4">
+                    <div class="text-center">
+                        <span class="text-center hola_gradient"> Hola </span>
+                        <span class="text-center user_name"> {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
+                    </div>
+                </div>
+                <div class="col-xs-0 col-sm-0 col-md-1 mb-4">
+                    <div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 mb-4">
+                    <div class="text-center text_share_code">
+                        <span>Tu código es:  </span>
+                        <span class="text-center share_code"> {{ Auth::user()->share_code }} </span>
+                    </div>
+                </div>
+
+                {{-- Available Classes & Classes Buttons --}}
                 <div class="col-md-5">
-                    <h1 class="text-center name">{{ Auth::user()->name }}</h1>
-                    <h1 class="text-center name">{{ Auth::user()->last_name }}</h1>
-                    <br>
-                    <h4 class="text-center font-weight-bold myclss">Mis Clases</h4>
-                    <div id="clases" class="text-center">
+                    <div class="text-center" id="clases">
+                        <span class="text-center text_my_classes">Mis Clases</span>
                         <div class="classesButton">
-                            <h1 class="myclss">0</h1>
+                            <p class="available_classes">0{{Auth::user()->classes}}</p>
+                            <small class=" ">Clases disponibles en tu cuenta</small>
+                        </div>
+                        <a href="{{ url('/#packages') }}" class="btn mx-auto" id="buyPackages" role="button">Comprar Clases</a>
+                    </div>
+                </div>
+                {{-- Límite de Grid --}}
+                <div class="col-md-1">
+                    <div id="clases" class="text-center">
+                        <h4 class="text-center">Límite de Grid</h4>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div id="clases" class="text-left">
+                        <h4 class="text-left">Límite de Grid</h4>
+                    </div>
+                </div>
+
+                {{-- User Name & Available Classes: col-md-5
+                <div class="col-md-5">
+                    <div class="text-center">
+                        <span class="text-center hola_gradient"> Hola </span>
+                        <span class="text-center user_name"> {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
+                    </div>
+                    <br>
+                    <div id="clases" class="text-center">
+                        <h4 class="text-center font-weight-bold myclss">Mis Clases</h4>
+                        <div class="classesButton">
+                            <h1 class="myclss">0{{Auth::user()->classes}}</h1>
                                 <span class="font-weight-bold myclss">Clases</span><br>
                                 <small class="text-secondary font-weight-bold">* Clases disponibles en tu cuenta</small>
                         </div>
                         <a href="{{ url('/#packages') }}" class="btn text-white mb-4" style="background-color: #26C6CF" role="button">COMPRAR CLASES</a>
                     </div>
-                </div>
+                </div> --}}
+
+                {{-- User Data & Change Password: col-md-7
                 <div class="col-md-7">
                     <div id="userGeneralData">
                         <button type="button" class="btn btn-secondary text-white mb-2 mt-2 w-50 d-block mx-auto" data-toggle="collapse" data-target="#userData">Datos del usuario</button>
@@ -56,18 +102,22 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> --}}
+
+                {{-- Share Code & Social Network: col-md-5
                 <div class="col-md-5">
                     <div id="shareCode" class="border border-info mx-auto circleDiv">
                         <span class="align-middle invite">
                             <h3 class="text-body invite">Invita, Comparte y GANA.</h3>
                             <h5 class="text-muted">Tu código es: </h5>
-                        <h4 class="text-danger">{{ Auth::user()->share_code }}</h4>
+                            <h4 class="text-danger">{{ Auth::user()->share_code }}</h4>
                             <i class="fab fa-whatsapp mr-2" id="media_icon" ></i><i class="fab fa-twitter" id="media_icon" ></i>
                             <i class="fab fa-facebook mr-2" id="media_icon" ></i><i class="fas fa-envelope" id="media_icon"></i>
                         </span>
                     </div>
-                </div>
+                </div> --}}
+
+                {{-- Add Card, Classes, Waitlist & Payments
                 <div class="col-md-7">
                     <div id="Payments" class="mb-4">
                         <h5 class="text-center mx-auto myclss">Formas de Pago</h5>
@@ -80,8 +130,9 @@
                         <button type="button" class="btn btn-secondary mb-2 text-white w-50 d-block mx-auto" st>Clases anteriores</button>
                         <button type="button" class="btn btn-secondary mb-2 text-white w-50 d-block mx-auto" st>Clases expiradas</button>
                     </div>
-                </div>
+                </div> --}}
             </div>
+
             <!-- Add Credit/Debit Card Modal !-->
             <div class="modal fade" id="addCardModal" tabindex="-1" role="dialog" aria-labelledby="addCardModalTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -138,79 +189,79 @@
                     </div>
                 </div>
             </div>
-        </div>
+        {{-- </div> --}}
     </div>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
     <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
 
-    <script type="text/javascript">
-        var deviceSessionId = null;
-        var token_id = null;
-        var tokenBearer = null;
-        var crfsToken = '{{ csrf_token() }}';
+<script type="text/javascript">
+    var deviceSessionId = null;
+    var token_id = null;
+    var tokenBearer = null;
+    var crfsToken = '{{ csrf_token() }}';
 
-        $(document).ready(function() {
-            OpenPay.setId('mwykro9vagcgwumpqaxb');
-            OpenPay.setApiKey('pk_d72eec48f13042949140a7873ee1b3c2');
-            OpenPay.setSandboxMode(true);
-            //Se genera el id de dispositivo
-            device_session_id = OpenPay.deviceData.setup("add-card-form", "deviceIdHiddenFieldName");
-            $('#device_session_id').val(device_session_id);
-            //Bearer en Variable del Script
+    $(document).ready(function() {
+        OpenPay.setId('mwykro9vagcgwumpqaxb');
+        OpenPay.setApiKey('pk_d72eec48f13042949140a7873ee1b3c2');
+        OpenPay.setSandboxMode(true);
+        //Se genera el id de dispositivo
+        device_session_id = OpenPay.deviceData.setup("add-card-form", "deviceIdHiddenFieldName");
+        $('#device_session_id').val(device_session_id);
+        //Bearer en Variable del Script
 
-            $('#add-card-button').on('click', function(event) {
-                event.preventDefault();
-                $("#add-card-button").prop( "disabled", true);
-                OpenPay.token.extractFormAndCreate('add-card-form', sucess_callbak, error_callbak);
-                console.log(OpenPay);
-            });
-
-            var sucess_callbak = function(response) {
-                token_id = response.data.id;
-                $('#token_id').val(token_id);
-                // Submit Form
-                // $('#add-card-form').submit();
-                addCard();
-            };
-
-            var error_callbak = function(response) {
-                var desc = response.data.description != undefined ? response.data.description : response.message;
-                alert("ERROR [" + response.status + "] " + desc);
-                $("#add-card-button").prop("disabled", false);
-            };
-
-            // $.get("App/Http/Controllers/Auth/LoginController.php", function(data, status){
-            //     alert("Token:" + data + "\nStatus" + status);
-            // });
-
-            function addCard(){
-                tokenBearer = $('#tokenBearer').val();
-                console.log('si entro');
-                $.ajax({
-                    url: "/api/addCard",
-                    method: 'POST',
-                    headers: {
-                      'Authorization': `Bearer ${tokenBearer}`,
-                    },
-                    data: {
-                        _token: crfsToken,
-                        token_id: token_id,
-                        device_session_id: device_session_id,
-                        customer_id: 'customerId'
-                    },
-                    success: function(result){
-                        console.log(result);
-                    }
-                });
-                console.log('token_id: ', token_id);
-                console.log('device_session_id: ', device_session_id);
-                console.log('Token CRSF: ', crfsToken);
-                console.log('Bearer: ', tokenBearer);
-            };
+        $('#add-card-button').on('click', function(event) {
+            event.preventDefault();
+            $("#add-card-button").prop( "disabled", true);
+            OpenPay.token.extractFormAndCreate('add-card-form', sucess_callbak, error_callbak);
+            console.log(OpenPay);
         });
-    </script>
+
+        var sucess_callbak = function(response) {
+            token_id = response.data.id;
+            $('#token_id').val(token_id);
+            // Submit Form
+            // $('#add-card-form').submit();
+            addCard();
+        };
+
+        var error_callbak = function(response) {
+            var desc = response.data.description != undefined ? response.data.description : response.message;
+            alert("ERROR [" + response.status + "] " + desc);
+            $("#add-card-button").prop("disabled", false);
+        };
+
+        // $.get("App/Http/Controllers/Auth/LoginController.php", function(data, status){
+        //     alert("Token:" + data + "\nStatus" + status);
+        // });
+
+        function addCard(){
+            tokenBearer = $('#tokenBearer').val();
+            console.log('si entro');
+            $.ajax({
+                url: "/api/addCard",
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${tokenBearer}`,
+                },
+                data: {
+                    _token: crfsToken,
+                    token_id: token_id,
+                    device_session_id: device_session_id,
+                    customer_id: 'customerId'
+                },
+                success: function(result){
+                    console.log(result);
+                }
+            });
+            console.log('token_id: ', token_id);
+            console.log('device_session_id: ', device_session_id);
+            console.log('Token CRSF: ', crfsToken);
+            console.log('Bearer: ', tokenBearer);
+        };
+    });
+</script>
 @endsection
 
 @section('extraScripts')

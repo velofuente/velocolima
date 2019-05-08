@@ -1,12 +1,82 @@
-body{
-    background-color: #282828;
+@font-face {
+    font-family: Avenir;
+    src: url("css/fonts/velo/AvenirNextCondensed-Bold.ttf");
+    src: url("css/fonts/velo/AvenirNextLTPro-Bold.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-BoldCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-BoldCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-Cn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-CnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-Demi.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-DemiCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-DemiCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-It.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-MediumCn.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-MediumCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-Regular.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCn.oto") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCnIt.otf") format("opentype");
 }
 
-.main {
-    margin-top: 6em;
+body{
+    background: #000;
+    font-family: 'Avenir';
+    color: #FFF;
 }
-.name{
-    color: white;
+
+.main_div{
+    margin-top: 10em;
+}
+
+.hola_gradient{
+    font-size: 32px;
+    font-weight: bold;
+    background: -webkit-linear-gradient(40deg, #F80F12, #B102C0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.user_name{
+    color: #FFF;
+    font-size: 32px;
+    font-weight: 500;
+    border-bottom: solid 2px #bd0f12;
+}
+
+.text_share_code{
+    font-family: 'Avenir Next';
+    font-size: 24px;
+}
+
+.share_code{
+    font-family: 'Avenir';
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.text_my_classes{
+    color: #961029;
+    text-transform: uppercase;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.available_classes{
+    font-size: 80px;
+}
+
+#buyPackages{
+    font-family: 'Avenir';
+    font-size: 13px;
+    color: #FFF;
+    background-image: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
+    border-radius: 120px;
+    background-size: 100% auto;
+    border-style: none;
+    padding: .6em 5em;
+    text-transform: capitalize;
 }
 .myclss{
     color: #FF0E3B;
