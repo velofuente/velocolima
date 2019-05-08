@@ -686,6 +686,14 @@ select:focus {outline:0;}
     .classes{
        padding: 0 9em;
     }
+    .buyClass{
+        width:500px;
+        height:70px;
+    }
+    .resClass{
+        width:390px;
+        height:40px;
+    }
     #first-class{
         width: 150px;
         height: 260px;
@@ -812,7 +820,7 @@ select:focus {outline:0;}
     }
     .veloBrand{
         position:absolute;
-        top: 43%;
+        top: 45%;
         left: 37%;
         z-index: 1;
         width: 220px;
