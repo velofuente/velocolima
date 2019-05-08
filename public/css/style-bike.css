@@ -54,8 +54,15 @@
 }
 
 @media screen and (max-width: 1300px) {
+    .first{
+        font-size: .7em !important;
+    }
     .main-bikes{
         margin: 2em 25% 0em 25%;
+    }
+    #date{
+        margin-top: -1em;
+        margin-left: 12em;
     }
 }
 
