@@ -11,6 +11,9 @@
 .modal-footer{
     border-top: none;
 }
+#oName{
+    font-size: 1.1em;
+}
 .cards{
     width:60px; 
     height:35px;
@@ -64,7 +67,7 @@
 
 .button{
     font-family: 'Avenir Next';
-    font-size: 13px;
+    font-size: 14px;
     color: #FFF;
     transition: 0.2s;
     border-radius: 120px;
@@ -79,7 +82,7 @@
 
 .closeBtn{
     font-family: 'Avenir Next';
-    font-size: 13px;
+    font-size: 14px;
     color: #FFF;
     transition: 0.2s;
     border-radius: 120px;
