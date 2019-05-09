@@ -20,7 +20,7 @@
             @if ($product != $products{0})
                 {{--dd($products{0})--}}
                 <div class="content-normal col col-sm col-md col-lg" style=" padding: 0;">
-                    <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('{{ --$amount }}')">
+                    <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('{{ $product->n_classes }}')">
                         <h3 id="amount{{$amount}}">{{$product->n_classes}}</h3>
                         @if ($flag)
                             <h5 class="class">CLASE</h5>
