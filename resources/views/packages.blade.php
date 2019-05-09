@@ -32,7 +32,9 @@
                         <p class="exp">Expira: {{$product->expiration_date}} días</p>
                     </div>
                 </div>
-                {{$amount++}}
+                @php
+                    $amount++;
+                @endphp
             @endif
         @endforeach
         <!-- Modal -->
