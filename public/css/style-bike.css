@@ -15,6 +15,7 @@
     border-radius: 120px;
     margin: 0 1em 0 1em;
     font-family: 'AvenirNextLTPro Regular';
+    font-size: 1.1em;
 }
 
 #goBack:hover{
@@ -46,7 +47,7 @@
 
 @media screen and (max-width: 1500px) {
     .first{
-        font-size: .8em !important;
+        font-size: 1em !important;
     }
     .main-bikes{
         margin: 2em 35% 0em 35%;
@@ -55,7 +56,7 @@
 
 @media screen and (max-width: 1300px) {
     .first{
-        font-size: .7em !important;
+        font-size: .9em !important;
     }
     .main-bikes{
         margin: 2em 25% 0em 25%;
@@ -115,7 +116,7 @@
     color: #bababa;
     text-align: center;
     transition: .3s ease;
-    font-size: 12px;
+    font-size: 1.2em;
 }
 
 .bikes:hover{

@@ -1119,26 +1119,6 @@ select:focus {outline:0;}
     }
 }
 
-
-
-
-
-
-
-
-.data{
-    margin-top: .5em;
-    margin-bottom: .5em;
-    width: 100%;
-}
-#visa{
-    background-color: white;
-}
-#oName{
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
 #btnLog{
     color: whitesmoke;
     background-color: #87d9de;

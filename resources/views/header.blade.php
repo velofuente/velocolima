@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/layout-styles.css')}}">
+    <link rel="stylesheet" href="{{asset('css/packages.css')}}">
     @yield('extraStyles')
 </head>
 <div class="gradient"></div>
@@ -94,10 +95,14 @@
         <div class="overlay-content">
             <a href="">Ubicación</a>
             <a href="{{ url('/instructors') }}">Instructores</a>
-            <a href="{{ url('/book') }}">Reservar</a>
+            <a href="{{ url('/schedule') }}">Reservar</a>
             <a href="{{ url('/#packages') }}">Comprar clases</a>
             <a href="{{ url('/who-are-we') }}">¿Quiénes somos?</a>
             <a href="#">Legales</a>
+            @guest
+                <a href="{{ url('/login')}}"> Login </a>
+            @endguest
+            @auth
             <a class="" href="{{ route('logout') }}"
             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
@@ -105,6 +110,8 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
+            @endauth
+            
         </div>
         <div class="overlay-locations">
             <a href="" class="location">Colima</a>

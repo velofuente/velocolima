@@ -34,7 +34,7 @@ use Carbon\Carbon;
             <div class="row">
                 @for ($i = 1; $i <= $schedules->reservation_limit; $i++)
                 <div class="col places">
-                    <p class="bikes">{{$i}}</p>
+                    <p onclick="location.href='#packages'; " class="bikes">{{$i}}</p>
                 </div>
                 @endfor
             </div>
