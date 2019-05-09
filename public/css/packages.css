@@ -10,6 +10,7 @@
 }
 .modal-footer{
     border-top: none;
+    margin: 0 auto;
 }
 #oName{
     font-size: 1.1em;
