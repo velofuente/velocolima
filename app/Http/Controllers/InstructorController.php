@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Instructor;
 use App\Branch;
 use App\Schedule;
+use App\Product;
 use Response;
 
 class InstructorController extends Controller
@@ -57,13 +58,14 @@ class InstructorController extends Controller
     {
         $instructors = Instructor::all();
         $branches = Branch::all();
+        $products = Product::all();
 
         date_default_timezone_set('America/Mexico_City');
         $schedules = Schedule::whereBetween('day', [now()->format('Y-m-d'), now()->modify('+7 days')])
                     ->get()
                     ->sortBy('hour');
 
-        return view('schedule', compact('instructors', 'branches', 'schedules'));
+        return view('schedule', compact('instructors', 'branches', 'schedules','products'));
     }
 
     public function bikeSelection(Schedule $schedules)
