@@ -107,7 +107,16 @@
         font-size: 1.3em;
     }
 }
-
+.table{
+    margin: 0 auto;
+    width: 70%;
+}
+.table td{
+    border: 1px solid transparent !important;
+    height: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
 .places{
     text-align: center;
     width: 47px;
@@ -132,6 +141,7 @@
     text-align: center;
     transition: .3s ease;
     font-size: 1.2em;
+    margin: 0;
 }
 
 .bikes:hover{
@@ -152,6 +162,7 @@
     text-align: center;
     transition: .3s ease;
     font-size: 1.2em;
+    margin: 0;
 }
 
 .details{

@@ -30,6 +30,7 @@ use Carbon\Carbon;
             </div>
             <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" alt="">
         </div>
+        <!--
         <div class="main-bikes">
             <div class="row">
                 @for ($i = 1; $i <= $schedules->reservation_limit; $i++)
@@ -38,7 +39,7 @@ use Carbon\Carbon;
                 </div>
                 @endfor
             </div>
-        </div>
+        </div> -->
         <!--
         <div class="details">
             <input type="hidden" name="actualDay" value="{{$day=now()}}">
@@ -56,6 +57,8 @@ use Carbon\Carbon;
             </div>
         </div>
     -->
+        <div id="dinamicTable">
+        </div>
     </div>
 
     @include('packages')
