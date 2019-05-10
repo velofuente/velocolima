@@ -76,8 +76,6 @@
                 </button>
             </div>
             <div class="modal-body">
-            
-                        
                         <div class="">
                             <img class="cards" src="/img/iconos/VISA.png" alt="visa">
                             <img class="cards" src="/img/iconos/MASTER.png" alt="mastercard" >
@@ -85,7 +83,6 @@
                         </div>
                         <input class="data mx-auto" type="text" name="" id="cOwner" placeholder="Nombre" maxlength="35">
                         <input class="data mx-auto" type="text" name="" id="cNumber" placeholder="Número de tarjeta"  maxlength="16">
-                        
                             <div class="cInfo mx-auto">
                                 <select class="dataRow" name="" id="monthExpiration">
                                     <option value="1">1</option>
@@ -115,9 +112,7 @@
                                     <option value="2029">2029</option>
                                 </select>
                                 <input class="dataRow" type="text" name="" id="Code" placeholder="CVV" maxlength="3">
-                            </div>  
-                        
-                        
+                            </div>
                         <div class="">
                         <input type="checkbox" name="data" id="data">
                         <label for="data">Guarda datos de mi tarjeta</label>
@@ -128,7 +123,6 @@
                         <input type="checkbox" name="conditions" id="conditions">
                         <label for="conditions" class="conditions">Acepto términos y condiciones</label>
                         </div>
-               
             </div>
             <div class="modal-footer">
                 <button type="button" class="closeBtn" data-dismiss="modal">Cerrar</button>
@@ -140,3 +134,74 @@
         @endauth
     </div>
 </div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
+<script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
+
+<script type="text/javascript">
+var deviceSessionId = null;
+var token_id = null;
+var tokenBearer = null;
+var crfsToken = '{{ csrf_token() }}';
+
+$(document).ready(function() {
+    OpenPay.setId('mwykro9vagcgwumpqaxb');
+    OpenPay.setApiKey('pk_d72eec48f13042949140a7873ee1b3c2');
+    OpenPay.setSandboxMode(true);
+    //Se genera el id de dispositivo
+    device_session_id = OpenPay.deviceData.setup("add-card-form", "deviceIdHiddenFieldName");
+    $('#device_session_id').val(device_session_id);
+    //Bearer en Variable del Script
+
+    $('#add-card-button').on('click', function(event) {
+        event.preventDefault();
+        $("#add-card-button").prop( "disabled", true);
+        OpenPay.token.extractFormAndCreate('add-card-form', sucess_callbak, error_callbak);
+        console.log(OpenPay);
+    });
+
+    var sucess_callbak = function(response) {
+        token_id = response.data.id;
+        $('#token_id').val(token_id);
+        // Submit Form
+        // $('#add-card-form').submit();
+        addCard();
+    };
+
+    var error_callbak = function(response) {
+        var desc = response.data.description != undefined ? response.data.description : response.message;
+        alert("ERROR [" + response.status + "] " + desc);
+        $("#add-card-button").prop("disabled", false);
+    };
+
+    // $.get("App/Http/Controllers/Auth/LoginController.php", function(data, status){
+    //     alert("Token:" + data + "\nStatus" + status);
+    // });
+
+    function addCard(){
+        tokenBearer = $('#tokenBearer').val();
+        console.log('si entro');
+        $.ajax({
+            url: "/api/addCard",
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${tokenBearer}`,
+            },
+            data: {
+                _token: crfsToken,
+                token_id: token_id,
+                device_session_id: device_session_id,
+                customer_id: 'customerId'
+            },
+            success: function(result){
+                console.log(result);
+            }
+        });
+        console.log('token_id: ', token_id);
+        console.log('device_session_id: ', device_session_id);
+        console.log('Token CRSF: ', crfsToken);
+        console.log('Bearer: ', tokenBearer);
+    };
+});
+</script>

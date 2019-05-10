@@ -21,6 +21,9 @@ class CreateUserSchedulesTable extends Migration
             //Foreign Key to Schedule
             $table->unsignedInteger('schedule_id');
             $table->foreign('schedule_id')->references('id')->on('schedules');
+            //Foreign Key to Purchase
+            $table->unsignedInteger('purchase_id');
+            $table->foreign('purchase_id')->references('id')->on('purchases');
             $table->timestamps();
         });
     }

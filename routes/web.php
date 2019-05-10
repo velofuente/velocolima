@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PurchaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +50,7 @@ Route::get('/first-visit', function (){
     return view('first-visit');
 });
 
-
+Route::post('charge', 'PurchaseController@store');
 
 Route::resource('user', 'UserController');
 

@@ -158,6 +158,68 @@ class OpenPayController extends Controller
             $compra = Purchase::create([
                 'product_id' => $request->product_id,
                 'card_id' => $card->id,
+                'user_id' => $requestUser->id,
+                'n_classes' => $request->n_classes,
+                'expiration_date' => $request->expiration_date,
+            ]);
+            $chargeData = [
+                'method' => 'card',
+                'source_id' => $card->token_id,
+                'amount' => $request->amount,
+                'description' => $request->description,
+                'order_id' => 'ORDEN-'.$compra->id,
+                'device_session_id' => $request->device_session_id
+            ];
+            $charge = $customer->charges->create($chargeData);
+            DB::commit();
+            return json_encode($charge);
+        }catch(OpenpayApiTransactionError $e){
+            DB::rollback();
+            switch ($e->getErrorCode()) {
+                case 3001:
+                    return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                    break;
+                case 3002:
+                    return "La tarjeta ha expirado.";
+                    break;
+                case 3003:
+                    return "La tarjeta no tiene fondos suficientes.";
+                    break;
+                case 3006:
+                    return "La operación no esta permitida para este cliente o esta transacción. Contacta a tu banco.";
+                    break;
+                case 3007:
+                    return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                    break;
+                case 3008:
+                    return "La tarjeta no es soportada en transacciones en línea. Contacta a tu banco.";
+                    break;
+                case 3010:
+                    return "El banco ha restringido la tarjeta. Contacta a tu banco.";
+                    break;
+                case 3012:
+                    return "Se requiere solicitar al banco autorización para realizar este pago. Contacta a tu banco.";
+                    break;
+                default:
+                    return "Tarjeta no válida. Contacta a tu banco.";
+            }
+        }catch(OpenpayApiRequestError $e){
+            return "Tarjeta no válida. Contacta a tu banco.";
+        }catch(Exception $e){
+            return "No se pudo agregar la tarjeta, inténtalo nuevamente.";
+        }
+    }
+    public function makeChargeCard(Request $request)
+    {
+        $openpay = self::openPay();
+        $requestUser = $request->user();
+        $card = $request->token_id;
+        $customer = $openpay->customers->get($requestUser->customer_id);
+        try{
+            DB::beginTransaction();
+            $compra = Purchase::create([
+                'product_id' => $request->product_id,
+                'card_id' => $card->id,
                 'user_id' => $requestUser->id
             ]);
             $chargeData = [

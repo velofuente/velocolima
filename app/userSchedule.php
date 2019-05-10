@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class userSchedule extends Model
 {
     protected $fillable = [
-        'n_classes', 'price', 'description', 'expiration_days',
+        'user_id', 'schedule_id', 'purchase_id',
     ];
 }

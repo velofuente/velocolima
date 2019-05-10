@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('n_classes');
             $table->float('price',6,2);
             $table->string('description');
-            $table->integer('expiration_date');
+            $table->integer('expiration_days');
             $table->timestamps();
         });
     }

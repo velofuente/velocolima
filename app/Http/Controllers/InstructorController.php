@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Instructor;
-use App\Branch;
-use App\Schedule;
-use App\Product;
+use App\{Instructor,Branch,Schedule,Product};
 use Response;
 
 class InstructorController extends Controller
@@ -72,8 +69,9 @@ class InstructorController extends Controller
     {
         $instructors = Instructor::all();
         $branches = Branch::all();
+        $products = Product::all();
 
-        return view('bike-selection', compact('instructors', 'branches', 'schedules'));
+        return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products'));
     }
 
     /**

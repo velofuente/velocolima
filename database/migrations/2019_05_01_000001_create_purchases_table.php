@@ -24,6 +24,9 @@ class CreatePurchasesTable extends Migration
             //Foreign Key from Purchase to Users
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            //Data obtained from the product
+            $table->string('n_classes');
+            $table->integer('expiration_date');
             $table->timestamps();
         });
     }

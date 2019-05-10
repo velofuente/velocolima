@@ -20,7 +20,7 @@ use Carbon\Carbon;
                     </div>
                     <div class="col-2"></div>
                     <div class="col">
-                        <h5 class="ent">Selecciona tu bici y entra a 
+                        <h5 class="ent">Selecciona tu bici y entra a
                                 <img class="cropLogo" src="/img/iconos/CroppedLogo.png" alt="">
                         </h5>
                     </div>
