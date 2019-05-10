@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Auth, Log, JWTAuth,DB;
+use App\Card;
+use function GuzzleHttp\json_decode;
 
 class UserController extends Controller
 {
@@ -19,8 +21,10 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $requestUser = $request->user();
+        $purchaseHistory = DB::table('purchases')->where('user_id', '=', "{$requestUser->id}");
         $cards = DB::table('cards')->where('user_id', '=', "{$requestUser->id}");
-        return view('user', compact('cards'));
+        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes)'))->where('user_id', '=', "{$requestUser->id}");
+        return view('user', compact('cards','purchaseHistory','numClases'));
     }
 
     /**
