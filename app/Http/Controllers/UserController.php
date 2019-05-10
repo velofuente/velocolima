@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Auth, Log, JWTAuth,DB;
+use App\Card;
+use function GuzzleHttp\json_decode;
 
 class UserController extends Controller
 {
