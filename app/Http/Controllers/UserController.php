@@ -21,8 +21,10 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $requestUser = $request->user();
+        $purchaseHistory = DB::table('purchases')->where('user_id', '=', "{$requestUser->id}");
         $cards = DB::table('cards')->where('user_id', '=', "{$requestUser->id}");
-        return view('user', compact('cards'));
+        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes)'))->where('user_id', '=', "{$requestUser->id}");
+        return view('user', compact('cards','purchaseHistory','numClases'));
     }
 
     /**
