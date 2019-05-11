@@ -186,6 +186,8 @@ $(document).ready(function() {
         // Submit Form
         //$('#payment-form').submit();
         makeCharge();
+
+        console.log("cargo realizado");
     };
 
     var error_callbak = function(response) {
@@ -209,8 +211,10 @@ $(document).ready(function() {
                 },
             data: {
                 _token: crfsToken,
+                token_id: token_id,
                 device_session_id: device_session_id,
                 product_id: product_id,
+                customer_id: 'customerId'
             },
             success: function(result){
                 console.log(result);
@@ -218,7 +222,7 @@ $(document).ready(function() {
         });
         console.log('token_id: ', token_id);
         console.log('device_session_id: ', device_session_id);
-        console.log('product_id: ', product_id);
+        console.log('Token CRSF: ', crfsToken);
         console.log('Bearer: ', tokenBearer);
     };
 });

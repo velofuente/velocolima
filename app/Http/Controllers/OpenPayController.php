@@ -19,6 +19,7 @@ class OpenPayController extends Controller
         // log::info($request->all());
         //Obtener usuario de la petición
         $requestUser = $request->user();
+        // dd($requestUser);
         //Validar si el usuario ya existe en OpenPay
         if ($requestUser->customer_id == null){
             $openPayCustomer = $this->addCustomer($requestUser);
@@ -288,8 +289,11 @@ class OpenPayController extends Controller
     public function deleteCustomer(Request $request)
     {
         $openpay = self::openPay();
+        $requestUser = $request->user();
         $customer = $openpay->customers->get($request->customer_id);
         $customer->delete();
+        $requestUser->customer_id = null;
+        $requestUser->save();
         return "Borrado exitosamente";
     }
     public function getApiKeyAndSessionId()

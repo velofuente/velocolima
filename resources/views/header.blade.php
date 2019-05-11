@@ -96,7 +96,7 @@
             <a href="">Ubicación</a>
             <a href="{{ url('/instructors') }}">Instructores</a>
             <a href="{{ url('/schedule') }}">Reservar</a>
-            <a href="{{ url('/#packages') }}">Comprar clases</a>
+            <a href="{{ url('/schedule#packages') }}">Comprar clases</a>
             <a href="{{ url('/who-are-we') }}">¿Quiénes somos?</a>
             <a href="#">Legales</a>
             @guest
@@ -111,7 +111,7 @@
                 @csrf
             </form>
             @endauth
-            
+
         </div>
         <div class="overlay-locations">
             <a href="" class="location">Colima</a>
