@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Exception;
 use Openpay, Log, Config, Auth, DB;
-use App\Purchase;
+use App\{Purchase, Card};
 
 class OpenPayController extends Controller
 {
