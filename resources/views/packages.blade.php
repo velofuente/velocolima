@@ -30,7 +30,7 @@
                         @endif
                         <p class="precio">{{$product->price}}</p>
                         <p class="exp">Expira: {{$product->expiration_days}} días</p>
-                        <input type="hidden" name="product_id" id="product_id" value="{{$product_id}}">
+                        <input type="hidden" name="product_id" id="product_id" value="{{$product->product_id}}">
                     </div>
                 </div>
                 @php
@@ -204,10 +204,8 @@ $(document).ready(function() {
             },
             data: {
                 _token: crfsToken,
-                token_id: token_id,
                 device_session_id: device_session_id,
                 product_id: product_id,
-                customer_id: 'customerId'
             },
             success: function(result){
                 console.log(result);
