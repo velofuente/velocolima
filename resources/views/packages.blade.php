@@ -30,7 +30,7 @@
                         @endif
                         <p class="precio">{{$product->price}}</p>
                         <p class="exp">Expira: {{$product->expiration_days}} días</p>
-                        <input type="hidden" name="product_id" id="product_id" value="{{$product->product_id}}">
+                        <input type="hidden" name="product_id" id="product_id" value="{{$product->id}}">
                     </div>
                 </div>
                 @php
@@ -176,11 +176,11 @@ $(document).ready(function() {
     var sucess_callbak = function(response) {
         token_id = response.data.id;
         $('#token_id').val(token_id);
+        product_id = $('#product_id').val();
+        console.log(product_id);
         // Submit Form
         //$('#payment-form').submit();
         makeCharge();
-
-        console.log("cargo realizado");
     };
 
     var error_callbak = function(response) {
@@ -213,7 +213,7 @@ $(document).ready(function() {
         });
         console.log('token_id: ', token_id);
         console.log('device_session_id: ', device_session_id);
-        console.log('Token CRSF: ', crfsToken);
+        console.log('product_id: ', product_id);
         console.log('Bearer: ', tokenBearer);
     };
 });
