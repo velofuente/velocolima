@@ -6,9 +6,9 @@ Reservar Bici
     <link rel="stylesheet" href="{{asset('css/style-bike.css')}}">
 @endsection
 @section('content')
-<?php
-use Carbon\Carbon;
-?>
+    @php
+        use Carbon\Carbon;
+    @endphp
     <div class="container-fluid main">
         <div class="select">
             <a href="/schedule" id="goBack">Volver al calendario</a>
@@ -62,10 +62,12 @@ use Carbon\Carbon;
         </div>
     -->
     </div>
-
     @include('packages')
     @include('footer')
 @endsection
 @section('extraScripts')
     <script src="{{asset('js/bike-selection-script.js')}}"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
+<script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
 @endsection

@@ -42,7 +42,10 @@ class OpenPayController extends Controller
                 return "La tarjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
             }
             else{
-                //return $requestUser->id;
+                $userCards = Card::where('user_id' , $requestUser->id)->get();
+                If(count($userCards)>0){
+                    Card::where('user_id' , $requestUser->id)->where('selected', 1)->update(['selected' => 0]);
+                }
                 app('App\Http\Controllers\CardController')->store($cardData,$requestUser->id);
                 $cardDataRequest = [
                     'token_id' => $cardData->id,
@@ -151,7 +154,9 @@ class OpenPayController extends Controller
     {
         $openpay = self::openPay();
         $requestUser = $request->user();
-        $card = DB::table('cards')->select('id','token_id')->where('user_id', '=', "{$requestUser->id}")->first();
+        return $requestUser;
+        $card = DB::table('cards')->select('id','token_id')->where('user_id', "{$requestUser->id}")->where('selected', 1)->first();
+        
         $product = DB::table('products')->where('id', '=', "{$request->product_id}");
         $customer = $openpay->customers->get($requestUser->customer_id);
         try{

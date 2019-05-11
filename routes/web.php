@@ -17,8 +17,10 @@ use App\Http\Controllers\PurchaseController;
 
 Route::get('/test', 'test@test');
 // Route::get('/addCard', 'OpenPayController@addCustomerCard');
-
-Route::get('/', 'HomeController@index');
+Route::get('/', function () {
+    return view('welcome');
+});    
+//Route::get('/', 'HomeController@index');
 
 Auth::routes(['verify' => true]);
 
