@@ -8,10 +8,6 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/instructors-styles.css')}}">
 @endsection
 
-@section('extraStyles')
-    <link rel="stylesheet" type="text/css" href="{{asset('css/instructors-styles.css')}}">
-@endsection
-
 @section('content')
     <body>
         <div class="container-fluid">
