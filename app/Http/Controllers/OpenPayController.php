@@ -152,21 +152,22 @@ class OpenPayController extends Controller
         $openpay = self::openPay();
         $requestUser = $request->user();
         $card = DB::table('cards')->select('id','token_id')->where('user_id', '=', "{$requestUser->id}")->first();
+        $product = DB::table('products')->where('id', '=', "{$request->product_id}");
         $customer = $openpay->customers->get($requestUser->customer_id);
         try{
             DB::beginTransaction();
             $compra = Purchase::create([
-                'product_id' => $request->product_id,
+                'product_id' => $product->id,
                 'card_id' => $card->id,
                 'user_id' => $requestUser->id,
-                'n_classes' => $request->n_classes,
-                'expiration_date' => $request->expiration_days,
+                'n_classes' => $product->n_classes,
+                'expiration_date' => $product->expiration_days,
             ]);
             $chargeData = [
                 'method' => 'card',
                 'source_id' => $card->token_id,
-                'amount' => $request->amount,
-                'description' => $request->description,
+                'amount' => $product->price,
+                'description' => $product->description,
                 'order_id' => 'ORDEN-'.$compra->id,
                 'device_session_id' => $request->device_session_id
             ];
