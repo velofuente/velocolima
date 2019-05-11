@@ -29,7 +29,7 @@
                             <h5 class="class">CLASES</h5>
                         @endif
                         <p class="precio">{{$product->price}}</p>
-                        <p class="exp">Expira: {{$product->expiration_date}} días</p>
+                        <p class="exp">Expira: {{$product->expiration_days}} días</p>
                     </div>
                 </div>
                 @php
@@ -76,15 +76,20 @@
                 </button>
             </div>
             <div class="modal-body">
+                    <form method="post" id="payment-form">
+                            @csrf
+                            <input type="hidden" name="token_id" id="token_id">
+                            <input type="hidden" name="device_session_id" id="device_session_id">
+                            <input type="hidden" name="tokenBearer" id="tokenBearer" value="{{ Session::get("tokenBearer")[0]}}">
                         <div class="">
                             <img class="cards" src="/img/iconos/VISA.png" alt="visa">
                             <img class="cards" src="/img/iconos/MASTER.png" alt="mastercard" >
                             <img class="cards" src="/img/iconos/AMERICAN.png" alt="express">
                         </div>
-                        <input class="data mx-auto" type="text" name="" id="cOwner" placeholder="Nombre" maxlength="35">
-                        <input class="data mx-auto" type="text" name="" id="cNumber" placeholder="Número de tarjeta"  maxlength="16">
+                        <input class="data mx-auto" type="text" name="" id="cardOwner" placeholder="Nombre" maxlength="35" data-openpay-card="holder_name">
+                        <input class="data mx-auto" type="text" name="" id="cardNumber" placeholder="Número de tarjeta"  maxlength="16" data-openpay-card="card_number">
                             <div class="cInfo mx-auto">
-                                <select class="dataRow" name="" id="monthExpiration">
+                                <select class="dataRow" name="" id="monthExpiration" data-openpay-card="expiration_month">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -98,20 +103,20 @@
                                     <option value="11">11</option>
                                     <option value="12">12</option>
                                 </select>
-                                <select class="dataRow" name="" id="yearExpiration">
-                                    <option value="2019">2019</option>
-                                    <option value="2020">2020</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2022">2022</option>
-                                    <option value="2023">2023</option>
-                                    <option value="2024">2024</option>
-                                    <option value="2025">2025</option>
-                                    <option value="2026">2026</option>
-                                    <option value="2027">2027</option>
-                                    <option value="2028">2028</option>
-                                    <option value="2029">2029</option>
+                                <select class="dataRow" name="" id="yearExpiration" data-openpay-card="expiration_year">
+                                    <option value="19">2019</option>
+                                    <option value="20">2020</option>
+                                    <option value="21">2021</option>
+                                    <option value="22">2022</option>
+                                    <option value="23">2023</option>
+                                    <option value="24">2024</option>
+                                    <option value="25">2025</option>
+                                    <option value="26">2026</option>
+                                    <option value="27">2027</option>
+                                    <option value="28">2028</option>
+                                    <option value="29">2029</option>
                                 </select>
-                                <input class="dataRow" type="text" name="" id="Code" placeholder="CVV" maxlength="3">
+                                <input class="dataRow" type="text" name="" id="Code" placeholder="CVV" maxlength="3" data-openpay-card="cvv2">
                             </div>
                         <div class="">
                         <input type="checkbox" name="data" id="data">
@@ -123,10 +128,11 @@
                         <input type="checkbox" name="conditions" id="conditions">
                         <label for="conditions" class="conditions">Acepto términos y condiciones</label>
                         </div>
+                    </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="closeBtn" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="button">Comprar</button>
+                <button type="button" class="button" id="pay-button">Comprar</button>
             </div>
             </div>
         </div>
@@ -140,9 +146,13 @@
 <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
 
 <script type="text/javascript">
+//variable que crear openpay
 var deviceSessionId = null;
+//solo se crea cuando hay una respuesta success
 var token_id = null;
+//token de usuario autenticado
 var tokenBearer = null;
+//se genera solo por laravel
 var crfsToken = '{{ csrf_token() }}';
 
 $(document).ready(function() {
@@ -150,14 +160,14 @@ $(document).ready(function() {
     OpenPay.setApiKey('pk_d72eec48f13042949140a7873ee1b3c2');
     OpenPay.setSandboxMode(true);
     //Se genera el id de dispositivo
-    device_session_id = OpenPay.deviceData.setup("add-card-form", "deviceIdHiddenFieldName");
+    device_session_id = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName");
     $('#device_session_id').val(device_session_id);
     //Bearer en Variable del Script
 
-    $('#add-card-button').on('click', function(event) {
+    $('#pay-button').on('click', function(event) {
         event.preventDefault();
-        $("#add-card-button").prop( "disabled", true);
-        OpenPay.token.extractFormAndCreate('add-card-form', sucess_callbak, error_callbak);
+        $("#pay-button").prop( "disabled", true);
+        OpenPay.token.extractFormAndCreate('payment-form', sucess_callbak, error_callbak);
         console.log(OpenPay);
     });
 
@@ -165,25 +175,25 @@ $(document).ready(function() {
         token_id = response.data.id;
         $('#token_id').val(token_id);
         // Submit Form
-        // $('#add-card-form').submit();
-        addCard();
+        //$('#payment-form').submit();
+        makeCharge();
     };
 
     var error_callbak = function(response) {
         var desc = response.data.description != undefined ? response.data.description : response.message;
         alert("ERROR [" + response.status + "] " + desc);
-        $("#add-card-button").prop("disabled", false);
+        $("#pay-button").prop("disabled", false);
     };
 
     // $.get("App/Http/Controllers/Auth/LoginController.php", function(data, status){
     //     alert("Token:" + data + "\nStatus" + status);
     // });
 
-    function addCard(){
+    function makeCharge(){
         tokenBearer = $('#tokenBearer').val();
         console.log('si entro');
         $.ajax({
-            url: "/api/addCard",
+            url: "/api/makeCharge",
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${tokenBearer}`,

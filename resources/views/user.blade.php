@@ -38,6 +38,48 @@
                         <span class="classes_message">Clases disponibles en tu cuenta</span>
                         <a href="{{ url('/#packages') }}" class="btn gradient_button mx-auto" id="buyPackages" role="button">Comprar Clases</a>
                     </div>
+                    <div id="Payments" class="mb-4 mt-4">
+                        <h5 class="text-center mx-auto mb-2 myclss">Mis tarjetas</h5>
+                        @foreach ($cards as $card)
+                            <div class="cards" style="color: #FFF">
+                                {{$card->card_number}}
+                            </div>
+                        @endforeach
+                        <button class="btn btn-dark text-white mb-4 w-50 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></button>
+                    </div>
+                    {{-- Change User Data & Password --}}
+                    <div id="userGeneralData">
+                        <button type="button" class="btn btn-secondary text-white mb-2 mt-2 w-50 d-block mx-auto" data-toggle="collapse" data-target="#userData">Datos del usuario</button>
+                        <div id="userData" class="collapse">
+                            <form method="post" action="{{ route('user.update', Auth::user()->id) }}">
+                                @method('PATCH')
+                                @csrf
+                                <div class="d-block">
+                                    <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto" name="name" value="{{ Auth::user()->name }}">
+                                    <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto" name="last_name" value="{{ Auth::user()->last_name }}">
+                                    <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto" name="phone" value="{{ Auth::user()->phone }}">
+                                </div>
+                                <button type="submit" class="btn text-white d-block mx-auto mb-3" style="background-color: #26C6CF" role="button">Actualizar</button>
+                            </form>
+                        </div>
+                        <button type="button" class="btn mb-2 btn-secondary text-white w-50 d-block mx-auto" data-toggle="collapse" data-target="#userPassword">Cambiar contraseña</button>
+                        <div id="userPassword" class="collapse">
+                            <form action="{{ route('updatePassword') }}" method="post">
+                                @method('PATCH')
+                                @csrf
+                                <div class="d-block">
+                                    <input type="password" name="password" id="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} pl-3 w-75 d-block mx-auto mb-1 input_custom" placeholder="Contraseña" required>
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+                                    <input type="password" id="password-confirm" name="password_confirmation" class="form-control pl-3 w-75 d-block mx-auto input_custom mb-1" placeholder="Confirmar contraseña">
+                                </div>
+                                <button class="btn text-white d-block mx-auto mb-3" style="background-color: #26C6CF" type="submit" role="button">Guardar contraseña</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 {{-- Classes Buttons --}}
                 <div class="col-md-8 mb-3">
