@@ -3,8 +3,12 @@
         <img class="buyClass" src="/img/iconos/1.png" alt="">
     </div>
     <div class="row classes">
-        <div class="content-normal col col-sm col-md col-lg" style=" padding: 0;">
-            <div id="first-class" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('primera')">
+        @php
+            $firstClassId = 1;
+        @endphp
+        <div class="content-normal col col-sm col-md col-lg pickClass" style=" padding: 0;" id="prod-{{$firstClassId}}">
+            <div id="first-class" data-toggle="modal" data-target="#exampleModalCenter">
+            {{-- <div id="first-class" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('primera')" class="pickClass"> --}}
                 <img class="bicImg" src="/img/iconos/BICI.png" alt="">
                 <h6 id="amount1">PRIMERA</h6>
                 <h5 class="class f-class">CLASE</h5>
@@ -19,8 +23,9 @@
         @foreach ($products as $product)
             @if ($product != $products{0})
                 {{--dd($products{0})--}}
-                <div class="content-normal col col-sm col-md col-lg" style=" padding: 0;">
-                    <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('{{ $product->n_classes }}')">
+                <div class="content-normal col col-sm col-md col-lg pickClass" style=" padding: 0;" id="prod-{{$product->id}}">
+                    <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter">
+                    {{-- <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('{{ $product->n_classes }}')" class="pickClass"> --}}
                         <h3 id="amount{{$amount}}">{{$product->n_classes}}</h3>
                         @if ($flag)
                             <h5 class="class">CLASE</h5>
@@ -30,7 +35,7 @@
                         @endif
                         <p class="precio">{{$product->price}}</p>
                         <p class="exp">Expira: {{$product->expiration_days}} días</p>
-                        <input type="hidden" name="product_id" id="product_id">
+                        {{-- <input type="hidden" name="product_id" id="product_id" value="{{$product->id}}"> --}}
                     </div>
                 </div>
                 @php
@@ -87,19 +92,19 @@
                             <img class="cards" src="/img/iconos/MASTER.png" alt="mastercard" >
                             <img class="cards" src="/img/iconos/AMERICAN.png" alt="express">
                         </div>
-                        <input class="data mx-auto" type="text" name="" id="cardOwner" placeholder="Nombre" maxlength="35" data-openpay-card="holder_name">
+                    <input class="data mx-auto" type="text" name="" id="cardOwner" placeholder="Nombre" maxlength="35" data-openpay-card="holder_name" >
                         <input class="data mx-auto" type="text" name="" id="cardNumber" placeholder="Número de tarjeta"  maxlength="16" data-openpay-card="card_number">
                             <div class="cInfo mx-auto">
                                 <select class="dataRow" name="" id="monthExpiration" data-openpay-card="expiration_month">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
+                                    <option value="01">1</option>
+                                    <option value="02">2</option>
+                                    <option value="03">3</option>
+                                    <option value="04">4</option>
+                                    <option value="05">5</option>
+                                    <option value="06">6</option>
+                                    <option value="07">7</option>
+                                    <option value="08">8</option>
+                                    <option value="09">9</option>
                                     <option value="10">10</option>
                                     <option value="11">11</option>
                                     <option value="12">12</option>
@@ -141,82 +146,3 @@
         @endauth
     </div>
 </div>
-
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
-<script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
-
-<script type="text/javascript">
-//variable que crear openpay
-var deviceSessionId = null;
-//solo se crea cuando hay una respuesta success
-var token_id = null;
-//token de usuario autenticado
-var tokenBearer = null;
-//se genera solo por laravel
-var crfsToken = '{{ csrf_token() }}';
-var product_id = null;
-
-$(document).ready(function() {
-    OpenPay.setId('mwykro9vagcgwumpqaxb');
-    OpenPay.setApiKey('pk_d72eec48f13042949140a7873ee1b3c2');
-    OpenPay.setSandboxMode(true);
-    //Se genera el id de dispositivo
-    device_session_id = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName");
-    $('#device_session_id').val(device_session_id);
-    //Bearer en Variable del Script
-
-    $('#pay-button').on('click', function(event) {
-        event.preventDefault();
-        $("#pay-button").prop( "disabled", true);
-        OpenPay.token.extractFormAndCreate('payment-form', sucess_callbak, error_callbak);
-        console.log(OpenPay);
-    });
-
-    var sucess_callbak = function(response) {
-        token_id = response.data.id;
-        $('#token_id').val(token_id);
-        // Submit Form
-        //$('#payment-form').submit();
-        makeCharge();
-
-        console.log("cargo realizado");
-    };
-
-    var error_callbak = function(response) {
-        var desc = response.data.description != undefined ? response.data.description : response.message;
-        alert("ERROR [" + response.status + "] " + desc);
-        $("#pay-button").prop("disabled", false);
-    };
-
-    // $.get("App/Http/Controllers/Auth/LoginController.php", function(data, status){
-    //     alert("Token:" + data + "\nStatus" + status);
-    // });
-
-    function makeCharge(){
-        tokenBearer = $('#tokenBearer').val();
-        console.log('si entro');
-        $.ajax({
-            url: "/api/makeCharge",
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${tokenBearer}`,
-            },
-            data: {
-                _token: crfsToken,
-                token_id: token_id,
-                device_session_id: device_session_id,
-                product_id: product_id,
-                customer_id: 'customerId'
-            },
-            success: function(result){
-                console.log(result);
-            }
-        });
-        console.log('token_id: ', token_id);
-        console.log('device_session_id: ', device_session_id);
-        console.log('Token CRSF: ', crfsToken);
-        console.log('Bearer: ', tokenBearer);
-    };
-});
-</script>

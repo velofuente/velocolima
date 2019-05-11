@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Exception;
 use Openpay, Log, Config, Auth, DB;
-use App\Purchase;
+use App\{Purchase, Card, Product};
 
 class OpenPayController extends Controller
 {
@@ -43,7 +43,10 @@ class OpenPayController extends Controller
                 return "La tarjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
             }
             else{
-                //return $requestUser->id;
+                $userCards = Card::where('user_id' , $requestUser->id)->get();
+                If(count($userCards)>0){
+                    Card::where('user_id' , $requestUser->id)->where('selected', 1)->update(['selected' => 0]);
+                }
                 app('App\Http\Controllers\CardController')->store($cardData,$requestUser->id);
                 $cardDataRequest = [
                     'token_id' => $cardData->id,
@@ -152,8 +155,9 @@ class OpenPayController extends Controller
     {
         $openpay = self::openPay();
         $requestUser = $request->user();
-        $card = DB::table('cards')->select('id','token_id')->where('user_id', '=', "{$requestUser->id}")->first();
-        $product = DB::table('products')->where('id', '=', "{$request->product_id}");
+        
+        $card = DB::table('cards')->select('id','token_id')->where('user_id', "{$requestUser->id}")->where('selected', 1)->first();
+        $product = DB::table('products')->where('id', '=', "{$request->product_id}")->first();
         $customer = $openpay->customers->get($requestUser->customer_id);
         try{
             DB::beginTransaction();
@@ -161,17 +165,21 @@ class OpenPayController extends Controller
                 'product_id' => $product->id,
                 'card_id' => $card->id,
                 'user_id' => $requestUser->id,
-                'n_classes' => $request->n_classes,
-                'expiration_days' => $request->expiration_days,
+                'n_classes' => $product->n_classes,
+                'expiration_days' => $product->expiration_days,
+                //'n_classes' => $request->n_classes,
+                //'expiration_days' => $request->expiration_days,
             ]);
             $chargeData = [
                 'method' => 'card',
                 'source_id' => $card->token_id,
                 'amount' => $product->price,
+                
                 'description' => $product->description,
                 'order_id' => 'ORDEN-'.$compra->id,
                 'device_session_id' => $request->device_session_id
             ];
+            // dd(json_encode($charge));
             $charge = $customer->charges->create($chargeData);
             DB::commit();
             return json_encode($charge);

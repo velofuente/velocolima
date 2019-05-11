@@ -8,11 +8,6 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/instructors-styles.css')}}">
 @endsection
 
-@section('extraStyles')
-    <link rel="stylesheet" type="text/css" href="{{asset('css/instructors-styles.css')}}">
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-@endsection
-
 @section('content')
     <body>
         <div class="container-fluid">

@@ -22,7 +22,7 @@ class CardController extends Controller
             'expiration_year' => $card->card->expiration_year,
             'expiration_moth' => $card->card->expiration_month,
             'brand' => $card->card->brand,
-            'selected' => true,
+            'selected' => 1,
             'user_id' => $user_id
         ]);
         $card->save();
