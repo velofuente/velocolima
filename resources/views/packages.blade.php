@@ -30,7 +30,7 @@
                         @endif
                         <p class="precio">{{$product->price}}</p>
                         <p class="exp">Expira: {{$product->expiration_days}} días</p>
-                        <input type="hidden" name="product_id" id="product_id" value="{{$product_id}}">
+                        <input type="hidden" name="product_id" id="product_id">
                     </div>
                 </div>
                 @php

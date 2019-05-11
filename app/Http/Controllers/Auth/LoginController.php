@@ -29,7 +29,6 @@ class LoginController extends Controller
             //Bearer Token
             $tokenBearer = app('App\Http\Controllers\UserController')->authenticate($request);
             Session::push("tokenBearer", $tokenBearer);
-           
             // $_SESSION["tokenasd"] = $tokenBearer->getData();
             // dd($_SESSION["tokenasd"]);
 

@@ -23,8 +23,9 @@ Route::post('login', 'UserController@authenticate');
 Route::post('getClient', 'OpenPayController@getCustomer');
 Route::post('deleteClient', 'OpenPayController@deleteCustomer');
 
+
 Route::group(['middleware' => ['jwt.verify', 'cors']], function() {
-    Route::post('addCard','OpenPayController@addCustomerCard');
     Route::get('user', 'UserController@getAuthenticatedUser');
+    Route::post('addCard','OpenPayController@addCustomerCard');
     Route::post('makeCharge', 'OpenPayController@makeChargeCustomer');
 });

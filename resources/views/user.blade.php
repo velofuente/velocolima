@@ -36,50 +36,52 @@
                         <span class="text-center text_my_classes">Mis Clases</span>
                         <p class="available_classes mb-0">0</p>
                         <span class="classes_message">Clases disponibles en tu cuenta</span>
-                        <a href="{{ url('/#packages') }}" class="btn gradient_button mx-auto" id="buyPackages" role="button">Comprar Clases</a>
+                        <a href="{{ url('/schedule#packages') }}" class="btn gradient_button mx-auto" id="buyPackages" role="button">Comprar Clases</a>
                     </div>
                     <div id="Payments" class="mb-4 mt-4">
                         <h5 class="text-center mx-auto mb-2 myclss">Mis tarjetas</h5>
 
-                        {{-- Print --}}
+                        {{-- Print Card --}}
                         @foreach ($cards as $card)
-                            <div class="text-center text-uppercase" style="color: #FFF">
+                            <div class="text-center text-uppercase" style ="color: #FFF">
                                 {{$card->card_number}} {{$card->brand}} {{$card->holder_name}}
                             </div>
                         @endforeach
-                        {{-- End Print --}}
+                        {{-- End Print Card --}}
                         <button class="btn btn-dark text-white mb-4 w-50 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></button>
                     </div>
                     {{-- Change User Data & Password --}}
                     <div id="userGeneralData">
-                        <button type="button" class="btn btn-secondary text-white mb-2 mt-2 w-50 d-block mx-auto" data-toggle="collapse" data-target="#userData">Datos del usuario</button>
+                        <button type="button" class="btn bg-white text-dark text-left mb-2 mt-2 w-75 d-block mx-auto" data-toggle="collapse" data-target="#userData">Datos del usuario</button>
                         <div id="userData" class="collapse">
                             <form method="post" action="{{ route('user.update', Auth::user()->id) }}">
                                 @method('PATCH')
                                 @csrf
                                 <div class="d-block">
-                                    <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto" name="name" value="{{ Auth::user()->name }}">
-                                    <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto" name="last_name" value="{{ Auth::user()->last_name }}">
-                                    <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto" name="phone" value="{{ Auth::user()->phone }}">
+                                    <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="name" value="{{ Auth::user()->name }}">
+                                    <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="last_name" value="{{ Auth::user()->last_name }}">
+                                    <input type="date" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" min="1900-01-01" max="2100-12-31" name="birth_date" value="{{ Auth::user()->birth_date }}">
+                                    <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="shoe_size" value="{{ Auth::user()->shoe_size }}">
+                                    {{-- <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto" name="phone" value="{{ Auth::user()->phone }}"> --}}
                                 </div>
-                                <button type="submit" class="btn text-white d-block mx-auto mb-3" style="background-color: #26C6CF" role="button">Actualizar</button>
+                                <button type="submit" class="btn d-block mx-auto mb-3 gradient_button" role="button">Guardar Datos</button>
                             </form>
                         </div>
-                        <button type="button" class="btn mb-2 btn-secondary text-white w-50 d-block mx-auto" data-toggle="collapse" data-target="#userPassword">Cambiar contraseña</button>
+                        <button type="button" class="btn mb-2 bg-white text-dark text-left w-75 d-block mx-auto" data-toggle="collapse" data-target="#userPassword">Cambiar contraseña</button>
                         <div id="userPassword" class="collapse">
                             <form action="{{ route('updatePassword') }}" method="post">
                                 @method('PATCH')
                                 @csrf
                                 <div class="d-block">
-                                    <input type="password" name="password" id="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} pl-3 w-75 d-block mx-auto mb-1 input_custom" placeholder="Contraseña" required>
+                                    <input type="password" name="password" id="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} pl-3 w-75 d-block mx-auto mb-1 input_custom bg-white" placeholder="Contraseña" required>
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>
                                         </span>
                                     @endif
-                                    <input type="password" id="password-confirm" name="password_confirmation" class="form-control pl-3 w-75 d-block mx-auto input_custom mb-1" placeholder="Confirmar contraseña">
+                                    <input type="password" id="password-confirm" name="password_confirmation" class="form-control pl-3 w-75 d-block mx-auto input_custom mb-1 bg-white" placeholder="Confirmar contraseña">
                                 </div>
-                                <button class="btn text-white d-block mx-auto mb-3" style="background-color: #26C6CF" type="submit" role="button">Guardar contraseña</button>
+                                <button class="btn d-block mx-auto mb-3 gradient_button" type="submit" role="button">Guardar contraseña</button>
                             </form>
                         </div>
                     </div>
@@ -222,19 +224,7 @@
                                         </div>
                                         <input class="data" type="text" id="cardOwner" placeholder="Nombre del tarjetahabiente" value="Juan Perez Ramirez" data-openpay-card="holder_name">
                                         <input class="data" type="text" id="cardNumber" placeholder="Número de la tarjeta" value="4111111111111111" data-openpay-card="card_number">
-
-                                        {{-- <select class="data" name="" id="monthExpiration" value="12" data-openpay-card="expiration_month">
-                                            @for ($i = 1; $i <= 12; $i++)
-                                                <option value="{{ $i }}">{{ $i }}</option>
-                                            @endfor
-                                        </select> --}}
                                         <input class="data" type="text" id="monthExpiration" placeholder="Mes de Expiración" value="12" data-openpay-card="expiration_month">
-
-                                        {{-- <select class="data" name="" id="yearExpiration" value="20" data-openpay-card="expiration_year">
-                                            @for ($i = 0; $i <= 10; $i++)
-                                                <option value="{{ now()->format('Y') }}">{{ now()->modify('+'. $i .' year')->format('Y') }}</option>
-                                            @endfor
-                                        </select> --}}
                                         <input class="data" type="text" id="yearExpiration" placeholder="Año de Expiración" value="20" data-openpay-card="expiration_year">
                                         <input class="data" type="text" name="" id="cvv" placeholder="CVV" value="110" data-openpay-card="cvv2">
                                     </div>
@@ -249,15 +239,79 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Add Credit/Debit Card Modal --}}
+            {{-- <div class="modal fade" id="addCardModal" tabindex="-1" role="dialog" aria-labelledby="addCardModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content ">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                            <form method="post" id="payment-form">
+                                    @csrf
+                                    <input type="hidden" name="token_id" id="token_id">
+                                    <input type="hidden" name="device_session_id" id="device_session_id">
+                                    <input type="hidden" name="tokenBearer" id="tokenBearer" value="{{ Session::get("tokenBearer")[0]}}">
+                                <div class="">
+                                    <img class="cards" src="/img/iconos/VISA.png" alt="visa">
+                                    <img class="cards" src="/img/iconos/MASTER.png" alt="mastercard" >
+                                    <img class="cards" src="/img/iconos/AMERICAN.png" alt="express">
+                                </div>
+                                <input class="data mx-auto" type="text" name="" id="cardOwner" placeholder="Nombre" maxlength="35" data-openpay-card="holder_name">
+                                <input class="data mx-auto" type="text" name="" id="cardNumber" placeholder="Número de tarjeta"  maxlength="16" data-openpay-card="card_number">
+                                    <div class="cInfo mx-auto">
+                                        <select class="dataRow" name="" id="monthExpiration" data-openpay-card="expiration_month">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                        </select>
+                                        <select class="dataRow" name="" id="yearExpiration" data-openpay-card="expiration_year">
+                                            <option value="19">2019</option>
+                                            <option value="20">2020</option>
+                                            <option value="21">2021</option>
+                                            <option value="22">2022</option>
+                                            <option value="23">2023</option>
+                                            <option value="24">2024</option>
+                                            <option value="25">2025</option>
+                                            <option value="26">2026</option>
+                                            <option value="27">2027</option>
+                                            <option value="28">2028</option>
+                                            <option value="29">2029</option>
+                                        </select>
+                                    <input class="dataRow" type="text" name="" id="Code" placeholder="CVV" maxlength="3" data-openpay-card="cvv2">
+                                </div>
+                            </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="closeBtn" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="button" id="pay-button">Comprar</button>
+                    </div>
+                    </div>
+                </div>
+            </div> --}}
+
         {{-- </div> --}}
     </div>
 @include('footer')
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
-    <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
+<script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     var deviceSessionId = null;
     var token_id = null;
     var tokenBearer = null;
@@ -317,8 +371,9 @@
             console.log('Bearer: ', tokenBearer);
         };
     });
-</script>
+</script> --}}
 @endsection
 
 @section('extraScripts')
+    <script src="{{ asset('/js/user-script.js') }}"></script>
 @endsection
