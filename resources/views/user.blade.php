@@ -40,11 +40,7 @@
                     </div>
                     <div id="Payments" class="mb-4 mt-4">
                         <h5 class="text-center mx-auto mb-2 myclss">Mis tarjetas</h5>
-                        @foreach ($cards as $card)
-                            <div class="cards" style="color: #FFF">
-                                {{$card->card_number}}
-                            </div>
-                        @endforeach
+                
                         <button class="btn btn-dark text-white mb-4 w-50 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></button>
                     </div>
                     {{-- Change User Data & Password --}}

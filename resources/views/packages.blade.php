@@ -30,6 +30,7 @@
                         @endif
                         <p class="precio">{{$product->price}}</p>
                         <p class="exp">Expira: {{$product->expiration_days}} días</p>
+                        <input type="hidden" name="product_id" id="product_id" value="{{$product_id}}">
                     </div>
                 </div>
                 @php
@@ -154,6 +155,7 @@ var token_id = null;
 var tokenBearer = null;
 //se genera solo por laravel
 var crfsToken = '{{ csrf_token() }}';
+var product_id = null;
 
 $(document).ready(function() {
     OpenPay.setId('mwykro9vagcgwumpqaxb');
@@ -177,6 +179,8 @@ $(document).ready(function() {
         // Submit Form
         //$('#payment-form').submit();
         makeCharge();
+
+        console.log("cargo realizado");
     };
 
     var error_callbak = function(response) {
@@ -202,6 +206,7 @@ $(document).ready(function() {
                 _token: crfsToken,
                 token_id: token_id,
                 device_session_id: device_session_id,
+                product_id: product_id,
                 customer_id: 'customerId'
             },
             success: function(result){
