@@ -160,7 +160,7 @@ class OpenPayController extends Controller
                 'card_id' => $card->id,
                 'user_id' => $requestUser->id,
                 'n_classes' => $request->n_classes,
-                'expiration_date' => $request->expiration_days,
+                'expiration_date' => $request->expiration_date,
             ]);
             $chargeData = [
                 'method' => 'card',
