@@ -38,23 +38,11 @@
                         <span class="classes_message">Clases disponibles en tu cuenta</span>
                         <a href="{{ url('/schedule#packages') }}" class="btn gradient_button mx-auto" id="buyPackages" role="button">Comprar Clases</a>
                     </div>
-                    <div id="Payments" class="mb-4 mt-4">
-                        <h5 class="text-center mx-auto mb-2 myclss">Mis tarjetas</h5>
-
-                        {{-- Print Card --}}
-                        @foreach ($cards as $card)
-                            <div class="text-center text-uppercase" style ="color: #FFF">
-                                {{$card->card_number}} {{$card->brand}} {{$card->holder_name}}
-                            </div>
-                        @endforeach
-                        {{-- End Print Card --}}
-                        <button class="btn btn-dark text-white mb-4 w-50 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></button>
-                    </div>
                     {{-- Change User Data & Password --}}
                     <div id="userGeneralData">
                         <button type="button" class="btn bg-white text-dark text-left mb-2 mt-2 w-75 d-block mx-auto" data-toggle="collapse" data-target="#userData">Datos del usuario</button>
                         <div id="userData" class="collapse">
-                            <form method="post" action="{{ route('user.update', Auth::user()->id) }}">
+                            <form action="{{ route('user.update', Auth::user()->id) }}" method="post">
                                 @method('PATCH')
                                 @csrf
                                 <div class="d-block">
@@ -84,6 +72,19 @@
                                 <button class="btn d-block mx-auto mb-3 gradient_button" type="submit" role="button">Guardar contraseña</button>
                             </form>
                         </div>
+                    </div>
+                    {{-- My Classes & Buy Packages --}}
+                    <div id="Payments" class="mb-4 mt-4">
+                        <h5 class="text-center mx-auto mb-2 myclss">Mis tarjetas</h5>
+
+                        {{-- Print Card --}}
+                        @foreach ($cards as $card)
+                            <div class="text-center text-uppercase" style ="color: #FFF">
+                                {{$card->card_number}} {{$card->brand}}
+                            </div>
+                        @endforeach
+                        {{-- End Print Card --}}
+                        <button class="btn btn-dark text-white mb-4 w-50 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></button>
                     </div>
                 </div>
                 {{-- Classes Buttons --}}
@@ -223,7 +224,7 @@
                                             <img src="/img/express.png" alt="express" width="85px" height="50px">
                                         </div>
                                         <input class="data" type="text" id="cardOwner" placeholder="Nombre del tarjetahabiente" value="Juan Perez Ramirez" data-openpay-card="holder_name">
-                                        <input class="data" type="text" id="cardNumber" placeholder="Número de la tarjeta" value="4111111111111111" data-openpay-card="card_number">
+                                        <input class="data" type="text" id="cardNumber" placeholder="Número de la tarjeta" value="4111111111111111" maxlength="16" data-openpay-card="card_number">
                                         <input class="data" type="text" id="monthExpiration" placeholder="Mes de Expiración" value="12" data-openpay-card="expiration_month">
                                         <input class="data" type="text" id="yearExpiration" placeholder="Año de Expiración" value="20" data-openpay-card="expiration_year">
                                         <input class="data" type="text" name="" id="cvv" placeholder="CVV" value="110" data-openpay-card="cvv2">
