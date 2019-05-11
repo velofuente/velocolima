@@ -40,7 +40,14 @@
                     </div>
                     <div id="Payments" class="mb-4 mt-4">
                         <h5 class="text-center mx-auto mb-2 myclss">Mis tarjetas</h5>
-                
+
+                        {{-- Print --}}
+                        @foreach ($cards as $card)
+                            <div class="text-center text-uppercase" style="color: #FFF">
+                                {{$card->card_number}} {{$card->brand}} {{$card->holder_name}}
+                            </div>
+                        @endforeach
+                        {{-- End Print --}}
                         <button class="btn btn-dark text-white mb-4 w-50 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></button>
                     </div>
                     {{-- Change User Data & Password --}}
@@ -263,7 +270,6 @@
         //Se genera el id de dispositivo
         device_session_id = OpenPay.deviceData.setup("add-card-form", "deviceIdHiddenFieldName");
         $('#device_session_id').val(device_session_id);
-        //Bearer en Variable del Script
 
         $('#add-card-button').on('click', function(event) {
             event.preventDefault();
@@ -276,8 +282,8 @@
             token_id = response.data.id;
             $('#token_id').val(token_id);
             // Submit Form
-            // $('#add-card-form').submit();
             addCard();
+            $('#add-card-form').submit();
         };
 
         var error_callbak = function(response) {
@@ -286,10 +292,6 @@
             $("#add-card-button").prop("disabled", false);
         };
 
-        // $.get("App/Http/Controllers/Auth/LoginController.php", function(data, status){
-        //     alert("Token:" + data + "\nStatus" + status);
-        // });
-
         function addCard(){
             tokenBearer = $('#tokenBearer').val();
             console.log('si entro');
@@ -297,13 +299,13 @@
                 url: "/api/addCard",
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${tokenBearer}`,
+                    'Authorization': `Bearer ${tokenBearer}`
                 },
                 data: {
                     _token: crfsToken,
                     token_id: token_id,
                     device_session_id: device_session_id,
-                    customer_id: 'customerId'
+                    customer_id: ''
                 },
                 success: function(result){
                     console.log(result);
