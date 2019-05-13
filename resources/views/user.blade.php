@@ -29,12 +29,16 @@
                 </div>
             </div>
 
+            {{-- Available Classes & User Data Buttons --}}
             <div class="row justify-content-center">
-                {{-- Available Classes & User Data Buttons --}}
                 <div class="col-md-4 mb-3 text-center">
                     <div class="text-center" id="clases">
                         <span class="text-center text_my_classes">Mis Clases</span>
-                        <p class="available_classes mb-0">0</p>
+                        @if ($classes == null)
+                            <p class="available_classes mb-0">0</p>
+                        @else
+                            <p class="available_classes mb-0">{{$classes}}</p>
+                        @endif
                         <span class="classes_message">Clases disponibles en tu cuenta</span>
                         <a href="{{ url('/schedule#packages') }}" class="btn gradient_button mx-auto" id="buyPackages" role="button">Comprar Clases</a>
                     </div>
@@ -197,7 +201,7 @@
             </div>
 
             <!-- Add Credit/Debit Card Modal !-->
-            <div class="modal fade" id="addCardModal" tabindex="-1" role="dialog" aria-labelledby="addCardModalTitle" aria-hidden="true">
+            {{-- <div class="modal fade" id="addCardModal" tabindex="-1" role="dialog" aria-labelledby="addCardModalTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content bg-dark">
                         <div class="modal-header">
@@ -211,7 +215,7 @@
                                 <div class="col-5">
                                     <p id="oName">{{ Auth::user()->name }} {{ Auth::user()->last_name}}</p>
                                 </div>
-                                {{-- Form Add Card --}}
+                                Form Add Card
                                 <form method="post" id="add-card-form">
                                     @csrf
                                     <input type="hidden" name="token_id" id="token_id">
@@ -230,7 +234,7 @@
                                         <input class="data" type="text" name="" id="cvv" placeholder="CVV" value="110" data-openpay-card="cvv2">
                                     </div>
                                 </form>
-                                {{-- End Form Add Card --}}
+                                End Form Add Card
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -239,25 +243,26 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- Add Credit/Debit Card Modal --}}
-            {{-- <div class="modal fade" id="addCardModal" tabindex="-1" role="dialog" aria-labelledby="addCardModalTitle" aria-hidden="true">
+            <div class="modal fade" id="addCardModal" tabindex="-1" role="dialog" aria-labelledby="addCardModalTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content ">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">Agregar Tarjeta</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    {{-- Form Add Card --}}
                     <div class="modal-body">
-                            <form method="post" id="payment-form">
+                            <form method="post" id="add-card-form">
                                     @csrf
                                     <input type="hidden" name="token_id" id="token_id">
                                     <input type="hidden" name="device_session_id" id="device_session_id">
                                     <input type="hidden" name="tokenBearer" id="tokenBearer" value="{{ Session::get("tokenBearer")[0]}}">
-                                <div class="">
+                                <div class="row justify-content-center">
                                     <img class="cards" src="/img/iconos/VISA.png" alt="visa">
                                     <img class="cards" src="/img/iconos/MASTER.png" alt="mastercard" >
                                     <img class="cards" src="/img/iconos/AMERICAN.png" alt="express">
@@ -296,13 +301,14 @@
                                 </div>
                             </form>
                     </div>
+                    {{-- End Form Add Card --}}
                     <div class="modal-footer">
                         <button type="button" class="closeBtn" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="button" id="pay-button">Comprar</button>
+                        <button type="button" class="button" id="add-card-button">Agregar Tarjeta</button>
                     </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
         {{-- </div> --}}
     </div>

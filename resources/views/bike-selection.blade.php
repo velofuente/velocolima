@@ -109,8 +109,8 @@ Reservar Bici
                 // product_id = $('#product_id').val();
                 // console.log(product_id);
                 // Submit Form
-                //$('#payment-form').submit();
                 makeCharge();
+                // $('#payment-form').submit();
 
                 console.log("cargo realizado");
             };

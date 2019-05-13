@@ -19,10 +19,11 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $requestUser = $request->user();
-        $purchaseHistory = DB::table('purchases')->where('user_id', '=', "{$requestUser->id}");
+        $purchaseHistory = DB::table('purchases')->where('user_id', '=', "{$requestUser->id}")->get();
         $cards = DB::table('cards')->where('user_id', '=', "{$requestUser->id}")->get();
-        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes)'))->where('user_id', '=', "{$requestUser->id}");
-        return view('user', compact('cards','purchaseHistory','numClases'));
+        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->get();
+        $classes = $numClases[0]->clases;
+        return view('user', compact('cards','purchaseHistory','classes'));
     }
 
     /**
