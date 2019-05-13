@@ -23,8 +23,8 @@ class UserController extends Controller
         $cards = DB::table('cards')->where('user_id', '=', "{$requestUser->id}")->get();
         $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->get();
         $classes = $numClases[0]->clases;
-        $bookedClasses = userSchedule::select('user_id', "{$requestUser->id}");
-        $previousClasses = userSchedule::select('user_id', "{$requestUser->id}")->where(DB::raw("created_at < {now()}"))->get();
+        $bookedClasses = userSchedule::where('user_id', "{$requestUser->id}")->where('status', 'active')->get();
+        $previousClasses = userSchedule::where('user_id', "{$requestUser->id}")->where(DB::raw("created_at < NOW()"))->get();
         $waitLists = DB::table('user_wait_lists')->where('user_id', "{$requestUser->id}")->get();
         return view('user', compact('cards','purchaseHistory','classes'));
     }

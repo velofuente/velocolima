@@ -157,25 +157,44 @@ class OpenPayController extends Controller
         $openpay = self::openPay();
         $requestUser = $request->user();
         
-        $card = DB::table('cards')->select('id','token_id')->where('user_id', "{$requestUser->id}")->where('selected', 1)->first();
+        // $card = DB::table('cards')->select('id','token_id')->where('user_id', "{$requestUser->id}")->where('selected', 1)->first();
+        //Validar si no tiene tarjetas
+
+        //TODO: Validar producto
         $product = DB::table('products')->where('id', '=', "{$request->product_id}")->first();
-        $customer = $openpay->customers->get($requestUser->customer_id);
+        //TODO: validar si el usuario tiene un customer, si no tiene lo debe de crear
+        //Validar si usuario tiene cuenta con OpenPay
+        if ($requestUser->customer_id == null){
+            $customer = $this->addCustomer($requestUser);
+            $requestUser->customer_id = $customer->id;
+            $requestUser->save();
+        } else {
+            $openpay = self::openPay();
+            $customer = $openpay->customers->get($requestUser->customer_id);
+        }
         try{
             DB::beginTransaction();
-            $compra = Purchase::create([
+            //Inicializamos array para compra (MI DB)
+            $purchaseArray = [
                 'product_id' => $product->id,
-                'card_id' => $card->id,
+                // 'card_id' => $card->id,
                 'user_id' => $requestUser->id,
                 'n_classes' => $product->n_classes,
                 'expiration_days' => $product->expiration_days,
-            ]);
+            ];
+            //Obtenemos el token de la tarjeta
+            $cardToken = $request->token_id;
+            // $purchaseArray["card_id"] = $card->id;
+            // $cardToken = $card->token_id;
+            //Registramos la compra en el sistema
+            $compra = Purchase::create($purchaseArray);
+            //Inicializamos array de cargo (OpenPay)
             $chargeData = [
                 'method' => 'card',
-                'source_id' => $card->token_id,
+                'source_id' => $cardToken,
                 'amount' => $product->price,
-                
                 'description' => $product->description,
-                'order_id' => 'ORDEN-'.$compra->id,
+                'order_id' => 'ORDEN-'.$compra->id."-".time(),
                 'device_session_id' => $request->device_session_id
             ];
             $charge = $customer->charges->create($chargeData);
@@ -290,10 +309,10 @@ class OpenPayController extends Controller
     public function deleteCustomer(Request $request)
     {
         $openpay = self::openPay();
-        $requestUser = $request->user();
+        //$requestUser = $request->user();
         $customer = $openpay->customers->get($request->customer_id);
         $customer->delete();
-        $requestUser->customer_id = null;
+        //$requestUser->customer_id = null;
         $requestUser->save();
         return "Borrado exitosamente";
     }

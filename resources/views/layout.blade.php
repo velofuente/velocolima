@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
+<head>
+    {{ csrf_token() }}
+</head>
     @include('header')
     <body>
         @yield('content')

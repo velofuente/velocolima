@@ -13,10 +13,21 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['only' => 'showLoginForm']);
     }
+
+    /**
+     * Desplegar vista para iniciar sesión
+     */
     public function showLoginForm()
     {
         return view('auth.login');
     }
+
+    /**
+     * Función para realizar intento de inicio de sesión
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function login(Request $request)
     {
         $credentials = $this->validate(request(),[
@@ -24,8 +35,7 @@ class LoginController extends Controller
             'password' => 'required|string'
         ]);
         //return $credentials;
-        if(Auth::attempt($credentials))
-        {
+        if (Auth::attempt($credentials)) {
             //Bearer Token
             //$tokenBearer = app('App\Http\Controllers\UserController')->authenticate($request);
             //Session::push("tokenBearer", $tokenBearer);
@@ -41,7 +51,7 @@ class LoginController extends Controller
             // $value = $request->session()->get('key');
             // dd($value);
 
-            return redirect()->route('user');
+            return redirect("user");
         }
         return back()
             ->withErrors(['email' => trans('auth.failed')])
@@ -62,10 +72,10 @@ class LoginController extends Controller
     */
     public function authenticated(Request $request, $user)
     {
-    if (!$user->verified) {
-        auth()->logout();
-        return back()->with('warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
-    }
-    return redirect()->intended($this->redirectPath());
+        if (!$user->verified) {
+            auth()->logout();
+            return back()->with('warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
+        }
+        return redirect()->intended($this->redirectPath());
     }
 }

@@ -17,7 +17,7 @@ class BookClassController extends Controller
         if($availability < $instances){
             $compra = Purchase::select('user_id', "{$requestUser->id}")->where(DB::raw("created_at < DATE_ADD(created_at INTERVAL expiration_days DAY) finalDate"))->first();
             //obtengo el id de la bici,id del horario, id de la compra
-            $classBooked = userSchedule::create([
+            userSchedule::create([
                 'user_id' => $requestUser->user_id,
                 'schedule_id' => $request->schedule_id,
                 'purchase_id' => $compra->id,
@@ -28,10 +28,11 @@ class BookClassController extends Controller
         }
         else{
             $waitList = DB::table('wait_lists')->select('id')->where('schedule_id', "{$request->schedule_id}")->first();
-            $addToList = userWaitList::create([
+            userWaitList::create([
                 'user_id' => $requestUser->user_id, 
                 'wait_list_id' => $waitList,
             ]);
         }
+        DB::commit();
     }
 }
