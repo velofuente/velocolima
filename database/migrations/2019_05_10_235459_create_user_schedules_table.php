@@ -24,6 +24,14 @@ class CreateUserSchedulesTable extends Migration
             //Foreign Key to Purchase
             $table->unsignedInteger('purchase_id');
             $table->foreign('purchase_id')->references('id')->on('purchases');
+            $table->integer('bike');
+            /*
+            //Foreign Key to toolSchedule
+            $table->unsignedInteger('tool_schedule_id');
+            $table->foreign('tool_schedule_id')->references('id')->on('tool_schedules');
+            */
+            //If false = canceled
+            $table->boolean('status');
             $table->timestamps();
         });
     }

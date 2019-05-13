@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\{User,Card};
+use App\{User,Card, Purchase};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -21,8 +21,10 @@ class UserController extends Controller
         $requestUser = $request->user();
         $purchaseHistory = DB::table('purchases')->where('user_id', '=', "{$requestUser->id}")->get();
         $cards = DB::table('cards')->where('user_id', '=', "{$requestUser->id}")->get();
+
         $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->get();
         $classes = $numClases[0]->clases;
+        $bookedClasses = userSchedule::select('user_id', "{$requestUser->id}");
         return view('user', compact('cards','purchaseHistory','classes'));
     }
 
@@ -34,6 +36,10 @@ class UserController extends Controller
     public function create()
     {
         return view('/register');
+    }
+    public function test()
+    {
+        return User::select(DB::raw("created_at, DATE_ADD(created_at, INTERVAL 50 HOUR) finalDate"))->get();
     }
 
     /**

@@ -13,6 +13,7 @@ class OpenPayController extends Controller
     {
         return Config::get('constants.openpay');
     }
+
     public function addCustomerCard(Request $request)
     {
         //TODO: Implementar validador

@@ -384,4 +384,5 @@
 
 @section('extraScripts')
     <script src="{{ asset('/js/user-script.js') }}"></script>
+    <script>var crfsToken = '{{ csrf_token() }}';</script>
 @endsection

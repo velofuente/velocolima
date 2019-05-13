@@ -27,10 +27,10 @@ class LoginController extends Controller
         if(Auth::attempt($credentials))
         {
             //Bearer Token
-            $tokenBearer = app('App\Http\Controllers\UserController')->authenticate($request);
-            Session::push("tokenBearer", $tokenBearer);
-            // dd($tokenBearer);
-
+            //$tokenBearer = app('App\Http\Controllers\UserController')->authenticate($request);
+            //Session::push("tokenBearer", $tokenBearer);
+            //dd($tokenBearer);
+           
             // $_SESSION["tokenasd"] = $tokenBearer->getData();
             // dd($_SESSION["tokenasd"]);
 
@@ -41,7 +41,7 @@ class LoginController extends Controller
             // $value = $request->session()->get('key');
             // dd($value);
 
-            return redirect()->route('user.index');
+            return redirect()->route('user');
         }
         return back()
             ->withErrors(['email' => trans('auth.failed')])

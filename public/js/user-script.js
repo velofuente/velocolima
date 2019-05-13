@@ -36,11 +36,11 @@ $(document).ready(function() {
         tokenBearer = $('#tokenBearer').val();
         console.log('si entro');
         $.ajax({
-            url: "/api/addCard",
+            url: "/addCard",
             method: 'POST',
-            headers: {
+            /*headers: {
                 'Authorization': `Bearer ${tokenBearer}`
-            },
+            },*/
             data: {
                 _token: csrfToken,
                 token_id: token_id,

@@ -15,7 +15,7 @@ use App\Http\Controllers\PurchaseController;
 |
 */
 
-Route::get('/test', 'test@test');
+// Route::get('/test', 'test@test');
 // Route::get('/addCard', 'OpenPayController@addCustomerCard');
 Route::get('/', function () {
     return view('welcome');
@@ -67,7 +67,15 @@ Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::patch('user', 'UserController@updatePassword')->name('updatePassword');
+//Route::get('test', 'UserController@test');
 
 Route::get('/client', function(){
     return view('client');
 })->middleware('auth');
+
+//OPENPAY
+//Route::get('user', 'UserController@getAuthenticatedUser');
+Route::post('/addCard','OpenPayController@addCustomerCard');
+Route::post('makeCharge', 'OpenPayController@makeChargeCustomer');
+Route::post('getClient', 'OpenPayController@getCustomer');
+Route::post('deleteClient', 'OpenPayController@deleteCustomer');
