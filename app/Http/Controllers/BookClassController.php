@@ -23,7 +23,7 @@ class BookClassController extends Controller
                 'purchase_id' => $compra->id,
                 //'tool_schedule_id' => $request->tool_schedule_id,
                 'bike' => $request->bike,
-                'status' => true
+                'status' => 'active',
             ]);
         }
         else{

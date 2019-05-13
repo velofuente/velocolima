@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\{User,Card, Purchase, userSchedule};
+use App\{User,Card, Purchase, userSchedule, userWaitList};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -21,10 +21,11 @@ class UserController extends Controller
         $requestUser = $request->user();
         $purchaseHistory = DB::table('purchases')->where('user_id', '=', "{$requestUser->id}")->get();
         $cards = DB::table('cards')->where('user_id', '=', "{$requestUser->id}")->get();
-
         $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->get();
         $classes = $numClases[0]->clases;
         $bookedClasses = userSchedule::select('user_id', "{$requestUser->id}");
+        $previousClasses = userSchedule::select('user_id', "{$requestUser->id}")->where(DB::raw("created_at < {now()}"))->get();
+        $waitLists = DB::table('user_wait_lists')->where('user_id', "{$requestUser->id}")->get();
         return view('user', compact('cards','purchaseHistory','classes'));
     }
 

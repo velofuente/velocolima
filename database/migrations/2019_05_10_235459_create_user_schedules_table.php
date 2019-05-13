@@ -30,8 +30,8 @@ class CreateUserSchedulesTable extends Migration
             $table->unsignedInteger('tool_schedule_id');
             $table->foreign('tool_schedule_id')->references('id')->on('tool_schedules');
             */
-            //If false = canceled
-            $table->boolean('status');
+            //canceled,active,taken
+            $table->string('status');
             $table->timestamps();
         });
     }
