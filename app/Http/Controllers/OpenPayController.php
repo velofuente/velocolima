@@ -167,8 +167,6 @@ class OpenPayController extends Controller
                 'user_id' => $requestUser->id,
                 'n_classes' => $product->n_classes,
                 'expiration_days' => $product->expiration_days,
-                //'n_classes' => $request->n_classes,
-                //'expiration_days' => $request->expiration_days,
             ]);
             $chargeData = [
                 'method' => 'card',
@@ -179,7 +177,6 @@ class OpenPayController extends Controller
                 'order_id' => 'ORDEN-'.$compra->id,
                 'device_session_id' => $request->device_session_id
             ];
-            // dd(json_encode($charge));
             $charge = $customer->charges->create($chargeData);
             DB::commit();
             return json_encode($charge);
