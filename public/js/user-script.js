@@ -1,7 +1,7 @@
 var deviceSessionId = null;
 var token_id = null;
 var tokenBearer = null;
-var crfsToken = '{{ csrf_token() }}';
+var csrfToken = $('#csrfToken').val();
 
 $(document).ready(function() {
     OpenPay.setId('mwykro9vagcgwumpqaxb');
@@ -21,9 +21,9 @@ $(document).ready(function() {
     var sucess_callbak = function(response) {
         token_id = response.data.id;
         $('#token_id').val(token_id);
-        // Submit Form
         addCard();
-        // $('#add-card-form').submit();
+        // Submit Form
+        $('#add-card-form').submit();
     };
 
     var error_callbak = function(response) {
@@ -42,7 +42,7 @@ $(document).ready(function() {
                 'Authorization': `Bearer ${tokenBearer}`
             },
             data: {
-                _token: crfsToken,
+                _token: csrfToken,
                 token_id: token_id,
                 device_session_id: device_session_id,
                 customer_id: ''
@@ -53,7 +53,7 @@ $(document).ready(function() {
         });
         console.log('token_id: ', token_id);
         console.log('device_session_id: ', device_session_id);
-        console.log('Token CRSF: ', crfsToken);
+        console.log('Token CRSF: ', csrfToken);
         console.log('Bearer: ', tokenBearer);
     };
 });

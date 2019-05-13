@@ -245,7 +245,7 @@
                 </div>
             </div> --}}
 
-            {{-- Add Credit/Debit Card Modal --}}
+            {{-- Add Credit/Debit Card Fancy Modal --}}
             <div class="modal fade" id="addCardModal" tabindex="-1" role="dialog" aria-labelledby="addCardModalTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content ">
@@ -262,6 +262,7 @@
                                     <input type="hidden" name="token_id" id="token_id">
                                     <input type="hidden" name="device_session_id" id="device_session_id">
                                     <input type="hidden" name="tokenBearer" id="tokenBearer" value="{{ Session::get("tokenBearer")[0]}}">
+                                    <input type="hidden" name="tokenBearer" id="csrfToken" value="{{ csrf_token() }}">
                                 <div class="row justify-content-center">
                                     <img class="cards" src="/img/iconos/VISA.png" alt="visa">
                                     <img class="cards" src="/img/iconos/MASTER.png" alt="mastercard" >

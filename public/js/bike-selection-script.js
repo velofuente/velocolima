@@ -25,8 +25,6 @@ function tableCreate(){
 
     table.append(tbody);
     $("#dinamicTable").append(table);
-    
-
     // for(var i = 0; i < 3; i++){
     //     var tr = tbl.insertRow();
     //     for(var j = 0; j < 2; j++){
@@ -65,7 +63,6 @@ bikes.click(function() {
         $(this).addClass('bikes');
         $('#placeNum').html('--');
     }
-    
 });
 
 document.getElementById('date').innerHTML = document.getElementById('date').innerHTML.toLocaleUpperCase();
