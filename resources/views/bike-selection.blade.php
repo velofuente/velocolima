@@ -129,11 +129,11 @@ Reservar Bici
                 tokenBearer = $('#tokenBearer').val();
                 console.log('si entro');
                 $.ajax({
-                    url: "/api/makeCharge",
+                    url: "/makeCharge",
                     method: 'POST',
-                    headers: {
+                    /*headers: {
                             'Authorization': `Bearer ${tokenBearer}`
-                        },
+                        },*/
                     data: {
                         _token: crfsToken,
                         token_id: token_id,
