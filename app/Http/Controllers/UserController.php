@@ -70,6 +70,11 @@ class UserController extends Controller
             "int" => "Este campo solo acepta numeros",
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
         // Available alpha caracters
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         // generate a pin based on 2 * 7 digits + a random character

@@ -67,6 +67,9 @@ class InstructorController extends Controller
 
     public function bikeSelection(Request $request, Schedule $schedules)
     {
+        if(!$request->user()){
+            return redirect('login');
+        }
         $instructors = Instructor::all();
         $branches = Branch::all();
         $products = Product::all();
