@@ -21,6 +21,7 @@ class CreateUserWaitListsTable extends Migration
             //Foreign Key to Wait list
             $table->unsignedInteger('wait_list_id');
             $table->foreign('wait_list_id')->references('id')->on('wait_lists');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

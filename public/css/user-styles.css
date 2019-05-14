@@ -133,3 +133,8 @@ body{
 .input_custom{
     background-color: #282828;
 }
+
+#userSpan{
+    background-color: #000;
+    color: #9701a8;
+}

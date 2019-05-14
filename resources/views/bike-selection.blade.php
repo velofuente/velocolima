@@ -30,16 +30,16 @@ Reservar Bici
             </div>
             <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" alt="">
         </div>
-      
+
         <div class="main-bikes">
             <div class="row">
                 @for ($i = 1; $i <= $schedules->reservation_limit; $i++)
-                <div class="col places">
-                    <p onclick="location.href='#packages'; " class="bikes">{{$i}}</p>
-                </div>
+                    <div class="col places">
+                        <p class="bikes" id="bike-">{{$i}}</p>
+                    </div>
                 @endfor
             </div>
-        </div> 
+        </div>
         <!--
         <div class="details">
             <input type="hidden" name="actualDay" value="{{$day=now()}}">
@@ -110,10 +110,14 @@ Reservar Bici
                 // console.log(product_id);
                 // Submit Form
                 makeCharge();
-                // $('#payment-form').submit();
+                $('#payment-form').submit();
 
                 console.log("cargo realizado");
             };
+            $('#payment-form').on('submit', function(e){
+                e.preventDefault();
+                window.location.replace("/user");
+            })
 
             var error_callbak = function(response) {
                 var desc = response.data.description != undefined ? response.data.description : response.message;
@@ -156,6 +160,11 @@ Reservar Bici
             elementExploded = elementId.split("-")
             product_id = elementExploded[1];
             console.log(product_id);
+        })
+
+        $(document).on("click", ".places", function(e) {
+            e.preventDefault();
+            console.log(this.id);
         })
     </script>
 @endsection

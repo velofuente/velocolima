@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\{User,Card, Purchase, userSchedule, userWaitList};
+use App\{User, Card, Purchase, userSchedule, userWaitList, waitList, Schedule, Instructor};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -19,14 +19,16 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $requestUser = $request->user();
-        $purchaseHistory = DB::table('purchases')->where('user_id', '=', "{$requestUser->id}")->get();
+        $purchaseHistory = DB::table('purchases')->select("*", DB::raw("DATE_ADD(created_at, INTERVAL expiration_days DAY) finalDate"))->where('user_id', '=', "{$requestUser->id}")->get();
         $cards = DB::table('cards')->where('user_id', '=', "{$requestUser->id}")->get();
-        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->get();
-        $classes = $numClases[0]->clases;
-        $bookedClasses = userSchedule::where('user_id', "{$requestUser->id}")->where('status', 'active')->get();
-        $previousClasses = userSchedule::where('user_id', "{$requestUser->id}")->where(DB::raw("created_at < NOW()"))->get();
+        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->first();
+        $classes = $numClases->clases;
+
+        $bookedClasses = UserSchedule::with("schedule.instructor", "schedule.room", "schedule")->where('user_id', "{$requestUser->id}")->where('status', 'active')->get();
+
+        $previousClasses = UserSchedule::where('user_id', "{$requestUser->id}")->where(DB::raw("created_at < NOW()"))->get();
         $waitLists = DB::table('user_wait_lists')->where('user_id', "{$requestUser->id}")->get();
-        return view('user', compact('cards','purchaseHistory','classes'));
+        return view('user', compact('cards', 'purchaseHistory', 'classes', 'previousClasses', 'waitLists', 'bookedClasses'));
     }
 
     /**

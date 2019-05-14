@@ -57,7 +57,7 @@ bikes.click(function() {
         $(this).removeClass('bikes');
         $(this).addClass('selected');
         $('#placeNum').html($(this).text());
-        location.href='#packages';
+        // location.href='#packages';
     } else {
         $(this).removeClass('selected');
         $(this).addClass('bikes');

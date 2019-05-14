@@ -88,32 +88,56 @@
                             </div>
                         @endforeach
                         {{-- End Print Card --}}
-                        <button class="btn btn-dark text-white mb-4 w-50 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></button>
+                        <button class="btn bg-white text-dark text-left mb-2 mt-2 w-75 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></button>
                     </div>
                 </div>
                 {{-- Classes Buttons --}}
                 <div class="col-md-8 mb-3">
                     <div class="row text-center">
                         <div class="col-md-3 mb-3">
-                            <button type="submit" class="btn regular_button mx-auto" id="submitButton">
+                            <button type="submit" class="btn regular_button mx-auto" id="incoming_classes_button" data-toggle="collapse" data-target="#divUserButton">
                                     {{ __('Próximas Clases') }}
                             </button>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <button type="submit" class="btn regular_button mx-auto" id="submitButton">
+                            <button type="submit" class="btn regular_button mx-auto" id="past_classes_button" data-toggle="collapse" data-target="#divUserButton">
                                     {{ __('Clases Pasadas') }}
                             </button>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <button type="submit" class="btn regular_button mx-auto" id="submitButton">
+                            <button type="submit" class="btn regular_button mx-auto" id="waitlist_button" data-toggle="collapse" data-target="#divUserButton">
                                     {{ __('Waitlist') }}
                             </button>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <button type="submit" class="btn regular_button mx-auto" id="submitButton">
+                            <button type="submit" class="btn regular_button mx-auto" id="history_button" data-toggle="collapse" data-target="#divUserButton">
                                     {{ __('Historial de Compras') }}
                             </button>
                         </div>
+                    </div>
+                    <div class="row text-center justify-content-center">
+                        @if ($purchaseHistory != null)
+                        @foreach ($purchaseHistory as $purchase)
+                                <div class="col-12 mb-1 collapse" id="divUserButton">
+                                    <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">Clases Compradas:{{$purchase->n_classes}}, Fecha de Compra: {{date('d-M-Y', strtotime($purchase->created_at))}}, Vigencia: {{date('d-M-Y', strtotime($purchase->finalDate))}} </button>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="col-md-12 mb-1 collapse" id="divUserButton">
+                                <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">No Tienes Clases Compradas</button>
+                            </div>
+                        @endif
+                        @if ($bookedClasses != null)
+                        @foreach ($bookedClasses as $bookedClass)
+                                <div class="col-12 mb-1 collapse" id="divUserButton">
+                                    <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">Fecha: {{$bookedClass->schedule->day}}, Hora: {{$bookedClass->schedule->hour}}, Asiento: {{$bookedClass->bike}}, Instructor: {{$bookedClass->schedule->instructor->name}}, Comprado el: {{$bookedClass->purchase_id}}, Estatus: {{$bookedClass->status}}</button>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="col-md-12 mb-1 collapse" id="divUserButton">
+                                <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">No Tienes Próximas Clases</button>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
