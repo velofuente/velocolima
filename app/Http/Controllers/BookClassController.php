@@ -21,7 +21,7 @@ class BookClassController extends Controller
             if($instances < $availability->reservation_limit){
                 //Validar si el lugar está disponible
                 $alreadyReserved = UserSchedule::where("bike", $request->bike)->where("schedule_id", $request->schedule_id)->first();
-                if($alreadyReserved){
+                if($alreadyReserved && $alreadyReserved->status!='cancelled'){
                     DB::commit();
                     return response()->json([
                         'status' => 'ERROR',
@@ -64,6 +64,23 @@ class BookClassController extends Controller
             return response()->json([
                 'status' => 'ERROR',
                 'message' => "Ya tienes un lugar reservado en esta clase",
+            ]);
+        }
+    }
+    public function cancelClass(Request $request)
+    {
+        $requestedClass = UserSchedule::find($request->id);
+        if($requestedClass->status!='cancelled'){
+            $requestedClass->status = 'cancelled';
+            $requestedClass->save();
+            return response()->json([
+                'status' => 'OK',
+                'message' => "Clase cancelada con exito",
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'ERROR',
+                'message' => "La clase que quieres cancelar ya ha sido cancelada. Intenta refrescando la pagina.",
             ]);
         }
     }

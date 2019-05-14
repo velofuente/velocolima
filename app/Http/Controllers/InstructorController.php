@@ -70,13 +70,13 @@ class InstructorController extends Controller
         $instructors = Instructor::all();
         $branches = Branch::all();
         $products = Product::all();
-        $selectedBike = UserSchedule::where("user_id", $request->user()->id)->where("schedule_id", $schedules->id)->first();
+        $selectedBike = UserSchedule::where("user_id", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->first();
         if($selectedBike){
             $selectedBike = $selectedBike->bike;
         } else {
             $selectedBike = 0;
         }
-        $reservedPlaces = UserSchedule::where("user_id", "<>", $request->user()->id)->where("schedule_id", $schedules->id)->get()->pluck("bike")->toArray();
+        $reservedPlaces = UserSchedule::where("user_id", "<>", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->get()->pluck("bike")->toArray();
 
         return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces"));
     }

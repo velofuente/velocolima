@@ -243,7 +243,7 @@
                                                     <tbody>
                                                         @foreach ($purchaseHistory as $purchase)
                                                             <tr>
-                                                                <td>{{$purchase->n_classes}}</td>
+                                                                <td>{{$purchase->product->n_classes}}</td>
                                                                 <td>{{date('d-M-Y', strtotime($purchase->created_at))}}</td>
                                                                 <td>{{date('d-M-Y', strtotime($purchase->finalDate))}}</td>
                                                             </tr>
