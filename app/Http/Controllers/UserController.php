@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $rules = [
             'name' => ['required', 'string', 'max:60'],
             'last_name' => ['required', 'string', 'max:60'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -63,8 +63,13 @@ class UserController extends Controller
             'height' => ['required', 'int', 'max:250'],
             'gender' => ['required', 'string', 'max:6'],
             'shoe_size' => ['required', 'numeric', 'between:0,32.5'],
-        ]);
-
+        ];
+        $messages = [
+            "required" => "Este campo es requerido",
+            "numeric" => "Este campo solo acepta numeros",
+            "int" => "Este campo solo acepta numeros",
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
         // Available alpha caracters
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         // generate a pin based on 2 * 7 digits + a random character
