@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/layout-styles.css')}}">
     <link rel="stylesheet" href="{{asset('css/packages.css')}}">
-    {{-- <script src="sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="sweetalert2.min.css"> --}}
     @yield('extraStyles')
 </head>
 <div class="gradient"></div>
@@ -24,67 +22,22 @@
         <a class="navbar-brand " href="{{ url('/') }}"><img src="/img/iconos/HOME.png" alt="logo" width="35px" height="35px"></a>
         <a class="navbar-brand hicon" href="{{ url('/') }}"><img src="/img/iconos/LOGO.png" alt="logo" width="100px" height="50px"></a>
     </div>
-    <!-- <div class="dropdown account d-block d-lg-none">
-        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-bars" aria-hidden="true"></i>    <span class="caret"></span>
-        </a>
-        <div class="dropdown-menu account" aria-labelledby="dropdownMenuButton">
-            <a href="{{ url('/first-visit') }}">PRIMERA VISITA</a>
-            <a href="{{ url('/instructors') }}">INSTRUCTORES</a>
-            <a href="{{ url('/#packages') }}">COMPRAR CLASES</a>
-            <a href="{{ url('/book') }}">RESERVAR</a>
-        </div>
-    </div>
-   <div class="locations">
-        <select name="" id="">
-            <option value="">Colima</option>
-        </select>
-    </div>
-    <div class="branches">
-        <select name="" id="">
-            <option value="">Zentralia</option>
-            <option value="">Providencia</option>
-        </select>
-    </div>-->
     @guest
     <div class="links">
-            <a href="{{ route('login') }}"><img src="/img/iconos/USUARIO.png" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Ingresar"></a>
-       <!-- @if (Route::has('register'))
-            <a href="{{ route('register') }}">REGÍSTRATE</a>
-            @endif
-        -->
+        <a href="{{ route('login') }}"><img src="/img/iconos/USUARIO.png" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Ingresar"></a>
     </div>
     @endguest
     @auth
     <div class="links">
             <a href="{{ url('/user') }}"><img src="/img/iconos/USUARIO.png" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Mi Cuenta"></a>
-       <!-- @if (Route::has('register'))
-            <a href="{{ route('register') }}">REGÍSTRATE</a>
-            @endif
-        -->
         <a class="" href="{{ route('logout') }}"
             onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
+            document.getElementById('logout-form').submit();">
             <img src="/img/iconos/CIERRE.png" width="35px" height="35px" alt="Salir" data-toggle="tooltip" data-placement="bottom" title="Salir"></a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
     </div>
-  <!--  <div class="top-right dropdown account2">
-        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ Auth::user()->name }}    <span class="caret"></span>
-        </a>
-        <div class="dropdown-menu account2" aria-labelledby="dropdownMenuButton">
-            <a href="{{ url('/user') }}">Mi Cuenta</a>
-            <a class="" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-            {{ __('Logout') }}</a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-        </div>
-    </div>-->
     @endauth
     <div class="hambBtn">
         <button id="hambBtn" class="hamburger hamburger--slider" type="button">
@@ -105,8 +58,8 @@
             @endguest
             @auth
             <a class="" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
             {{ __('Logout') }}</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf

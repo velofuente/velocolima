@@ -145,7 +145,7 @@ function reservePlace(id, elementBall){
                     title: 'Lugar reservado',
                     text: result.message,
                     type: 'success',
-                    confirmButtonText: 'Ok'
+                    confirmButtonText: 'Aceptar'
                   })
             } else {
                 if(typeof result.updateClass != "undefined"){
@@ -158,7 +158,7 @@ function reservePlace(id, elementBall){
                     title: 'Woops!',
                     text: result.message,
                     type: 'error',
-                    confirmButtonText: 'Ok'
+                    confirmButtonText: 'Aceptar'
                   })
             }
             console.log(result);

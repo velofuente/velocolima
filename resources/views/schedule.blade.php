@@ -9,13 +9,11 @@
 @endsection
 
 @section('content')
-    <body>
         <div class="container-fluid pt-4 mb-4 main">
             <div class="row" id="topNavBar">
                 {{-- Empty Section at the Far LeftNavBar --}}
                 <div class="col-1">
                     <span class="weekShown">
-
                     </span>
                 </div>
                 {{-- Message Actual Week --}}
@@ -115,36 +113,16 @@
                 </div>
             </div>
         </div>
-
-        {{-- <script>
-            function scheduleByInstructor() {
-                var selectInstructor = document.getElementById("ScheduleInstructor").value;
-                var scheduleBox = document.getElementsByClassName("scheduleItem");
-
-                if (selectInstructor == "allInstructors"){
-                    for (let item of scheduleBox){
-                        item.style.display = 'block';
-                    }
-                } else {
-                    for (let item of scheduleBox){
-                        if (selectInstructor === item.id){
-                            item.style.display = 'block';
-                        }
-                        else {
-                            item.style.display = 'none';
-                        }
-                    }
-                }
-            }
-        </script> --}}
-    </body>
-@include('packages')
-@include('footer')
+    @include('packages')
+    @include('footer')
 @endsection
 
 @section('extraScripts')
-    {{-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
+    <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
+    <script type="text/javascript">
+        var crfsToken = '{{ csrf_token() }}';
+    </script>
+    <script src="{{asset('js/openpay-script.js')}}"></script>
     <script src="{{ asset('/js/schedule-script.js') }}"></script>
 @endsection

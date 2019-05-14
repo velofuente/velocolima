@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layovut')
 @section('title')
     Velo | Usuario
 @endsection
@@ -12,16 +12,15 @@
 @endsection
 @section('content')
     <div class="container main_div">
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
-
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         {{-- <div class="flex-center position-ref full-height"> --}}
 
             {{-- User Name & Share Code --}}
@@ -134,7 +133,7 @@
 
                     {{-- Table with Nav Bar --}}
                     <section id="tabs" class="project-tab">
-                        @if ($bookedClasses)
+                        @if (!empty($bookedClasses))
                             <div class="row">
                                 <div class="col-md-12">
                                     <nav>
@@ -148,30 +147,46 @@
                                     <div class="tab-content" id="nav-tabContent">
                                         {{-- Booked Classes --}}
                                         <div class="tab-pane fade show active" id="nav-bookedClasses" role="tabpanel" aria-labelledby="nav-bookedClasses-tab">
-                                            <table class="table table-striped table-dark" cellspacing="0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Fecha</th>
-                                                        <th>Hora</th>
-                                                        <th>Asiento</th>
-                                                        <th>Estatus</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($bookedClasses as $bookedClass)
+                                            @if (count($bookedClasses) > 0)
+                                                <table class="table table-striped table-dark" cellspacing="0">
+                                                    <thead>
                                                         <tr>
-                                                            <td>{{ date('d-M-Y', strtotime($bookedClass->schedule->day)) }}</td>
-                                                            <td>{{ date('h:i A', strtotime($bookedClass->schedule->hour)) }}</td>
-                                                            <td>{{ $bookedClass->bike }}</td>
-                                                            <td>{{ $bookedClass->status }}</td>
+                                                            <th>Fecha</th>
+                                                            <th>Hora</th>
+                                                            <th>Asiento</th>
+                                                            <th>Estado</th>
                                                         </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($bookedClasses as $bookedClass)
+                                                            <tr>
+                                                                <td>{{ date('d-M-Y', strtotime($bookedClass->schedule->day)) }}</td>
+                                                                <td>{{ date('h:i A', strtotime($bookedClass->schedule->hour)) }}</td>
+                                                                <td>{{ $bookedClass->bike }}</td>
+                                                                @if($bookedClass->status == 'active')
+                                                                    <td>Activo</td>
+                                                                @endif
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                <table class="table table-striped table-dark" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">No tienes próximas clases</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            @endif
                                         </div>
                                         {{-- Previous Classes --}}
                                         <div class="tab-pane fade" id="nav-previousClasses" role="tabpanel" aria-labelledby="nav-previousClasses-tab">
-                                            @if ($previousClasses)
+                                            @if (count($previousClasses) > 0)
                                                 <table class="table table-striped table-dark" cellspacing="0">
                                                     <thead>
                                                         <tr>
@@ -179,6 +194,7 @@
                                                             <th>Hora</th>
                                                             <th>Instructor</th>
                                                             <th>Asiento</th>
+                                                            <th>Estado</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -188,15 +204,42 @@
                                                                 <td>{{date('h:i A', strtotime($previousClass->schedule->hour))}}</td>
                                                                 <td>{{$previousClass->schedule->instructor->name}}</td>
                                                                 <td>{{$previousClass->bike}}</td>
+                                                                @switch($previousClass->status)
+                                                                    @case('canceled')
+                                                                        <td>Cancelado</td>
+                                                                        @break
+                                                                    @case('taken')
+                                                                        <td>Tomada</td>
+                                                                        @break
+                                                                    @default
+                                                                    <td>Error en la petición</td>
+                                                                @endswitch
+                                                                {{-- @if({{$previousClass->status == 'canceled'}})
+                                                                    <td>Cancelado</td>
+                                                                @else
+                                                                    <td>Tomada</td>
+                                                                @endif --}}
                                                             </tr>
                                                         @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                <table class="table table-striped table-dark" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">No tienes clases pasadas</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             @endif
                                         </div>
                                         {{-- Wait List --}}
                                         <div class="tab-pane fade" id="nav-waitlist" role="tabpanel" aria-labelledby="nav-waitlist-tab">
-                                            @if ($UserWaitLists)
+                                            @if (count($UserWaitLists) > 0)
                                                 <table class="table table-striped table-dark" cellspacing="0">
                                                     <thead>
                                                         <tr>
@@ -219,11 +262,11 @@
                                                 <table class="table table-striped table-dark" cellspacing="0">
                                                     <thead>
                                                         <tr>
+                                                            <th class="text-center">No te encuentras en lista de espera</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td class="text-center">No te encuentras en Lista de Espera</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -231,7 +274,7 @@
                                         </div>
                                         {{-- Purchase History --}}
                                         <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
-                                            @if ($purchaseHistory)
+                                            @if (count($purchaseHistory) > 0)
                                                 <table class="table table-striped table-dark" cellspacing="0">
                                                     <thead>
                                                         <tr>
@@ -254,11 +297,11 @@
                                                 <table class="table table-striped table-dark" cellspacing="0">
                                                     <thead>
                                                         <tr>
+                                                            <th class="text-center">No tienes compras realizadas</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="text-center">
-                                                            <td>No te encuentras en Lista de Espera</td>
+                                                        <tr>
                                                         </tr>
                                                     </tbody>
                                                 </table>
