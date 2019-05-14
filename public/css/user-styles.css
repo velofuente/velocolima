@@ -134,7 +134,9 @@ body{
     background-color: #282828;
 }
 
-#userSpan{
+#show_user_data, #divWait{
+    font-family: 'Avenir';
+    font-weight: bold;
     background-color: #000;
     color: #9701a8;
 }

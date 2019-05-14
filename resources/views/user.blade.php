@@ -43,7 +43,7 @@
                         <a href="{{ url('/schedule#packages') }}" class="btn gradient_button mx-auto" id="buyPackages" role="button">Comprar Clases</a>
                     </div>
                     {{-- Change User Data & Password --}}
-                    <div id="userGeneralData" class="pt-4">
+                    <div id="userGeneralData" class="pt-4 pb-3 bb-3 border-bottom border-danger">
                         <h5 class="text-center mx-auto pt-2 myclss">Mis Datos</h5>
                         <button type="button" class="btn bg-white text-dark text-center mb-3 mt-2 w-75 d-block mx-auto" data-toggle="collapse" data-target="#userData">+ Datos del usuario</button>
                         <div id="userData" class="collapse">
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     {{-- My Classes & Buy Packages --}}
-                    <div id="Payments" class="pt-4">
+                    <div id="Payments" class="pt-4 pb-3 bb-2 border-bottom border-danger">
                         <h5 class="text-center mx-auto pt-2 myclss">Formas de Pago</h5>
 
                         {{-- Print Card --}}
@@ -116,17 +116,18 @@
                             </button>
                         </div>
                     </div>
-                    <div class="row text-center justify-content-center">
+                    {{-- Buttons Information Shown --}}
+                    <div class="row text-center justify-content-center" id="show_user_data">
                         {{-- Booked Classes --}}
-                        @if ($bookedClasses != null)
+                        @if ($bookedClasses)
                             @foreach ($bookedClasses as $bookedClass)
                                 <div class="col-md-12 mb-1 collapse" id="divBooked">
-                                    <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan"> 
-                                            {{$bookedClass->schedule->day}} 
-                                            {{$bookedClass->schedule->hour}} 
-                                            {{$bookedClass->bike}} 
-                                            {{$bookedClass->purchase_id}}, 
-                                            {{$bookedClass->status}} </span>
+                                    <span class="mb-0 mt-0 d-block text-center mx-auto">
+                                            <span class="col-3 text-center">Fecha: {{date('d-M-Y', strtotime($bookedClass->schedule->day))}}</span>
+                                            <span class="col-3 text-center">Hora: {{date('h:i A', strtotime($bookedClass->schedule->hour))}}</span>
+                                            <span class="col-3 text-center">Asiento: {{$bookedClass->bike}}</span>
+                                            {{-- <span>ID de Compra: {{$bookedClass->purchase_id}} │</span> --}}
+                                            <span class="col-3 text-center">Estatus: {{$bookedClass->status}}</span>
                                     {{-- <span class="col-2 mb-0 mt-0 d-block text-center mx-auto" id="userSpan">Fecha: {{$bookedClass->schedule->day}} </span>
                                     <span class="col-2 mb-0 mt-0 d-block text-center mx-auto" id="userSpan"> Hora: {{$bookedClass->schedule->hour}} </span>
                                     <span class="col-2 mb-0 mt-0 d-block text-center mx-auto" id="userSpan"> Asiento: {{$bookedClass->bike}} </span>
@@ -137,42 +138,56 @@
                             @endforeach
                         @else
                             <div class="col-md-12 mb-1 collapse" id="divBooked">
-                                <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">No Tienes Próximas Clases</button>
+                                <span class="mb-0 mt-0 d-block text-center mx-auto" >No Tienes Próximas Clases</button>
                             </div>
                         @endif
                         {{-- Previous Classes --}}
-                        @if ($previousClasses != null)
+                        @if ($previousClasses)
                             @foreach ($previousClasses as $previousClass)
                                 <div class="col-md-12 mb-1 collapse" id="divPrevious">
-                                    <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">Clases Compradas:{{$previousClass->schedule_id}}</span>
+                                    {{-- <span class="mb-0 mt-0 d-block text-center mx-auto">Clases Previas: {{$previousClass->schedule_id}}</span> --}}
+                                    <span class="mb-0 mt-0 d-block text-center mx-auto">
+                                        <span class="col-4 text-center">Fecha: {{date('d-M-Y', strtotime($previousClass->schedule->day))}}</span>
+                                        <span class="col-4 text-center">Hora: {{date('h:i A', strtotime($previousClass->schedule->hour))}}</span>
+                                        <span class="col-4 text-center">Instructor: {{$previousClass->schedule->instructor->name}}</span>
+                                    </span>
                                 </div>
                             @endforeach
                         @else
                             <div class="col-md-12 mb-1 collapse" id="divPrevious">
-                                <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">No Tienes Clases Compradas</button>
+                                <span class="mb-0 mt-0 d-block text-center mx-auto">No Tienes Clases Compradas</button>
                             </div>
                         @endif
                         {{-- Purchase History --}}
-                        @if ($purchaseHistory != null)
+                        @if ($purchaseHistory)
                             @foreach ($purchaseHistory as $purchase)
                                 <div class="col-md-12 mb-1 collapse" id="divHistory">
-                                    <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">Clases Compradas:{{$purchase->n_classes}}, Fecha de Compra: {{date('d-M-Y', strtotime($purchase->created_at))}}, Vigencia: {{date('d-M-Y', strtotime($purchase->finalDate))}} </span>
+                                    <span class="mb-0 mt-0 d-block text-center mx-auto">
+                                        <span class="col-4 text-center">Clases compradas: {{$purchase->n_classes}}</span>
+                                        <span class="col-4 text-center">Fecha de Compra: {{date('d-M-Y', strtotime($purchase->created_at))}}</span>
+                                        <span class="col-4 text-center">Vigencia: {{date('d-M-Y', strtotime($purchase->finalDate))}}</span>
+                                    </span>
                                 </div>
                             @endforeach
                         @else
                             <div class="col-md-12 mb-1 collapse" id="divHistory">
-                                <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">No Tienes Clases Compradas</button>
+                                <span class="mb-0 mt-0 d-block text-center mx-auto">No Tienes Historial</button>
                             </div>
                         @endif
-                        @if ($purchaseHistory != null)
-                            @foreach ($purchaseHistory as $purchase)
+                        {{-- Wait List --}}
+                        @if (!$waitLists)
+                            @foreach ($waitLists as $waitList)
                                 <div class="col-md-12 mb-1 collapse" id="divWait">
-                                    <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">Clases Compradas:{{$purchase->n_classes}}, Fecha de Compra: {{date('d-M-Y', strtotime($purchase->created_at))}}, Vigencia: {{date('d-M-Y', strtotime($purchase->finalDate))}} </span>
+                                    <span class="mb-0 mt-0 d-block text-center mx-auto">
+                                        <span class="col-4 text-center">Clases Compradas:{{$purchase->n_classes}}</span>
+                                        <span class="col-4 text-center">Fecha de Compra: {{date('d-M-Y', strtotime($purchase->created_at))}}</span>
+                                        <span class="col-4 text-center">Vigencia: {{date('d-M-Y', strtotime($purchase->finalDate))}}</span>
+                                    </span>
                                 </div>
                             @endforeach
                         @else
                             <div class="col-md-12 mb-1 collapse" id="divWait">
-                                <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">No Tienes Clases Compradas</button>
+                                <span class="mb-0 mt-0 d-block text-center mx-auto">No estás en lista de espera</button>
                             </div>
                         @endif
                     </div>

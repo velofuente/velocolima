@@ -22,7 +22,7 @@
 body{
     font-family: 'Avenir';
     color: #F11635;
-    background-color: #282828;
+    background-color: #000;
 }
 
 .title {
@@ -36,13 +36,13 @@ body{
 }
 
 .card{
-    background-color: #282828;
+    background-color: #000;
     color: #000;
     transition: 0.3s;
 }
 
 .card:hover{
     background-color: #c72744cd;
-    background-color: #4B4B4D;
+    background-color: #282828;
     color: #FFF;
 }
