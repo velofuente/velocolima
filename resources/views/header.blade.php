@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/layout-styles.css')}}">
     <link rel="stylesheet" href="{{asset('css/packages.css')}}">
+    {{-- <script src="sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css"> --}}
     @yield('extraStyles')
 </head>
 <div class="gradient"></div>

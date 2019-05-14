@@ -1,3 +1,41 @@
+function drawMainBikes(){
+    var bikesContainer = $("#main-bikes");
+
+    var number_of_rows = 8;
+    var number_of_cols = 7;
+    // var tbody = $("<tbody>").attr("id", "bodyTableBicis");
+    // var firstChar = "a";
+    var count = 1;
+    for (var i = 0; i < number_of_rows; i++){
+        // var trow = $("<tr>").attr("id", firstChar);
+        var divr = $("<div>").attr("id", "divr" + i).attr("class", "col places");
+        for (var j = 0; j < number_of_cols; j++){
+            var classes = "bikes";
+            if(selectedBike == count){
+                classes = "selected";
+            } else {
+                if($.inArray(count, reservedPlaces) != -1){
+                    // classes = "occupied";
+                }
+            }
+            var ball = $("<p>").attr("class", classes).attr("id", "ball-" + count).text(count);
+            divr.append(ball);
+            count++;
+            // var td = $("<td>").attr("id", firstChar + "" + j);
+            // var bicycle = $("<p>").attr("class", "bikes").text(firstChar + "" + j);
+            // td.append(bicycle);
+            // trow.append(td);
+            console.log(j);
+        }
+        console.log(i);
+        
+        bikesContainer.append(divr);
+        // firstChar = nextChar(firstChar);
+        // tbody.append(trow);
+
+    }
+}
+
 function tableCreate(){
     var table = $("<table>").attr("id", "tableBicis").attr("class", "table");
     var number_of_rows = 8;
@@ -43,25 +81,36 @@ function tableCreate(){
     // }
     // body.appendChild(tbl);
 }
-tableCreate();
+// tableCreate();
+drawMainBikes();
 
 
 
-var bikes = $('.bikes');
+// var bikes = $('.bikes');
 var selected;
-bikes.click(function() {
+$(document).on("click", ".bikes", function(e) {
+    e.preventDefault();
+    // console.log(this.id);
+// })
+// bikes.click(function(e) {
     if ($(this).hasClass('bikes')) {
-        selected = $('.selected');
-        selected.removeClass('selected');
-        selected.addClass('bikes');
-        $(this).removeClass('bikes');
-        $(this).addClass('selected');
-        $('#placeNum').html($(this).text());
+        var fullId = this.id;
+        var splitedId = fullId.split("-");
+        var ballId = splitedId[1];
+
+
+        // selected = $('.selected');
+        // selected.removeClass('selected');
+        // selected.addClass('bikes');
+        // $(this).removeClass('bikes');
+        // $(this).addClass('selected');
+        // $('#placeNum').html($(this).text());
+        reservePlace(ballId, $(this));
         // location.href='#packages';
     } else {
         $(this).removeClass('selected');
         $(this).addClass('bikes');
-        $('#placeNum').html('--');
+        // $('#placeNum').html('--');
     }
 });
 
@@ -72,3 +121,45 @@ document.getElementById('branch').innerHTML = document.getElementById('branch').
 $('#profilePic').click(function(){
     document.location.href = "/instructors";
 });
+
+function reservePlace(id, elementBall){
+    $.ajax({
+        url: "/book",
+        method: 'POST',
+        data: {
+            _token: crfsToken,
+            schedule_id: $("#schedule_id").val(),
+            bike: id,
+        },
+        success: function(result){
+            if(result.status == "OK"){
+                selected = $('.selected');
+                selected.removeClass('selected');
+                selected.addClass('bikes');
+                elementBall.removeClass('bikes');
+                elementBall.addClass('selected');
+                $('#placeNum').html($(this).text());
+                Swal.fire({
+                    title: 'Lugar reservado',
+                    text: result.message,
+                    type: 'success',
+                    confirmButtonText: 'Ok'
+                  })
+            } else {
+                if(typeof result.updateClass != "undefined"){
+                    if (result.updateClass == 1) {
+                        $("#ball-" + id).removeClass("bikes")
+                        $("#ball-" + id).addClass("occupied")
+                    }
+                }
+                Swal.fire({
+                    title: 'Woops!',
+                    text: result.message,
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                  })
+            }
+            console.log(result);
+        }
+    });
+}

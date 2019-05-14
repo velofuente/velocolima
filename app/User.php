@@ -44,4 +44,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne('App\VerifyUser');
     }
+
+    // public function schedules(){
+    //     return $this->belongsToMany(User::class)->;
+    // }
 }

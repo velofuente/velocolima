@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Instructor,Branch,Schedule,Product};
+use App\{Instructor,Branch,Schedule,Product, User,UserSchedule};
 use Response;
 
 class InstructorController extends Controller
@@ -65,13 +65,20 @@ class InstructorController extends Controller
         return view('schedule', compact('instructors', 'branches', 'schedules','products'));
     }
 
-    public function bikeSelection(Schedule $schedules)
+    public function bikeSelection(Request $request, Schedule $schedules)
     {
         $instructors = Instructor::all();
         $branches = Branch::all();
         $products = Product::all();
+        $selectedBike = UserSchedule::where("user_id", $request->user()->id)->where("schedule_id", $schedules->id)->first();
+        if($selectedBike){
+            $selectedBike = $selectedBike->bike;
+        } else {
+            $selectedBike = 0;
+        }
+        $reservedPlaces = UserSchedule::where("user_id", "<>", $request->user()->id)->where("schedule_id", $schedules->id)->get()->pluck("bike")->toArray();
 
-        return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products'));
+        return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces"));
     }
 
     /**

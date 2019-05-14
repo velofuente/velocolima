@@ -12,6 +12,7 @@ Reservar Bici
     <div class="container-fluid main">
         <div class="select">
             <a href="/schedule" id="goBack">Volver al calendario</a>
+            <input type="hidden" id="schedule_id" value="{{$schedules->id}}">
                 <div class="row">
                     <div class="col-5 bnd">
                         <?php setlocale(LC_TIME,'es_MX.utf8'); $dt = Carbon::now(); $inicio = strftime("%A %d de %B,", strtotime($schedules->day));?>
@@ -32,14 +33,16 @@ Reservar Bici
         </div>
 
         <div class="main-bikes">
-            <div class="row">
-                @for ($i = 1; $i <= $schedules->reservation_limit; $i++)
-                    <div class="col places">
-                        <p class="bikes" id="bike-">{{$i}}</p>
-                    </div>
-                @endfor
+            <div class="row" id="main-bikes">
             </div>
-        </div>
+            {{-- <div class="row">
+                @for ($i = 1; $i <= $schedules->reservation_limit; $i++)
+                <div class="col places">
+                    <p class="bikes">{{$i}}</p>
+                </div>
+                @endfor
+            </div> --}}
+        </div> 
         <!--
         <div class="details">
             <input type="hidden" name="actualDay" value="{{$day=now()}}">
@@ -66,7 +69,6 @@ Reservar Bici
     @include('footer')
 @endsection
 @section('extraScripts')
-    <script src="{{asset('js/bike-selection-script.js')}}"></script>
     {{-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> --}}
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
@@ -87,6 +89,8 @@ Reservar Bici
         //se genera solo por laravel
         var crfsToken = '{{ csrf_token() }}';
         var product_id = null;
+        var selectedBike = "{{ $selectedBike }}";
+        var reservedPlaces = jQuery.parseJSON("{!! json_encode($reservedPlaces) !!}");
 
         $(document).ready(function() {
             OpenPay.setId('mwykro9vagcgwumpqaxb');
@@ -167,4 +171,5 @@ Reservar Bici
             console.log(this.id);
         })
     </script>
+    <script src="{{asset('js/bike-selection-script.js')}}"></script>
 @endsection

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\{User, Card, Purchase, userSchedule, userWaitList, waitList, Schedule, Instructor};
+use App\{User, Card, Purchase, userSchedule, UserWaitList, waitList, Schedule, Instructor};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -38,9 +38,9 @@ class UserController extends Controller
     {
         return view('/register');
     }
-    public function test()
+    public function tesst()
     {
-        return User::select(DB::raw("created_at, DATE_ADD(created_at, INTERVAL 50 HOUR) finalDate"))->get();
+        // return User::select(DB::raw("created_at, DATE_ADD(created_at, INTERVAL 50 HOUR) finalDate"))->get();
     }
 
     /**
