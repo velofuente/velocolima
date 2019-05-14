@@ -20,7 +20,6 @@
 </head>
 <div class="gradient"></div>
 <nav class="navbar container-fluid" id="nav">
-    
     <div class="home">
         <a class="navbar-brand " href="{{ url('/') }}"><img src="/img/iconos/HOME.png" alt="logo" width="35px" height="35px"></a>
         <a class="navbar-brand hicon" href="{{ url('/') }}"><img src="/img/iconos/LOGO.png" alt="logo" width="100px" height="50px"></a>

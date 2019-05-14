@@ -4,6 +4,11 @@
 @endsection
 @section('extraStyles')
     <link rel="stylesheet" href="{{asset('css/user-styles.css')}}">
+    <style>
+        .tabTable {
+            color: white !important;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="container main_div">
@@ -103,8 +108,8 @@
                     </div>
                 </div>
                 {{-- Classes Buttons --}}
-                <div class="col-md-8 mb-3">
-                    <div class="row text-center">
+                <div class="col-md-8 mb-4">
+                    {{-- <div class="row text-center">
                         <div class="col-md-3 mb-3">
                             <button type="submit" class="btn regular_button mx-auto" id="incoming_classes_button" data-toggle="collapse" data-target="#divBooked">
                                     {{ __('Próximas Clases') }}
@@ -125,82 +130,145 @@
                                     {{ __('Historial de Compras') }}
                             </button>
                         </div>
-                    </div>
-                    {{-- Buttons Information Shown --}}
-                    <div class="row text-center justify-content-center" id="show_user_data">
-                        {{-- Booked Classes --}}
+                    </div> --}}
+
+                    {{-- Table with Nav Bar --}}
+                    <section id="tabs" class="project-tab">
                         @if ($bookedClasses)
-                            @foreach ($bookedClasses as $bookedClass)
-                                <div class="col-md-12 mb-1 collapse" id="divBooked">
-                                    <span class="mb-0 mt-0 d-block text-center mx-auto">
-                                            <span class="col-3 text-center">Fecha: {{date('d-M-Y', strtotime($bookedClass->schedule->day))}}</span>
-                                            <span class="col-3 text-center">Hora: {{date('h:i A', strtotime($bookedClass->schedule->hour))}}</span>
-                                            <span class="col-3 text-center">Asiento: {{$bookedClass->bike}}</span>
-                                            {{-- <span>ID de Compra: {{$bookedClass->purchase_id}} │</span> --}}
-                                            <span class="col-3 text-center">Estatus: {{$bookedClass->status}}</span>
-                                    {{-- <span class="col-2 mb-0 mt-0 d-block text-center mx-auto" id="userSpan">Fecha: {{$bookedClass->schedule->day}} </span>
-                                    <span class="col-2 mb-0 mt-0 d-block text-center mx-auto" id="userSpan"> Hora: {{$bookedClass->schedule->hour}} </span>
-                                    <span class="col-2 mb-0 mt-0 d-block text-center mx-auto" id="userSpan"> Asiento: {{$bookedClass->bike}} </span>
-                                    <span class="col-2 mb-0 mt-0 d-block text-center mx-auto" id="userSpan"> Comprado el: {{$bookedClass->purchase_id}}, </span>
-                                    <span class="col-2 mb-0 mt-0 d-block text-center mx-auto" id="userSpan"> Estatus: {{$bookedClass->status}} </span>
-                                     --}}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <nav>
+                                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                            <a class="nav-item nav-link active" id="nav-bookedClasses-tab" data-toggle="tab" href="#nav-bookedClasses" role="tab" aria-controls="nav-bookedClasses" aria-selected="true">Próximas Clases</a>
+                                            <a class="nav-item nav-link" id="nav-previousClasses-tab" data-toggle="tab" href="#nav-previousClasses" role="tab" aria-controls="nav-previousClasses" aria-selected="false">Clases Pasadas</a>
+                                            <a class="nav-item nav-link" id="nav-waitlist-tab" data-toggle="tab" href="#nav-waitlist" role="tab" aria-controls="nav-waitlist" aria-selected="false">Lista de Espera</a>
+                                            <a class="nav-item nav-link" id="nav-history-tab" data-toggle="tab" href="#nav-history" role="tab" aria-controls="nav-history" aria-selected="false">Historial de Compras</a>
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        {{-- Booked Classes --}}
+                                        <div class="tab-pane fade show active" id="nav-bookedClasses" role="tabpanel" aria-labelledby="nav-bookedClasses-tab">
+                                            <table class="table table-striped table-dark" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Hora</th>
+                                                        <th>Asiento</th>
+                                                        <th>Estatus</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($bookedClasses as $bookedClass)
+                                                        <tr>
+                                                            <td>{{ date('d-M-Y', strtotime($bookedClass->schedule->day)) }}</td>
+                                                            <td>{{ date('h:i A', strtotime($bookedClass->schedule->hour)) }}</td>
+                                                            <td>{{ $bookedClass->bike }}</td>
+                                                            <td>{{ $bookedClass->status }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {{-- Previous Classes --}}
+                                        <div class="tab-pane fade" id="nav-previousClasses" role="tabpanel" aria-labelledby="nav-previousClasses-tab">
+                                            @if ($previousClasses)
+                                                <table class="table table-striped table-dark" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Fecha</th>
+                                                            <th>Hora</th>
+                                                            <th>Instructor</th>
+                                                            <th>Asiento</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($previousClasses as $previousClass)
+                                                            <tr>
+                                                                <td>{{date('d-M-Y', strtotime($previousClass->schedule->day))}}</td>
+                                                                <td>{{date('h:i A', strtotime($previousClass->schedule->hour))}}</td>
+                                                                <td>{{$previousClass->schedule->instructor->name}}</td>
+                                                                <td>{{$previousClass->bike}}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @endif
+                                        </div>
+                                        {{-- Wait List --}}
+                                        <div class="tab-pane fade" id="nav-waitlist" role="tabpanel" aria-labelledby="nav-waitlist-tab">
+                                            @if (!$waitLists)
+                                                <table class="table table-striped table-dark" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Clases Compradas</th>
+                                                            <th>Fecha de Compra</th>
+                                                            <th>Vigencia</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($waitLists as $waitList)
+                                                            <tr>
+                                                                <td>{{$purchase->n_classes}}</td>
+                                                                <td>{{date('d-M-Y', strtotime($purchase->created_at))}}</td>
+                                                                <td>{{date('d-M-Y', strtotime($purchase->finalDate))}}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                <table class="table table-striped table-dark" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="text-center">No te encuentras en Lista de Espera</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            @endif
+                                        </div>
+                                        {{-- Purchase History --}}
+                                        <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
+                                            @if ($purchaseHistory)
+                                                <table class="table table-striped table-dark" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Clases Compradas</th>
+                                                            <th>Fecha de Compra</th>
+                                                            <th>Vigencia</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($purchaseHistory as $purchase)
+                                                            <tr>
+                                                                <td>{{$purchase->n_classes}}</td>
+                                                                <td>{{date('d-M-Y', strtotime($purchase->created_at))}}</td>
+                                                                <td>{{date('d-M-Y', strtotime($purchase->finalDate))}}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                <table class="table table-striped table-dark" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="text-center">
+                                                            <td>No te encuentras en Lista de Espera</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
-                            @endforeach
-                        @else
-                            <div class="col-md-12 mb-1 collapse" id="divBooked">
-                                <span class="mb-0 mt-0 d-block text-center mx-auto" >No Tienes Próximas Clases</button>
                             </div>
                         @endif
-                        {{-- Previous Classes --}}
-                        @if ($previousClasses)
-                            @foreach ($previousClasses as $previousClass)
-                                <div class="col-md-12 mb-1 collapse" id="divPrevious">
-                                    {{-- <span class="mb-0 mt-0 d-block text-center mx-auto">Clases Previas: {{$previousClass->schedule_id}}</span> --}}
-                                    <span class="mb-0 mt-0 d-block text-center mx-auto">
-                                        <span class="col-4 text-center">Fecha: {{date('d-M-Y', strtotime($previousClass->schedule->day))}}</span>
-                                        <span class="col-4 text-center">Hora: {{date('h:i A', strtotime($previousClass->schedule->hour))}}</span>
-                                        <span class="col-4 text-center">Instructor: {{$previousClass->schedule->instructor->name}}</span>
-                                    </span>
-                                </div>
-                            @endforeach
-                        @else
-                            <div class="col-md-12 mb-1 collapse" id="divPrevious">
-                                <span class="mb-0 mt-0 d-block text-center mx-auto">No Tienes Clases Compradas</button>
-                            </div>
-                        @endif
-                        {{-- Purchase History --}}
-                        @if ($purchaseHistory)
-                            @foreach ($purchaseHistory as $purchase)
-                                <div class="col-md-12 mb-1 collapse" id="divHistory">
-                                    <span class="mb-0 mt-0 d-block text-center mx-auto">
-                                        <span class="col-4 text-center">Clases compradas: {{$purchase->n_classes}}</span>
-                                        <span class="col-4 text-center">Fecha de Compra: {{date('d-M-Y', strtotime($purchase->created_at))}}</span>
-                                        <span class="col-4 text-center">Vigencia: {{date('d-M-Y', strtotime($purchase->finalDate))}}</span>
-                                    </span>
-                                </div>
-                            @endforeach
-                        @else
-                            <div class="col-md-12 mb-1 collapse" id="divHistory">
-                                <span class="mb-0 mt-0 d-block text-center mx-auto">No Tienes Historial</button>
-                            </div>
-                        @endif
-                        {{-- Wait List --}}
-                        @if (!$waitLists)
-                            @foreach ($waitLists as $waitList)
-                                <div class="col-md-12 mb-1 collapse" id="divWait">
-                                    <span class="mb-0 mt-0 d-block text-center mx-auto">
-                                        <span class="col-4 text-center">Clases Compradas:{{$purchase->n_classes}}</span>
-                                        <span class="col-4 text-center">Fecha de Compra: {{date('d-M-Y', strtotime($purchase->created_at))}}</span>
-                                        <span class="col-4 text-center">Vigencia: {{date('d-M-Y', strtotime($purchase->finalDate))}}</span>
-                                    </span>
-                                </div>
-                            @endforeach
-                        @else
-                            <div class="col-md-12 mb-1 collapse" id="divWait">
-                                <span class="mb-0 mt-0 d-block text-center mx-auto">No estás en lista de espera</button>
-                            </div>
-                        @endif
-                    </div>
+                    </section>
                 </div>
 
                 {{-- User Name & Available Classes: col-md-5
