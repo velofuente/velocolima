@@ -1,5 +1,5 @@
 function drawMainBikes(){
-    var bikesContainer = $("#main-bikes");
+    var bikesContainer = $("#bikes-div");
 
     var number_of_rows = 3;
     var number_of_cols = 5;
@@ -8,17 +8,17 @@ function drawMainBikes(){
     var count = 1;
     for (var i = 0; i < number_of_rows; i++){
         // var trow = $("<tr>").attr("id", firstChar);
-        var divr = $("<div>").attr("id", "divr" + i).attr("class", "col places");
+        var divr = $("<div>").attr("id", "divr" + i).attr("class", "col-md-12");
         for (var j = 0; j < number_of_cols; j++){
             var classes = "bikes";
             if(selectedBike == count){
                 classes = "selected";
             } else {
                 if($.inArray(count, reservedPlaces) != -1){
-                    // classes = "occupied";
+                    classes = "occupied";
                 }
             }
-            var ball = $("<p>").attr("class", classes).attr("id", "ball-" + count).text(count);
+            var ball = $("<span>").attr("class", classes).attr("id", "ball-" + count).text(count);
             divr.append(ball);
             count++;
             // var td = $("<td>").attr("id", firstChar + "" + j);
@@ -84,7 +84,7 @@ function tableCreate(){
 // tableCreate();
 
 //IMPORTANTE
-//drawMainBikes();
+drawMainBikes();
 
 
 

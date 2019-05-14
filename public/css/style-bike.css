@@ -64,7 +64,7 @@
     width: 80px;
     height: 80px;
     margin: 5px !important;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     border: 1px solid gray;
@@ -178,7 +178,7 @@
     width: 80px;
     height: 80px;
     margin: 5px !important;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     border: 1px solid #FF0E3B;

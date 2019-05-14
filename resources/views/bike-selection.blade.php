@@ -33,8 +33,8 @@ Reservar Bici
         </div>
 
         <div class="row" id="main-bikes">
-            <div class="centeredDiv"> 
-                <div id="divr1" class="col-md-12">
+            <div class="centeredDiv" id="bikes-div">
+                {{-- <div id="divr1" class="col-md-12">
                     <span class="bikes" id="ball-1">1</span>
                     <span class="bikes" id="ball-2">2</span>
                     <span class="bikes" id="ball-3">3</span>
@@ -55,7 +55,7 @@ Reservar Bici
                     <span class="bikes" id="ball-13">13</span>
                     <span class="bikes" id="ball-14">14</span>
                     <span class="bikes" id="ball-15">15</span>
-                </div>
+                </div> --}}
             </div>
         </div> 
         <!--
