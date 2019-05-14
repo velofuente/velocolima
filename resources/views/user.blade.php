@@ -43,8 +43,9 @@
                         <a href="{{ url('/schedule#packages') }}" class="btn gradient_button mx-auto" id="buyPackages" role="button">Comprar Clases</a>
                     </div>
                     {{-- Change User Data & Password --}}
-                    <div id="userGeneralData">
-                        <button type="button" class="btn bg-white text-dark text-left mb-2 mt-2 w-75 d-block mx-auto" data-toggle="collapse" data-target="#userData">Datos del usuario</button>
+                    <div id="userGeneralData" class="pt-4">
+                        <h5 class="text-center mx-auto pt-2 myclss">Mis Datos</h5>
+                        <button type="button" class="btn bg-white text-dark text-center mb-3 mt-2 w-75 d-block mx-auto" data-toggle="collapse" data-target="#userData">+ Datos del usuario</button>
                         <div id="userData" class="collapse">
                             <form action="{{ route('user.update', Auth::user()->id) }}" method="post">
                                 @method('PATCH')
@@ -56,10 +57,10 @@
                                     <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="shoe_size" value="{{ Auth::user()->shoe_size }}">
                                     {{-- <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto" name="phone" value="{{ Auth::user()->phone }}"> --}}
                                 </div>
-                                <button type="submit" class="btn d-block mx-auto mb-3 gradient_button" role="button">Guardar Datos</button>
+                                <button type="submit" class="btn d-block mx-auto mb-4 gradient_button" role="button">Guardar Datos</button>
                             </form>
                         </div>
-                        <button type="button" class="btn mb-2 bg-white text-dark text-left w-75 d-block mx-auto" data-toggle="collapse" data-target="#userPassword">Cambiar contraseña</button>
+                        <button type="button" class="btn mb-3 bg-white text-dark text-center w-75 d-block mx-auto" data-toggle="collapse" data-target="#userPassword">+ Cambiar contraseña</button>
                         <div id="userPassword" class="collapse">
                             <form action="{{ route('updatePassword') }}" method="post">
                                 @method('PATCH')
@@ -78,8 +79,8 @@
                         </div>
                     </div>
                     {{-- My Classes & Buy Packages --}}
-                    <div id="Payments" class="mb-4 mt-4">
-                        <h5 class="text-center mx-auto mb-2 myclss">Mis tarjetas</h5>
+                    <div id="Payments" class="pt-4">
+                        <h5 class="text-center mx-auto pt-2 myclss">Formas de Pago</h5>
 
                         {{-- Print Card --}}
                         @foreach ($cards as $card)
@@ -88,54 +89,90 @@
                             </div>
                         @endforeach
                         {{-- End Print Card --}}
-                        <button class="btn bg-white text-dark text-left mb-2 mt-2 w-75 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></button>
+                        <button class="btn bg-white text-dark text-center mb-2 mt-2 w-75 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></button>
                     </div>
                 </div>
                 {{-- Classes Buttons --}}
                 <div class="col-md-8 mb-3">
                     <div class="row text-center">
                         <div class="col-md-3 mb-3">
-                            <button type="submit" class="btn regular_button mx-auto" id="incoming_classes_button" data-toggle="collapse" data-target="#divUserButton">
+                            <button type="submit" class="btn regular_button mx-auto" id="incoming_classes_button" data-toggle="collapse" data-target="#divBooked">
                                     {{ __('Próximas Clases') }}
                             </button>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <button type="submit" class="btn regular_button mx-auto" id="past_classes_button" data-toggle="collapse" data-target="#divUserButton">
+                            <button type="submit" class="btn regular_button mx-auto" id="past_classes_button" data-toggle="collapse" data-target="#divPrevious">
                                     {{ __('Clases Pasadas') }}
                             </button>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <button type="submit" class="btn regular_button mx-auto" id="waitlist_button" data-toggle="collapse" data-target="#divUserButton">
+                            <button type="submit" class="btn regular_button mx-auto" id="waitlist_button" data-toggle="collapse" data-target="#divWait">
                                     {{ __('Waitlist') }}
                             </button>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <button type="submit" class="btn regular_button mx-auto" id="history_button" data-toggle="collapse" data-target="#divUserButton">
+                            <button type="submit" class="btn regular_button mx-auto" id="history_button" data-toggle="collapse" data-target="#divHistory">
                                     {{ __('Historial de Compras') }}
                             </button>
                         </div>
                     </div>
                     <div class="row text-center justify-content-center">
-                        @if ($purchaseHistory != null)
-                        @foreach ($purchaseHistory as $purchase)
-                                <div class="col-12 mb-1 collapse" id="divUserButton">
-                                    <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">Clases Compradas:{{$purchase->n_classes}}, Fecha de Compra: {{date('d-M-Y', strtotime($purchase->created_at))}}, Vigencia: {{date('d-M-Y', strtotime($purchase->finalDate))}} </button>
+                        {{-- Booked Classes --}}
+                        @if ($bookedClasses != null)
+                            @foreach ($bookedClasses as $bookedClass)
+                                <div class="col-md-12 mb-1 collapse" id="divBooked">
+                                    <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan"> 
+                                            {{$bookedClass->schedule->day}} 
+                                            {{$bookedClass->schedule->hour}} 
+                                            {{$bookedClass->bike}} 
+                                            {{$bookedClass->purchase_id}}, 
+                                            {{$bookedClass->status}} </span>
+                                    {{-- <span class="col-2 mb-0 mt-0 d-block text-center mx-auto" id="userSpan">Fecha: {{$bookedClass->schedule->day}} </span>
+                                    <span class="col-2 mb-0 mt-0 d-block text-center mx-auto" id="userSpan"> Hora: {{$bookedClass->schedule->hour}} </span>
+                                    <span class="col-2 mb-0 mt-0 d-block text-center mx-auto" id="userSpan"> Asiento: {{$bookedClass->bike}} </span>
+                                    <span class="col-2 mb-0 mt-0 d-block text-center mx-auto" id="userSpan"> Comprado el: {{$bookedClass->purchase_id}}, </span>
+                                    <span class="col-2 mb-0 mt-0 d-block text-center mx-auto" id="userSpan"> Estatus: {{$bookedClass->status}} </span>
+                                     --}}
                                 </div>
                             @endforeach
                         @else
-                            <div class="col-md-12 mb-1 collapse" id="divUserButton">
+                            <div class="col-md-12 mb-1 collapse" id="divBooked">
+                                <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">No Tienes Próximas Clases</button>
+                            </div>
+                        @endif
+                        {{-- Previous Classes --}}
+                        @if ($previousClasses != null)
+                            @foreach ($previousClasses as $previousClass)
+                                <div class="col-md-12 mb-1 collapse" id="divPrevious">
+                                    <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">Clases Compradas:{{$previousClass->schedule_id}}</span>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="col-md-12 mb-1 collapse" id="divPrevious">
                                 <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">No Tienes Clases Compradas</button>
                             </div>
                         @endif
-                        @if ($bookedClasses != null)
-                        @foreach ($bookedClasses as $bookedClass)
-                                <div class="col-12 mb-1 collapse" id="divUserButton">
-                                    <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">Fecha: {{$bookedClass->schedule->day}}, Hora: {{$bookedClass->schedule->hour}}, Asiento: {{$bookedClass->bike}}, Instructor: {{$bookedClass->schedule->instructor->name}}, Comprado el: {{$bookedClass->purchase_id}}, Estatus: {{$bookedClass->status}}</button>
+                        {{-- Purchase History --}}
+                        @if ($purchaseHistory != null)
+                            @foreach ($purchaseHistory as $purchase)
+                                <div class="col-md-12 mb-1 collapse" id="divHistory">
+                                    <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">Clases Compradas:{{$purchase->n_classes}}, Fecha de Compra: {{date('d-M-Y', strtotime($purchase->created_at))}}, Vigencia: {{date('d-M-Y', strtotime($purchase->finalDate))}} </span>
                                 </div>
                             @endforeach
                         @else
-                            <div class="col-md-12 mb-1 collapse" id="divUserButton">
-                                <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">No Tienes Próximas Clases</button>
+                            <div class="col-md-12 mb-1 collapse" id="divHistory">
+                                <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">No Tienes Clases Compradas</button>
+                            </div>
+                        @endif
+                        @if ($purchaseHistory != null)
+                            @foreach ($purchaseHistory as $purchase)
+                                <div class="col-md-12 mb-1 collapse" id="divWait">
+                                    <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">Clases Compradas:{{$purchase->n_classes}}, Fecha de Compra: {{date('d-M-Y', strtotime($purchase->created_at))}}, Vigencia: {{date('d-M-Y', strtotime($purchase->finalDate))}} </span>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="col-md-12 mb-1 collapse" id="divWait">
+                                <span class="mb-0 mt-0 d-block text-center mx-auto" id="userSpan">No Tienes Clases Compradas</button>
                             </div>
                         @endif
                     </div>

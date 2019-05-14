@@ -51,9 +51,9 @@ $(document).ready(function() {
                 console.log(result);
             }
         });
-        console.log('token_id: ', token_id);
-        console.log('device_session_id: ', device_session_id);
-        console.log('Token CRSF: ', csrfToken);
-        console.log('Bearer: ', tokenBearer);
+        // console.log('token_id: ', token_id);
+        // console.log('device_session_id: ', device_session_id);
+        // console.log('Token CRSF: ', csrfToken);
+        // console.log('Bearer: ', tokenBearer);
     };
 });

@@ -72,7 +72,6 @@
                                             {{-- Disabled Boxes --}}
                                             <span class="scheduleItemLinkDisabled">
                                                 <li class="scheduleItemDisabled" id="{{$schedule->instructor->name}}">
-                                                    {{dd($schedule->instructor)}}
                                                     <p class="scheduleItemTextInstructor">
                                                         {{$schedule->instructor->name}}
                                                     </p>
