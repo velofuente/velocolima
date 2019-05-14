@@ -61,13 +61,14 @@ class UserController extends Controller
             'phone' => ['required', 'int', 'max:999999999999999'],
             'weight' => ['required', 'numeric', 'between:0,999.99'],
             'height' => ['required', 'int', 'max:250'],
-            'gender' => ['required', 'string', 'max:6'],
+            'gender' => ['required', 'string', 'max:6', 'in:Hombre,Mujer'],
             'shoe_size' => ['required', 'numeric', 'between:0,32.5'],
         ];
         $messages = [
             "required" => "Este campo es requerido",
             "numeric" => "Este campo solo acepta numeros",
             "int" => "Este campo solo acepta numeros",
+            "confirmed" => "Las contraseñas o coinciden"
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
