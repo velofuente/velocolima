@@ -54,7 +54,7 @@ class LoginController extends Controller
             return redirect("user");
         }
         return back()
-            ->withErrors(['email' => "Credenciales no validas∫"])
+            ->withErrors(['email' => "Credenciales no válidas"])
             ->withInput(request(['email']));
     }
     public function logout()

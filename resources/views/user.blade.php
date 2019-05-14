@@ -1,4 +1,4 @@
-@extends('layovut')
+@extends('layout')
 @section('title')
     Velo | Usuario
 @endsection
@@ -133,7 +133,7 @@
 
                     {{-- Table with Nav Bar --}}
                     <section id="tabs" class="project-tab">
-                        @if (!empty($bookedClasses))
+                        {{-- @if (!empty($bookedClasses)) --}}
                             <div class="row">
                                 <div class="col-md-12">
                                     <nav>
@@ -212,7 +212,7 @@
                                                                         <td>Tomada</td>
                                                                         @break
                                                                     @default
-                                                                    <td>Error en la petición</td>
+                                                                    <td>Cancelado</td>
                                                                 @endswitch
                                                                 {{-- @if({{$previousClass->status == 'canceled'}})
                                                                     <td>Cancelado</td>
@@ -310,7 +310,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
+                        {{-- @endif --}}
                     </section>
                 </div>
 
