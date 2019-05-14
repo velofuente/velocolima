@@ -212,7 +212,7 @@
                                                                         <td>Tomada</td>
                                                                         @break
                                                                     @default
-                                                                    <td>Cancelado</td>
+                                                                    <td></td>
                                                                 @endswitch
                                                                 {{-- @if({{$previousClass->status == 'canceled'}})
                                                                     <td>Cancelado</td>
