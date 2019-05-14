@@ -32,16 +32,31 @@ Reservar Bici
             <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" alt="">
         </div>
 
-        <div class="main-bikes">
-            <div class="row" id="main-bikes" >
-            </div>
-            {{-- <div class="row">
-                @for ($i = 1; $i <= $schedules->reservation_limit; $i++)
-                <div class="col places">
-                    <p class="bikes">{{$i}}</p>
+        <div class="row" id="main-bikes">
+            <div class="centeredDiv"> 
+                <div id="divr1" class="col-md-12">
+                    <span class="bikes" id="ball-1">1</span>
+                    <span class="bikes" id="ball-2">2</span>
+                    <span class="bikes" id="ball-3">3</span>
+                    <span class="bikes" id="ball-4">4</span>
+                    <span class="bikes" id="ball-5">5</span>
+                    
                 </div>
-                @endfor
-            </div> --}}
+                <div id="divr2" class="col-md-12">
+                    <span class="bikes" id="ball-6">6</span>
+                    <span class="bikes" id="ball-7">7</span>
+                    <span class="bikes" id="ball-8">8</span>
+                    <span class="bikes" id="ball-9">9</span>
+                    <span class="bikes" id="ball-10">10</span>
+                </div>
+                <div id="divr3" class="col-md-12">
+                    <span class="bikes" id="ball-11">11</span>
+                    <span class="bikes" id="ball-12">12</span>
+                    <span class="bikes" id="ball-13">13</span>
+                    <span class="bikes" id="ball-14">14</span>
+                    <span class="bikes" id="ball-15">15</span>
+                </div>
+            </div>
         </div> 
         <!--
         <div class="details">

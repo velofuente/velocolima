@@ -1,8 +1,8 @@
 function drawMainBikes(){
     var bikesContainer = $("#main-bikes");
 
-    var number_of_rows = 2;
-    var number_of_cols = 7;
+    var number_of_rows = 3;
+    var number_of_cols = 5;
     // var tbody = $("<tbody>").attr("id", "bodyTableBicis");
     // var firstChar = "a";
     var count = 1;
@@ -82,7 +82,9 @@ function tableCreate(){
     // body.appendChild(tbl);
 }
 // tableCreate();
-drawMainBikes();
+
+//IMPORTANTE
+//drawMainBikes();
 
 
 
