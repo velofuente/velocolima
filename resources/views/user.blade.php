@@ -196,21 +196,21 @@
                                         </div>
                                         {{-- Wait List --}}
                                         <div class="tab-pane fade" id="nav-waitlist" role="tabpanel" aria-labelledby="nav-waitlist-tab">
-                                            @if (!$waitLists)
+                                            @if ($UserWaitLists)
                                                 <table class="table table-striped table-dark" cellspacing="0">
                                                     <thead>
                                                         <tr>
-                                                            <th>Clases Compradas</th>
-                                                            <th>Fecha de Compra</th>
-                                                            <th>Vigencia</th>
+                                                            <th>Instructor</th>
+                                                            <th>Día</th>
+                                                            <th>Hora</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($waitLists as $waitList)
+                                                        @foreach ($UserWaitLists as $userWaitList)
                                                             <tr>
-                                                                <td>{{$purchase->n_classes}}</td>
-                                                                <td>{{date('d-M-Y', strtotime($purchase->created_at))}}</td>
-                                                                <td>{{date('d-M-Y', strtotime($purchase->finalDate))}}</td>
+                                                                <td>{{$userWaitList->waitList->schedule->instructor->name}}</td>
+                                                                <td>{{date('d-M-Y', strtotime($userWaitList->waitList->schedule->day))}}</td>
+                                                                <td>{{date('h:i A', strtotime($userWaitList->waitList->schedule->hour))}}</td>
                                                             </tr>
                                                         @endforeach
                                                     </tbody>

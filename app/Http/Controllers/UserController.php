@@ -25,8 +25,8 @@ class UserController extends Controller
         $classes = $numClases->clases;
         $bookedClasses = UserSchedule::with("schedule.instructor", "schedule.room", "schedule")->where('user_id', "{$requestUser->id}")->where('status', 'active')->get();
         $previousClasses = UserSchedule::where('user_id', "{$requestUser->id}")->whereRaw("created_at < NOW()")->get();
-        $waitLists = DB::table('user_wait_lists')->where('user_id', "{$requestUser->id}")->get();
-        return view('user', compact('cards', 'purchaseHistory', 'classes', 'previousClasses', 'waitLists', 'bookedClasses'));
+        $UserWaitLists = UserWaitList::with('waitList.schedule.instructor', 'waitList.schedule')->where('user_id', "{$requestUser->id}")->get();
+        return view('user', compact('cards', 'purchaseHistory', 'classes', 'previousClasses', 'UserWaitLists', 'bookedClasses'));
     }
 
     /**
