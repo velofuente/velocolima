@@ -40,6 +40,8 @@ class BookClassController extends Controller
                     'bike' => $request->bike,
                     'status' => 'active',
                 ]);
+                $compra->n_classes -= 1;
+                $compra->save();
                 DB::commit();
                 return response()->json([
                     'status' => 'OK',

@@ -33,7 +33,7 @@ Reservar Bici
         </div>
 
         <div class="main-bikes">
-            <div class="row" id="main-bikes">
+            <div class="row" id="main-bikes" >
             </div>
             {{-- <div class="row">
                 @for ($i = 1; $i <= $schedules->reservation_limit; $i++)

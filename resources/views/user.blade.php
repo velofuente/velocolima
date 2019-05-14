@@ -7,6 +7,16 @@
 @endsection
 @section('content')
     <div class="container main_div">
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
         {{-- <div class="flex-center position-ref full-height"> --}}
 
             {{-- User Name & Share Code --}}
@@ -47,14 +57,14 @@
                         <h5 class="text-center mx-auto pt-2 myclss">Mis Datos</h5>
                         <button type="button" class="btn bg-white text-dark text-center mb-3 mt-2 w-75 d-block mx-auto" data-toggle="collapse" data-target="#userData">+ Datos del usuario</button>
                         <div id="userData" class="collapse">
-                            <form action="{{ route('user.update', Auth::user()->id) }}" method="post">
-                                @method('PATCH')
+                            <form action="{{ url("/updateData") }}" method="post">
+                                {{-- @method('PATCH') --}}
                                 @csrf
                                 <div class="d-block">
                                     <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="name" value="{{ Auth::user()->name }}">
                                     <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="last_name" value="{{ Auth::user()->last_name }}">
                                     <input type="date" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" min="1900-01-01" max="2100-12-31" name="birth_date" value="{{ Auth::user()->birth_date }}">
-                                    <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="shoe_size" value="{{ Auth::user()->shoe_size }}">
+                                    <input type="number" step=".1" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="shoe_size" value="{{ Auth::user()->shoe_size }}">
                                     {{-- <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto" name="phone" value="{{ Auth::user()->phone }}"> --}}
                                 </div>
                                 <button type="submit" class="btn d-block mx-auto mb-4 gradient_button" role="button">Guardar Datos</button>

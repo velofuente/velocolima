@@ -66,6 +66,7 @@ Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::patch('user', 'UserController@updatePassword')->name('updatePassword');
+Route::post('updateData', 'UserController@updateData');
 //Route::get('test', 'UserController@test');
 
 Route::get('/client', function(){

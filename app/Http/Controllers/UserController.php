@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Auth, Log, JWTAuth,DB;
+use Auth, Log, JWTAuth, DB, Validator;
 
 class UserController extends Controller
 {
@@ -133,18 +133,30 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateData(Request $request)
     {
-        //dd($request->get('name'));
-        $request->validate([
+        $rules = [
             'name' => ['required', 'string', 'max:60'],
             'last_name' => ['required', 'string', 'max:60'],
-            'phone' => ['required', 'int', 'max:999999999999999'],
-        ]);
-        $user = User::find($id);
-        $user->name = $request->get('name');
-        $user->last_name = $request->get('last_name');
-        $user->phone = $request->get('phone');
+            // 'phone' => ['required', 'int', 'max:999999999999999'],
+            'shoe_size' => ['required'/*,'min:18','max:35'*/],
+        ];
+        $messages = [
+            "required" => "El campo es requerido",
+            "shoe_size.min" => "La talla de tu calzado no es válida"
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        $user = $request->user();
+        $user->name = $request->name;
+        $user->last_name = $request->last_name;
+        // $user->phone = $request->phone;
+        $user->shoe_size = $request->shoe_size;
         $user->save();
         return redirect('user')->with('success', 'Data has been updated');
     }
