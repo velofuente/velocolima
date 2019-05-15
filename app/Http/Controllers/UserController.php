@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $requestUser = $request->user();
-        $purchaseHistory = Purchase::with(['product'])->select("*", DB::raw("DATE_ADD(created_at, INTERVAL expiration_days DAY) finalDate"))->where('user_id', '=', "{$requestUser->id}")->get();
+        $purchaseHistory = Purchase::with(['product'])->select("*", DB::raw("DATE_ADD(created_at, INTERVAL expiration_days DAY) finalDate"))->where('user_id', '=', "{$requestUser->id}")->get()->sortByDesc('created_at');
         //return $purchaseHistory = DB::table('purchases')->select("*", DB::raw("DATE_ADD(created_at, INTERVAL expiration_days DAY) finalDate"))->where('user_id', '=', "{$requestUser->id}")->get();
         $cards = DB::table('cards')->where('user_id', '=', "{$requestUser->id}")->get();
         $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->first();

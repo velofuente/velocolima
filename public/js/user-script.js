@@ -39,7 +39,6 @@ $(document).ready(function() {
 
     function addCard(){
         tokenBearer = $('#tokenBearer').val();
-        console.log('si entro');
         $.ajax({
             url: "/addCard",
             method: 'POST',

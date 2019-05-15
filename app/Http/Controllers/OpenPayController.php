@@ -53,6 +53,10 @@ class OpenPayController extends Controller
                     'token_id' => $cardData->id,
                     'device_session_id' => $request->device_session_id
                 ];
+                Session::flash('alertTitle', "Tarjeta guardada!");
+                Session::flash('alertMessage', "Tu tarjeta fue guardada exitosamente");
+                Session::flash('alertType', "success");
+                // Session::flash('alertButton', "Aceptar");
 
                 try{
                     $card = $openPayCustomer->cards->add($cardDataRequest);
@@ -61,37 +65,40 @@ class OpenPayController extends Controller
                 }catch(OpenpayApiTransactionError $e){
                     switch ($e->getErrorCode()) {
                         case 3001:
-                            return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                            $message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
                             break;
                         case 3002:
-                            return "La tarjeta ha expirado.";
+                            $message = "La tarjeta ha expirado.";
                             break;
                         case 3003:
-                            return "La tarjeta no tiene fondos suficientes.";
+                            $message = "La tarjeta no tiene fondos suficientes.";
                             break;
                         case 3006:
-                            return "La operación no esta permitida para este cliente o esta transacción. Contacta a tu banco.";
+                            $message = "La operación no esta permitida para este cliente o esta transacción. Contacta a tu banco.";
                             break;
                         case 3007:
-                            return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                            $message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
                             break;
                         case 3008:
-                            return "La tarjeta no es soportada en transacciones en línea. Contacta a tu banco.";
+                            $message = "La tarjeta no es soportada en transacciones en línea. Contacta a tu banco.";
                             break;
                         case 3010:
-                            return "El banco ha restringido la tarjeta. Contacta a tu banco.";
+                            $message = "El banco ha restringido la tarjeta. Contacta a tu banco.";
                             break;
                         case 3012:
-                            return "Se requiere solicitar al banco autorización para realizar este pago. Contacta a tu banco.";
+                            $message = "Se requiere solicitar al banco autorización para realizar este pago. Contacta a tu banco.";
                             break;
                         default:
-                            return "Tarjeta no válida. Contacta a tu banco.";
+                            $message = "Tarjeta no válida. Contacta a tu banco.";
                     }
                 }catch(OpenpayApiRequestError $e){
-                    return "Tarjeta no válida. Contacta a tu banco.";
+                    $message = "Tarjeta no válida. Contacta a tu banco.";
                 }catch(Exception $e){
-                    return "No se pudo agregar la tarjeta, inténtalo nuevamente.";
-                }
+                    $message = "No se pudo agregar la tarjeta, inténtalo nuevamente.";
+                } return [
+                    "status" => "error",
+                    "message" => $message
+                ];
             }
         }
     }

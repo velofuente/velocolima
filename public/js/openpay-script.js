@@ -29,7 +29,7 @@ var sucess_callbak = function(response) {
     // console.log(product_id);
     // Submit Form
     makeCharge();
-    $('#payment-form').submit();
+    // $('#payment-form').submit();
 
     console.log("cargo realizado");
 };
@@ -38,10 +38,10 @@ var error_callbak = function(response) {
     alert("ERROR [" + response.status + "] " + desc);
     $("#pay-button").prop("disabled", false);
 };
-//Evitar que recargue la página
-$('#payment-form').on('submit', function(e){
-    e.preventDefault();
-});
+// Evitar que recargue la página
+// $('#payment-form').on('submit', function(e){
+//     e.preventDefault();
+// });
 
 function makeCharge(){
     tokenBearer = $('#tokenBearer').val();
@@ -53,6 +53,9 @@ function makeCharge(){
             token_id: token_id,
             device_session_id: device_session_id,
             product_id: product_id
+        },
+        beforeSend: function(){
+            $.LoadingOverlay("show");
         },
         success: function(result){
             if (result.status == "OK") {
