@@ -23,8 +23,13 @@ $(document).ready(function() {
         $('#token_id').val(token_id);
         addCard();
         // Submit Form
-        $('#add-card-form').submit();
+        // $('#add-card-form').submit();
     };
+
+    // $(document).on("sumbtit", "#add-card-button", function(e) {
+    //     e.preventDefault();
+    //     console.log("Success");
+    // })
 
     var error_callbak = function(response) {
         var desc = response.data.description != undefined ? response.data.description : response.message;
@@ -47,7 +52,11 @@ $(document).ready(function() {
                 device_session_id: device_session_id,
                 customer_id: ''
             },
+            beforeSend: function(){
+                $.LoadingOverlay("show");
+            },
             success: function(result){
+                window.location.replace("/user");
                 console.log(result);
             }
         });

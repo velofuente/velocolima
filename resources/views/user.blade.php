@@ -103,7 +103,7 @@
                             </div>
                         @endforeach
                         {{-- End Print Card --}}
-                        <button class="btn bg-white text-dark text-center mb-2 mt-2 w-75 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></button>
+                        <a class="btn bg-white text-dark text-center mb-2 mt-2 w-75 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></a>
                     </div>
                 </div>
                 {{-- Classes Buttons --}}
@@ -454,7 +454,7 @@
                     </div>
                     {{-- Form Add Card --}}
                     <div class="modal-body">
-                            <form method="post" id="add-card-form">
+                            <form method="post" id="add-card-form" action="/user">
                                     @csrf
                                     <input type="hidden" name="token_id" id="token_id">
                                     <input type="hidden" name="device_session_id" id="device_session_id">
