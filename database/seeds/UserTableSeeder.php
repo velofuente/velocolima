@@ -20,10 +20,10 @@ class UserTableSeeder extends Seeder
         $user->password = bcrypt("prueba123");
         $user->birth_date = "1997/03/22";
         $user->phone = "3141234567";
-        $user->weight = "123";
-        $user->height = "123";
+        //$user->weight = "123";
+        //$user->height = "123";
         $user->shoe_size = "29.5";
-        $user->share_code = '123a45bc';
+        $user->share_code = 'ABCD';
         $user->save();
     }
 }

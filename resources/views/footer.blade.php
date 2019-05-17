@@ -29,10 +29,10 @@
                             <input type="text" class="prospectText" name="prospectName" id="prospectName" placeholder="NOMBRE">
                         </div>
                         <div class="col-2 pad">
-                            <input type="text" class="prospectText" name="prospectMail" id="prospectMail" placeholder="EJEMPLO@EMAIL.COM">
+                            <input type="text" class="prospectText" name="prospectMail" id="prospectMail" placeholder="EMAIL">
                         </div>
                         <div class="col-2 pad">
-                            <input type="text" class="prospectText" name="prospectPosition" id="prospectPosition" placeholder="POSICIÓN">
+                            <input type="text" class="prospectText" name="prospectPosition" id="prospectPosition" placeholder="TELEFONO">
                         </div>
                         <div class="col-2 pad">
                             <input type="text" class="prospectText" name="prospectInsta" id="prospectInsta" placeholder="INSTAGRAM">
@@ -56,13 +56,13 @@
                     <div class="col">
                         <a href=""><img src="/img/iconos/MAIL.png" alt="mail" width="110px" height="110px"></a>
                         <h5 class="p-info">E-MAIL</h5>
-                        <h5>velocycling@gmail.com</h5>
+                        <h5>rueda@velocycling.com</h5>
                     </div>
                     <div class="col">
                         <a href=""><img src="/img/iconos/UBICACION.png" alt="ubi" width="110px" height="110px"></a>
                         <h5 class="p-info">UBICACIÓN</h5>
-                        <h5>IGNACIO SANDOVAL</h5>
-                        <h5>115892</h5>
+                        <h5>Av. Ignacio Sandoval "La cantera"</h5>
+                        <h5>1948 int.A4</h5>
                     </div>
                 </div>
             </div>

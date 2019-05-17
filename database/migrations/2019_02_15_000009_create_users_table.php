@@ -24,8 +24,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->date('birth_date');
             $table->string('phone', 15);
-            $table->float('weight', 5,2);
-            $table->tinyInteger('height')->unsigned();
+            //$table->float('weight', 5,2);
+            //$table->tinyInteger('height')->unsigned();
             $table->float('shoe_size', 3,1);
             $table->string('share_code',8)->default('12ab34cd');
             //Foreign Key from Users to Role

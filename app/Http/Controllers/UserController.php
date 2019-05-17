@@ -68,7 +68,8 @@ class UserController extends Controller
             "required" => "Este campo es requerido",
             "numeric" => "Este campo solo acepta numeros",
             "int" => "Este campo solo acepta numeros",
-            "confirmed" => "Las contraseñas o coinciden"
+            "confirmed" => "Las contraseñas o coinciden",
+            "unique" => "Este usuario ya existe",
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
@@ -79,7 +80,7 @@ class UserController extends Controller
         // Available alpha caracters
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         // generate a pin based on 2 * 7 digits + a random character
-        $pin = mt_rand(10000, 99999)
+        $pin = $characters[rand(0, strlen($characters) - 1)]
         . $characters[rand(0, strlen($characters) - 1)]
         . $characters[rand(0, strlen($characters) - 1)]
         . $characters[rand(0, strlen($characters) - 1)];
@@ -93,14 +94,22 @@ class UserController extends Controller
             'password' => Hash::make($request->get('password')),
             'birth_date' => $request->get('birth_date'),
             'phone' => $request->get('phone'),
-            'weight' => $request->get('weight'),
-            'height' => $request->get('height'),
+            //'weight' => $request->get('weight'),
+            //'height' => $request->get('height'),
             'gender' => $request->get('gender'),
             'shoe_size' => $request->get('shoe_size'),
             'share_code' => $share_code,
             'customer_id' => null,
         ]);
         $user->save();
+        $product = DB::table('products')->where('type', 'Deals')->first();
+        $deal = new Purchase([
+            'product_id' => $product->id,  
+            'user_id' => $user->id, 
+            'n_classes' => $product->n_classes, 
+            'expiration_days' => $product->expiration_days,
+        ]);
+        $deal->save();
         Auth::login($user);
         Log::info("Entra pre Mail Send");
         // Mail::send([], [], function ($message) use ($request){
@@ -150,7 +159,7 @@ class UserController extends Controller
         $rules = [
             'name' => ['required', 'string', 'max:60'],
             'last_name' => ['required', 'string', 'max:60'],
-            // 'phone' => ['required', 'int', 'max:999999999999999'],
+            'phone' => ['required', 'int', 'max:999999999999999'],
             'shoe_size' => ['required'/*,'min:18','max:35'*/],
         ];
         $messages = [
@@ -167,7 +176,7 @@ class UserController extends Controller
         $user = $request->user();
         $user->name = $request->name;
         $user->last_name = $request->last_name;
-        // $user->phone = $request->phone;
+         $user->phone = $request->phone;
         $user->shoe_size = $request->shoe_size;
         $user->save();
         return redirect('user')->with('success', 'Data has been updated');

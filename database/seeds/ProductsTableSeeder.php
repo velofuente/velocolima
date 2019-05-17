@@ -12,46 +12,65 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        $schedule = new Product();
-        $schedule->n_classes = 1;
-        $schedule->price = 0.00;
-        $schedule->description = "Clase Prueba";
-        $schedule->expiration_days = 7;
-        $schedule->save();
+        /*$product = new Product();
+        $product->n_classes = 1;
+        $product->price = 0.00;
+        $product->description = "Clase Prueba";
+        $product->expiration_days = 7;
+        $product->save();*/
 
-        $schedule = new Product();
-        $schedule->n_classes = 1;
-        $schedule->price = 130;
-        $schedule->description = "1 clase";
-        $schedule->expiration_days = 30;
-        $schedule->save();
+        $product = new Product();
+        $product->n_classes = 1;
+        $product->price = 130;
+        $product->description = "1 clase";
+        $product->expiration_days = 30;
+        $product->type = "Packages";
+        $product->status = 1;
+        $product->save();
 
-        $schedule = new Product();
-        $schedule->n_classes = 5;
-        $schedule->price = 628.36;
-        $schedule->description = "5 clases";
-        $schedule->expiration_days = 60;
-        $schedule->save();
+        $product = new Product();
+        $product->n_classes = 5;
+        $product->price = 625;
+        $product->description = "5 clases";
+        $product->expiration_days = 60;
+        $product->type = "Packages";
+        $product->status = 1;
+        $product->save();
 
-        $schedule = new Product();
-        $schedule->n_classes = 10;
-        $schedule->price = 1213.29;
-        $schedule->description = "10 clases";
-        $schedule->expiration_days = 120;
-        $schedule->save();
+        $product = new Product();
+        $product->n_classes = 10;
+        $product->price = 1200;
+        $product->description = "10 clases";
+        $product->expiration_days = 120;
+        $product->type = "Packages";
+        $product->status = 1;
+        $product->save();
 
-        $schedule = new Product();
-        $schedule->n_classes = 25;
-        $schedule->price = 2708.23;
-        $schedule->description = "25 clases";
-        $schedule->expiration_days = 180;
-        $schedule->save();
+        $product = new Product();
+        $product->n_classes = 25;
+        $product->price = 2700;
+        $product->description = "25 clases";
+        $product->expiration_days = 180;
+        $product->type = "Packages";
+        $product->status = 1;
+        $product->save();
 
-        $schedule = new Product();
-        $schedule->n_classes = 50;
-        $schedule->price = 4333.55;
-        $schedule->description = "50 clases";
-        $schedule->expiration_days = 365;
-        $schedule->save();
+        $product = new Product();
+        $product->n_classes = 50;
+        $product->price = 4250;
+        $product->description = "50 clases";
+        $product->expiration_days = 365;
+        $product->type = "Packages";
+        $product->status = 1;
+        $product->save();
+
+        $product = new Product();
+        $product->n_classes = 1;
+        $product->price = 0;
+        $product->description = "Clase gratis por ser nuevo cliente";
+        $product->expiration_days = 30;
+        $product->type = "Deals";
+        $product->status = 1;
+        $product->save();
     }
 }
