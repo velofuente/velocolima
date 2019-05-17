@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Auth, Log, JWTAuth, DB, Validator;
+use Auth, Log, JWTAuth, DB, Validator, Session;
 
 class UserController extends Controller
 {
@@ -59,8 +59,8 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'birth_date' => ['required', 'date'],
             'phone' => ['required', 'int', 'max:999999999999999'],
-            'weight' => ['required', 'numeric', 'between:0,999.99'],
-            'height' => ['required', 'int', 'max:250'],
+            // 'weight' => ['required', 'numeric', 'between:0,999.99'],
+            // 'height' => ['required', 'int', 'max:250'],
             'gender' => ['required', 'string', 'max:6', 'in:Hombre,Mujer'],
             'shoe_size' => ['required', 'numeric', 'between:0,32.5'],
         ];
@@ -110,6 +110,10 @@ class UserController extends Controller
             'expiration_days' => $product->expiration_days,
         ]);
         $deal->save();
+        Session::flash('alertTitle', "Clase Gratis!");
+        Session::flash('alertMessage', "Gracias por unirte a Velo, tu primera clase va por nuestra cuenta!");
+        Session::flash('alertType', "success");
+        // Session::flash('alertButton', "Aceptar");
         Auth::login($user);
         Log::info("Entra pre Mail Send");
         // Mail::send([], [], function ($message) use ($request){

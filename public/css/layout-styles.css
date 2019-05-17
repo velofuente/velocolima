@@ -299,7 +299,8 @@ select:focus {outline:0;}
 .overlay-locations {
     position: relative;
     bottom: 10%;
-    width: 20%;
+    /* width: 20%; */
+    width: 40%;
     left: 52%;
 }
 .overlay-locations > a{

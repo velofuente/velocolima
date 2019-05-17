@@ -68,7 +68,7 @@
                         {{-- <a href=""><img src="/img/iconos/UBICACION.png" alt="ubi" width="110px" height="110px"></a> --}}
                         <img src="/img/iconos/UBICACION.png" alt="ubi" width="110px" height="110px">
                         <h5 class="p-info">UBICACIÓN</h5>
-                        <h5>Av. Ignacio Sandoval "La cantera"</h5>
+                        <h5>Av. Ignacio Sandoval "La Cantera"</h5>
                         <h5>1948 int.A4</h5>
                     </div>
                 </div>

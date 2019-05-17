@@ -47,7 +47,7 @@
 
     <div id="myNav" class="overlay">
         <div class="overlay-content">
-            <a href="">Ubicación</a>
+            <a href="#">Ubicación</a>
             <a href="{{ url('/instructors') }}">Instructores</a>
             <a href="{{ url('/schedule') }}">Reservar</a>
             <a href="{{ url('/schedule#packages') }}">Comprar clases</a>
@@ -70,9 +70,9 @@
         <div class="overlay-locations">
             <a href="" class="location">Colima</a>
             <p>Dirección</p>
-            <p>Ignacio Sandoval xxxxx</p>
+            <p>Ignacio Sandoval 1948 Interior A4, La Cantera, 28018</p>
             <p>Teléfono</p>
-            <p>xxxxxxx</p>
+            <p>3121234567</p>
         </div>
     </div>
 
