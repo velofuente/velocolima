@@ -51,6 +51,21 @@ body{
     height: 5%;
 }
 
+#firstClassFree {
+    font-size: 16px;
+    text-align: center;
+    font-family: 'Avenir';
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    font-weight: 500;
+    margin-top: 1em;
+
+    /* color: #9902EB; */
+    background: -webkit-linear-gradient(40deg, #F80F12, #B102C0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .form-group{
     margin-bottom: 0px;
     align-items: center;
@@ -92,7 +107,6 @@ input[type="date"]:valid:after {
 }
 /* End Placeholder */
 
-
 /* Input Requirements Lists */
 input:not([type="submit"]) + .input-requirements{
     list-style-type:circle;
@@ -105,7 +119,7 @@ input:not([type="submit"]) + .input-requirements{
 input:not([type="submit"]):hover + .input-requirements,
 input:not([type="submit"]):focus + .input-requirements,
 input:not([type="submit"]):active + .input-requirements {
-    max-height: 1000px;
+    max-height: 100em;
     transition: max-height 4s;
 }
 

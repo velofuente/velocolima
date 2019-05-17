@@ -61,7 +61,6 @@ class InstructorController extends Controller
         $schedules = Schedule::whereBetween('day', [now()->format('Y-m-d'), now()->modify('+7 days')])
                     ->get()
                     ->sortBy('hour');
-
         return view('schedule', compact('instructors', 'branches', 'schedules','products'));
     }
 

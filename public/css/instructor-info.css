@@ -10,14 +10,16 @@ body{
     color: white;
 }
 #instructorImage{
-    padding: 0 5em;
+    /* padding: 0em 0em 1em 3em; */
+    padding-bottom: 1em;
 }
 .info{
-    padding: 0 5em;
+    /* padding: 0 5em 0em 1em; */
+    text-justify: inter-word;
 }
 #instructorName{
     color: #FF0E3B;
-    font-family: 'AvenirNextLTPro MediumCn';
+    font-family: 'Avenir';
 }
 #instructorDescription{
     font-size: 20px;

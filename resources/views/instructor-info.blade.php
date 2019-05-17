@@ -10,7 +10,7 @@
 
 @section('content')
     {{-- Content --}}
-    <div class="container-fluid main">
+    <div class="container main">
         <!-- Section for the General Info of the Instructor -->
         <div class="row">
             <!-- Image -->
@@ -19,16 +19,14 @@
             </div>
             <!-- Name, Description and Phrase -->
             <div class="info col-md-7">
-                <h1 id="instructorName" class="mt-3">{{$instructor->name}}</h1>
+                <h1 id="instructorName" class="mt-0">{{$instructor->name}}</h1>
                 <div id="instructorDescription" class="text-justify mt-3">
                     {{$instructor->bio}}
                 </div>
-                <div class="rounded m-2 spotify">
+                {{-- <div class="rounded m-2 spotify">
                     VELO MUSIC
-                </div>
+                </div> --}}
             </div>
         </div>
-
-            
     </div>
 @endsection

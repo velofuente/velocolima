@@ -12,12 +12,16 @@
         <div class="container-fluid pt-4 mb-4 main">
             <div class="row" id="topNavBar">
                 {{-- Empty Section at the Far LeftNavBar --}}
-                <div class="col-1">
+                {{-- xs: phones
+                    sm: tablets
+                    md: notebooks
+                    lg: laptops --}}
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                     <span class="weekShown">
                     </span>
                 </div>
                 {{-- Message Actual Week --}}
-                <div class="col-2">
+                <div class="col-xs-4 col-sm-5 col-md-3 col-lg-3">
                     <input type="hidden" name="timezoneSet" value="{{setlocale(LC_TIME,'es_MX.utf8')}}">
                     <input type="hidden" name="WeekShown" value="{{$weekShown=now()}}">
                     <input type="hidden" name="setMonth" value="{{$month=strftime('%B', strtotime($weekShown))}}">
@@ -26,12 +30,12 @@
                     </span>
                 </div>
                 {{-- Empty Section at the Middle of the NavBar --}}
-                <div class="col-6">
+                <div class="col-xs-2 col-sm-0 col-md-4 col-lg-4">
                     <span class="weekShown">
                     </span>
                 </div>
                 {{-- Instructor Dropdown --}}
-                <div class="col-2">
+                <div class="col-xs-4 ol-sm-5 col-md-3 col-lg-3">
                     <div class="container-fluid">
                         <select class="dropdown" id="ScheduleInstructor" onchange="scheduleByInstructor()">
                             <option value="allInstructors" selected="selected">Instructores</option>
@@ -42,7 +46,7 @@
                     </div>
                 </div>
                 {{-- Empty Section at the Far Right NavBar --}}
-                <div class="col-1">
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                     <span class="weekShown">
                     </span>
                 </div>
@@ -53,6 +57,7 @@
             <input type="hidden" name="actualDay" value="{{$today=now()}}">
             <input type="hidden" name="thisDay" value="{{$thisDay=now()}}">
             <div class="container" name="calendar">
+            @if(count($schedules) > 0)
                 <div class="row" name="dates">
                     @for ($i = 0; $i < 7; $i++)
                     <section class="col" id="scheduleDayColumn">
@@ -111,6 +116,9 @@
                     <input type="hidden" value="{{$today->modify('+1 day')}}">
                     @endfor
                 </div>
+            @else
+                <h4 class="text-center">Aún no hay clases agendadas</h4>
+            @endif
             </div>
         </div>
     @include('packages')

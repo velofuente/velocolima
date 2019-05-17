@@ -20,13 +20,13 @@
     <div class="footer container-fluid">
         <div class="row info-footer">
             <div class="col-12">
-                <h3>Sé parte de nosotros</h3>
+                <h3>Sé un coach vèlo</h3>
                 <h5>Mándanos tus datos y nosotros nos ponemos en contacto contigo.</h5>
             </div>
             <div class="col-12 form">
-                <div class="row justify-content-center align-items-center">
+                <div class="row justify-content-center align-items-center text-center">
                         <div class="col-2 pad">
-                            <input type="text" class="prospectText" name="prospectName" id="prospectName" placeholder="NOMBRE">
+                            <input type="text text-center" class="prospectText" name="prospectName" id="prospectName" placeholder="NOMBRE">
                         </div>
                         <div class="col-2 pad">
                             <input type="text" class="prospectText" name="prospectMail" id="prospectMail" placeholder="EMAIL">
@@ -35,7 +35,7 @@
                             <input type="text" class="prospectText" name="prospectPosition" id="prospectPosition" placeholder="TELEFONO">
                         </div>
                         <div class="col-2 pad">
-                            <input type="text" class="prospectText" name="prospectInsta" id="prospectInsta" placeholder="INSTAGRAM">
+                            <input type="text text-center" class="prospectText" name="prospectInsta" id="prospectInsta" placeholder="INSTAGRAM">
                         </div>
                 </div>
             </div>
@@ -48,18 +48,25 @@
             </div>
             <div class="col-12 description">
                 <div class="row">
-                    <div class="col">
-                        <a href=""><img src="/img/iconos/TEL.png" alt="tel" width="110px" height="110px"></a>
-                        <h5 class="p-info">CONTÁCTANOS</h5>
-                        <h5>3120000000</h5>
+                    <div class="col" id="sendCall">
+                        <a href="tel:31400000000" target="_top">
+                            {{-- <a href =""><img src="/img/iconos/TEL.png" alt="tel" width="110px" height="110px"></a> --}}
+                            <img src="/img/iconos/TEL.png" alt="tel" width="110px" height="110px">
+                            <h5 class="p-info">CONTÁCTANOS</h5>
+                            <h5>312XXXXXXX</h5>
+                        </a>
+                    </div>
+                    <div class="col" id="sendEmail">
+                        <a href="mailto:rueda@velocycling.com?Subject=Sé%20véloz%20Contacto" target="_top">
+                            {{-- <a href=""><img src="/img/iconos/MAIL.png" alt="mail" width="110px" height="110px"></a> --}}
+                            <img src="/img/iconos/MAIL.png" alt="mail" width="110px" height="110px">
+                            <h5 class="p-info">E-MAIL</h5>
+                            <h5>rueda@velocycling.com</h5>
+                        </a>
                     </div>
                     <div class="col">
-                        <a href=""><img src="/img/iconos/MAIL.png" alt="mail" width="110px" height="110px"></a>
-                        <h5 class="p-info">E-MAIL</h5>
-                        <h5>rueda@velocycling.com</h5>
-                    </div>
-                    <div class="col">
-                        <a href=""><img src="/img/iconos/UBICACION.png" alt="ubi" width="110px" height="110px"></a>
+                        {{-- <a href=""><img src="/img/iconos/UBICACION.png" alt="ubi" width="110px" height="110px"></a> --}}
+                        <img src="/img/iconos/UBICACION.png" alt="ubi" width="110px" height="110px">
                         <h5 class="p-info">UBICACIÓN</h5>
                         <h5>Av. Ignacio Sandoval "La cantera"</h5>
                         <h5>1948 int.A4</h5>

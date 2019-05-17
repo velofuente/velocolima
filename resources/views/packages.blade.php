@@ -1,6 +1,7 @@
 <div id="packages" class="packages container-fluid">
     <div class="description">
         <img class="buyClass" src="/img/iconos/1.png" alt="">
+        {{-- <h1 class="text-center"> Comprar Clases</h1> --}}
     </div>
     <div class="row classes">
         @php
@@ -11,7 +12,7 @@
             <div id="first-class" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('primera')" class="pickClass">
                 <img class="bicImg" src="/img/iconos/BICI.png" alt="">
                 <h6 id="amount1">PRIMERA</h6>
-                <h5 class="class f-class">CLASE</h5>
+                <p class="class f-class">CLASE</p>
                 <p class="price">$150</p>
                 <p class="exp">Expira: 30 días</p>
             </div>
@@ -28,13 +29,13 @@
                     {{-- <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('{{ $product->n_classes }}')" class="pickClass"> --}}
                         <h3 id="amount{{$amount}}">{{$product->n_classes}}</h3>
                         @if ($flag)
-                            <h5 class="class">CLASE</h5>
+                            <h4 class="class">CLASE</h4>
                             {{$flag=false}}
                         @else
-                            <h5 class="class">CLASES</h5>
+                            <h4 class="class">CLASES</h4>
                         @endif
-                        <p class="precio">{{$product->price}}</p>
-                        <p class="exp">Expira: {{$product->expiration_days}} días</p>
+                        <p class="precio" style="font-size: 17px; font-family: 'Avenir Next Condensed'; font-weight: 300;">${{$product->price}}</p>
+                        <p class="exp" style="font-size: 17px; font-weight: bold;">Expira: {{$product->expiration_days}} días</p>
                         {{-- <input type="hidden" name="product_id" id="product_id" value="{{$product->id}}"> --}}
                     </div>
                 </div>
