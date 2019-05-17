@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Branch;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('welcome', compact('products'));
+        $branches = Branch::all();
+        return view('welcome', compact('products', 'branches'));
     }
 }
