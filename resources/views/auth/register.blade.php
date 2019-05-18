@@ -24,7 +24,11 @@
             <div>
                 <div class="mx-auto" id="registerTitle">Registrar una nueva cuenta</div>
                 <div class="mx-auto" id="welcomeMessage">Bienvenido a <img src="{{asset('img/iconos/CroppedLogo.png')}}" id="welcomeLogo"></div>
+<<<<<<< Updated upstream
                 <div class="mx-auto" id="firstClassFree"> ¡Tu primer clase será gratis al registrarte!</div>
+=======
+                <div class="mx-auto" id="firstClassFree"> Tu primer clase será gratis al registrarte </div>
+>>>>>>> Stashed changes
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" class="registration">
@@ -127,7 +131,11 @@
                         {{-- Input Weight --}}
                         {{-- <input type="hidden" id="weight" name="weight" value="86.5" required autofocus> --}}
                         {{-- Input Height --}}
+<<<<<<< Updated upstream
                         {{-- <input type="hidden" id="height" name="height" value="186" required autofocus> --}}
+=======
+                        <input type="hidden" id="height" name="height" value="186" required autofocus>
+>>>>>>> Stashed changes
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
@@ -146,6 +154,7 @@
                         </div>
 
                         <div class="form-group row mb-3">
+<<<<<<< Updated upstream
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
                                 <input id="phone" placeholder="Teléfono" type="number" min="0" minlength="10" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus>
@@ -156,6 +165,18 @@
                                 @endif
                             </div>
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+=======
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+                            <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <input id="phone" placeholder="Teléfono" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus>
+                                @if ($errors->has('phone'))
+                                    <span class="invalid-feedback" style="display: block !important" role="alert">
+                                        <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+>>>>>>> Stashed changes
                         </div>
 
                         <div class="form-group row mb-3">
@@ -178,6 +199,7 @@
 
                         <div class="form-group row">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+<<<<<<< Updated upstream
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 text-center">
                                 {{-- <input type="checkbox" id="termsCondition" class="form-control{{ $errors->has('termsCondition') ? ' is-invalid' : '' }}" name="termsCondition" value="{{ old('termsCondition') }}" required> He leído y acepto los <a href="{{url("/who-are-we")}}">Términos y Condiciones de Uso</a> --}}
 
@@ -191,6 +213,10 @@
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 text-center">
                                 <button type="submit" class="btn button" id="submitButton">
+=======
+                            <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <button type="submit" class="btn button mx-auto" id="submitButton">
+>>>>>>> Stashed changes
                                     {{ __('¡Se Véloz!') }}
                                 </button>
                             </div>
@@ -206,6 +232,7 @@
 
 @section('extraScripts')
     <script src="{{ asset('/js/register-script.js') }}"></script>
+<<<<<<< Updated upstream
     <script>
         // Select the Phone Input.
         var phone = document.getElementById('phone');
@@ -219,4 +246,6 @@
             }
         }
     </script>
+=======
+>>>>>>> Stashed changes
 @endsection
