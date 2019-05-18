@@ -10,19 +10,24 @@ class BookClassController extends Controller
 {
     public function book(Request $request)
     {
+        //obtiene el usuario que hizo el request
         $requestUser = $request->user();
+        //obtiene el numero total de clases
         $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->first();
         $classes = $numClases->clases;
+        //valida si el usuario tiene clases disponibles
         if($classes>0){
+            //Obtiene el cupo de la clase
             $availability = DB::table('schedules')->select('reservation_limit')->where('id', $request->schedule_id)->first();
+            //obtiene el numero de reservaciones que se han hecho a esa clase
             $instances = DB::table('user_schedules')->where('schedule_id', $request->schedule_id)->count();
-            //$requestUser = User::find(2);
+            //obtiene y revisa si el usuario ya tiene esta clase reservada
             $bookedClass = userSchedule::where('schedule_id', $request->schedule_id)->where('user_id', $requestUser->id)->first();
             if(!$bookedClass){
                 DB::beginTransaction();
-                //Validar si hay lugar disponible
+                //Valida si hay lugar disponible
                 if($instances < $availability->reservation_limit){
-                    //Validar si el lugar está disponible
+                    //Validaa si el lugar está disponible
                     $alreadyReserved = UserSchedule::where("bike", $request->bike)->where("schedule_id", $request->schedule_id)->first();
                     if($alreadyReserved && $alreadyReserved->status!='cancelled'){
                         DB::commit();
@@ -32,9 +37,9 @@ class BookClassController extends Controller
                             'updateClass' => 1
                         ]);
                     }
-
-                    $compra = Purchase::where('user_id', $requestUser->id)->whereRaw("created_at < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
-                    //obtengo el id de la bici,id del horario, id de la compra
+                    //obtiene la compra con la fecha de caducidad mas proxima del usuario con clases disponibles
+                    $compra = Purchase::where('user_id', $requestUser->id)->whereRaw("NOW() > DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
+                    //obtiene el id de la bici,id del horario, id de la compra
                     UserSchedule::create([
                         'user_id' => $requestUser->id,
                         'schedule_id' => $request->schedule_id,
@@ -43,6 +48,7 @@ class BookClassController extends Controller
                         'bike' => $request->bike,
                         'status' => 'active',
                     ]);
+                    //Resta una clase a la compra del usuario y actualiza ese campo en la base de datos
                     $compra->n_classes -= 1;
                     $compra->save();
                     DB::commit();
