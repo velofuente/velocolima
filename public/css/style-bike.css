@@ -121,7 +121,6 @@
         font-size: 1.6em;
     }
     #goBack{
-        
         font-size: 1.3em;
     }
 }
@@ -217,7 +216,7 @@
 }
 #date{
     margin-top: -1.7em;
-    margin-left: 12em;
+    margin-left: 14em;
 }
 .ent{
     color: white;
@@ -227,5 +226,4 @@
     width: 50px;
     height: 20px;
     margin-bottom: .1em;
-    
 }

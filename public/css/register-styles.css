@@ -95,10 +95,6 @@ body{
     font-family: 'Avenir';
 }
 
-checkbox{
-    
-}
-
 /* "Nacimiento" Placeholder inside the Birth Date Input */
 input[type="date"]:after {
     content: attr(placeholder) !important;

@@ -8,6 +8,13 @@
         .tabTable {
             color: white !important;
         }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=date]::-webkit-inner-spin-button,
+        input[type=date]::-webkit-outer-spin-button{
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 @endsection
 @section('content')
@@ -68,7 +75,7 @@
                                     <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="name" value="{{ Auth::user()->name }}">
                                     <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="last_name" value="{{ Auth::user()->last_name }}">
                                     <input type="date" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" min="1900-01-01" max="2100-12-31" name="birth_date" value="{{ Auth::user()->birth_date }}">
-                                    <input type="text" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="phone" value="{{ Auth::user()->phone }}">
+                                    <input type="number" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="phone" min="0" value="{{ Auth::user()->phone }}">
                                     <input type="number" step=".1" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="shoe_size" value="{{ Auth::user()->shoe_size }}">
                                 </div>
                                 <button type="submit" class="btn d-block mx-auto mb-4 gradient_button" role="button">Guardar Datos</button>

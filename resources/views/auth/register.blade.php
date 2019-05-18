@@ -2,6 +2,15 @@
 
 @section('extraStyles')
     <link rel="stylesheet" type="text/css" href="{{asset('css/register-styles.css')}}">
+    <style>
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=date]::-webkit-inner-spin-button,
+        input[type=date]::-webkit-outer-spin-button{
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
 @endsection
 
 @section('title')
@@ -139,7 +148,7 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
-                                <input id="phone" placeholder="Teléfono" type="number" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus>
+                                <input id="phone" placeholder="Teléfono" type="number" min="0" minlength="10" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus>
                                 @if ($errors->has('phone'))
                                     <span class="invalid-feedback" style="display: block !important" role="alert">
                                         <strong>{{ $errors->first('phone') }}</strong>
@@ -171,9 +180,9 @@
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 text-center">
                                 {{-- <input type="checkbox" id="termsCondition" class="form-control{{ $errors->has('termsCondition') ? ' is-invalid' : '' }}" name="termsCondition" value="{{ old('termsCondition') }}" required> He leído y acepto los <a href="{{url("/who-are-we")}}">Términos y Condiciones de Uso</a> --}}
-                                <input type="checkbox" class="" id="termsCondition" name="vehicle3" value="Boat" required
-                                    oninvalid="this.setCustomValidity('Enter User Name Here')"
-                                    oninput="this.setCustomValidity('')"  /> He leído y acepto los <a href=""> Términos y Condiciones de uso</a><br>
+
+                                <input type="checkbox" name="conditions" id="conditions" required oninvalid="this.setCustomValidity('Debes marcar esta casilla para continuar')" oninput="this.setCustomValidity('')"  />
+                                <label for="conditions" class="conditions" style="font-size: 15px;">He leído y acepto los <a href="#">Términos y Condiciones</label>
                             </div>
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                         </div>
@@ -197,4 +206,17 @@
 
 @section('extraScripts')
     <script src="{{ asset('/js/register-script.js') }}"></script>
+    <script>
+        // Select the Phone Input.
+        var phone = document.getElementById('phone');
+
+        // Lock the input only to numbers.
+        phone.onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+            || (e.keyCode > 47 && e.keyCode < 58)
+            || e.keyCode == 8 || e.keyCode == 9)) {
+                return false;
+            }
+        }
+    </script>
 @endsection

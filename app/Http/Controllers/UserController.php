@@ -104,14 +104,14 @@ class UserController extends Controller
         $user->save();
         $product = DB::table('products')->where('type', 'Deals')->first();
         $deal = new Purchase([
-            'product_id' => $product->id,  
-            'user_id' => $user->id, 
-            'n_classes' => $product->n_classes, 
+            'product_id' => $product->id,
+            'user_id' => $user->id,
+            'n_classes' => $product->n_classes,
             'expiration_days' => $product->expiration_days,
         ]);
         $deal->save();
         Session::flash('alertTitle', "Clase Gratis!");
-        Session::flash('alertMessage', "Gracias por unirte a Velo, tu primera clase va por nuestra cuenta!");
+        Session::flash('alertMessage', "Gracias por unirte a Vèlo, tu primera clase va por nuestra cuenta!");
         Session::flash('alertType', "success");
         // Session::flash('alertButton', "Aceptar");
         Auth::login($user);

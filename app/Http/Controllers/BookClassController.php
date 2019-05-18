@@ -48,7 +48,7 @@ class BookClassController extends Controller
                     DB::commit();
                     return response()->json([
                         'status' => 'OK',
-                        'message' => "Lugar reservado con exito",
+                        'message' => "Lugar reservado con éxito",
                     ]);    
                 }
                 else{

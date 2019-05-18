@@ -126,15 +126,15 @@
                                 <input class="dataRow" type="text" name="" id="Code" placeholder="CVV" maxlength="3" data-openpay-card="cvv2">
                             </div>
                         <div class="">
-                        <input type="checkbox" name="data" id="data">
-                        <label for="data">Guarda datos de mi tarjeta</label>
+                            <input type="checkbox" name="data" id="dataCard">
+                            <label for="data">Guarda datos de mi tarjeta</label>
                         </div>
                         <input class="data mx-auto" type="text" name="" id="Discount" placeholder="Código de descuento" maxlength="10">
                         <button type="button" class="button">Aplicar código</button>
-                        <div class="">
-                        <input type="checkbox" name="conditions" id="conditions">
-                        <label for="conditions" class="conditions">Acepto términos y condiciones</label>
-                        </div>
+                        {{-- <div class="">
+                            <input type="checkbox" name="conditions" id="conditions">
+                            <label for="conditions" class="conditions">Acepto términos y condiciones</label>
+                        </div> --}}
                     </form>
             </div>
             <div class="modal-footer">

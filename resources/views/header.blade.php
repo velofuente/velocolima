@@ -70,7 +70,7 @@
         <div class="overlay-locations">
             <a href="" class="location">Colima</a>
             <p>Dirección</p>
-            <p>Ignacio Sandoval 1948 Interior A4, La Cantera, 28018</p>
+            <p>Ignacio Sandoval 1948 Interior A4, La Cantera 28018.</p>
             <p>Teléfono</p>
             <p>3121234567</p>
         </div>

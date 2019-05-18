@@ -1,8 +1,16 @@
-@extends('layouts.app')
+@extends('layout')
+
+@section('extraScripts')
+    <style>
+        .main_div {
+            margin-top: 10em;
+        }
+    </style>
+@endsection
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center main_div">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Reset Password') }}</div>

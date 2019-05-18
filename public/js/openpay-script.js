@@ -6,6 +6,8 @@ var token_id = null;
 var tokenBearer = null;
 //se genera solo por laravel
 var product_id = null;
+//variable para validar si se debe guardar la tarjeta o no
+var saveCard = null;
 
 $(document).ready(function() {
     OpenPay.setId('mwykro9vagcgwumpqaxb');
@@ -29,6 +31,11 @@ var sucess_callbak = function(response) {
     // console.log(product_id);
     // Submit Form
     makeCharge();
+    saveCard = document.getElementById('dataCard').checked
+    if (saveCard == true)
+    {
+        addCard();
+    }
     // $('#payment-form').submit();
 
     console.log("cargo realizado");
@@ -42,6 +49,34 @@ var error_callbak = function(response) {
 // $('#payment-form').on('submit', function(e){
 //     e.preventDefault();
 // });
+
+function addCard(){
+    tokenBearer = $('#tokenBearer').val();
+    $.ajax({
+        url: "/addCard",
+        method: 'POST',
+        /*headers: {
+            'Authorization': `Bearer ${tokenBearer}`
+        },*/
+        data: {
+            _token: csrfToken,
+            token_id: token_id,
+            device_session_id: device_session_id,
+            customer_id: ''
+        },
+        beforeSend: function(){
+            $.LoadingOverlay("show");
+        },
+        success: function(result){
+            window.location.replace("/user");
+            console.log(result);
+        }
+    });
+    // console.log('token_id: ', token_id);
+    // console.log('device_session_id: ', device_session_id);
+    // console.log('Token CRSF: ', csrfToken);
+    // console.log('Bearer: ', tokenBearer);
+};
 
 function makeCharge(){
     tokenBearer = $('#tokenBearer').val();
