@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\{UserSchedule, UserWaitList, User, Purchase};
+use SebastianBergmann\Environment\Console;
 
 class BookClassController extends Controller
 {
@@ -38,7 +39,11 @@ class BookClassController extends Controller
                         ]);
                     }
                     //obtiene la compra con la fecha de caducidad mas proxima del usuario con clases disponibles
-                    $compra = Purchase::where('user_id', $requestUser->id)->whereRaw("NOW() > DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
+                    $compra = Purchase::where('user_id', $requestUser->id)
+                        ->where('n_classes', "<>", 0)
+                        ->whereRaw("created_at < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
+                        //->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
+                        ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
                     //obtiene el id de la bici,id del horario, id de la compra
                     UserSchedule::create([
                         'user_id' => $requestUser->id,
@@ -89,7 +94,7 @@ class BookClassController extends Controller
         if($requestedClass->status!='cancelled'){
             $requestedClass->status = 'cancelled';
             $requestedClass->save();
-            $purchase->n_classes -= 1;
+            $purchase->n_classes += 1;
             $purchase->save();
             return response()->json([
                 'status' => 'OK',

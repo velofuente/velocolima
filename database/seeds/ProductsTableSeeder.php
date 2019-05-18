@@ -12,12 +12,14 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        /*$product = new Product();
+        $product = new Product();
         $product->n_classes = 1;
-        $product->price = 0.00;
-        $product->description = "Clase Prueba";
-        $product->expiration_days = 7;
-        $product->save();*/
+        $product->price = 0;
+        $product->description = "Clase gratis por ser nuevo cliente";
+        $product->expiration_days = 30;
+        $product->type = "Deals";
+        $product->status = 1;
+        $product->save();
 
         $product = new Product();
         $product->n_classes = 1;
@@ -61,15 +63,6 @@ class ProductsTableSeeder extends Seeder
         $product->description = "50 clases";
         $product->expiration_days = 365;
         $product->type = "Packages";
-        $product->status = 1;
-        $product->save();
-
-        $product = new Product();
-        $product->n_classes = 1;
-        $product->price = 0;
-        $product->description = "Clase gratis por ser nuevo cliente";
-        $product->expiration_days = 30;
-        $product->type = "Deals";
         $product->status = 1;
         $product->save();
     }

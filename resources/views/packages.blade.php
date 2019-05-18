@@ -22,8 +22,8 @@
             $flag=true;
         @endphp
         @foreach ($products as $product)
-            @if ($product != $products{0})
-                {{--dd($products{0})--}}
+            @if ($product != $products{0} && $product->type != "Deals")
+                {{-- {{dd($product)}} --}}
                 <div class="content-normal col col-sm col-md col-lg pickClass" style=" padding: 0;" id="prod-{{$product->id}}">
                     <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter">
                     {{-- <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('{{ $product->n_classes }}')" class="pickClass"> --}}
