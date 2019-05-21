@@ -21,11 +21,6 @@ Route::get('/', function () {
 });    
 //Route::get('/', 'HomeController@index');
 
-// Route::get('/', 'HomeController@index');
-Route::get('/', function(){
-    return view('welcome');
-});
-
 Auth::routes(['verify' => true]);
 
 Route::get('user', 'UserController@index')->name('user');
@@ -81,3 +76,5 @@ Route::post('/addCard','OpenPayController@addCustomerCard');
 Route::post('makeCharge', 'OpenPayController@makeChargeCustomer');
 Route::post('getClient', 'OpenPayController@getCustomer');
 Route::post('deleteClient', 'OpenPayController@deleteCustomer');
+
+Route::post('sendMail', 'MailSendingController@coachInfo');

@@ -24,20 +24,26 @@
                 <h5>Mándanos tus datos y nosotros nos ponemos en contacto contigo.</h5>
             </div>
             <div class="col-12 form">
-                <div class="row justify-content-center align-items-center text-center">
+                <form action="{{ url("/sendMail") }}" method="post">
+                    <div class="row justify-content-center align-items-center text-center">
+                        @csrf
                         <div class="col-2 pad">
-                            <input type="text text-center" class="prospectText" name="prospectName" id="prospectName" placeholder="NOMBRE">
+                            <input type="text text-center" class="prospectText" name="name" id="name" placeholder="NOMBRE">
                         </div>
                         <div class="col-2 pad">
-                            <input type="text" class="prospectText" name="prospectMail" id="prospectMail" placeholder="EMAIL">
+                            <input type="text" class="prospectText" name="email" id="email" placeholder="EMAIL">
                         </div>
                         <div class="col-2 pad">
-                            <input type="text" class="prospectText" name="prospectPosition" id="prospectPosition" placeholder="TELEFONO">
+                            <input type="text" class="prospectText" name="phone" id="phone" placeholder="TELEFONO">
                         </div>
                         <div class="col-2 pad">
-                            <input type="text text-center" class="prospectText" name="prospectInsta" id="prospectInsta" placeholder="INSTAGRAM">
+                            <input type="text text-center" class="prospectText" name="instagram" id="instagram" placeholder="INSTAGRAM">
                         </div>
-                </div>
+                        <div class="col-2 pad">
+                            <button type="submit" class="btn btn-outline-secondary">SEND</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

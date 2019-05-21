@@ -5,6 +5,7 @@ use App\{User, Card, Purchase, userSchedule, UserWaitList, waitList, Schedule, I
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Mail\Welcome;
 use Auth, Log, JWTAuth, DB, Validator, Session;
 
 class UserController extends Controller
@@ -124,6 +125,7 @@ class UserController extends Controller
         //       ->setBody('<h1>Hi, welcome user!</h1>', 'text/html'); // for HTML rich messages
         //   });
           Log::info("Entra pos Mail Send");
+          \Mail::to($user)->send(new Welcome($user));
         return redirect()->route('home')->with('success','Data Added');
     }
 
@@ -244,4 +246,5 @@ class UserController extends Controller
 
         return response()->json(compact('user'));
     }
+
 }
