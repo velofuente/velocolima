@@ -14,7 +14,7 @@
     @endphp
     <div class="container-fluid main">
         <div class="select">
-            <a href="/schedule" id="goBack">Volver al calendaria</a>
+            <a href="/schedule" id="goBack">Volver al calendario</a>
             <input type="hidden" id="schedule_id" value="{{$schedules->id}}">
                 <div class="row">
                     <div class="col-6 bnd">

@@ -32,6 +32,7 @@ class CreateUserSchedulesTable extends Migration
             */
             //cancelled,active,taken
             $table->string('status');
+            $table->boolean('changedSit');
             $table->timestamps();
         });
     }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\{User, Card, Purchase, userSchedule, UserWaitList, waitList, Schedule, Instructor};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Auth, Log, JWTAuth, DB, Validator, Session;
 
