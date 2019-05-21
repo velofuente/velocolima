@@ -13,23 +13,23 @@ class BookClassController extends Controller
     {
         //obtiene el usuario que hizo el request
         $requestUser = $request->user();
-        //obtiene el numero total de clases
-        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->first();
-        $classes = $numClases->clases;
-        //valida si el usuario tiene clases disponibles
-        if($classes>0){
-            //Obtiene el cupo de la clase
-            $availability = DB::table('schedules')->select('reservation_limit')->where('id', $request->schedule_id)->first();
-            //obtiene el numero de reservaciones que se han hecho a esa clase
-            $instances = DB::table('user_schedules')->where('schedule_id', $request->schedule_id)->count();
-            //obtiene y revisa si el usuario ya tiene esta clase reservada
-            $bookedClass = userSchedule::where('schedule_id', $request->schedule_id)->where('user_id', $requestUser->id)->first();
-            if(!$bookedClass){
-                DB::beginTransaction();
+        //Obtiene el cupo de la clase
+        $availability = DB::table('schedules')->select('reservation_limit')->where('id', $request->schedule_id)->first();
+        //obtiene el numero de reservaciones que se han hecho a esa clase
+        $instances = DB::table('user_schedules')->where('schedule_id', $request->schedule_id)->count();
+        //obtiene y revisa si el usuario ya tiene esta clase reservada
+        $bookedClass = userSchedule::where('schedule_id', $request->schedule_id)->where('user_id', $requestUser->id)->first();
+        //Validaa si el lugar está disponible
+        $alreadyReserved = UserSchedule::where("bike", $request->bike)->where("schedule_id", $request->schedule_id)->first();
+        DB::beginTransaction();
+        if(!$bookedClass){
+            //obtiene el numero total de clases
+            $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->first();
+            $classes = $numClases->clases;
+            //valida si el usuario tiene clases disponibles
+            if($classes>0){
                 //Valida si hay lugar disponible
                 if($instances < $availability->reservation_limit){
-                    //Validaa si el lugar está disponible
-                    $alreadyReserved = UserSchedule::where("bike", $request->bike)->where("schedule_id", $request->schedule_id)->first();
                     if($alreadyReserved && $alreadyReserved->status!='cancelled'){
                         DB::commit();
                         return response()->json([
@@ -52,6 +52,7 @@ class BookClassController extends Controller
                         //'tool_schedule_id' => $request->tool_schedule_id,
                         'bike' => $request->bike,
                         'status' => 'active',
+                        'changedSit' => 0,
                     ]);
                     //Resta una clase a la compra del usuario y actualiza ese campo en la base de datos
                     $compra->n_classes -= 1;
@@ -63,28 +64,36 @@ class BookClassController extends Controller
                     ]);    
                 }
                 else{
-                    $waitList = DB::table('wait_lists')->select('id')->where('schedule_id', "{$request->schedule_id}")->first();
-                    UserWaitList::create([
-                        'user_id' => $requestUser->id, 
-                        'wait_list_id' => $waitList,
-                    ]);
-                    DB::commit();
                     return response()->json([
-                        'status' => 'OK',
-                        'message' => "No hay cupo disponible. Has sido agregado a la lista de espera de esta clase",
+                        'status' => 'ERROR',
+                        'message' => "No hay cupo disponible.",
                     ]); 
                 }
             } else {
                 return response()->json([
                     'status' => 'ERROR',
-                    'message' => "Ya tienes un lugar reservado en esta clase",
+                    'message' => "No tienes clases compradas. Compra clases para poder registrarte",
                 ]);
             }
         }else{
-            return response()->json([
-                'status' => 'ERROR',
-                'message' => "No tienes clases compradas. Compra clases para poder registrarte",
-            ]);
+            if($bookedClass->changedSit == 0){
+                if($alreadyReserved && $alreadyReserved->status!='cancelled'){
+                    DB::commit();
+                    return response()->json([
+                        'status' => 'ERROR',
+                        'message' => "Ese lugar ya ha sido reservado.",
+                        'updateClass' => 1
+                    ]);
+                }
+                $bookedClass->bike = $request->bike;
+                $bookedClass->save();
+                DB::commit();
+            }else{
+                return response()->json([
+                    'status' => 'ERROR',
+                    'message' => "Solo puedes cambiar de lugar una vez",
+                ]);
+            }
         }
     }
     public function cancelClass(Request $request)
@@ -106,5 +115,19 @@ class BookClassController extends Controller
                 'message' => "La clase que quieres cancelar ya ha sido cancelada. Intenta refrescando la pagina.",
             ]);
         }
+    }
+    public function waitList(Request $request)
+    {
+        //obtiene el usuario que hizo el request
+        $requestUser = $request->user();
+        $waitList = DB::table('wait_lists')->select('id')->where('schedule_id', "{$request->schedule_id}")->first();
+        UserWaitList::create([
+            'user_id' => $requestUser->id, 
+            'wait_list_id' => $waitList,
+        ]);
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Has sido agregado a la lista de espera de esta clase",
+        ]); 
     }
 }
