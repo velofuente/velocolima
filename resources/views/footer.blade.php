@@ -29,17 +29,10 @@
                             <input type="text text-center" class="prospectText" name="prospectName" id="prospectName" placeholder="NOMBRE">
                         </div>
                         <div class="col-2 pad">
-<<<<<<< Updated upstream
                             <input type="text" class="prospectText" name="prospectMail" id="prospectMail" placeholder="EMAIL">
                         </div>
                         <div class="col-2 pad">
                             <input type="text" class="prospectText" name="prospectPosition" id="prospectPosition" placeholder="TELEFONO">
-=======
-                            <input type="text text-center" class="prospectText" name="prospectMail" id="prospectMail" placeholder="EJEMPLO@EMAIL.COM">
-                        </div>
-                        <div class="col-2 pad">
-                            <input type="text text-center" class="prospectText" name="prospectPosition" id="prospectPosition" placeholder="TELÉFONO">
->>>>>>> Stashed changes
                         </div>
                         <div class="col-2 pad">
                             <input type="text text-center" class="prospectText" name="prospectInsta" id="prospectInsta" placeholder="INSTAGRAM">

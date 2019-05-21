@@ -80,15 +80,9 @@
 <div class="row">
     <div class="col-12">
         <div class="redes-fijas">
-<<<<<<< Updated upstream
             <a href="https://www.facebook.com/velocyclingmx/" class="red " style="padding-bottom:1em" target="_blank"><img class="network" src="/img/iconos/FACEBOOK.png" alt=""></i></a>
             <br>
             <a href="https://www.instagram.com/velocyclingmx/" class="red " target="_blank"><img  class="network" src="/img/iconos/INSTAGRAM.png" alt=""></i></a>
-=======
-            <a href="https://www.facebook.com" class="red " style="padding-bottom:1em" target="_blank"><img class="network" src="/img/iconos/FACEBOOK.png" alt=""></i></a>
-            <br>
-            <a href="https://www.instagram.com" class="red " target="_blank"><img  class="network" src="/img/iconos/INSTAGRAM.png" alt=""></i></a>
->>>>>>> Stashed changes
         </div>
     </div>
 </div>
