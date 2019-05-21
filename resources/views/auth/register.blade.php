@@ -127,7 +127,7 @@
                         {{-- Input Weight --}}
                         {{-- <input type="hidden" id="weight" name="weight" value="86.5" required autofocus> --}}
                         {{-- Input Height --}}
-                        {{-- <input type="hidden" id="height" name="height" value="186" required autofocus> --}}
+                        <input type="hidden" id="height" name="height" value="186" required autofocus>
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">

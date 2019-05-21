@@ -7,7 +7,7 @@ var tokenBearer = null;
 //se genera solo por laravel
 var product_id = null;
 //variable para validar si se debe guardar la tarjeta o no
-var saveCard = null;
+var checkbox = null;
 
 $(document).ready(function() {
     OpenPay.setId('mwykro9vagcgwumpqaxb');
@@ -30,12 +30,19 @@ var sucess_callbak = function(response) {
     // product_id = $('#product_id').val();
     // console.log(product_id);
     // Submit Form
-    makeCharge();
-    saveCard = document.getElementById('dataCard').checked
-    if (saveCard == true)
+    // makeCharge();
+    checkbox = document.getElementById('dataCard');
+    if(checkbox.checked)
     {
-        addCard();
+        alert('Checked');
+        makeCharge();
+        saveCard();
     }
+    else {
+        alert('Not Checked');
+        makeCharge();
+
+    };
     // $('#payment-form').submit();
 
     console.log("cargo realizado");
@@ -50,7 +57,7 @@ var error_callbak = function(response) {
 //     e.preventDefault();
 // });
 
-function addCard(){
+function saveCard(){
     tokenBearer = $('#tokenBearer').val();
     $.ajax({
         url: "/addCard",
@@ -59,7 +66,7 @@ function addCard(){
             'Authorization': `Bearer ${tokenBearer}`
         },*/
         data: {
-            _token: csrfToken,
+            _token: crfsToken,
             token_id: token_id,
             device_session_id: device_session_id,
             customer_id: ''
@@ -68,7 +75,6 @@ function addCard(){
             $.LoadingOverlay("show");
         },
         success: function(result){
-            window.location.replace("/user");
             console.log(result);
         }
     });
