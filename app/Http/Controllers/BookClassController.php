@@ -87,7 +87,7 @@ class BookClassController extends Controller
                     $bookedClass->status = 'active';
                 }
                 $bookedClass->bike = $request->bike;
-                $bookedClass->changedSit = 1;
+                $bookedClass->changedSit = 1;//cambios
                 $bookedClass->save();
                 //Resta una clase a la compra del usuario y actualiza ese campo en la base de datos
                 $compra->n_classes -= 1;
