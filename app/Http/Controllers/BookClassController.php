@@ -62,8 +62,7 @@ class BookClassController extends Controller
                         'status' => 'OK',
                         'message' => "Lugar reservado con éxito",
                     ]);    
-                }
-                else{
+                } else{
                     return response()->json([
                         'status' => 'ERROR',
                         'message' => "No hay cupo disponible.",
@@ -75,7 +74,7 @@ class BookClassController extends Controller
                     'message' => "No tienes clases compradas. Compra clases para poder registrarte",
                 ]);
             }
-        }else{
+        } else{
             if($bookedClass->changedSit == 0){
                 if($alreadyReserved && $alreadyReserved->status!='cancelled'){
                     DB::commit();
@@ -85,10 +84,17 @@ class BookClassController extends Controller
                         'updateClass' => 1
                     ]);
                 }
+                if($bookedClass->status == 'cancelled')
+                    $bookedClass->status = 'active';
                 $bookedClass->bike = $request->bike;
+                $bookedClass->changedSit = 1;
                 $bookedClass->save();
                 DB::commit();
-            }else{
+                return response()->json([
+                    'status' => 'Ok',
+                    'message' => "Lugar cambiado con exito",
+                ]);
+            } else{
                 return response()->json([
                     'status' => 'ERROR',
                     'message' => "Solo puedes cambiar de lugar una vez",
