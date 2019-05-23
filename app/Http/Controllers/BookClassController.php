@@ -21,6 +21,12 @@ class BookClassController extends Controller
         $bookedClass = userSchedule::where('schedule_id', $request->schedule_id)->where('user_id', $requestUser->id)->first();
         //Validaa si el lugar está disponible
         $alreadyReserved = UserSchedule::where("bike", $request->bike)->where("schedule_id", $request->schedule_id)->first();
+        //obtiene la compra con la fecha de caducidad mas proxima del usuario con clases disponibles
+        $compra = Purchase::where('user_id', $requestUser->id)
+        ->where('n_classes', "<>", 0)
+        ->whereRaw("created_at < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
+        //->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
+        ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
         DB::beginTransaction();
         if(!$bookedClass){
             //obtiene el numero total de clases
@@ -38,12 +44,6 @@ class BookClassController extends Controller
                             'updateClass' => 1
                         ]);
                     }
-                    //obtiene la compra con la fecha de caducidad mas proxima del usuario con clases disponibles
-                    $compra = Purchase::where('user_id', $requestUser->id)
-                        ->where('n_classes', "<>", 0)
-                        ->whereRaw("created_at < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
-                        //->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
-                        ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
                     //obtiene el id de la bici,id del horario, id de la compra
                     UserSchedule::create([
                         'user_id' => $requestUser->id,
@@ -81,14 +81,17 @@ class BookClassController extends Controller
                     return response()->json([
                         'status' => 'ERROR',
                         'message' => "Ese lugar ya ha sido reservado.",
-                        'updateClass' => 1
                     ]);
                 }
-                if($bookedClass->status == 'cancelled')
+                if($bookedClass->status == 'cancelled'){
                     $bookedClass->status = 'active';
+                }
                 $bookedClass->bike = $request->bike;
                 $bookedClass->changedSit = 1;
                 $bookedClass->save();
+                //Resta una clase a la compra del usuario y actualiza ese campo en la base de datos
+                $compra->n_classes -= 1;
+                $compra->save();
                 DB::commit();
                 return response()->json([
                     'status' => 'Ok',
