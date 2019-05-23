@@ -124,6 +124,7 @@ class BookClassController extends Controller
         UserWaitList::create([
             'user_id' => $requestUser->id, 
             'wait_list_id' => $waitList,
+            'status' => 'active',
         ]);
         return response()->json([
             'status' => 'OK',

@@ -37,6 +37,7 @@
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
+        {{-- TODO: Remover logout-form duplicado o ajustar --}}
     </div>
     @endauth
     <div class="hambBtn">

@@ -162,6 +162,7 @@
                                                             <th>Hora</th>
                                                             <th>Asiento</th>
                                                             <th>Estado</th>
+                                                            <th>Accción</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -173,6 +174,7 @@
                                                                 @if($bookedClass->status == 'active')
                                                                     <td>Activo</td>
                                                                 @endif
+                                                                <td><button type="button" id="cancelClass-{{$bookedClass->id}}" class="btn btn-danger cancelClass">Cancelar</button></td>
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
@@ -212,7 +214,7 @@
                                                                 <td>{{$previousClass->schedule->instructor->name}}</td>
                                                                 <td>{{$previousClass->bike}}</td>
                                                                 @switch($previousClass->status)
-                                                                    @case('canceled')
+                                                                    @case('cancelled')
                                                                         <td>Cancelado</td>
                                                                         @break
                                                                     @case('taken')

@@ -125,7 +125,6 @@ class UserController extends Controller
         //       ->setBody('<h1>Hi, welcome user!</h1>', 'text/html'); // for HTML rich messages
         //   });
           Log::info("Entra pos Mail Send");
-          \Mail::to($user)->send(new Welcome($user));
         return redirect()->route('home')->with('success','Data Added');
     }
 

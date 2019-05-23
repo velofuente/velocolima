@@ -64,4 +64,36 @@ $(document).ready(function() {
         // console.log('Token CRSF: ', csrfToken);
         // console.log('Bearer: ', tokenBearer);
     };
+
+    $(document).on("click", ".cancelClass", function(e) {
+        e.preventDefault();
+        var rawId = this.id;
+        var explodedId = rawId.split("-");
+        if (explodedId.length > 1) {
+            var bookedClass_id = explodedId[1];
+        } else {
+            console.log("Malformed ID")
+            return;
+        }
+        console.log(bookedClass_id);
+        cancelClass(bookedClass_id);
+    });
 });
+
+function cancelClass(bookedClass_id){
+    $.ajax({
+        url: "cancelClass",
+        method: 'POST',
+        data: {
+            _token: csrfToken,
+            id: bookedClass_id
+        },
+        beforeSend: function(){
+            $.LoadingOverlay("show");
+        },
+        success: function(result){
+            window.location.replace("/user");
+            console.log(result);
+        }
+    })
+}

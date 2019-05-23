@@ -69,6 +69,7 @@ Route::get('/client', function(){
 })->middleware('auth');
 
 Route::post('book', 'BookClassController@book');
+Route::post('cancelClass', 'BookClassController@cancelClass');
 
 //OPENPAY
 //Route::get('user', 'UserController@getAuthenticatedUser');
