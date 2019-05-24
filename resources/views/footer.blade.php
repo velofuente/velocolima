@@ -24,12 +24,14 @@
                 <h5>Mándanos tus datos y nosotros nos ponemos en contacto contigo.</h5>
             </div>
             <div class="col-12 form">
-                <form action="{{ url("/sendMail") }}" method="post">
+                {{-- <form action="{{ url("/sendMail") }}" method="post"> --}}
+                <form>
                     <div class="row justify-content-center align-items-center text-center">
                         @csrf
                         <div class="col-2 pad">
                             <input type="text text-center" class="prospectText" name="name" id="name" placeholder="NOMBRE">
                         </div>
+                        <input type="hidden" name="csrf" value="">
                         <div class="col-2 pad">
                             <input type="text" class="prospectText" name="email" id="email" placeholder="EMAIL">
                         </div>
@@ -40,7 +42,7 @@
                             <input type="text text-center" class="prospectText" name="instagram" id="instagram" placeholder="INSTAGRAM">
                         </div>
                         <div class="col-2 pad">
-                            <button type="submit" class="btn btn-outline-secondary">SEND</button>
+                            <button class="btn btn-outline-secondary" id="buttonFormResponse">SEND</button>
                         </div>
                     </div>
                 </form>
@@ -81,4 +83,7 @@
             </div>
         </div>
     </div>
+    {{-- <script>
+        
+    </script> --}}
 </footer>

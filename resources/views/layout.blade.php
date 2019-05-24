@@ -14,7 +14,52 @@
         <script src="{{asset('js/layout-scripts.js')}}"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
+        <script>
+            {{-- var crfsToken = '{{ csrf_token() }}'; --}}
+        $('#buttonFormResponse').on('click', function(event) {
+            event.preventDefault();
+            formResponse();
+            // $("#buttonFormResponse").prop( "disabled", true);
+        });
+        function formResponse(){
+            // console.log('si entra a la funcion');
+            $.ajax({
+                method: 'POST',
+                url: '/sendMail',
+                data: {
+                    _token: crfsToken,
+                     name: $('#name').val(),
+                     email: $('#email').val(),
+                     phone: $('#phone').val(),
+                     instagram: $('#instagram').val()
+                },
+                success: function (result) {
+                    if(result.status == "OK"){
+                        console.log(result.status);
+                        Swal.fire({
+                            title: 'Email Enviado',
+                            text: result.message,
+                            type: 'success',
+                            confirmButtonText: 'Aceptar'
+                        })
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: result.message,
+                            type: 'warning',
+                            confirmButtonText: 'Aceptar'
+                        })
+                    }
+                },
+                error: function() {
+                    console.log(data);
+                    // alert('no jala');
+                }
+            });
+        }
+        </script>
         @yield('extraScripts')
+
         @php
             $alertTitle = "Woops!";
             $alertMessage = "Ocurrió un error.";
