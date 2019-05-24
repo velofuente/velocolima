@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->date('birth_date');
             $table->string('phone', 15);
             //$table->float('weight', 5,2);
-            //$table->tinyInteger('height')->unsigned();
+            //$table->tinyInteger('height')->unsigned(); asdaa
             $table->float('shoe_size', 3,1);
             $table->string('share_code',8)->default('ABCD');
             //Foreign Key from Users to Role 1-instructor, 2-instuctor, 3-Common user
