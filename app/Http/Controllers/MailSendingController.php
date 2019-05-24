@@ -18,7 +18,7 @@ class MailSendingController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'ERROR',
-                'message' => $e->getMessage(),
+                'message' => "Intentelo mas tarde",
             ]);
         }
 
