@@ -20,7 +20,7 @@
 }
 
 body{
-    font-family: 'Avenir';
+    font-family: 'Avenir' !important;
     background-color: #000;
 }
 
@@ -72,7 +72,7 @@ ul{
 
 .scheduleDayText{
     font-size: 14px;
-    font-family: 'Avenir Next';
+    font-family: 'Avenir Next' !important;
     font-weight: 200;
     text-align: center;
     text-transform: uppercase;
@@ -132,7 +132,7 @@ span.number{
     color: #a5a5a5d0;
     margin: 0px;
     font-size: 16px;
-    font-family: 'Avenir';
+    font-family: 'Avenir' !important;
     letter-spacing: 1px;
 }
 
@@ -173,7 +173,7 @@ span.number{
 .scheduleItemTextInstructor{
     padding-top: 21px;
     margin: 0;
-    font-family: 'Avenir Next';
+    font-family: 'Avenir Next' !important;
     font-weight: 400;
 }
 
@@ -182,7 +182,7 @@ span.number{
     color: rgba(255, 255, 255, 0.824);
     margin: 0px;
     font-size: 16px;
-    font-family: 'Avenir';
+    font-family: 'Avenir' !important;
     letter-spacing: 1px;
 }
 

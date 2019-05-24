@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use function GuzzleHttp\json_encode;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -50,7 +51,7 @@ class LoginController extends Controller
             // //En Vista
             // $value = $request->session()->get('key');
             // dd($value);
-            $user = User::where('email', $request->email)-fisrt();
+            $user = User::where('email', $request->email)->first();
             if($user->role_id == 1)
                 redirect("admin");
             else 

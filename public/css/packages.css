@@ -68,7 +68,7 @@
 }
 
 .button{
-    font-family: 'Avenir Next';
+    font-family: 'Avenir Next' !important;
     font-size: 14px;
     color: #FFF;
     transition: 0.2s;
@@ -83,7 +83,7 @@
 }
 
 .closeBtn{
-    font-family: 'Avenir Next';
+    font-family: 'Avenir Next' !important;
     font-size: 14px;
     color: #FFF;
     transition: 0.2s;

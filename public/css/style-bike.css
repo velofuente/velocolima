@@ -1,6 +1,6 @@
 .main{
     color: #6133AB;
-    font-family: 'AvenirNextLTPro Regular';
+    font-family: 'AvenirNextLTPro Regular' !important;
 }
 .select{
     color: black;
@@ -22,7 +22,7 @@
     background-color: #5dd4dc;
 }*/
 #goBack{
-    font-family: 'Avenir Next';
+    font-family: 'Avenir Next' !important;
     font-size: 1.1em;
     text-decoration: none;
     color: #FFF;
@@ -191,7 +191,7 @@
 }
 
 .details{
-    font-family: 'AvenirNextLTPro DemiCn';
+    font-family: 'AvenirNextLTPro DemiCn' !important;
     color: white;
     text-align: center;
     margin-top: 3em;
@@ -200,7 +200,7 @@
 }
 
 .first{
-    font-family: 'AvenirNextLTPro DemiCn';
+    font-family: 'AvenirNextLTPro DemiCn' !important;
     color: #FF0E3B;
     margin-top: 2em;
     margin-left: 2em;

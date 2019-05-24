@@ -19,11 +19,11 @@ body{
 }
 #instructorName{
     color: #FF0E3B;
-    font-family: 'Avenir';
+    font-family: 'Avenir' !important;
 }
 #instructorDescription{
     font-size: 20px;
-    font-family: 'AvenirNextLTPro Regular';
+    font-family: 'AvenirNextLTPro Regular' !important;
     opacity: .8;
 }
 

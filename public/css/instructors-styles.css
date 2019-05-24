@@ -20,7 +20,7 @@
 }
 
 body{
-    font-family: 'Avenir';
+    font-family: 'Avenir' !important;
     color: #F11635;
     background-color: #000;
 }

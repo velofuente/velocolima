@@ -21,7 +21,7 @@
 
 body{
     background: #000;
-    font-family: 'Avenir';
+    font-family: 'Avenir' !important;
     color: #FFF;
 }
 
@@ -45,12 +45,12 @@ body{
 }
 
 .text_share_code{
-    font-family: 'Avenir Next';
+    font-family: 'Avenir Next' !important;
     font-size: 24px;
 }
 
 .share_code{
-    font-family: 'Avenir';
+    font-family: 'Avenir' !important;
     font-size: 24px;
     font-weight: bold;
 }
@@ -73,7 +73,7 @@ body{
 }
 
 .gradient_button{
-    font-family: 'Avenir Next';
+    font-family: 'Avenir Next' !important;
     font-size: 17px;
     color: #FFF;
     transition: 0.2s;
@@ -91,7 +91,7 @@ body{
 }
 
 .regular_button{
-    font-family: 'Avenir Next';
+    font-family: 'Avenir Next' !important;
     font-size: 15px;
     background-color: #FFF;
     color: #000;
@@ -134,7 +134,7 @@ body{
 }
 
 #show_user_data, #divWait{
-    font-family: 'Avenir';
+    font-family: 'Avenir' !important;
     font-weight: 500;
     background-color: #000;
     color: #9701a8;

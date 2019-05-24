@@ -21,7 +21,7 @@
 
 body{
     background: #000;
-    font-family: 'Avenir Next';
+    font-family: 'Avenir Next' !important;
     font-weight: 400;
     color: #FFF;
 }
