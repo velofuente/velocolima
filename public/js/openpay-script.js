@@ -34,12 +34,12 @@ var sucess_callbak = function(response) {
     checkbox = document.getElementById('dataCard');
     if(checkbox.checked)
     {
-        alert('Checked');
+        //alert('Checked');
         makeCharge();
         saveCard();
     }
     else {
-        alert('Not Checked');
+        //alert('Not Checked');
         makeCharge();
 
     };
