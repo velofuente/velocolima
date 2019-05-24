@@ -50,8 +50,11 @@ class LoginController extends Controller
             // //En Vista
             // $value = $request->session()->get('key');
             // dd($value);
-
-            return redirect("user");
+            $user = User::where('email', $request->email)-fisrt();
+            if($user->role_id == 1)
+                redirect("admin");
+            else 
+                redirect("user");
         }
         return back()
             ->withErrors([
