@@ -13,7 +13,7 @@ class ClasseTableSeeder extends Seeder
     public function run()
     {
         $class = new Classe();
-        $class->name = "class1";
+        $class->name = "Spinning";
         $class->save();
     }
 }
