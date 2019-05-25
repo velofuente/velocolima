@@ -4,6 +4,21 @@
     Sucursales
 @endsection
 @section('extraStyles')
+    <style>
+    .marco {
+        height: 264px;
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: multiply;
+        color: #fff;
+        position: relative;
+        border-radius: 3px;
+        margin: 20px;
+    }
+    .margin-topMain {
+        padding-top: 100px !important;
+    }
+    </style>
     <link rel="stylesheet" href="{{asset('css/branches-styles.css')}}">
 @endsection
 @section('content')
@@ -30,8 +45,23 @@
                                 </div>
                             </address>
                         </div>
-                        <div class="botones_ub_ind">
-                            <a class="btn azul btnubica" href="/schedule">Reservar</a>
+                        <div class="btn btn-primary botones_ub_ind">
+                            <a class="btn azul btnubica" href="/reservar/?theidofstore=120973">Reservar</a>
+                        </div>
+                    </div>
+                </div> --}}
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 border border">
+                    <div class="row">
+                        <div class="col-8 border border">
+                            <p class="branchName">{{$branch->name}}</p>
+                            <span class="branchInfo">{{$branch->address}}</span>
+                            {{-- <p>{{$branch->phone}}</p> --}}
+                            <span class="branchInfo">312XXXXXXX</span>
+                            {{-- <button class="button-primary">Reservar</button> --}}
+                            <p> <a class="btnReservar" href="{{url("/schedule")}}">Reservar</a> </p>
+                        </div>
+                        <div class="col-4 border border justify-content-center">
+                            <img src="{{asset('img/iconos/CroppedLogo.png')}}" id="welcomeLogo" class="mx-auto text-center">
                         </div>
                     </div>
                 </div> --}}

@@ -4,8 +4,8 @@ var tokenBearer = null;
 var csrfToken = $('#csrfToken').val();
 
 $(document).ready(function() {
-    OpenPay.setId('mwykro9vagcgwumpqaxb');
-    OpenPay.setApiKey('pk_d72eec48f13042949140a7873ee1b3c2');
+    OpenPay.setId('mq3srrs4flndbb8qu1mm');
+    OpenPay.setApiKey('pk_1241cb6ad90940ca8c2970818786c8ad');
     OpenPay.setSandboxMode(true);
     //Se genera el id de dispositivo
     device_session_id = OpenPay.deviceData.setup("add-card-form", "deviceIdHiddenFieldName");
@@ -76,6 +76,7 @@ $(document).ready(function() {
     }
 
     function addCard(){
+        console.log('entro');
         tokenBearer = $('#tokenBearer').val();
         $.ajax({
             url: "/addCard",
@@ -93,6 +94,7 @@ $(document).ready(function() {
                 $.LoadingOverlay("show");
             },
             success: function(result){
+                //console.log(result);
                 window.location.replace("/user");
                 console.log(result);
             }
