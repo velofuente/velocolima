@@ -302,6 +302,7 @@ select:focus {outline:0;}
     /* width: 20%; */
     width: 40%;
     left: 52%;
+    z-index: -1;
 }
 .overlay-locations > a{
     color: #6133AB ;

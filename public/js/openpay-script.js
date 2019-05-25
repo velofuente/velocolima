@@ -8,6 +8,7 @@ var tokenBearer = null;
 var product_id = null;
 //variable para validar si se debe guardar la tarjeta o no
 var checkbox = null;
+var globalDataError = null;
 
 $(document).ready(function() {
     OpenPay.setId('mwykro9vagcgwumpqaxb');
@@ -48,10 +49,50 @@ var sucess_callbak = function(response) {
     console.log("cargo realizado");
 };
 var error_callbak = function(response) {
-    var desc = response.data.description != undefined ? response.data.description : response.message;
-    alert("ERROR [" + response.status + "] " + desc);
+    // response.data.description != undefined ? response.data.description : response.message;
+    // alert("ERROR [" + response.status + "] " + desc);
+    // globalDataError = response.data;
+    var errorMessage = getErrorCodeOP(response.data.error_code);
+    Swal.fire({
+        title: 'Woops!',
+        text: errorMessage,
+        type: 'error',
+        confirmButtonText: 'Aceptar'
+    })
     $("#pay-button").prop("disabled", false);
 };
+
+function getErrorCodeOP(errorCode){
+    switch (errorCode) {
+        case 3001:
+            message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+            break;
+        case 3002:
+            message = "La tarjeta ha expirado.";
+            break;
+        case 3003:
+            message = "La tarjeta no tiene fondos suficientes.";
+            break;
+        case 3006:
+            message = "La operación no esta permitida para este cliente o esta transacción. Contacta a tu banco.";
+            break;
+        case 3007:
+            message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+            break;
+        case 3008:
+            message = "La tarjeta no es soportada en transacciones en línea. Contacta a tu banco.";
+            break;
+        case 3010:
+            message = "El banco ha restringido la tarjeta. Contacta a tu banco.";
+            break;
+        case 3012:
+            message = "Se requiere solicitar al banco autorización para realizar este pago. Contacta a tu banco.";
+            break;
+        default:
+            message = "Tarjeta no válida. Contacta a tu banco.";
+    }
+    return message;
+}
 // Evitar que recargue la página
 // $('#payment-form').on('submit', function(e){
 //     e.preventDefault();

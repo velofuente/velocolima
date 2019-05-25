@@ -40,3 +40,7 @@ hamburger.click(function(){
         $('#myNav').height('0%');
     }
 });
+
+$(document).on("click", ".overlay-content", function() {
+    $('#myNav').height('0%');
+});
