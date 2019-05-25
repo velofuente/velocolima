@@ -82,8 +82,8 @@
                             {{-- <a href =""><img src="/img/iconos/TEL.png" alt="tel" width="110px" height="110px"></a> --}}
                             <img src="/img/iconos/TEL.png" alt="tel" width="110px" height="110px">
                             <h5 class="p-info">CONTÁCTANOS</h5>
-                            <h5>312XXXXXXX</h5>
-                        </a>
+                            <h5>312-XXX-XXXX</h5>
+                        {{-- </a> --}}
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" id="sendEmail">
                         <a href="mailto:rueda@velocycling.com?Subject=Sé%20véloz%20Contacto" target="_top">

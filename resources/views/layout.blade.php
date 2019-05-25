@@ -76,6 +76,7 @@
                 success: function (result) {
                     $.LoadingOverlay("hide");
                     if(result.status == "OK"){
+                        $.LoadingOverlay("hide");
                         console.log(result.status);
                         Swal.fire({
                             title: 'Email Enviado',

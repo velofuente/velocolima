@@ -53,6 +53,7 @@ var error_callbak = function(response) {
     // alert("ERROR [" + response.status + "] " + desc);
     // globalDataError = response.data;
     var errorMessage = getErrorCodeOP(response.data.error_code);
+    console.log(errorMessage);
     Swal.fire({
         title: 'Woops!',
         text: errorMessage,

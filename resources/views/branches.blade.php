@@ -30,8 +30,8 @@
                                 </div>
                             </address>
                         </div>
-                        <div class="btn btn-primary botones_ub_ind">
-                            <a class="btn azul btnubica" href="/reservar/?theidofstore=120973">Reservar</a>
+                        <div class="botones_ub_ind">
+                            <a class="btn azul btnubica" href="/schedule">Reservar</a>
                         </div>
                     </div>
                 </div> --}}

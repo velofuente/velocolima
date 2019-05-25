@@ -32,10 +32,48 @@ $(document).ready(function() {
     // })
 
     var error_callbak = function(response) {
-        var desc = response.data.description != undefined ? response.data.description : response.message;
-        alert("ERROR [" + response.status + "] " + desc);
+        var errorMessage = getErrorCodeOP(response.data.error_code);
+        console.log(errorMessage);
+        Swal.fire({
+            title: 'Woops!',
+            text: errorMessage,
+            type: 'error',
+            confirmButtonText: 'Aceptar'
+        })
         $("#add-card-button").prop("disabled", false);
     };
+
+    function getErrorCodeOP(errorCode){
+        switch (errorCode) {
+            case 3001:
+                message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                break;
+            case 3002:
+                message = "La tarjeta ha expirado.";
+                break;
+            case 3003:
+                message = "La tarjeta no tiene fondos suficientes.";
+                break;
+            case 3006:
+                message = "La operación no esta permitida para este cliente o esta transacción. Contacta a tu banco.";
+                break;
+            case 3007:
+                message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                break;
+            case 3008:
+                message = "La tarjeta no es soportada en transacciones en línea. Contacta a tu banco.";
+                break;
+            case 3010:
+                message = "El banco ha restringido la tarjeta. Contacta a tu banco.";
+                break;
+            case 3012:
+                message = "Se requiere solicitar al banco autorización para realizar este pago. Contacta a tu banco.";
+                break;
+            default:
+                message = "Tarjeta no válida. Contacta a tu banco.";
+        }
+        return message;
+    }
 
     function addCard(){
         tokenBearer = $('#tokenBearer').val();
