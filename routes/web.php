@@ -34,6 +34,8 @@ Route::resource('instructors', 'InstructorController');
 
 Route::get('/schedule', 'InstructorController@schedule');
 
+Route::get('/branches', 'BranchesController@index');
+
 // Route::get('/schedule', function(){
 //     return view ('schedule');
 // });
