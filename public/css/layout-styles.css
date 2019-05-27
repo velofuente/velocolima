@@ -121,7 +121,8 @@ select:focus {outline:0;}
 .home{
     display: inline-block;
     vertical-align: middle;
-    margin-right: 15px;
+    /* margin-right: 15px; */
+    margin-right: 0px;
     line-height: 39px;
     padding-right: 10px;
     z-index: 6;
@@ -129,7 +130,9 @@ select:focus {outline:0;}
 
 .home >a{
     color: black;
-    padding: 0 25px;
+    /* padding: 0 25px; */
+    padding: 0 10px;
+    margin-right: 0px;
     font-size: 33px;
     font-weight: 600;
     letter-spacing: .1rem;
@@ -170,15 +173,55 @@ select:focus {outline:0;}
     border-left: .7px solid #FF0E3B;
     padding: 1.5em 1em;
 }
-.links > a{
+.guestLinks > a{
     color: black;
     padding: 0 15px;
+    /* padding: 0 10px; */
     font-size: 13px;
     font-weight: 600;
     letter-spacing: .1rem;
     text-decoration: none;
     text-transform: uppercase;
     margin-bottom: 1em;
+}
+.links > a{
+    color: black;
+    /* padding: 0 15px; */
+    padding: 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-bottom: 1em;
+}
+
+/* NavBar mobile responsive screen */
+@media screen and (max-width: 600px) {
+    .guestLinks > a{
+        color: black;
+        /* padding: 0 15px; */
+        padding: 0 10px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: .1rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        margin-bottom: 1em;
+    }
+    .authLinks{
+        padding: 0 5px;
+    }
+    .homeIcon {
+        display: none;
+    }
+    .logoNavBar{
+        width: 80px;
+        height: 40px;
+    }
+    .redes-fijas{
+        display: none;
+    }
 }
 
 .account{
@@ -285,7 +328,7 @@ select:focus {outline:0;}
         position: relative;
         top: 7%;
         width: 7%;
-        left: 70%;
+        left: 0%;
     }
 }
 
@@ -821,6 +864,7 @@ select:focus {outline:0;}
     }
 }
 
+/* Lower Resolution */
 @media screen and (max-width: 679px){
     .classes{
         padding: 0 9em;
@@ -872,21 +916,29 @@ select:focus {outline:0;}
      .overlay a {
          font-size: 31px;
      }
+     .mainPage{
+         margin-top: 5em;
+     }
      .icon{
          position:absolute;
          top: 10%;
          left: -15%;
          z-index: 1;
-         width: 350px;
-         height: 340px;
+         width: 210px;
+         height: 200px;
+         /* width: 350px;
+         height: 340px; */
      }
      .veloBrand{
          position:absolute;
-         top: 49%;
-         left: 37%;
+         /* top: 49%; */
+         top: 24%;
+         left: 40%;
          z-index: 1;
-         width: 180px;
-         height: 90px;
+         width: 90px;
+         height: 45px;
+         /* width: 180px;
+         height: 90px; */
      }
      .music{
          position:absolute;
@@ -915,9 +967,14 @@ select:focus {outline:0;}
     }
     .overlay-content {
         position: relative;
-        top: 10%;
+        top: 15%;
         width: 20%;
-        left: 75%;
+        left: 31%;
+        text-align: center;
+    }
+    .overlay-content > a {
+        font-size: 30px;
+        text-align: center;
     }
     .overlay-locations {
         bottom: 20%;
@@ -936,12 +993,9 @@ select:focus {outline:0;}
         font-size: 18px;
     }
 
-    .overlay-content > a {
-      font-size: 15px;
-    }
 }
 
-@media screen and (max-width: 501px) and (max-height: 677){
+/* @media screen and (max-width: 501px) and (max-height: 677){
     .classes{
         padding: 0 9em;
         margin-bottom: 20px;
@@ -992,7 +1046,7 @@ select:focus {outline:0;}
      .overlay a {
          font-size: 31px;
      }
-     /* homepage icons*/
+
      .icon{
          position:absolute;
          top: 10%;
@@ -1025,9 +1079,9 @@ select:focus {outline:0;}
          width:20px;
          height:20px;
      }
-}
+} */
 
-@media screen and (max-width: 401px){
+/* @media screen and (max-width: 401px){
     .classes{
         padding: 0 9em;
         margin-bottom: 20px;
@@ -1078,7 +1132,7 @@ select:focus {outline:0;}
      .overlay a {
          font-size: 31px;
      }
-     /* homepage icons*/
+
      .icon{
          position:absolute;
          top: 10%;
@@ -1121,7 +1175,14 @@ select:focus {outline:0;}
         right: 0%;
         top: 33%;
     }
-}
+
+    .overlay-content > a {
+        text-align: center;
+        font-size: 28px;
+        left: 30%;
+        align-items: center;
+    }
+} */
 
 #btnLog{
     color: whitesmoke;

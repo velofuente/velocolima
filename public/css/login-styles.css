@@ -51,8 +51,8 @@ body{
     margin-bottom: 1em;
 }
 #welcomeLogo {
-    width: 5%;
-    height: 5%;
+    width: 6%;
+    height: 6%;
 }
 
 .forgot-password, .register-account {
@@ -85,4 +85,34 @@ body{
 
 #submitButton:hover {
     background-position: right center;
+}
+
+@media screen and (max-width: 600px){
+    .loginContainer{
+        margin-top: 6.5em;
+    }
+    #submitButton{
+        padding: .4em 3.5em;
+    }
+
+    #welcomeLogo {
+        top: 1em;
+        width: 12%;
+        height: 12%;
+    }
+}
+
+@media screen and (max-width: 990px){
+    .loginContainer{
+        margin-top: 6.5em;
+    }
+    #submitButton{
+        padding: .4em 4em;
+    }
+
+    #welcomeLogo {
+        top: 1em;
+        width: 10%;
+        height: 10%;
+    }
 }

@@ -19,16 +19,16 @@
 <div class="gradient"></div>
 <nav class="navbar container-fluid" id="nav">
     <div class="home">
-        <a class="navbar-brand " href="{{ url('/') }}"><img src="/img/iconos/HOME.png" alt="logo" width="35px" height="35px"></a>
-        <a class="navbar-brand hicon" href="{{ url('/') }}"><img src="/img/iconos/LOGO.png" alt="logo" width="100px" height="50px"></a>
+        <a class="navbar-brand homeIcon" href="{{ url('/') }}"><img src="/img/iconos/HOME.png" alt="logo" width="35px" height="35px"></a>
+        <a class="navbar-brand hicon" href="{{ url('/') }}"><img src="/img/iconos/LOGO.png" class="logoNavBar" alt="logo" width="100px" height="50px"></a>
     </div>
     @guest
-    <div class="links">
+    <div class="links guestLinks">
         <a href="{{ route('login') }}"><img src="/img/iconos/USUARIO.png" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Ingresar"></a>
     </div>
     @endguest
     @auth
-    <div class="links">
+    <div class="links authLinks">
             <a href="{{ url('/user') }}"><img src="/img/iconos/USUARIO.png" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Mi Cuenta"></a>
         <a class="" href="{{ route('logout') }}"
             onclick="event.preventDefault();

@@ -19,6 +19,7 @@
         $('#buttonFormResponse').on('click', function(event) {
             event.preventDefault();
             formResponse();
+            $("#buttonFormResponse").attr("disabled", true);
             // $("#buttonFormResponse").prop( "disabled", true);
         });
         function formResponse(){
@@ -33,7 +34,11 @@
                      phone: $('#phone').val(),
                      instagram: $('#instagram').val()
                 },
+                beforeSend: function(){
+                    $.LoadingOverlay("show");
+                },
                 success: function (result) {
+                    $.LoadingOverlay("hide");
                     if(result.status == "OK"){
                         console.log(result.status);
                         Swal.fire({
@@ -43,12 +48,14 @@
                             confirmButtonText: 'Aceptar'
                         })
                     } else {
+                        $.LoadingOverlay("hide");
                         Swal.fire({
                             title: 'Error',
                             text: result.message,
                             type: 'warning',
                             confirmButtonText: 'Aceptar'
                         })
+                        $("#buttonFormResponse").attr("disabled", true);
                     }
                 },
                 error: function() {

@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="container registerContainer">
     <div class="register row justify-content-center">
         <div class="col-md-8">
             <div>
@@ -26,13 +26,14 @@
                 <div class="mx-auto" id="welcomeMessage">Bienvenido a <img src="{{asset('img/iconos/CroppedLogo.png')}}" id="welcomeLogo"></div>
                 <div class="mx-auto" id="firstClassFree"> ¡Tu primer clase será gratis al registrarte!</div>
 
-                <div class="card-body">
+                <div class="card-body pt-0">
                     <form method="POST" action="{{ route('register') }}" class="registration">
                         @csrf
 
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <label for="name"> </label>
                                 <input id="name" type="text" placeholder="Nombre(s)" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus >
                                 {{-- <ul class="input-requirements">
                                     <li id="nameError1">Mínimo 3 caracteres</li>

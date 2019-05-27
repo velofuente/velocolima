@@ -10,7 +10,7 @@
 
 @section('content')
 <body>
-    <div class="container" id="mainDiv">
+    <div class="container loginContainer" id="mainDiv">
         <div class="login row justify-content-center">
             <div class="col-md-8">
                 <div>

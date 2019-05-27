@@ -82,6 +82,16 @@
     margin: 2em 0;
 }
 
+.text_gradient{
+    font-family: 'Avenir Next';
+    font-size: 70px;
+    font-weight: 250;
+    /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
+    background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .closeBtn{
     font-family: 'Avenir Next' !important;
     font-size: 14px;
@@ -107,3 +117,15 @@
     font-size: 1.5em;
     font-weight: bold;
 }*/
+
+@media screen and (max-width: 600px){
+    .text_gradient{
+        font-family: 'Avenir Next';
+        font-size: 40px;
+        font-weight: 250;
+        /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
+        background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}

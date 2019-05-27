@@ -139,3 +139,18 @@ input:not([type="submit"]):active + .input-requirements {
 	padding-left: 10px;
 }
 /* End Input Requirements List */
+
+@media screen and (max-width: 600px){
+    .registerContainer{
+        margin-top: 6.5em;
+    }
+    #submitButton{
+        padding: .6em 3em;
+    }
+
+    #welcomeLogo {
+        top: 1em;
+        width: 12%;
+        height: 12%;
+    }
+}

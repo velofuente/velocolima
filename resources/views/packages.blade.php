@@ -1,9 +1,10 @@
 <div id="packages" class="packages container-fluid">
     <div class="description">
-        <img class="buyClass" src="/img/iconos/1.png" alt="">
-        {{-- <h1 class="text-center"> Comprar Clases</h1> --}}
+        {{-- <img class="buyClass" src="/img/iconos/1.png" alt="Comprar Clases"> --}}
+        <span class="text-center text_gradient"> Comprar Clases </span>
     </div>
-    <div class="row classes">
+    {{-- <div class="row justify-content-center classes"> --}}
+    <div class="row justify-content-center classes">
         @php
             $firstClassId = 1;
         @endphp
@@ -24,8 +25,8 @@
         @foreach ($products as $product)
             @if ($product != $products{0} && $product->type != "Deals" && $product->status == 1)
                 {{-- {{dd($product)}} --}}
-                <div class="content-normal col col-sm col-md col-lg pickClass" style=" padding: 0;" id="prod-{{$product->id}}">
-                    <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter">
+                <div class="content-normal col-xs-4 col-sm-4 col-md-2 col-lg-2 pickClass" style=" padding: 0;" id="prod-{{$product->id}}">
+                    <div id="content-normal" class=" px-4 content-n" data-toggle="modal" data-target="#exampleModalCenter">
                     {{-- <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('{{ $product->n_classes }}')" class="pickClass"> --}}
                         <h3 id="amount{{$amount}}">{{$product->n_classes}}</h3>
                         @if ($flag)

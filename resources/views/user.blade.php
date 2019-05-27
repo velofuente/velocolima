@@ -504,7 +504,7 @@
                                             <option value="28">2028</option>
                                             <option value="29">2029</option>
                                         </select>
-                                    <input class="dataRow" type="text" name="" id="Code" placeholder="CVV" maxlength="3" data-openpay-card="cvv2">
+                                    <input class="dataRow" type="text" name="" id="Code" placeholder="CVV" maxlength="4" data-openpay-card="cvv2">
                                 </div>
                             </form>
                     </div>
@@ -591,4 +591,33 @@
 @section('extraScripts')
     <script src="{{ asset('/js/user-script.js') }}"></script>
     <script>var crfsToken = '{{ csrf_token() }}';</script>
+    <script>
+        // Select the Phone Input.
+        var phoneInput = document.getElementById('phone');
+        var cardNumberInput = document.getElementById('cardNumber');
+        var cvvInput = document.getElementById('Code');
+
+        // Lock the input only to numbers.
+        phoneInput.onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+            || (e.keyCode > 47 && e.keyCode < 58)
+            || e.keyCode == 8 || e.keyCode == 9)) {
+                return false;
+            }
+        }
+        cardNumberInput.onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+            || (e.keyCode > 47 && e.keyCode < 58)
+            || e.keyCode == 8 || e.keyCode == 9)) {
+                return false;
+            }
+        }
+        cvvInput.onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+            || (e.keyCode > 47 && e.keyCode < 58)
+            || e.keyCode == 8 || e.keyCode == 9)) {
+                return false;
+            }
+        }
+    </script>
 @endsection
