@@ -33,8 +33,8 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
-                                <label for="name"> </label>
-                                <input id="name" type="text" placeholder="Nombre(s)" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required >
+                                <label for="name" class="mr-sm-2">Nombre:</label>
+                                <input id="name" type="text" placeholder="Nombre(s)" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus >
                                 {{-- <ul class="input-requirements">
                                     <li id="nameError1">Mínimo 3 caracteres</li>
                                     <li id="nameError2">Solamente números y letras (no caracteres especiales)</li>
@@ -51,7 +51,8 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
-                                <input id="last_name" placeholder="Apellido(s)" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required >
+                                    <label for="name" class="mr-sm-2">Apellido(s):</label>
+                                <input id="last_name" placeholder="Apellido(s)" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required autofocus>
                                 {{-- <ul class="input-requirements">
                                     <li id="lastNameError1">Mínimo 3 caracteres</li>
                                     <li id="lastNameError2">Solamente números y letras (no caracteres especiales)</li>
@@ -68,6 +69,7 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <label for="name" class="mr-sm-2">E-Mail:</label>
                                 <input id="email" placeholder="E-Mail" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
@@ -81,6 +83,7 @@
                         <div class="form-group row">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <label for="name" class="mr-sm-2">Contraseña:</label>
                                 <input id="password" placeholder="Contraseña" minlength="7" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
                                 <ul class="input-requirements">
                                     <li id="passwordError1">Mínimo 7 caracteres (máximo 100 caracteres)</li>
@@ -100,6 +103,7 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <label for="name" class="mr-sm-2">Confirmar Contraseña:</label>
                                 <input id="password-confirm" placeholder="Confirmar Contraseña" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
@@ -108,6 +112,7 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <label for="name" class="mr-sm-2">Fecha de Nacimiento:</label>
                                 <div class="input-group">
                                     <input id="birth_date" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required >
                                     @if ($errors->has('birth_date'))
@@ -132,7 +137,8 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
-                                <select class="form-control" id="gender" name="gender" placeholder="Sexo" value="Sexo" required >
+                                <label for="name" class="mr-sm-2">Sexo:</label>
+                                <select class="form-control" id="gender" name="gender" placeholder="Sexo" value="{{ old('gender') }}" required autofocus>
                                     <option disabled selected hidden>Sexo</option>
                                     <option>Hombre</option>
                                     <option>Mujer</option>
@@ -149,7 +155,8 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
-                                <input id="phone" placeholder="Teléfono" type="number" min="0" minlength="10" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required >
+                                <label for="name" class="mr-sm-2">Teléfono:</label>
+                                <input id="phone" placeholder="Teléfono" type="number" min="0" minlength="10" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus>
                                 @if ($errors->has('phone'))
                                     <span class="invalid-feedback" style="display: block !important" role="alert">
                                         <strong>{{ $errors->first('phone') }}</strong>
@@ -162,6 +169,7 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                    <label for="name" class="mr-sm-2">Talla de Calzado:</label>
                                 <div class="input-group">
                                     <input id="shoe_size" placeholder="Talla de Calzado" type="text" class="form-control{{ $errors->has('shoe_size') ? ' is-invalid' : '' }}" name="shoe_size" value="{{ old('shoe_size') }}" required >
                                     <div class="input-group-append">
@@ -219,5 +227,14 @@
                 return false;
             }
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            const genderOldValue = '{{ old('gender') }}';
+            
+            if(genderOldValue !== '') {
+            $('#gender').val(genderOldValue);
+            }
+        });
     </script>
 @endsection
