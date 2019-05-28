@@ -21,6 +21,17 @@
 #goBack:hover{
     background-color: #5dd4dc;
 }*/
+
+.text_gradient_bike_selection{
+    font-family: 'Avenir Next' !important;
+    font-size: 70px;
+    font-weight: 250;
+    /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
+    background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 #goBack{
     font-family: 'Avenir Next' !important;
     font-size: 1.1em;
@@ -108,7 +119,40 @@
 
 @media screen and (max-width: 600px) {
     .main-bikes{
-        margin: 2em 4% 0em 4%;
+        margin: 2em 4% 0em 4% !important;
+    }
+    #placeDate{
+        margin-top: .3em;
+        padding-left: 0px;
+    }
+    .text_gradient_bike_selection{
+        font-family: 'Avenir Next' !important;
+        font-size: 43px !important;
+        font-weight: 250 !important;
+        /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
+        background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+    }
+    #selectBikeLogo{
+        display: none;
+    }
+    #goBack{
+        display: block;
+        font-family: 'Avenir Next' !important;
+        font-size: 1.1em !important;
+        text-decoration: none;
+        color: #FFF;
+        text-align: center;
+        transition: 0.2s;
+        border-radius: 120px;
+        background-size: 200% auto;
+        border-style: none;
+        padding: .4em 3em;
+        background-image: linear-gradient(0.25turn, #fd0d3dc7 0%, #9000ffd3 51%, #fd0d3dc7 100%);
+    }
+    #goBack:hover{
+        background-position: right center;
     }
 }
 

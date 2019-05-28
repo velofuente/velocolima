@@ -3,7 +3,7 @@
         {{-- <img class="buyClass" src="/img/iconos/1.png" alt="Comprar Clases"> --}}
         <span class="text-center text_gradient"> Comprar Clases </span>
     </div>
-    {{-- <div class="row justify-content-center classes"> --}}
+    <div class="row justify-content-center classes">
         @php
             $firstClassId = 1;
         @endphp
@@ -35,7 +35,7 @@
                             <h4 class="class">CLASES</h4>
                         @endif
                         <p class="precio" style="font-size: 17px; font-family: 'Avenir Next Condensed'; font-weight: 300;">${{$product->price}}</p>
-                        <p class="exp" style="font-size: 17px; font-weight: bold;">Expira: {{$product->expiration_days}} días</p>
+                        <p class="exp" style="font-size: 17px;">Expira: {{$product->expiration_days}} días</p>
                         {{-- <input type="hidden" name="product_id" id="product_id" value="{{$product->id}}"> --}}
                     </div>
                 </div>
@@ -145,5 +145,5 @@
         </div>
         </div>
         @endauth
-    {{-- </div> --}}
+    </div>
 </div>

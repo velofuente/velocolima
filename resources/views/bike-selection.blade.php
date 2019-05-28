@@ -17,20 +17,21 @@
             <a href="/schedule" id="goBack">Volver al calendario</a>
             <input type="hidden" id="schedule_id" value="{{$schedules->id}}">
                 <div class="row">
-                    <div class="col-6 bnd">
+                    <div class="col-md-6 col-xs-6 bnd" id="placeDate">
                         <?php setlocale(LC_TIME,'es_MX.utf8'); $dt = Carbon::now(); $inicio = strftime("%A %d de %B,", strtotime($schedules->day));?>
                         <h6 class="first" id="branch">ESTUDIO: <span>{{$schedules->room->branch->name}}</span></h6>
                         <h6 class="first" id="date"> FECHA: <span>{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i', strtotime($schedules->hour))}} </span></h6>
                     </div>
-                    <div class="col-2"></div>
-                    <div class="col">
+                    <div class="col-2 col-xs-6"></div>
+                    <div class="col col-xs-0" id="selectBikeLogo">
                         <h5 class="ent">Selecciona tu bici y entra a
-                                <img class="cropLogo" src="/img/iconos/CroppedLogo.png" alt="">
+                            <img class="cropLogo" src="/img/iconos/CroppedLogo.png" alt="">
                         </h5>
                     </div>
                 </div>
             <div class="description">
-                <img class="resClass" src="/img/iconos/2.png" alt="">
+                {{-- <img class="resClass" src="/img/iconos/2.png" alt=""> --}}
+                <span class="text-center text_gradient_bike_selection"> Reserva tu Clase </span>
             </div>
             <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" alt="">
         </div>

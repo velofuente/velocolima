@@ -83,7 +83,7 @@
 }
 
 .text_gradient{
-    font-family: 'Avenir Next';
+    font-family: 'Avenir Next' !important;
     font-size: 70px;
     font-weight: 250;
     /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */

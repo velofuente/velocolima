@@ -196,6 +196,12 @@ select:focus {outline:0;}
     margin-bottom: 1em;
 }
 
+/* Safari
+@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0)
+{
+
+} */
+
 /* NavBar mobile responsive screen */
 @media screen and (max-width: 600px) {
     #nav{
@@ -1200,8 +1206,8 @@ select:focus {outline:0;}
     color: #FF0E3B;
     margin-top: 9em;
     text-align: center;
-
 }
+
 .info-footer2{
 
     text-align: center;

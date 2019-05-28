@@ -28,7 +28,7 @@ function drawMainBikes(){
             console.log(j);
         }
         console.log(i);
-        
+
         bikesContainer.append(divr);
         // firstChar = nextChar(firstChar);
         // tbody.append(trow);
