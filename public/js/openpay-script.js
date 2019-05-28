@@ -1,5 +1,5 @@
 //variable que crear openpay
-var deviceSessionId = null;
+var device_session_id = null;
 //solo se crea cuando hay una respuesta success
 var token_id = null;
 //token de usuario autenticado

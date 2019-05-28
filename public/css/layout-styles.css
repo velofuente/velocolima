@@ -12,16 +12,16 @@
     src: url("fonts/AvenirNextLTPro-BoldCn.otf")format("opentype");
 }
 @font-face{
-    font-family: "AvenirNextLTPro BoldCnit";
-    src: url("fonts/AvenirNextLTPro-BoldCnIt.otf")format("opentype");
+    font-family: "AvenirNextLTPro BoldCnlt";
+    src: url("fonts/AvenirNextLTPro-BoldCnlt.otf")format("opentype");
 }
 @font-face{
     font-family: "AvenirNextLTPro Cn";
     src: url("fonts/AvenirNextLTPro-Cn.otf")format("opentype");
 }
 @font-face{
-    font-family: "AvenirNextLTPro Cnit";
-    src: url("fonts/AvenirNextLTPro-CnIt.otf")format("opentype");
+    font-family: "AvenirNextLTPro Cnlt";
+    src: url("fonts/AvenirNextLTPro-Cnlt.otf")format("opentype");
 }
 @font-face{
     font-family: "AvenirNextLTPro Demi";
@@ -32,8 +32,8 @@
     src: url("fonts/AvenirNextLTPro-DemiCn.otf")format("opentype");
 }
 @font-face{
-    font-family: "AvenirNextLTPro DemiCnIt";
-    src: url("fonts/AvenirNextLTPro-DemiCnIt.otf")format("opentype");
+    font-family: "AvenirNextLTPro DemiCnlt";
+    src: url("fonts/AvenirNextLTPro-DemiCnlt.otf")format("opentype");
 }
 @font-face{
     font-family: "AvenirNextLTPro DemiIt";
@@ -44,8 +44,8 @@
     src: url("fonts/AvenirNextLTPro-HeavyCn.otf")format("opentype");
 }
 @font-face{
-    font-family: "AvenirNextLTPro HeavyCnIt";
-    src: url("fonts/AvenirNextLTPro-HeavyCnIt.otf")format("opentype");
+    font-family: "AvenirNextLTPro HeavyCnlt";
+    src: url("fonts/AvenirNextLTPro-HeavyCnlt.otf")format("opentype");
 }
 @font-face{
     font-family: "AvenirNextLTPro It";
@@ -56,8 +56,8 @@
     src: url("fonts/AvenirNextLTPro-MediumCn.otf")format("opentype");
 }
 @font-face{
-    font-family: "AvenirNextLTPro MediumCnit";
-    src: url("fonts/AvenirNextLTPro-MediumCnIt.otf")format("opentype");
+    font-family: "AvenirNextLTPro MediumCnlt";
+    src: url("fonts/AvenirNextLTPro-MediumCnlt.otf")format("opentype");
 }
 @font-face{
     font-family: "AvenirNextLTPro Regular";
@@ -68,8 +68,8 @@
     src: url("fonts/AvenirNextLTPro-UltLtCn.otf")format("opentype");
 }
 @font-face{
-    font-family: "AvenirNextLTPro UltLtCnIt";
-    src: url("fonts/AvenirNextLTPro-UltLtCnIt.otf")format("opentype");
+    font-family: "AvenirNextLTPro UltLtCnlt";
+    src: url("fonts/AvenirNextLTPro-UltLtCnlt.otf")format("opentype");
 }
 /* whole html */
 html, body {
@@ -229,9 +229,9 @@ select:focus {outline:0;}
         width: 80px;
         height: 40px;
     }
-    .redes-fijas{
+    /* .redes-fijas{
         display: none;
-    }
+    } */
 }
 
 .account{
@@ -396,8 +396,9 @@ select:focus {outline:0;}
 
 /* body css */
 .mainPage{
-    margin-top: 1em;
+    /* margin-top: 1em; */
     cursor: pointer;
+    /* margin-top: 5em; */
 }
 .fa-sign-out-alt{
     color: #FF0E3B;
@@ -406,7 +407,7 @@ select:focus {outline:0;}
     position:absolute;
     top: 10%;
     left: -15%;
-    z-index: 1;
+    /* z-index: 1; */
     width: 900px;
     height: 950px;
 }
@@ -414,7 +415,7 @@ select:focus {outline:0;}
     position:absolute;
     top: 47%;
     left: 37%;
-    z-index: 1;
+    /* z-index: 1; */
     width: 590px;
     height: 340px;
 }
@@ -444,7 +445,7 @@ select:focus {outline:0;}
 .packages{
     padding-top: 3em;
     padding-left: 2em;
-    margin-top: 6em;
+    /* margin-top: 6em; */
 }
 
 .description{
@@ -459,7 +460,7 @@ select:focus {outline:0;}
     margin: 30px auto 0;
     text-align: center;
     margin-bottom: 100px;
-    padding: 0 21em;
+    padding: 0 5em;
 }
 
 .content-normal{
@@ -495,7 +496,7 @@ select:focus {outline:0;}
 #content-normal:hover{
     background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
     color: white;
-    border: none;
+    border: solid 1px transparent;
     transition: 0.5s;
 }
 
@@ -549,7 +550,7 @@ select:focus {outline:0;}
         position:absolute;
         top: 10%;
         left: -15%;
-        z-index: 1;
+        /* z-index: 1; */
         width: 780px;
         height: 740px;
     }
@@ -557,7 +558,7 @@ select:focus {outline:0;}
         position:absolute;
         top: 45%;
         left: 37%;
-        z-index: 1;
+        /* z-index: 1; */
         width: 520px;
         height: 250px;
     }
@@ -587,14 +588,14 @@ select:focus {outline:0;}
         width:390px;
         height:40px;
     }
-    #first-class{
+    /* #first-class{
         width: 150px;
         height: 260px;
     }
     #content-normal{
         width: 150px;
         height: 260px;
-    }
+    } */
     .bicImg{
         width:90px;
         height:130px;
@@ -629,7 +630,7 @@ select:focus {outline:0;}
         position:absolute;
         top: 10%;
         left: -15%;
-        z-index: 1;
+        /* z-index: 1; */
         width: 670px;
         height: 650px;
     }
@@ -637,7 +638,7 @@ select:focus {outline:0;}
         position:absolute;
         top: 47%;
         left: 37%;
-        z-index: 1;
+        /* z-index: 1; */
         width: 370px;
         height: 190px;
     }
@@ -671,7 +672,7 @@ select:focus {outline:0;}
         width:390px;
         height:40px;
     }
-    #first-class{
+    /* #first-class{
         width: 120px !important;
         height: 200px !important;
         padding-top: 0;
@@ -682,12 +683,12 @@ select:focus {outline:0;}
         height: 190px !important;
         padding-top: 0;
         padding-bottom: 10px !important;
-    }
+    } */
     .icon{
         position:absolute;
         top: 10%;
         left: -15%;
-        z-index: 1;
+        /* z-index: 1; */
         width: 520px;
         height: 560px;
     }
@@ -695,7 +696,7 @@ select:focus {outline:0;}
         position:absolute;
         top: 43%;
         left: 37%;
-        z-index: 1;
+        /* z-index: 1; */
         width: 300px;
         height: 140px;
     }
@@ -750,7 +751,7 @@ select:focus {outline:0;}
         width:390px;
         height:40px;
     }
-    #first-class{
+    /* #first-class{
         width: 100px !important;
         height: 180px !important;
         padding-top: 0;
@@ -761,12 +762,12 @@ select:focus {outline:0;}
         height: 180px !important;
         padding-top: 0;
         padding-bottom: 20px !important;
-    }
+    } */
     .icon{
         position:absolute;
         top: 10%;
         left: -15%;
-        z-index: 1;
+        /* z-index: 1; */
         width: 450px ;
         height: 550px ;
     }
@@ -774,7 +775,7 @@ select:focus {outline:0;}
         position:absolute;
         top: 43%;
         left: 37%;
-        z-index: 1;
+        /* z-index: 1; */
         width: 270px ;
         height: 135px ;
     }
@@ -828,7 +829,7 @@ select:focus {outline:0;}
         width:390px;
         height:40px;
     }
-    #first-class{
+    /* #first-class{
         width: 100px !important;
         height: 180px !important;
         padding-top: 0;
@@ -839,12 +840,12 @@ select:focus {outline:0;}
         height: 180px !important;
         padding-top: 0;
         padding-bottom: 20px !important;
-    }
+    } */
     .icon{
         position:absolute;
         top: 10%;
         left: -15%;
-        z-index: 1;
+        /* z-index: 1; */
         width: 450px;
         height: 450px;
     }
@@ -852,7 +853,7 @@ select:focus {outline:0;}
         position:absolute;
         top: 43%;
         left: 37%;
-        z-index: 1;
+        /* z-index: 1; */
         width: 220px;
         height: 110px;
     }
@@ -888,14 +889,14 @@ select:focus {outline:0;}
          width:390px;
          height:40px;
      }
-     #first-class{
+     /* #first-class{
          width: 130px;
          height: 170px;
      }
      #content-normal{
          width: 130px;
          height: 170px;
-     }
+     } */
      .bicImg{
          width:90px;
          height:130px;
@@ -926,14 +927,12 @@ select:focus {outline:0;}
      .overlay a {
          font-size: 31px;
      }
-     .mainPage{
-         margin-top: 5em;
-     }
+
      .icon{
          position:absolute;
          top: 10%;
          left: -15%;
-         z-index: 1;
+         /* z-index: 1; */
          width: 210px;
          height: 200px;
          /* width: 350px;
@@ -944,7 +943,7 @@ select:focus {outline:0;}
          /* top: 49%; */
          top: 24%;
          left: 40%;
-         z-index: 1;
+         /* z-index: 1; */
          width: 90px;
          height: 45px;
          /* width: 180px;
@@ -971,10 +970,10 @@ select:focus {outline:0;}
         width:35px;
         height:35px;
     }
-    .redes-fijas {
+    /* .redes-fijas {
         right: 0%;
         top: 33%;
-    }
+    } */
     .overlay-content {
         position: relative;
         top: 15%;
@@ -1294,11 +1293,11 @@ select{
 }
 
 .register{
-    margin-top: 6em;
+    /* margin-top: 6em; */
 }
 
 .login{
-    margin-top: 6em;
+    /* margin-top: 6em; */
 }
 
 .navbar-toggler-icon{

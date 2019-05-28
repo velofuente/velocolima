@@ -3,20 +3,20 @@
     src: url("css/fonts/velo/AvenirNextCondensed-Bold.ttf");
     src: url("css/fonts/velo/AvenirNextLTPro-Bold.otf") format("opentype");
     src: url("css/fonts/velo/AvenirNextLTPro-BoldCn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-BoldCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-BoldCnlt.otf") format("opentype");
     src: url("css/fonts/velo/AvenirNextLTPro-Cn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-CnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-Cnlt.otf") format("opentype");
     src: url("css/fonts/velo/AvenirNextLTPro-Demi.otf") format("opentype");
     src: url("css/fonts/velo/AvenirNextLTPro-DemiCn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-DemiCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-DemiCnlt.otf") format("opentype");
     src: url("css/fonts/velo/AvenirNextLTPro-HeavyCn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCnlt.otf") format("opentype");
     src: url("css/fonts/velo/AvenirNextLTPro-It.otf") format("opentype");
     src: url("css/fonts/velo/AvenirNextLTPro-MediumCn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-MediumCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-MediumCnlt.otf") format("opentype");
     src: url("css/fonts/velo/AvenirNextLTPro-Regular.otf") format("opentype");
     src: url("css/fonts/velo/AvenirNextLTPro-UltLtCn.oto") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCnIt.otf") format("opentype");
+    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCnlt.otf") format("opentype");
 }
 
 body{
@@ -141,9 +141,9 @@ input:not([type="submit"]):active + .input-requirements {
 /* End Input Requirements List */
 
 @media screen and (max-width: 600px){
-    .registerContainer{
+    /* .registerContainer{
         margin-top: 6.5em;
-    }
+    } */
     #submitButton{
         padding: .6em 3em;
     }
