@@ -8,7 +8,7 @@
 @endsection
 @section('content')
     {{-- Content --}}
-    <div class="container-fluid margin-topMain pt-3">
+    <div class="container-fluid pt-3">
         <!-- Section for the General Info of the Instructor -->
         <div class="row mx-4">
             @foreach ($branches as $branch)

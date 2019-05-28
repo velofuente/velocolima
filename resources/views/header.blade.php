@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="{{asset('css/packages.css')}}">
     <style>
         .mainContainer, .overlay-content {
-            top: 17%;
+            /* top: 17%; */
+            padding-top: 6em;
         }
     </style>
     @yield('extraStyles')

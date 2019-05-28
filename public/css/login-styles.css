@@ -26,9 +26,9 @@ body{
     color: #FFF;
 }
 
-/* .login {
-    margin-top: 19%;
-} */
+.login {
+    margin-top: 3%;
+}
 
 #loginTitle {
     font-size: 23px;

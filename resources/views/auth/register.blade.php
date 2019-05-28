@@ -34,7 +34,7 @@
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
                                 <label for="name"> </label>
-                                <input id="name" type="text" placeholder="Nombre(s)" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus >
+                                <input id="name" type="text" placeholder="Nombre(s)" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required >
                                 {{-- <ul class="input-requirements">
                                     <li id="nameError1">Mínimo 3 caracteres</li>
                                     <li id="nameError2">Solamente números y letras (no caracteres especiales)</li>
@@ -51,7 +51,7 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
-                                <input id="last_name" placeholder="Apellido(s)" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required autofocus>
+                                <input id="last_name" placeholder="Apellido(s)" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required >
                                 {{-- <ul class="input-requirements">
                                     <li id="lastNameError1">Mínimo 3 caracteres</li>
                                     <li id="lastNameError2">Solamente números y letras (no caracteres especiales)</li>
@@ -109,7 +109,7 @@
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
                                 <div class="input-group">
-                                    <input id="birth_date" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required autofocus>
+                                    <input id="birth_date" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required >
                                     @if ($errors->has('birth_date'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('birth_date') }}</strong>
@@ -124,15 +124,15 @@
                         </div>
 
                         {{-- Input Phone --}}
-                        {{-- <input type="hidden" placeholder="Teléfono"  name="phone" value="3121234567" maxlength="15" required autofocus> --}}
+                        {{-- <input type="hidden" placeholder="Teléfono"  name="phone" value="3121234567" maxlength="15" required > --}}
                         {{-- Input Weight --}}
-                        {{-- <input type="hidden" id="weight" name="weight" value="86.5" required autofocus> --}}
+                        {{-- <input type="hidden" id="weight" name="weight" value="86.5" required > --}}
                         {{-- Input Height --}}
-                        <input type="hidden" id="height" name="height" value="186" required autofocus>
+                        <input type="hidden" id="height" name="height" value="186" required >
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
-                                <select class="form-control" id="gender" name="gender" placeholder="Sexo" value="Sexo" required autofocus>
+                                <select class="form-control" id="gender" name="gender" placeholder="Sexo" value="Sexo" required >
                                     <option disabled selected hidden>Sexo</option>
                                     <option>Hombre</option>
                                     <option>Mujer</option>
@@ -149,7 +149,7 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
-                                <input id="phone" placeholder="Teléfono" type="number" min="0" minlength="10" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus>
+                                <input id="phone" placeholder="Teléfono" type="number" min="0" minlength="10" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required >
                                 @if ($errors->has('phone'))
                                     <span class="invalid-feedback" style="display: block !important" role="alert">
                                         <strong>{{ $errors->first('phone') }}</strong>
@@ -163,7 +163,7 @@
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
                                 <div class="input-group">
-                                    <input id="shoe_size" placeholder="Talla de Calzado" type="text" class="form-control{{ $errors->has('shoe_size') ? ' is-invalid' : '' }}" name="shoe_size" value="{{ old('shoe_size') }}" required autofocus>
+                                    <input id="shoe_size" placeholder="Talla de Calzado" type="text" class="form-control{{ $errors->has('shoe_size') ? ' is-invalid' : '' }}" name="shoe_size" value="{{ old('shoe_size') }}" required >
                                     <div class="input-group-append">
                                         <span class="input-group-text text-secondary bg-white">cm</span>
                                     </div>
