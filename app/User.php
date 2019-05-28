@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Notifications\MyResetPassword;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -45,6 +46,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne('App\VerifyUser');
     }
 
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new MyResetPassword($token));
+    }
     // public function schedules(){
     //     return $this->belongsToMany(User::class)->;
     // }

@@ -4,7 +4,7 @@
 <div class="container" class="main_div">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card bg-dark pt-5">
+            <div class="card bg-dark pt-8">
                 <div class="card-header">{{ __('Cambiar Contraseña') }}</div>
 
                 <div class="card-body bg-dark">
@@ -17,7 +17,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">Email:</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} bg-dark" name="email" value="{{ $email ?? old('email') }}" required autofocus>
+                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} bg-white text-dark" name="email" value="{{ $email ?? old('email') }} bg-white text-dark" required autofocus>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
@@ -31,7 +31,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">Contraseña:</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} bg-dark" name="password" required>
+                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} bg-white text-dark" name="password" required>
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
@@ -45,7 +45,7 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirmar contraseña</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control bg-dark" name="password_confirmation" required>
+                                <input id="password-confirm" type="password" class="form-control bg-white text-dark" name="password_confirmation" required>
                             </div>
                         </div>
 
