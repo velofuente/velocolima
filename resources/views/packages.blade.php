@@ -4,7 +4,6 @@
         <span class="text-center text_gradient"> Comprar Clases </span>
     </div>
     {{-- <div class="row justify-content-center classes"> --}}
-    <div class="row justify-content-center classes">
         @php
             $firstClassId = 1;
         @endphp
@@ -146,5 +145,5 @@
         </div>
         </div>
         @endauth
-    </div>
+    {{-- </div> --}}
 </div>

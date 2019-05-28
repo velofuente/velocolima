@@ -198,6 +198,10 @@ select:focus {outline:0;}
 
 /* NavBar mobile responsive screen */
 @media screen and (max-width: 600px) {
+    #nav{
+        padding: 0px 1em;
+        /* height: 14%; */
+    }
     .guestLinks > a{
         color: black;
         /* padding: 0 15px; */
