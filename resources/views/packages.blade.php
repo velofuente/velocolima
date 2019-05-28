@@ -61,7 +61,7 @@
                         <p id="oName">Ingresa a tu Cuenta</p>
                     </div>
                     <div class="col-7">
-                        <a id="btnLog" href="{{ route('login') }}" class="button">INICIAR SESIÓN</a>
+                        <a id="btnLog" href="{{ route('login') }}" class="button">Acceder</a>
                     </div>
                     </div>
                 </div>
