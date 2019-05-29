@@ -90,6 +90,24 @@ body{
     color: #FFF;
 }
 
+.addCardButton{
+    font-family: 'Avenir Next' !important;
+    font-size: 12px;
+    color: #FFF;
+    transition: 0.2s;
+    border-radius: 120px;
+    background-size: 200% auto;
+    border-style: none;
+    padding: .6em 5em;
+    margin-top: 1em;
+    background-image: linear-gradient(0.25turn, #fd0d3dc7 0%, #9000ffd3 51%, #fd0d3dc7 100%);
+}
+
+.addCardButton:hover {
+    background-position: right center;
+    color: #FFF;
+}
+
 .regular_button{
     font-family: 'Avenir Next' !important;
     font-size: 15px;
@@ -179,3 +197,25 @@ body{
     text-decoration: none;
     color: #333;
 }
+
+/* @media screen and (max-width: 600px){
+    /* .registerContainer{
+        margin-top: 6.5em;
+    } */
+    .addCardButton{
+        font-size: 15px;
+        margin-top: 0em;
+        padding: .4em 1.2em;
+    }
+
+    .closeBtn{
+        padding: .4em 4em;
+        margin-top: 0em;
+    }
+
+    #welcomeLogo {
+        top: 1em;
+        width: 12%;
+        height: 12%;
+    }
+} */
