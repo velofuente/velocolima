@@ -82,7 +82,7 @@
                             {{-- <a href =""><img src="/img/iconos/TEL.png" alt="tel" width="110px" height="110px"></a> --}}
                             <img src="/img/iconos/TEL.png" alt="tel" width="110px" height="110px">
                             <h5 class="p-info">CONTÁCTANOS</h5>
-                            <h5>312-XXX-XXXX</h5>
+                            <h5>312-688-4480</h5>
                         {{-- </a> --}}
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" id="sendEmail">
@@ -90,15 +90,15 @@
                             {{-- <a href=""><img src="/img/iconos/MAIL.png" alt="mail" width="110px" height="110px"></a> --}}
                             <img src="/img/iconos/MAIL.png" alt="mail" width="110px" height="110px">
                             <h5 class="p-info">E-MAIL</h5>
-                            <h5>rueda@velocycling.com</h5>
+                            <h5>rueda@velocycling.mx</h5>
                         </a>
                     </div>
                     <div class="col-xs-6 col-sm-12 col-md-4 col-lg-4">
                         {{-- <a href=""><img src="/img/iconos/UBICACION.png" alt="ubi" width="110px" height="110px"></a> --}}
                         <img src="/img/iconos/UBICACION.png" alt="ubi" width="110px" height="110px">
                         <h5 class="p-info">UBICACIÓN</h5>
-                        <h5>Av. Ignacio Sandoval "La Cantera"</h5>
-                        <h5>1948 int.A4</h5>
+                        <h5>Av. Ignacio Sandoval 1948 int.A4</h5>
+                        <h5>Fraccionamiento "La Cantera"</h5>
                     </div>
                 </div>
             </div>
