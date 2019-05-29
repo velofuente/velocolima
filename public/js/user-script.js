@@ -4,9 +4,12 @@ var tokenBearer = null;
 var csrfToken = $('#csrfToken').val();
 
 $(document).ready(function() {
-    OpenPay.setId('mq3srrs4flndbb8qu1mm');
-    OpenPay.setApiKey('pk_1241cb6ad90940ca8c2970818786c8ad');
-    OpenPay.setSandboxMode(true);
+    // OpenPay.setId('mq3srrs4flndbb8qu1mm');
+    // OpenPay.setApiKey('pk_1241cb6ad90940ca8c2970818786c8ad');
+    // OpenPay.setSandboxMode(true);
+    OpenPay.setId(opId);
+    OpenPay.setApiKey(opPublicKey);
+    OpenPay.setSandboxMode(opSandbox);
     //Se genera el id de dispositivo
     device_session_id = OpenPay.deviceData.setup("add-card-form", "deviceIdHiddenFieldName");
     $('#device_session_id').val(device_session_id);

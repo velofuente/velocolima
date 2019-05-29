@@ -50,7 +50,7 @@
                             {{-- <img src="{{asset('img/iconos/CroppedLogo.png')}}" id="welcomeLogo" class="mx-auto text-center"> --}}
                         </div>
                     </div>
-                </div> --}}
+                </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 border border mx-auto">
                     <div class="row">
                         <div class="col-6 border border-light">

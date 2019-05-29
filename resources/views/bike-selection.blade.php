@@ -51,6 +51,9 @@
         var crfsToken = '{{ csrf_token() }}';
         var selectedBike = "{{ $selectedBike }}";
         var reservedPlaces = jQuery.parseJSON("{!! json_encode($reservedPlaces) !!}");
+        var opId = "{{ env('OPENPAY_ID') }}";
+        var opPublicKey = "{{ env('OPENPAY_PUBLIC_KEY') }}";
+        var opSandbox = {{ env('OPENPAY_SANDBOX') }};
     </script>
     <script src="{{asset('js/openpay-script.js')}}"></script>
     <script src="{{asset('js/bike-selection-script.js')}}"></script>

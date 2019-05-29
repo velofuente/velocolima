@@ -596,6 +596,9 @@
         var phoneInput = document.getElementById('phone');
         var cardNumberInput = document.getElementById('cardNumber');
         var cvvInput = document.getElementById('Code');
+        var opId = "{{ env('OPENPAY_ID') }}";
+        var opPublicKey = "{{ env('OPENPAY_PUBLIC_KEY') }}";
+        var opSandbox = {{ env('OPENPAY_SANDBOX') }};
 
         // Lock the input only to numbers.
         phoneInput.onkeydown = function(e) {

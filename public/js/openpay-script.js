@@ -11,9 +11,11 @@ var checkbox = null;
 var globalDataError = null;
 
 $(document).ready(function() {
-    OpenPay.setId('mq3srrs4flndbb8qu1mm');
-    OpenPay.setApiKey('pk_1241cb6ad90940ca8c2970818786c8ad');
-    OpenPay.setSandboxMode(true);
+    // OpenPay.setId('mq3srrs4flndbb8qu1mm');
+    // OpenPay.setApiKey('pk_1241cb6ad90940ca8c2970818786c8ad');
+    OpenPay.setId(opId);
+    OpenPay.setApiKey(opPublicKey);
+    OpenPay.setSandboxMode(opSandbox);
     //Se genera el id de dispositivo
     device_session_id = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName");
 });

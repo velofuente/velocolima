@@ -231,7 +231,7 @@
     <script>
         $(document).ready(function() {
             const genderOldValue = '{{ old('gender') }}';
-            
+
             if(genderOldValue !== '') {
             $('#gender').val(genderOldValue);
             }

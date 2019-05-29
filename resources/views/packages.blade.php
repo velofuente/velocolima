@@ -123,7 +123,7 @@
                                     <option value="28">2028</option>
                                     <option value="29">2029</option>
                                 </select>
-                                <input class="dataRow" type="text" name="" id="Code" placeholder="CVV" maxlength="3" data-openpay-card="cvv2">
+                                <input class="dataRow" type="text" name="" id="Code" placeholder="CVV" maxlength="4" data-openpay-card="cvv2">
                             </div>
                         <div class="">
                             <input type="checkbox" name="data" id="dataCard">
@@ -146,4 +146,24 @@
         </div>
         @endauth
     </div>
+    <script>
+        var cardNumberInput = document.getElementById('cardNumber');
+        var cvvInput = document.getElementById('Code');
+
+        // Lock the input only to numbers.
+        cardNumberInput.onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+            || (e.keyCode > 47 && e.keyCode < 58)
+            || e.keyCode == 8 || e.keyCode == 9)) {
+                return false;
+            }
+        }
+        cvvInput.onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+            || (e.keyCode > 47 && e.keyCode < 58)
+            || e.keyCode == 8 || e.keyCode == 9)) {
+                return false;
+            }
+        }
+    </script>
 </div>

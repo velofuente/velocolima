@@ -130,6 +130,9 @@
     <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
     <script type="text/javascript">
         var crfsToken = '{{ csrf_token() }}';
+        var opId = "{{ env('OPENPAY_ID') }}";
+        var opPublicKey = "{{ env('OPENPAY_PUBLIC_KEY') }}";
+        var opSandbox = {{ env('OPENPAY_SANDBOX') }};
     </script>
     <script src="{{asset('js/openpay-script.js')}}"></script>
     <script src="{{ asset('/js/schedule-script.js') }}"></script>
