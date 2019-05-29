@@ -1,16 +1,39 @@
+body{
+    background-color: black;
+}
+
 .main{
-    margin-top: 5em;
+    /* margin-top: 13em; */
 }
 
 .container-fluid{
     color: white;
 }
+#instructorImage{
+    /* padding: 0em 0em 1em 3em; */
+    padding-bottom: 1em;
+}
+.info{
+    /* padding: 0 5em 0em 1em; */
+    text-justify: inter-word;
+}
+#instructorName{
+    color: #FF0E3B;
+    font-family: 'Avenir' !important;
+}
 #instructorDescription{
     font-size: 20px;
+    font-family: 'AvenirNextLTPro Regular' !important;
+    opacity: .8;
 }
 
-#instructorPhrase{
-    color:lightsalmon;
+.spotify{
+    color: black;
+    background: white;
+    height: 15em;
+    text-align: center;
+    justify-content: center;
+
 }
 
 .dateSelector{

@@ -1,9 +1,84 @@
+/* fonts */
+@font-face{
+    font-family: "AvenirNextCondensed Bold";
+    src: url("fonts/AvenirNextCondensed-Bold.ttf");
+}
+@font-face{
+    font-family: "AvenirNextLTPro Bold";
+    src: url("fonts/AvenirNextLTPro-Bold.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro BoldCn";
+    src: url("fonts/AvenirNextLTPro-BoldCn.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro BoldCnlt";
+    src: url("fonts/AvenirNextLTPro-BoldCnlt.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro Cn";
+    src: url("fonts/AvenirNextLTPro-Cn.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro Cnlt";
+    src: url("fonts/AvenirNextLTPro-Cnlt.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro Demi";
+    src: url("fonts/AvenirNextLTPro-Demi.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro DemiCn";
+    src: url("fonts/AvenirNextLTPro-DemiCn.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro DemiCnlt";
+    src: url("fonts/AvenirNextLTPro-DemiCnlt.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro DemiIt";
+    src: url("fonts/AvenirNextLTPro-DemiIt.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro HeavyCn";
+    src: url("fonts/AvenirNextLTPro-HeavyCn.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro HeavyCnlt";
+    src: url("fonts/AvenirNextLTPro-HeavyCnlt.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro It";
+    src: url("fonts/AvenirNextLTPro-It.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro MediumCn";
+    src: url("fonts/AvenirNextLTPro-MediumCn.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro MediumCnlt";
+    src: url("fonts/AvenirNextLTPro-MediumCnlt.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro Regular";
+    src: url("fonts/AvenirNextLTPro-Regular.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro UltLtCn";
+    src: url("fonts/AvenirNextLTPro-UltLtCn.otf")format("opentype");
+}
+@font-face{
+    font-family: "AvenirNextLTPro UltLtCnlt";
+    src: url("fonts/AvenirNextLTPro-UltLtCnlt.otf")format("opentype");
+}
+/* whole html */
 html, body {
-    background-color: white;
-    color: #18c2cd;
-    font-family: 'gotham2';
+    background-color: black;
+    color: white;
+    font-family: 'AvenirNextLTPro Regular' !important;
     font-weight: 200;
     height: 100vh;
+    padding: 0;
     margin: 0;
 }
 
@@ -32,7 +107,11 @@ select:focus {outline:0;}
 .top-right {
     position: absolute;
     right: 2em;
-    top: 2em;
+
+}
+.line{
+    top: 0;
+    margin-bottom: .2em;
 }
 
 .title {
@@ -42,7 +121,8 @@ select:focus {outline:0;}
 .home{
     display: inline-block;
     vertical-align: middle;
-    margin-right: 15px;
+    /* margin-right: 15px; */
+    margin-right: 0px;
     line-height: 39px;
     padding-right: 10px;
     z-index: 6;
@@ -50,7 +130,9 @@ select:focus {outline:0;}
 
 .home >a{
     color: black;
-    padding: 0 25px;
+    /* padding: 0 25px; */
+    padding: 0 10px;
+    margin-right: 0px;
     font-size: 33px;
     font-weight: 600;
     letter-spacing: .1rem;
@@ -60,6 +142,9 @@ select:focus {outline:0;}
 
 .home > a >span{
     color: #18c2cd;
+}
+.hicon{
+    border-left: .7px solid #FF0E3B;
 }
 .locations{
     position: absolute;
@@ -84,19 +169,69 @@ select:focus {outline:0;}
 .links{
     position: absolute;
     right: 6em;
-    border-right: 1.5px solid #e9eded;
-    border-left: 1.5px solid #e9eded;
+    border-right: .7px solid #FF0E3B;
+    border-left: .7px solid #FF0E3B;
     padding: 1.5em 1em;
 }
-.links > a{
+.guestLinks > a{
     color: black;
     padding: 0 15px;
+    /* padding: 0 10px; */
     font-size: 13px;
     font-weight: 600;
     letter-spacing: .1rem;
     text-decoration: none;
     text-transform: uppercase;
     margin-bottom: 1em;
+}
+.links > a{
+    color: black;
+    /* padding: 0 15px; */
+    padding: 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-bottom: 1em;
+}
+
+/* Safari
+@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0)
+{
+
+} */
+
+/* NavBar mobile responsive screen */
+@media screen and (max-width: 600px) {
+    #nav{
+        padding: 0px 1em;
+        /* height: 14%; */
+    }
+    .guestLinks > a{
+        color: black;
+        /* padding: 0 15px; */
+        padding: 0 10px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: .1rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        margin-bottom: 1em;
+    }
+    .authLinks{
+        padding: 0 5px;
+    }
+    .homeIcon {
+        display: none;
+    }
+    .logoNavBar{
+        width: 80px;
+        height: 40px;
+    }
+    /* .redes-fijas{
+        display: none;
+    } */
 }
 
 .account{
@@ -138,14 +273,21 @@ select:focus {outline:0;}
 }
 
 .navbar{
-    background-color: white;
-    border-top: 16px solid #18c2cd;
-    border-bottom: 1px solid #e9eded;
+    background-color:  black;
+   /* border-top: 16px solid linear-gradient(0.25turn, #F70E0E, #9100FF);*/
+    border-bottom: 1px solid #FF0E3B;
     position: fixed;
     z-index: 2;
-    top: 0;
     width: 100%;
     height: 6em;
+}
+
+.gradient{
+    position: fixed;
+    z-index: 3;
+    width: 100%;
+    background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
+    height: 7px;
 }
 
 .redes-fijas {
@@ -153,7 +295,7 @@ select:focus {outline:0;}
     padding-left: 10px;
     position: fixed;
     right: 2%;
-    top: 24%;
+    top: 33%;
     z-index: 1;
     color: black;
     width: 60px;
@@ -170,6 +312,11 @@ select:focus {outline:0;}
     color: #808080;
 }
 
+.network{
+    width: 50px;
+    height: 50px;
+}
+
 .hambBtn{
     z-index: 4;
 }
@@ -179,31 +326,61 @@ select:focus {outline:0;}
   width: 100%;
   position: fixed;
   z-index: 1;
-  top: 2%;
+  top: 0%;
   left: 0;
-  background-color: white;
+  background-color: black;
   overflow-y: hidden;
   transition: 0.5s;
 }
 
+@media screen and (max-width: 679px) {
+    .overlay-content {
+        position: relative;
+        top: 7%;
+        width: 7%;
+        left: 0%;
+    }
+}
+
 .overlay-content {
   position: relative;
-  top: 10%;
+  top: 9%;
   width: 20%;
   left: 75%;
 }
 
-.overlay a {
+.overlay-locations {
+    position: relative;
+    bottom: 10%;
+    /* width: 20%; */
+    width: 40%;
+    left: 52%;
+    z-index: -1;
+}
+.overlay-locations > a{
+    color: #6133AB ;
+    padding: 0;
+    width: 40% ;
+    text-align: right ;
+}
+
+.overlay-locations > p{
+    margin: 0 ;
+    width: 40% ;
+    text-align: right;
+}
+
+.overlay-content > a {
   padding: 8px;
   text-decoration: none;
-  font-size: 42px;
-  color: black;
+  font-size: 52px;
+  color: #FF0E3B;
   display: block;
   transition: 0.3s;
 }
 
 .overlay a:hover, .overlay a:focus {
-  color: #5dd4dc;
+  color: #6133AB;
   padding-left: 1em;
 }
 
@@ -216,7 +393,48 @@ select:focus {outline:0;}
   right: 35px;
   }
 }
+
 /* body css */
+.mainPage{
+    /* margin-top: 1em; */
+    cursor: pointer;
+    /* margin-top: 5em; */
+}
+.fa-sign-out-alt{
+    color: #FF0E3B;
+}
+.icon{
+    position:absolute;
+    top: 10%;
+    left: -15%;
+    /* z-index: 1; */
+    width: 900px;
+    height: 950px;
+}
+.veloBrand{
+    position:absolute;
+    top: 47%;
+    left: 37%;
+    /* z-index: 1; */
+    width: 590px;
+    height: 340px;
+}
+.music{
+    position:absolute;
+    top: 85%;
+    left: 85%;
+    z-index: 1;
+    width: 190px;
+    height: 40px;
+}
+.imusic{
+    position:absolute;
+    top: 90%;
+    left: 90%;
+    z-index: 1;
+    width:60px;
+    height:60px;
+}
 .content {
     text-align: center;
     padding-left: 0;
@@ -227,63 +445,96 @@ select:focus {outline:0;}
 .packages{
     padding-top: 3em;
     padding-left: 2em;
-    margin-top: 6em;
+    /* margin-top: 6em; */
 }
 
 .description{
     color:#efeeee;
     text-align: center;
     text-size-adjust: 90px;
+    margin-bottom: 1em;
 }
 
 .classes{
-    justify-content: center;
-    margin-left: 11em;
-    margin-right: 11em;
+    width: 100%;
+    margin: 30px auto 0;
+    text-align: center;
+    margin-bottom: 100px;
+    padding: 0 5em;
 }
 
 .content-normal{
-    margin-top: 2em;
+    margin: 2em 0 0 0;
 }
-
+.bicImg{
+    width:110px;
+    height:132px;
+    margin-top: .5em;
+}
+.buyClass{
+    width:590px;
+    height:90px;
+}
+.resClass{
+    width:440px;
+    height:45px;
+}
 #content-normal{
-    color: black;
+    font-family: 'AvenirNextLTPro UltLtCn' !important;
+    color: #FF0E3B;
     text-align: center;
-    border: solid .5px #ecebeb;
-    padding-top: 2.5em;
-    margin-left: 2.5em;
-    margin-top: 2em;
-    width: 60%;
-    height: 100%;
+    width: 188px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: .8%;
+    border: solid 1px #ecebeb;
+    overflow: hidden;
+    min-height: 250px;
     cursor: pointer;
 }
 
-#content-normal2{
-    position: absolute;
-    left: 0;
-    background-color: #18c2cd;
-    width: 100%;
-    height: 100%;
-    padding: 0 3px;
+#content-normal:hover{
+    background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
+    color: white;
+    border: solid 1px transparent;
+    transition: 0.5s;
 }
 
-.content-n .content-n2 {
-    opacity: 1;
-    top: 100%;
-    transition: .2s ease;
-    pointer-events: none;
+#amount1{
+    margin: 1em 0 0 0;
+}
+
+#amount2, #amount3, #amount4, #amount5, #amount6{
+    font-size: 7em;
+    padding: .3em 0 0 0;
+}
+
+.f-class{
+    margin: 0 0 .5em 0;
+}
+
+.class{
+    color: white;
+    padding: 0 0 0 0;
+}
+.exp{
+    color: white;
+    padding: 0 0 0 0;
+    margin-top: -.9em;
 }
 
 #first-class{
+    font-family: 'AvenirNextLTPro UltLtCn' !important;
     color: white;
-    background-color: #3accd5;
+    background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
     text-align: center;
-    border: solid .5px #ecebeb;
-    padding-top: 2.5em;
-    margin-left: 2.5em;
-    margin-top: 2em;
-    width: 60%;
-    height: 100%;
+    width: 188px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: .8%;
+    border: solid 1px #ecebeb;
+    overflow: hidden;
+    min-height: 250px;
     cursor: pointer;
 }
 
@@ -291,18 +542,656 @@ select:focus {outline:0;}
     color: #c4f0f2;
 }
 
-.data{
-    margin-top: .5em;
-    margin-bottom: .5em;
-    width: 100%;
+@media screen and (max-width: 1730px){
+    .gradient{
+        height: 10px;
+    }
+    .icon{
+        position:absolute;
+        top: 10%;
+        left: -15%;
+        /* z-index: 1; */
+        width: 780px;
+        height: 740px;
+    }
+    .veloBrand{
+        position:absolute;
+        top: 45%;
+        left: 37%;
+        /* z-index: 1; */
+        width: 520px;
+        height: 250px;
+    }
+    .music{
+        position:absolute;
+        top: 85%;
+        left: 85%;
+        z-index: 1;
+    }
+    .imusic{
+        position:absolute;
+        top: 90%;
+        left: 90%;
+        z-index: 1;
+    }
 }
-#visa{
-    background-color: white;
+
+@media screen and (max-width: 1439px){
+    .classes{
+       padding: 0 9em;
+    }
+    .buyClass{
+        width:500px;
+        height:70px;
+    }
+    .resClass{
+        width:390px;
+        height:40px;
+    }
+    /* #first-class{
+        width: 150px;
+        height: 260px;
+    }
+    #content-normal{
+        width: 150px;
+        height: 260px;
+    } */
+    .bicImg{
+        width:90px;
+        height:130px;
+        margin-top: .5em;
+    }
+    #amount1{
+        margin: 1em 0 0 0;
+    }
+
+    #amount2, #amount3, #amount4, #amount5, #amount6{
+        font-size: 6em;
+        padding: .3em 0 0 0;
+    }
+
+    .f-class{
+        margin: 0 0 .3em 0;
+    }
+
+    .class{
+        color: white;
+        padding: 0 0 0 0;
+    }
+    .exp{
+        color: white;
+        padding: 0 0 0 0;
+        margin-top: -.9em;
+    }
+    .overlay a {
+        font-size: 31px;
+    }
+    .icon{
+        position:absolute;
+        top: 10%;
+        left: -15%;
+        /* z-index: 1; */
+        width: 670px;
+        height: 650px;
+    }
+    .veloBrand{
+        position:absolute;
+        top: 47%;
+        left: 37%;
+        /* z-index: 1; */
+        width: 370px;
+        height: 190px;
+    }
+    .music{
+        position:absolute;
+        top: 85%;
+        left: 85%;
+        z-index: 1;
+        width: 140px;
+        height: 30px;
+    }
+    .imusic{
+        position:absolute;
+        top: 90%;
+        left: 90%;
+        z-index: 1;
+        width:50px;
+        height:50px;
+    }
 }
-#oName{
-    font-size: 1.5em;
-    font-weight: bold;
+
+@media screen and (max-width: 1240px){
+    .classes{
+        padding: 0 8em ;
+    }
+    .buyClass{
+        width:500px;
+        height:70px;
+    }
+    .resClass{
+        width:390px;
+        height:40px;
+    }
+    /* #first-class{
+        width: 120px !important;
+        height: 200px !important;
+        padding-top: 0;
+        padding-bottom: 10px !important;
+    }
+    #content-normal{
+        width: 120px !important;
+        height: 190px !important;
+        padding-top: 0;
+        padding-bottom: 10px !important;
+    } */
+    .icon{
+        position:absolute;
+        top: 10%;
+        left: -15%;
+        /* z-index: 1; */
+        width: 520px;
+        height: 560px;
+    }
+    .veloBrand{
+        position:absolute;
+        top: 43%;
+        left: 37%;
+        /* z-index: 1; */
+        width: 300px;
+        height: 140px;
+    }
+    .music{
+        position:absolute;
+        top: 85%;
+        left: 85%;
+        z-index: 1;
+        width: 110px;
+        height: 25px;
+    }
+    .imusic{
+        position:absolute;
+        top: 90%;
+        left: 90%;
+        z-index: 1;
+        width:30px;
+        height:30px;
+    }
+    .overlay-locations {
+        bottom: 20%;
+        width: 20%;
+        left: 46%;
+    }
+    .overlay-locations > a{
+        padding: 0;
+        width: 40%;
+        font-size: 25px;
+    }
+
+    .overlay-locations > p{
+        margin: 0;
+        width: 50%;
+        font-size: 18px;
+    }
+
+    .overlay-content > a {
+      font-size: 25px;
+    }
+
 }
+
+@media screen and (max-width: 1055px){
+    .classes{
+        padding: 0 14em;
+    }
+    .buyClass{
+        width:500px;
+        height:70px;
+    }
+    .resClass{
+        width:390px;
+        height:40px;
+    }
+    /* #first-class{
+        width: 100px !important;
+        height: 180px !important;
+        padding-top: 0;
+        padding-bottom: 20px !important;
+    }
+    #content-normal{
+        width: 100px !important;
+        height: 180px !important;
+        padding-top: 0;
+        padding-bottom: 20px !important;
+    } */
+    .icon{
+        position:absolute;
+        top: 10%;
+        left: -15%;
+        /* z-index: 1; */
+        width: 450px ;
+        height: 550px ;
+    }
+    .veloBrand{
+        position:absolute;
+        top: 43%;
+        left: 37%;
+        /* z-index: 1; */
+        width: 270px ;
+        height: 135px ;
+    }
+    .music{
+        position:absolute;
+        top: 85%;
+        left: 85%;
+        z-index: 1;
+        width: 110px ;
+        height: 25px ;
+    }
+    .imusic{
+        position:absolute;
+        top: 90%;
+        left: 90%;
+        z-index: 1;
+        width:30px ;
+        height:30px ;
+    }
+    .overlay-locations {
+        bottom: 20%;
+        width: 15%;
+        left: 46%;
+    }
+    .overlay-locations > a{
+        padding: 0;
+        width: 40%;
+        font-size: 25px;
+    }
+
+    .overlay-locations > p{
+        margin: 0;
+        width: 50%;
+        font-size: 15px;
+    }
+
+    .overlay-content > a {
+      font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 782px){
+    .classes{
+        padding: 0 8em !important;
+    }
+    .buyClass{
+        width:500px;
+        height:70px;
+    }
+    .resClass{
+        width:390px;
+        height:40px;
+    }
+    /* #first-class{
+        width: 100px !important;
+        height: 180px !important;
+        padding-top: 0;
+        padding-bottom: 20px !important;
+    }
+    #content-normal{
+        width: 100px !important;
+        height: 180px !important;
+        padding-top: 0;
+        padding-bottom: 20px !important;
+    } */
+    .icon{
+        position:absolute;
+        top: 10%;
+        left: -15%;
+        /* z-index: 1; */
+        width: 450px;
+        height: 450px;
+    }
+    .veloBrand{
+        position:absolute;
+        top: 43%;
+        left: 37%;
+        /* z-index: 1; */
+        width: 220px;
+        height: 110px;
+    }
+    .music{
+        position:absolute;
+        top: 85%;
+        left: 85%;
+        z-index: 1;
+        width: 110px;
+        height: 25px;
+    }
+    .imusic{
+        position:absolute;
+        top: 90%;
+        left: 90%;
+        z-index: 1;
+        width:30px;
+        height:30px;
+    }
+}
+
+/* Lower Resolution */
+@media screen and (max-width: 679px){
+    .classes{
+        padding: 0 9em;
+        margin-bottom: 20px;
+     }
+     .buyClass{
+         width:500px;
+         height:70px;
+     }
+     .resClass{
+         width:390px;
+         height:40px;
+     }
+     /* #first-class{
+         width: 130px;
+         height: 170px;
+     }
+     #content-normal{
+         width: 130px;
+         height: 170px;
+     } */
+     .bicImg{
+         width:90px;
+         height:130px;
+         margin-top: .5em;
+     }
+     #amount1{
+         margin: 1em 0 0 0;
+     }
+
+     #amount2, #amount3, #amount4, #amount5, #amount6{
+         font-size: 6em;
+         padding: .3em 0 0 0;
+     }
+
+     .f-class{
+         margin: 0 0 .3em 0;
+     }
+
+     .class{
+         color: white;
+         padding: 0 0 0 0;
+     }
+     .exp{
+         color: white;
+         padding: 0 0 0 0;
+         margin-top: -.9em;
+     }
+     .overlay a {
+         font-size: 31px;
+     }
+
+     .icon{
+         position:absolute;
+         top: 10%;
+         left: -15%;
+         /* z-index: 1; */
+         width: 210px;
+         height: 200px;
+         /* width: 350px;
+         height: 340px; */
+     }
+     .veloBrand{
+         position:absolute;
+         /* top: 49%; */
+         top: 24%;
+         left: 40%;
+         /* z-index: 1; */
+         width: 90px;
+         height: 45px;
+         /* width: 180px;
+         height: 90px; */
+     }
+     .music{
+         position:absolute;
+         top: 84%;
+         left: 80%;
+         z-index: 1;
+         width: 110px;
+         height: 25px;
+     }
+     .imusic{
+         position:absolute;
+         top: 90%;
+         left: 85%;
+         z-index: 1;
+         width:30px;
+         height:30px;
+     }
+
+    .network{
+        width:35px;
+        height:35px;
+    }
+    /* .redes-fijas {
+        right: 0%;
+        top: 33%;
+    } */
+    .overlay-content {
+        position: relative;
+        top: 15%;
+        width: 20%;
+        left: 31%;
+        text-align: center;
+    }
+    .overlay-content > a {
+        font-size: 30px;
+        text-align: center;
+    }
+    .overlay-locations {
+        bottom: 20%;
+        width: 20%;
+        left: 46%;
+    }
+    .overlay-locations > a{
+        padding: 0;
+        width: 40%;
+        font-size: 25px;
+    }
+
+    .overlay-locations > p{
+        margin: 0;
+        width: 50%;
+        font-size: 18px;
+    }
+
+}
+
+/* @media screen and (max-width: 501px) and (max-height: 677){
+    .classes{
+        padding: 0 9em;
+        margin-bottom: 20px;
+     }
+     .buyClass{
+         width:500px;
+         height:70px;
+     }
+     .resClass{
+         width:390px;
+         height:40px;
+     }
+     #first-class{
+         width: 130px;
+         height: 170px;
+     }
+     #content-normal{
+         width: 130px;
+         height: 170px;
+     }
+     .bicImg{
+         width:90px;
+         height:130px;
+         margin-top: .5em;
+     }
+     #amount1{
+         margin: 1em 0 0 0;
+     }
+
+     #amount2, #amount3, #amount4, #amount5, #amount6{
+         font-size: 6em;
+         padding: .3em 0 0 0;
+     }
+
+     .f-class{
+         margin: 0 0 .3em 0;
+     }
+
+     .class{
+         color: white;
+         padding: 0 0 0 0;
+     }
+     .exp{
+         color: white;
+         padding: 0 0 0 0;
+         margin-top: -.9em;
+     }
+     .overlay a {
+         font-size: 31px;
+     }
+
+     .icon{
+         position:absolute;
+         top: 10%;
+         left: -15%;
+         z-index: 1;
+         width: 270px;
+         height: 250px ;
+     }
+     .veloBrand{
+         position:absolute;
+         top: 27%;
+         left: 37%;
+         z-index: 1;
+         width: 170px;
+         height: 90px;
+     }
+     .music{
+         position:absolute;
+         top: 50%;
+         left: 76%;
+         z-index: 1;
+         width: 90px;
+         height: 20px;
+     }
+     .imusic{
+         position:absolute;
+         top: 55%;
+         left: 86%;
+         z-index: 1;
+         width:20px;
+         height:20px;
+     }
+} */
+
+/* @media screen and (max-width: 401px){
+    .classes{
+        padding: 0 9em;
+        margin-bottom: 20px;
+     }
+     .buyClass{
+         width:500px;
+         height:70px;
+     }
+     .resClass{
+         width:390px;
+         height:40px;
+     }
+     #first-class{
+         width: 130px;
+         height: 170px;
+     }
+     #content-normal{
+         width: 130px;
+         height: 170px;
+     }
+     .bicImg{
+         width:90px;
+         height:130px;
+         margin-top: .5em;
+     }
+     #amount1{
+         margin: 1em 0 0 0;
+     }
+
+     #amount2, #amount3, #amount4, #amount5, #amount6{
+         font-size: 6em;
+         padding: .3em 0 0 0;
+     }
+
+     .f-class{
+         margin: 0 0 .3em 0;
+     }
+
+     .class{
+         color: white;
+         padding: 0 0 0 0;
+     }
+     .exp{
+         color: white;
+         padding: 0 0 0 0;
+         margin-top: -.9em;
+     }
+     .overlay a {
+         font-size: 31px;
+     }
+
+     .icon{
+         position:absolute;
+         top: 10%;
+         left: -15%;
+         z-index: 1;
+         width: 180px;
+         height: 180px ;
+     }
+     .veloBrand{
+         position:absolute;
+         top: 22%;
+         left: 32%;
+         z-index: 1;
+         width: 130px;
+         height: 70px;
+     }
+     .music{
+         position:absolute;
+         top: 33%;
+         left: 73%;
+         z-index: 1;
+         width: 60px;
+         height: 15px;
+     }
+     .imusic{
+         position:absolute;
+         top: 36%;
+         left: 84%;
+         z-index: 1;
+         width:15px;
+         height:15px;
+     }
+
+     .network{
+        width:15px;
+        height:15px;
+    }
+
+    .redes-fijas {
+        right: 0%;
+        top: 33%;
+    }
+
+    .overlay-content > a {
+        text-align: center;
+        font-size: 28px;
+        left: 30%;
+        align-items: center;
+    }
+} */
 
 #btnLog{
     color: whitesmoke;
@@ -311,34 +1200,48 @@ select:focus {outline:0;}
 }
 
 /* footer css */
-@font-face{
-    font-family: "Gotham Bold";
-    src: url("fonts/GothamBold.ttf");
-    src: url("fonts/Gotham-Bold.otf")format("opentype");
-}
-@font-face{
-    font-family: "Gotham Thin";
-    src: url("fonts/Gotham-Thin.otf")format("opentype");
-}
 .info-footer{
-    font-family: 'Gotham Bold';
-    color: black;
+    font-family: 'AvenirNextLTPro Regular' !important;
+    color: #FF0E3B;
     margin-top: 9em;
     text-align: center;
 }
+
+.info-footer2{
+
+    text-align: center;
+    font-family: 'AvenirNextLTPro Regular' !important;
+}
+.p-info{
+    margin: 1.5em 0 1.5em 0;
+}
+
+#sendCall > a {
+    color: #efeeee;
+    /* text-decoration: none; */
+}
+
+#sendEmail > a {
+    color: #efeeee;
+    /* text-decoration: none; */
+}
+
 .form{
     margin-top: 3em;
-    margin-left: 11em;
-    margin-right: 11em;
     width: 100%;
 }
+.hi{
+    border: .5px solid rgb(65, 65, 65);
+    color: rgb(65, 65, 65);
+}
+/*
 #prospectPosition{
-    background: #fff!important;
+    background: rgb(25,26,34)!important;
     border-bottom: 1px solid #eee!important;
     border-radius: 0!important;
     text-transform: uppercase!important;
-    color: gray;
-}
+    color: rgb(65, 65, 65);
+}*/
 /* For IE10 */
 select::-ms-expand{
     display: none;
@@ -352,10 +1255,28 @@ select{
 }
 
 .prospectText{
-    border-width: 0px 0px 1px 0px;
+    background:  black!important;
+    border-width: 1px 0px 1px 0px;
     width: 100%;
+    padding: 1em 0 1em 0;
+    color: white;
 }
 
+#prospectName{
+    border-left: 1px solid white;
+    padding-left: 2em;
+}
+
+#prospectInsta{
+    border-right: 1px solid white;
+    padding-right: 0;
+}
+
+.pad{
+    padding: 1em 0 1em 0;
+}
+
+/*
 .prospectBtn{
     color: #fff!important;
     width: 43px;
@@ -366,15 +1287,25 @@ select{
     cursor: pointer;
     font-family: Verdana,Helvetica;
 }
+*/
+.info-top{
+    margin-top: 3em;
+}
 
 .register{
-    margin-top: 6em;
+    /* margin-top: 6em; */
 }
 
 .login{
-    margin-top: 6em;
+    /* margin-top: 6em; */
 }
 
 .navbar-toggler-icon{
     background-color: white;
+}
+
+.footerImg{
+    width: 100%;
+    height: 55em;
+    margin: -10em 0;
 }

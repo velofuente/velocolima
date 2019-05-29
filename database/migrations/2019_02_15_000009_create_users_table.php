@@ -24,13 +24,14 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->date('birth_date');
             $table->string('phone', 15);
-            $table->float('weight', 5,2);
-            $table->tinyInteger('height')->unsigned();
+            //$table->float('weight', 5,2);
+            //$table->tinyInteger('height')->unsigned(); asdaa
             $table->float('shoe_size', 3,1);
-            $table->string('share_code',8)->default('12ab34cd');
-            //Foreign Key from Users to Role
+            $table->string('share_code',8)->default('ABCD');
+            //Foreign Key from Users to Role 1-instructor, 2-instuctor, 3-Common user
             $table->unsignedInteger('role_id')->default('3');
             $table->foreign('role_id')->references('id')->on('roles');
+            $table->string('customer_id')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

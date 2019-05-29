@@ -1,5 +1,7 @@
 <?php
 
+header('Acces-Control-Allow-Origin', "*");
+header('Acces-Control-Allow-Methods', "GET, POST, PUT, DELETE, OPTIONS");
 /*
 |--------------------------------------------------------------------------
 | Create The Application

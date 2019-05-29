@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Instructor;
-use App\Branch;
-use App\Schedule;
+use App\{Instructor,Branch,Schedule,Product, User,UserSchedule};
 use Response;
 
 class InstructorController extends Controller
@@ -57,21 +55,39 @@ class InstructorController extends Controller
     {
         $instructors = Instructor::all();
         $branches = Branch::all();
+        $products = Product::all();
 
         date_default_timezone_set('America/Mexico_City');
         $schedules = Schedule::whereBetween('day', [now()->format('Y-m-d'), now()->modify('+7 days')])
                     ->get()
                     ->sortBy('hour');
-
-        return view('schedule', compact('instructors', 'branches', 'schedules'));
+        return view('schedule', compact('instructors', 'branches', 'schedules','products'));
     }
 
-    public function bikeSelection(Schedule $schedules)
+    public function bikeSelection(Request $request, Schedule $schedules)
     {
+        if(!$request->user()){
+            return redirect('login');
+        }
+        //obtiene el numero de reservaciones que se han hecho a esa clase
+        $instances = UserSchedule::where('schedule_id', $schedules->id)->count();
         $instructors = Instructor::all();
         $branches = Branch::all();
-
-        return view('bike-selection', compact('instructors', 'branches', 'schedules'));
+        $products = Product::all();
+        $selectedBike = UserSchedule::where("user_id", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->first();
+        if($selectedBike){
+            $selectedBike = $selectedBike->bike;
+        } else {
+            $selectedBike = 0;
+        }
+        $reservedPlaces = UserSchedule::where("user_id", "<>", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->get()->pluck("bike")->toArray();
+        if($instances<$schedules->reservation_limit)
+            return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces"));
+        else
+            return response()->json([
+                'status' => 'ERROR',
+                'message' => "No hay cupo disponible.",
+            ]); 
     }
 
     /**
