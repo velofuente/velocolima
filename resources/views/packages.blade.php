@@ -24,7 +24,8 @@
         @foreach ($products as $product)
             @if ($product != $products{0} && $product->type != "Deals" && $product->status == 1)
                 {{-- {{dd($product)}} --}}
-                <div class="content-normal pickClass" style=" margin-left: 10px; min-width: 190px !important; min-height: 280px !important;" id="prod-{{$product->id}}">
+                {{-- <div class="content-normal pickClass" style=" margin-left: 10px; min-width: 190px !important; min-height: 280px !important;" id="prod-{{$product->id}}"> --}}
+                <div class="content-normal pickClass mx-2" id="prod-{{$product->id}}">
                     <div id="content-normal" class="px-4 content-n" data-toggle="modal" data-target="#exampleModalCenter">
                     {{-- <div id="content-normal" class="content-n" data-toggle="modal" data-target="#exampleModalCenter" onclick="classQuantity('{{ $product->n_classes }}')" class="pickClass"> --}}
                         <h3 id="amount{{$amount}}">{{$product->n_classes}}</h3>

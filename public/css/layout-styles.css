@@ -483,7 +483,12 @@ select:focus {outline:0;}
     font-family: 'AvenirNextLTPro UltLtCn' !important;
     color: #FF0E3B;
     text-align: center;
-    width: 188px;
+    /* width: 188px; */
+    /* width: 188px; */
+    width: 160px;
+    height: 260px;
+    min-width: 160px;
+    min-height: 260px;
     display: inline-block;
     vertical-align: top;
     margin-right: .8%;

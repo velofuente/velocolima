@@ -511,7 +511,7 @@
                     {{-- End Form Add Card --}}
                     <div class="modal-footer">
                         <button type="button" class="closeBtn" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="button" id="add-card-button">Agregar Tarjeta</button>
+                        <button type="button" class="button addCardButton" id="add-card-button">Agregar Tarjeta</button>
                     </div>
                     </div>
                 </div>
