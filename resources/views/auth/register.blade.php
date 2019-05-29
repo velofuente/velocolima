@@ -171,7 +171,22 @@
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
                                     <label for="name" class="mr-sm-2">Talla de Calzado:</label>
                                 <div class="input-group">
-                                    <input id="shoe_size" placeholder="Talla de Calzado" type="text" class="form-control{{ $errors->has('shoe_size') ? ' is-invalid' : '' }}" name="shoe_size" value="{{ old('shoe_size') }}" required >
+                                    <select class="form-control" id="shoe_size" name="shoe_size" placeholder="Talla de Calzado" value="{{ old('shoe_size') }}" required autofocus>
+                                        <option disabled selected hidden>Talla de Calzado</option>
+                                        <option>23</option>
+                                        <option>23.5</option>
+                                        <option>24</option>
+                                        <option>24.5</option>
+                                        <option>25</option>
+                                        <option>25.5</option>
+                                        <option>26</option>
+                                        <option>26.5</option>
+                                        <option>27</option>
+                                        <option>27.5</option>
+                                        <option>28</option>
+                                        <option>28.5</option>
+                                        <option>29</option>
+                                    </select>
                                     <div class="input-group-append">
                                         <span class="input-group-text text-secondary bg-white">cm</span>
                                     </div>
@@ -231,9 +246,14 @@
     <script>
         $(document).ready(function() {
             const genderOldValue = '{{ old('gender') }}';
+            const shoeOldValue = '{{ old('shoe_size') }}';
 
             if(genderOldValue !== '') {
             $('#gender').val(genderOldValue);
+            }
+
+            if(shoeOldValue !== '') {
+            $('#shoe_size').val(shoeOldValue);
             }
         });
     </script>

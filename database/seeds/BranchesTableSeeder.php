@@ -17,7 +17,7 @@ class BranchesTableSeeder extends Seeder
         $branch->address = "Ignacio Sandoval 1948 Interior A4, La Cantera, 28018";
         $branch->municipality = "Colima";
         $branch->state = "Colima";
-        $branch->phone = "1234567890";
+        $branch->phone = "3126884480";
         $branch->save();
     }
 }
