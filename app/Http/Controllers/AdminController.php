@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Instructor, Schedule, Branch, Product, User};
+use App\{Instructor, Schedule, Branch, Product};
+use DB;
 
 class AdminController extends Controller
 {
@@ -20,7 +21,33 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Instructor agregado con éxito",
+            'message' => "Instructor agregado con exito",
+        ]); 
+    }
+    public function editInstructor(Request $request){
+        DB::beginTransaction();
+        $Instructor = Instructor::find($request->instructor_id);
+        $Instructor->name = $request->name;
+        $Instructor->last_name = $request->last_name;
+        $Instructor->email = $request->email;
+        $Instructor->birth_date = $request->birth_date; 
+        $Instructor->phone = $request->phone;
+        $Instructor->bio = $request->bio;
+        $Instructor->save();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Instructor editado con exito",
+        ]); 
+    }
+    public function deleteInstructor(Request $request){
+        DB::beginTransaction();
+        $Instructor = Instructor::find($request->instructor_id);
+        $Instructor->delete();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Instructor eliminado con exito",
         ]); 
     }
     public function addSchedule(Request $request){
@@ -28,13 +55,39 @@ class AdminController extends Controller
         Schedule::create([
             'day' => $request->day, 
             'hour' => $request->hour, 
-            'instructor_id' => $request->instructor_id, 
+            'instructor_id' => $request->instructor_id,
+            'class_id' => 1,
             'reservation_limit' => $request->reservation_limit,
+            'room_id' => 1,
         ]);
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Horario agregado con éxito",
+            'message' => "Horario agregado con exito",
+        ]); 
+    }
+    public function editSchedule(Request $request){
+        DB::beginTransaction();
+        $Schedule = Schedule::find($request->schedule_id);
+        $Schedule->day = $request->day;
+        $Schedule->hour = $request->hour;
+        $Schedule->instructor_id = $request->instructor_id;
+        $Schedule->reservation_limit = $request->reservation_limit; 
+        $Schedule->save();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Schedule editado con exito",
+        ]); 
+    }
+    public function deleteSchedule(Request $request){
+        DB::beginTransaction();
+        $Schedule = Schedule::find($request->schedule_id);
+        $Schedule->delete();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Schedule eliminado con exito",
         ]); 
     }
     public function addBranch(Request $request){
@@ -49,7 +102,32 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Branch agregado con éxito",
+            'message' => "Branch agregado con exito",
+        ]); 
+    }
+    public function editBranch(Request $request){
+        DB::beginTransaction();
+        $Branch = Branch::find($request->branch_id);
+        $Branch->name = $request->name;
+        $Branch->address = $request->address;
+        $Branch->municipality = $request->municipality;
+        $Branch->state = $request->state; 
+        $Branch->phone = $request->phone; 
+        $Branch->save();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Branch editado con exito",
+        ]); 
+    }
+    public function deleteBranch(Request $request){
+        DB::beginTransaction();
+        $Branch = Branch::find($request->branch_id);
+        $Branch->delete();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Branch eliminado con exito",
         ]); 
     }
     public function addProduct(Request $request){
@@ -65,15 +143,35 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Producto agregado con éxito",
+            'message' => "Producto agregado con exito",
         ]); 
     }
     public function editProduct(Request $request){
-
+        DB::beginTransaction();
+        $Product = Product::find($request->branch_id);
+        $Product->n_classes = $request->n_classes;
+        $Product->price = $request->price;
+        $Product->description = $request->description; 
+        $Product->expiration_days = $request->expiration_days;
+        $Product->type = $request->type;
+        $Product->municipality = $request->status;
+        $Product->save();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Product editado con exito",
+        ]); 
     }
-    // public function addUser(Request $request){
-
-    // }
+    public function deleteProduct(Request $request){
+        DB::beginTransaction();
+        $Product = Product::find($request->product_id);
+        $Product->delete();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Product eliminado con exito",
+        ]); 
+    }
     public function configGridBikes(Request $request){
 
     }
