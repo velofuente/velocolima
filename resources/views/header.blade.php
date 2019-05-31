@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
+    <title>@yield('title')</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -11,110 +11,124 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/dist/hamburgers.css')}}">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/layout-styles.css')}}">
+    <link rel="stylesheet" href="{{asset('css/packages.css')}}">
+    <style>
+        .mainContainer, .overlay-content {
+            /* top: 17%; */
+            padding-top: 6em;
+        }
+    </style>
     @yield('extraStyles')
 </head>
-<nav class="navbar top-fixed container-fluid" id="nav">
+<div class="gradient"></div>
+{{-- <nav class="navbar container-fluid" id="nav">
     <div class="home">
-        <a class="navbar-brand" href="{{ url('/') }}"><span>Sí</span>clo</a>
-    </div>
-    <div class="dropdown account d-block d-lg-none">
-        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-bars" aria-hidden="true"></i>    <span class="caret"></span>
-        </a>
-        <div class="dropdown-menu account" aria-labelledby="dropdownMenuButton">
-            <a href="{{ url('/first-visit') }}">PRIMERA VISITA</a>
-            <a href="{{ url('/instructors') }}">INSTRUCTORES</a>
-            <a href="{{ url('/#packages') }}">COMPRAR CLASES</a>
-            <a href="{{ url('/book') }}">RESERVAR</a>
-        </div>
-    </div>
-    <div class="locations">
-        <select name="" id="">
-            <option value="">Colima</option>
-        </select>
-    </div>
-    <div class="branches">
-        <select name="" id="">
-            <option value="">Zentralia</option>
-            <option value="">Providencia</option>
-        </select>
+        <a class="navbar-brand homeIcon" href="{{ url('/') }}"><img src="/img/iconos/HOME.png" alt="logo" width="35px" height="35px"></a>
+        <a class="navbar-brand hicon" href="{{ url('/') }}"><img src="/img/iconos/LOGO.png" class="logoNavBar" alt="logo" width="100px" height="50px"></a>
     </div>
     @guest
-    <div class="links">
-            <a href="{{ route('login') }}"><i class="far fa-user fa-2x" data-toggle="tooltip" data-placement="bottom" title="Ingresar"></i></a>
-       <!-- @if (Route::has('register'))
-            <a href="{{ route('register') }}">REGÍSTRATE</a>
-            @endif
-        -->
+    <div class="links guestLinks">
+        <a href="{{ route('login') }}"><img src="/img/iconos/USUARIO.png" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Ingresar"></a>
     </div>
     @endguest
     @auth
-    <div class="links">
-            <a href="{{ url('/user') }}"><i class="far fa-user fa-2x" data-toggle="tooltip" data-placement="bottom" title="Mi Cuenta"></i></a>
-       <!-- @if (Route::has('register'))
-            <a href="{{ route('register') }}">REGÍSTRATE</a>
-            @endif
-        -->
+    <div class="links authLinks">
+        <a href="{{ url('/user') }}"><img src="/img/iconos/USUARIO.png" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Mi Cuenta"></a>
         <a class="" href="{{ route('logout') }}"
             onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-            <i class="fas fa-sign-out-alt fa-2x" data-toggle="tooltip" data-placement="bottom" title="Salir"></i></a>
+            document.getElementById('logout-form').submit();">
+        <img src="/img/iconos/CIERRE.png" width="35px" height="35px" alt="Salir" data-toggle="tooltip" data-placement="bottom" title="Salir"></a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
     </div>
-  <!--  <div class="top-right dropdown account2">
-        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ Auth::user()->name }}    <span class="caret"></span>
-        </a>
-        <div class="dropdown-menu account2" aria-labelledby="dropdownMenuButton">
-            <a href="{{ url('/user') }}">Mi Cuenta</a>
-            <a class="" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-            {{ __('Logout') }}</a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-        </div>
-    </div>-->
     @endauth
     <div class="hambBtn">
         <button id="hambBtn" class="hamburger hamburger--slider" type="button">
-            <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-            </span>
+            <img src="{{asset ('/img/iconos/CIRCULOS1.png')}}" alt="tel" width="40px" height="15px">
         </button>
     </div>
 
     <div id="myNav" class="overlay">
         <div class="overlay-content">
-            <a href="">Ubicaciones</a>
+            <a href="{{ url('/branches') }}">Ubicación</a>
             <a href="{{ url('/instructors') }}">Instructores</a>
-            <a href="{{ url('/book') }}">Reservar</a>
-            <a href="{{ url('/#packages') }}">Comprar clases</a>
-            <a href="{{ url('/who-are-we') }}">¿Quiénes somos?</a>
+            <a href="{{ url('/schedule') }}">Reservar</a>
+            <a href="{{ url('/schedule#packages') }}">Comprar clases</a>
+            <!-- <a href="{{ url('/who-are-we') }}">¿Quiénes somos?</a> -->
             <a href="#">Legales</a>
+            @guest
+            <div class="links guestLinks">
+                <a href="{{ route('login') }}"><img src="/img/iconos/USUARIO.png" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Ingresar"></a>
+            </div>
+            @endguest
+            @auth
+            <div class="links authLinks">
+                <a href="{{ url('/user') }}"><img src="/img/iconos/USUARIO.png" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Mi Cuenta"></a>
+                <a class="" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                <img src="/img/iconos/CIERRE.png" width="35px" height="35px" alt="Salir" data-toggle="tooltip" data-placement="bottom" title="Salir"></a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+                <!-- TODO: Remover logout-form duplicado o ajustar -->
+            </div>
+            @endauth
+            <div class="hambBtn">
+                <button id="hambBtn" class="hamburger hamburger--slider" type="button">
+                    <img src="{{asset ('/img/iconos/CIRCULOS1.png')}}" alt="tel" width="40px" height="15px">
+                </button>
+            </div>
+
+        </div>
+        <!-- <div class="overlay-locations">
+            <a href="" class="location">Colima</a>
+            <p>Dirección</p>
+            <p>Ignacio Sandoval 1948 Interior A4, La Cantera 28018.</p>
+            <p>Teléfono</p>
+            <p>3121234567</p>
+        </div> -->
+    </div>
+</nav> --}}
+<div id="myNav" class="overlay">
+    <div class="overlay-content">
+        <a href="{{ url('/branches') }}">Ubicación</a>
+        <a href="{{ url('/instructors') }}">Instructores</a>
+        <a href="{{ url('/schedule') }}">Reservar</a>
+        <a href="{{ url('/schedule#packages') }}">Comprar clases</a>
+        <!-- <a href="{{ url('/who-are-we') }}">¿Quiénes somos?</a> -->
+        <a href="#">Legales</a>
+        @guest
+            <a href="{{ url('/login')}}"> Login </a>
+        @endguest
+        @auth
             <a class="" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
             {{ __('Logout') }}</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-        </div>
-    </div>
+        @endauth
 
-</nav>
-<div class="row">
-    <div class="col-12">
-        <div class="redes-fijas">
-            <a href="https://www.facebook.com/Siclomx" class="red " target="_blank"><i class="fab fa-facebook fa-2x"></i></a>
-            <a href="//apple.co/Siclo" class="red " target="_blank"><i class="fab fa-spotify fa-2x" ></i></a>
-            <a href="https://www.snapchat.com/add/yohagosiclo" class="red " target="_blank"><i class="fab fa-snapchat fa-2x"></i></a>
-            <a href="https://www.instagram.com/siclo/" class="red " target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
-        </div>
     </div>
+    <!-- <div class="overlay-locations">
+        <a href="" class="location">Colima</a>
+        <p>Dirección</p>
+        <p>Ignacio Sandoval 1948 Interior A4, La Cantera 28018.</p>
+        <p>Teléfono</p>
+        <p>3121234567</p>
+    </div> -->
 </div>
+{{-- <div class="row"> --}}
+    {{-- <div class="col-12"> --}}
+        <div class="redes-fijas">
+            <a href="https://www.facebook.com/velocyclingmx/" class="red " style="padding-bottom:1em" target="_blank"><img class="network" src="/img/iconos/FACEBOOK.png" alt=""></i></a>
+            <br>
+            <a href="https://www.instagram.com/velocyclingmx/" class="red " target="_blank"><img  class="network" src="/img/iconos/INSTAGRAM.png" alt=""></i></a>
+        </div>
+    {{-- </div> --}}
+{{-- </div> --}}

@@ -2,15 +2,15 @@
 
 return [
   "driver" => "smtp",
-  "host" => "smtp.mailtrap.io",
+  "host" => "smtp.sendgrid.net",
   "port" => 2525,
   "from" => array(
-      "address" => "from@example.com",
-      "name" => "Example"
+      "address" => "rueda@velocycling.mx",
+      "name" => "Velo Cycling"
   ),
-  "username" => "df74304ee19c98",
-  "password" => "c1c262af9d3657",
-  "sendmail" => "/usr/sbin/sendmail -bs"
+  "username" => "choferpro",
+  "password" => "@A3p7m35",
+  //"sendmail" => "/usr/sbin/sendmail -bs"
 ];
 
 //return [

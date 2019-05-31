@@ -1,23 +1,56 @@
+.main{
+    color: #6133AB;
+    font-family: 'AvenirNextLTPro Regular' !important;
+}
 .select{
     color: black;
     margin-top: 8em;
 }
-
+/*
 #goBack{
     color:white;
     text-decoration: none;
     padding: .6em 5em .6em 5em;
-    background-color: #18c2cd;
+    background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
     border-radius: 120px;
     margin: 0 1em 0 1em;
-    font-family: 'Gotham Thin';
+    font-family: 'AvenirNextLTPro Regular';
+    font-size: 1.1em;
 }
 
 #goBack:hover{
     background-color: #5dd4dc;
+}*/
+
+.text_gradient_bike_selection{
+    font-family: 'Avenir Next' !important;
+    font-size: 70px;
+    font-weight: 250;
+    /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
+    background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#goBack{
+    font-family: 'Avenir Next' !important;
+    font-size: 1.1em;
+    text-decoration: none;
+    color: #FFF;
+    transition: 0.2s;
+    border-radius: 120px;
+    background-size: 200% auto;
+    border-style: none;
+    padding: .6em 5em;
+    background-image: linear-gradient(0.25turn, #fd0d3dc7 0%, #9000ffd3 51%, #fd0d3dc7 100%);
+}
+#goBack:hover{
+    background-position: right center;
 }
 #sel{
-   margin-top: 2em;
+    color:#efeeee;
+    text-align: center;
+    text-size-adjust: 90px;
 }
 #selection{
     text-align: center;
@@ -26,17 +59,55 @@
 #selection > span{
     color: #89e0e5;
 }
-
+.description{
+    margin-top: 1em;
+}
 #profilePic{
     border-radius: 120px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 120px;
+    height: 120px;
+}
+
+.occupied {
+    width: 80px;
+    height: 80px;
+    margin: 5px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid gray;
+    border-radius: 100%;
+    background: gray;
+    color: #bababa;
+    text-align: center;
+    transition: .3s ease;
+    font-size: 1.2em;
+    margin: 0;
+}
+
+
+@media screen and (max-width: 1500px) {
+    .first{
+        font-size: 1em !important;
+    }
+    .main-bikes{
+        margin: 2em 35% 0em 35%;
+    }
 }
 
 @media screen and (max-width: 1300px) {
+    .first{
+        font-size: .9em !important;
+    }
     .main-bikes{
         margin: 2em 25% 0em 25%;
+    }
+    #date{
+        margin-top: -1em;
+        margin-left: 12em;
     }
 }
 
@@ -48,73 +119,155 @@
 
 @media screen and (max-width: 600px) {
     .main-bikes{
-        margin: 2em 4% 0em 4%;
+        margin: 2em 4% 0em 4% !important;
+    }
+    #placeDate{
+        margin-top: .3em;
+        padding-left: 0px;
+    }
+    .text_gradient_bike_selection{
+        font-family: 'Avenir Next' !important;
+        font-size: 43px !important;
+        font-weight: 250 !important;
+        /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
+        background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+    }
+    #selectBikeLogo{
+        display: none;
+    }
+    #goBack{
+        display: block;
+        font-family: 'Avenir Next' !important;
+        font-size: 1.1em !important;
+        text-decoration: none;
+        color: #FFF;
+        text-align: center;
+        transition: 0.2s;
+        border-radius: 120px;
+        background-size: 200% auto;
+        border-style: none;
+        padding: .4em 3em;
+        background-image: linear-gradient(0.25turn, #fd0d3dc7 0%, #9000ffd3 51%, #fd0d3dc7 100%);
+    }
+    #goBack:hover{
+        background-position: right center;
     }
 }
 
-@media screen and (min-width: 1301px) {
+@media screen and (min-width: 1501px) {
     .main-bikes{
         margin: 2em 35% 0em 35%;
     }
+    .ent {
+        color: white;
+        font-size: 1.6em;
+    }
+    #goBack{
+        font-size: 1.3em;
+    }
 }
-
+.table{
+    margin: 0 auto;
+    width: 70%;
+}
+.table td{
+    border: 1px solid transparent !important;
+    height: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
 .places{
     text-align: center;
     width: 47px;
     height: 47px;
     margin: 5px 5px;
-    display: flex;
+    /* display: contents; */
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
+}
+
+.centeredDiv{
+    margin: auto;
+    width: 50%;
+    text-align: center;
 }
 
 .bikes{
     cursor: pointer;
-    width: 47px;
-    height: 47px;
-    display: flex;
+    width: 80px;
+    height: 80px;
+    margin: 5px !important;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 100%;
-    background: #eee;
+    border: 1px solid #FF0E3B;
+    background: none;
     color: #bababa;
     text-align: center;
     transition: .3s ease;
-    font-size: 12px;
+    font-size: 1.2em;
+    margin: 0;
 }
 
 .bikes:hover{
-    background-color: #18c2cd;
+    background-color: #FF0E3B;
     color: white;
 }
 
 .selected{
-    cursor: pointer;
-    width: 47px;
-    height: 47px;
-    display: flex;
+    width: 80px;
+    height: 80px;
+    margin: 5px !important;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid #FF0E3B;
     border-radius: 100%;
-    background: #18c2cd;
+    background: #FF0E3B;
     color: #bababa;
     text-align: center;
     transition: .3s ease;
-    font-size: 12px;
+    font-size: 1.2em;
+    margin: 0;
 }
 
 .details{
-    color: black;
+    font-family: 'AvenirNextLTPro DemiCn' !important;
+    color: white;
+    text-align: center;
     margin-top: 3em;
     margin-left: 15em;
     margin-right: 15em;
 }
 
 .first{
+    font-family: 'AvenirNextLTPro DemiCn' !important;
+    color: #FF0E3B;
     margin-top: 2em;
     margin-left: 2em;
-    color: black;
-    font-size: .8em;
+    font-size: 1.1em;
     font-weight: bold;
-    font-family: 'Gotham Thin';
+}
+
+.first > span{
+    color: white;
+}
+.bnd{
+    margin-top: 3em;
+}
+#date{
+    margin-top: -1.7em;
+    margin-left: 14em;
+}
+.ent{
+    color: white;
+}
+
+.cropLogo{
+    width: 50px;
+    height: 20px;
+    margin-bottom: .1em;
 }

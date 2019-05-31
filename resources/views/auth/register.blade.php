@@ -2,65 +2,88 @@
 
 @section('extraStyles')
     <link rel="stylesheet" type="text/css" href="{{asset('css/register-styles.css')}}">
+    <style>
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=date]::-webkit-inner-spin-button,
+        input[type=date]::-webkit-outer-spin-button{
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
 @endsection
 
 @section('title')
-    Rolo | Regístrate
+    Velo | Regístrate
 @endsection
 
 @section('content')
-<div class="container">
+<div class="container registerContainer">
     <div class="register row justify-content-center">
         <div class="col-md-8">
             <div>
-                <h3 class="mx-auto">Registro</h3>
-                <div class="card-body">
+                <div class="mx-auto" id="registerTitle">Registrar una nueva cuenta</div>
+                <div class="mx-auto" id="welcomeMessage">Bienvenido a <img src="{{asset('img/iconos/CroppedLogo.png')}}" id="welcomeLogo"></div>
+                <div class="mx-auto" id="firstClassFree"> ¡Tu primer clase será gratis al registrarte!</div>
+
+                <div class="card-body pt-0">
                     <form method="POST" action="{{ route('register') }}" class="registration">
                         @csrf
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
-                            <div class="col-md-6">
+
+                        <div class="form-group row mb-3">
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+                            <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <label for="name" class="mr-sm-2">Nombre:</label>
                                 <input id="name" type="text" placeholder="Nombre(s)" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus >
-                                <ul class="input-requirements">
+                                {{-- <ul class="input-requirements">
                                     <li id="nameError1">Mínimo 3 caracteres</li>
                                     <li id="nameError2">Solamente números y letras (no caracteres especiales)</li>
-                                </ul>
+                                </ul> --}}
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
                             </div>
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                         </div>
-                        <div class="form-group row">
-                            <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ __('Apellido') }}</label>
-                            <div class="col-md-6">
+
+                        <div class="form-group row mb-3">
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+                            <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                    <label for="name" class="mr-sm-2">Apellido(s):</label>
                                 <input id="last_name" placeholder="Apellido(s)" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required autofocus>
-                                <ul class="input-requirements">
+                                {{-- <ul class="input-requirements">
                                     <li id="lastNameError1">Mínimo 3 caracteres</li>
                                     <li id="lastNameError2">Solamente números y letras (no caracteres especiales)</li>
-                                </ul>
+                                </ul> --}}
                                 @if ($errors->has('last_name'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('last_name') }}</strong>
                                     </span>
                                 @endif
                             </div>
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                         </div>
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
-                            <div class="col-md-6 pb-3">
-                                <input id="email" placeholder="Ejemplo@Prueba.com" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+
+                        <div class="form-group row mb-3">
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+                            <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <label for="name" class="mr-sm-2">E-Mail:</label>
+                                <input id="email" placeholder="E-Mail" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
                             </div>
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                         </div>
+
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Contraseña') }}</label>
-                            <div class="col-md-6">
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+                            <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <label for="name" class="mr-sm-2">Contraseña:</label>
                                 <input id="password" placeholder="Contraseña" minlength="7" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
                                 <ul class="input-requirements">
                                     <li id="passwordError1">Mínimo 7 caracteres (máximo 100 caracteres)</li>
@@ -74,110 +97,128 @@
                                     </span>
                                 @endif
                             </div>
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                         </div>
 
-                        <div class="form-group row pb-3">
-                            <label for="password_confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Contraseña') }}</label>
-                            <div class="col-md-6">
+                        <div class="form-group row mb-3">
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+                            <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <label for="name" class="mr-sm-2">Confirmar Contraseña:</label>
                                 <input id="password-confirm" placeholder="Confirmar Contraseña" type="password" class="form-control" name="password_confirmation" required>
                             </div>
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                         </div>
-                        <div class="form-group row pb-3">
-                            <label for="birth_date" class="col-md-4 col-form-label text-md-right">{{ __('Fecha de Nacimiento') }}</label>
-                            <div class="col-md-6">
-                                <input id="birth_date" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required autofocus>
-                                @if ($errors->has('birth_date'))
+
+                        <div class="form-group row mb-3">
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+                            <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <label for="name" class="mr-sm-2">Fecha de Nacimiento:</label>
+                                <div class="input-group">
+                                    <input id="birth_date" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required >
+                                    @if ($errors->has('birth_date'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('birth_date') }}</strong>
                                     </span>
+                                    @endif
+                                    <div class="input-group-append">
+                                        <span class="input-group-text text-secondary bg-white">Nacimiento</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+                        </div>
+
+                        {{-- Input Phone --}}
+                        {{-- <input type="hidden" placeholder="Teléfono"  name="phone" value="3121234567" maxlength="15" required > --}}
+                        {{-- Input Weight --}}
+                        {{-- <input type="hidden" id="weight" name="weight" value="86.5" required > --}}
+                        {{-- Input Height --}}
+                        <input type="hidden" id="height" name="height" value="186" required >
+                        <div class="form-group row mb-3">
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+                            <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <label for="name" class="mr-sm-2">Sexo:</label>
+                                <select class="form-control" id="gender" name="gender" placeholder="Sexo" value="{{ old('gender') }}" required autofocus>
+                                    <option disabled selected hidden>Sexo</option>
+                                    <option>Hombre</option>
+                                    <option>Mujer</option>
+                                </select>
+                                @if ($errors->has('gender'))
+                                    <span class="invalid-feedback" style="display: block !important" role="alert">
+                                        <strong>{{ $errors->first('gender') }}</strong>
+                                    </span>
                                 @endif
                             </div>
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                         </div>
-                        <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Teléfono') }}</label>
-                            <div class="col-md-6">
-                                <input id="phone" placeholder="Teléfono" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" maxlength="15" required autofocus>
-                                <ul class="input-requirements">
-                                    <li>LADA (3 dígitos) + Número (10 dígitos)</li>
-                                    <li>No debe contener espacios ni caracteres especiales</li>
-                                </ul>
+
+                        <div class="form-group row mb-3">
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+                            <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                <label for="name" class="mr-sm-2">Teléfono:</label>
+                                <input id="phone" placeholder="Teléfono" type="number" min="0" minlength="10" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus>
                                 @if ($errors->has('phone'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback" style="display: block !important" role="alert">
                                         <strong>{{ $errors->first('phone') }}</strong>
                                     </span>
                                 @endif
                             </div>
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                         </div>
-                        <div class="form-group row">
-                            <label for="weight" class="col-md-4 col-form-label text-md-right">{{ __('Peso') }}</label>
-                            <div class="col-md-6 pb-3">
+
+                        <div class="form-group row mb-3">
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+                            <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
+                                    <label for="name" class="mr-sm-2">Talla de Calzado:</label>
                                 <div class="input-group">
-                                    <input id="weight" placeholder="Peso" type="text" class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight" value="{{ old('weight') }}" required autofocus>
+                                    <select class="form-control" id="shoe_size" name="shoe_size" placeholder="Talla de Calzado" value="{{ old('shoe_size') }}" required autofocus>
+                                        <option disabled selected hidden>Talla de Calzado</option>
+                                        <option>23</option>
+                                        <option>23.5</option>
+                                        <option>24</option>
+                                        <option>24.5</option>
+                                        <option>25</option>
+                                        <option>25.5</option>
+                                        <option>26</option>
+                                        <option>26.5</option>
+                                        <option>27</option>
+                                        <option>27.5</option>
+                                        <option>28</option>
+                                        <option>28.5</option>
+                                        <option>29</option>
+                                    </select>
                                     <div class="input-group-append">
-                                        <span class="input-group-text" style="background:#f4f4f4; color: #000">kg</span>
+                                        <span class="input-group-text text-secondary bg-white">cm</span>
                                     </div>
-                                </div>
-                                @if ($errors->has('weight'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('weight') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="height" class="col-md-4 col-form-label text-md-right">{{ __('Estatura') }}</label>
-                            <div class="col-md-6 pb-3">
-                                <div class="input-group">
-                                    <input id="height" placeholder="Estatura" type="text" class="form-control{{ $errors->has('height') ? ' is-invalid' : '' }}" name="height" value="{{ old('height') }}" required autofocus>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" style="background:#f4f4f4; color: #000">cm</span>
-                                    </div>
-                                </div>
-                                @if ($errors->has('height'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('height') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="shoe_size" class="col-md-4 col-form-label text-md-right">{{ __('Tamaño de Calzado') }}</label>
-                            <div class="col-md-6 pb-3">
-                                <div class="input-group">
-                                    <input id="shoe_size" placeholder="Tamaño de Calzado" type="text" class="form-control{{ $errors->has('shoe_size') ? ' is-invalid' : '' }}" name="shoe_size" value="{{ old('shoe_size') }}" required autofocus>
                                 </div>
                                 @if ($errors->has('shoe_size'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback" style="display: block !important" role="alert">
                                         <strong>{{ $errors->first('shoe_size') }}</strong>
                                     </span>
                                 @endif
                             </div>
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                         </div>
+
                         <div class="form-group row">
-                            <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Genero') }}</label>
-                            <div class="col-md-4">
-                                <input id="gender" type="radio" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender" value="Hombre" required autofocus> Hombre<br>
-                                @if ($errors->has('gender'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('gender') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+                            <div class="col-8 col-xs-8 col-sm-8 col-md-6 text-center">
+                                {{-- <input type="checkbox" id="termsCondition" class="form-control{{ $errors->has('termsCondition') ? ' is-invalid' : '' }}" name="termsCondition" value="{{ old('termsCondition') }}" required> He leído y acepto los <a href="{{url("/who-are-we")}}">Términos y Condiciones de Uso</a> --}}
+
+                                <input type="checkbox" name="conditions" id="conditions" required oninvalid="this.setCustomValidity('Debes marcar esta casilla para continuar')" oninput="this.setCustomValidity('')"  />
+                                <label for="conditions" class="conditions" style="font-size: 15px;">He leído y acepto los <a href="#">Términos y Condiciones</label>
                             </div>
-                            <div class="col-md-4">
-                                <input id="gender" type="radio" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender" value="Mujer" required autofocus> Mujer<br>
-                                @if ($errors->has('gender'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('gender') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                         </div>
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Registrarme') }}
+
+                        <div class="form-group row">
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
+                            <div class="col-8 col-xs-8 col-sm-8 col-md-6 text-center">
+                                <button type="submit" class="btn submitButton" id="submitButton">
+                                    {{ __('¡Se Véloz!') }}
                                 </button>
                             </div>
+                            <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                         </div>
                     </form>
                 </div>
@@ -185,120 +226,46 @@
         </div>
     </div>
 </div>
-<script>
-    function CustomValidation(){
-        this.invalidities = [];
-	    this.validityChecks = [];
-    }
+@endsection
 
-    CustomValidation.prototype = {
-        addInvalidity: function(message){
-            this.invalidities.push(message);
-        },
+@section('extraScripts')
+    <script src="{{ asset('/js/register-script.js') }}"></script>
+    <script>
+        // Select the Phone Input.
+        var phone = document.getElementById('phone');
 
-        getInvalidities: function () {
-            return this.invalidities.join('. \n');
-        },
-
-        checkValidity: function(input){
-            for (var i = 0; i < this.validityChecks.length; i++){
-                var isInvalid = this.validityChecks[i].isInvalid(input);
-                if (isInvalid){
-                    this.addInvalidity(this.validityChecks[i].invalidityMessage);
-                    this.validityChecks[i].element.classList.add('invalid');
-                    this.validityChecks[i].element.classList.remove('valid');
-                } else{
-                    this.validityChecks[i].element.classList.remove('invalid');
-                    this.validityChecks[i].element.classList.add('valid');
-                }
+        // Lock the input only to numbers.
+        phone.onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+            || (e.keyCode > 47 && e.keyCode < 58)
+            || e.keyCode == 8 || e.keyCode == 9)) {
+                return false;
             }
         }
-    };
+    </script>
+    <script>
+        $(document).ready(function() {
+            const genderOldValue = '{{ old('gender') }}';
+            const shoeOldValue = '{{ old('shoe_size') }}';
 
-    var nameValidityChecks = [
-        {
-            isInvalid: function(input){
-                return input.value.length < 3;
-            },
-            invalidityMessage: 'Este campo debe tener al menos 3 caracteres',
-            element: document.querySelector('#nameError1')
-        },
-        {
-            isInvalid: function(input){
-                var illegalCharacters = input.value.match((/[^a-zA-ZÀ-ÿ\u00f1\u00d1]/g));
-                return illegalCharacters ? true : false;
-            },
-            invalidityMessage: 'Solamente se permiten letras y números',
-            element: document.querySelector('#nameError2')
-        }
-    ]
+            if(genderOldValue !== '') {
+            $('#gender').val(genderOldValue);
+            }
 
-    var lastNameValidityChecks = [
-        {
-            isInvalid: function(input){
-                return input.value.length < 3;
-            },
-            invalidityMessage: 'Este campo debe tener al menos 3 caracteres',
-            element: document.querySelector('#lastNameError1')
-        },
-        {
-            isInvalid: function(input){
-                var illegalCharacters = input.value.match((/[^a-zA-ZÀ-ÿ\u00f1\u00d1]/g));
-                return illegalCharacters ? true : false;
-            },
-            invalidityMessage: 'Solamente se permiten letras y números',
-            element: document.querySelector('#lastNameError2')
-        }
-    ]
-    var passwordValidityChecks = [
-        {
-            isInvalid: function(input){
-                return input.value.length < 7 | input.value.length > 100;
-            },
-            invalidityMessage: 'Este campo debe tener al menos 7 caracteres',
-            element: document.querySelector('#passwordError1')
-        },
-        {
-            isInvalid: function(input){
-                return !input.value.match((/[0-9]/g))
-            },
-            invalidityMessage: 'Este campo debe tener al menos un número',
-            element: document.querySelector('#passwordError2')
-        },
-        {
-            isInvalid: function(input){
-                return !input.value.match((/[a-z]/g))
-            },
-            invalidityMessage: 'Este campo debe tener al menos una letra minúscula',
-            element: document.querySelector('#passwordError3')
-        },
-        {
-            isInvalid: function(input){
-                return !input.value.match((/[A-Z]/g))
-            },
-            invalidityMessage: 'Este campo debe tener al menos una letra mayúscula',
-            element: document.querySelector('#passwordError4')
-        }
-    ]
-
-    var nameInput = document.getElementById('name');
-    var lastNameInput = document.getElementById('last_name');
-    var passwordInput = document.getElementById('password');
-
-    nameInput.CustomValidation = new CustomValidation();
-    nameInput.CustomValidation.validityChecks = nameValidityChecks;
-
-    lastNameInput.CustomValidation = new CustomValidation();
-    lastNameInput.CustomValidation.validityChecks = lastNameValidityChecks;
-
-    passwordInput.CustomValidation = new CustomValidation();
-    passwordInput.CustomValidation.validityChecks = passwordValidityChecks;
-
-    var inputs = document.querySelectorAll('input:not([type="submit"])');
-    for (var i = 0; i < inputs.length; i++){
-        inputs[i].addEventListener('keyup', function(){
-            this .CustomValidation.checkValidity(this);
-        })
-    }
-</script>
+            //datePicker on Safari
+            if ( $('[type="date"]').prop('type') != 'date' ) {
+                // Use datepicker on the date inputs
+                $("input[type=date]").datepicker({
+                dateFormat: 'yy/mm/dd',
+                onSelect: function(dateText, inst) {
+                    $(inst).val(dateText); // Write the value in the input
+                }
+                });
+                // Code below to avoid the classic date-picker
+                // $("input[type=date]").on('click', function() {
+                // return false;
+                // });
+            }
+        });
+    </script>
 @endsection

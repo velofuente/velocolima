@@ -1,24 +1,24 @@
 
 $(function () {
-  $('[data-toggle="tooltip"]').tooltip()
+//   $('[data-toggle="tooltip"]').tooltip()
 })
 
-var packages = $('.content-n');
+// var packages = $('.content-n');
 
-packages.on({
-    mouseenter: function(ev){
-        $(this).animate({
-            backgroundColor: "#3accd5",
-            color: "#c4f0f2"
-          }, 500 );
-    },
-    mouseleave: function(ev){
-        $(this).animate({
-            backgroundColor: "#ffffff",
-            color: "#000000"
-          }, 0 );
-    }
-});
+// packages.on({
+//     mouseenter: function(ev){
+//         $(this).animate({
+//             backgroundColor: "linear-gradient(0.25turn, #F70E0E, #9100FF);",
+//             color: "#c4f0f2"
+//           }, 500 );
+//     },
+//     mouseleave: function(ev){
+//         $(this).animate({
+//             backgroundColor: "#ffffff",
+//             color: "#000000"
+//           }, 0 );
+//     }
+// });
 
 function classQuantity(x) {
     if (x >= 3) {
@@ -39,4 +39,8 @@ hamburger.click(function(){
     else{
         $('#myNav').height('0%');
     }
+});
+
+$(document).on("click", ".overlay-content", function() {
+    $('#myNav').height('0%');
 });
