@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('type');
             // 0 - NA || 1 - Available
             $table->boolean('status');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

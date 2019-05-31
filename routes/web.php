@@ -81,3 +81,20 @@ Route::post('getClient', 'OpenPayController@getCustomer');
 Route::post('deleteClient', 'OpenPayController@deleteCustomer');
 
 Route::post('sendMail', 'MailSendingController@coachInfo');
+
+//Instructor
+Route::post('addInstructor', 'AdminController@addInstructor');
+Route::post('editInstructor', 'AdminController@editInstructor');
+Route::post('deleteInstructor', 'AdminController@deleteInstructor');
+//Horario
+Route::post('addSchedule', 'AdminController@addSchedule');
+Route::post('editSchedule', 'AdminController@editSchedule');
+Route::post('deleteSchedule', 'AdminController@deleteSchedule');
+//Lugar
+Route::post('addBranch', 'AdminController@addBranch');
+Route::post('editBranch', 'AdminController@editBranch');
+Route::post('deleteBranch', 'AdminController@deleteBranch');
+//Producto
+Route::post('addProduct', 'AdminController@addProduct');
+Route::post('editProduct', 'AdminController@editProduct');
+Route::post('deleteProduct', 'AdminController@deleteProduct');

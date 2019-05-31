@@ -32,7 +32,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('role_id')->default('3');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->string('customer_id')->nullable();
-
+            
             $table->rememberToken();
             $table->timestamps();
         });

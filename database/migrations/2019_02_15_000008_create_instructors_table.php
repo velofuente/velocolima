@@ -21,6 +21,8 @@ class CreateInstructorsTable extends Migration
             $table->date('birth_date');
             $table->string('phone', 15);
             $table->text('bio');
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
