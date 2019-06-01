@@ -202,7 +202,7 @@ class AdminController extends Controller
             'message' => "Product eliminado con exito",
         ]);
     }
-    public function configGridBikes(Request $request){
+    public function configGridBikes(){
 
     }
 }
