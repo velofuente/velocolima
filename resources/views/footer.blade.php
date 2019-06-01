@@ -78,7 +78,7 @@
             <div class="col-12 description">
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" id="sendCall">
-                        <a href="tel:31400000000" target="_top">
+                        <a href="tel:3126884480" target="_top">
                             {{-- <a href =""><img src="/img/iconos/TEL.png" alt="tel" width="110px" height="110px"></a> --}}
                             <img src="/img/iconos/TEL.png" alt="tel" width="110px" height="110px">
                             <h5 class="p-info">CONTÁCTANOS</h5>
@@ -86,7 +86,7 @@
                         {{-- </a> --}}
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" id="sendEmail">
-                        <a href="mailto:rueda@velocycling.com?Subject=Sé%20véloz%20Contacto" target="_top">
+                        <a href="mailto:rueda@velocycling.mx?Subject=Sé%20véloz%20Contacto" target="_top">
                             {{-- <a href=""><img src="/img/iconos/MAIL.png" alt="mail" width="110px" height="110px"></a> --}}
                             <img src="/img/iconos/MAIL.png" alt="mail" width="110px" height="110px">
                             <h5 class="p-info">E-MAIL</h5>
@@ -98,7 +98,7 @@
                         <img src="/img/iconos/UBICACION.png" alt="ubi" width="110px" height="110px">
                         <h5 class="p-info">UBICACIÓN</h5>
                         <h5>Av. Ignacio Sandoval 1948 int.A4</h5>
-                        <h5>Fraccionamiento "La Cantera"</h5>
+                        <h5> La Cantera, Colima. C.P. 28018</h5>
                     </div>
                 </div>
             </div>

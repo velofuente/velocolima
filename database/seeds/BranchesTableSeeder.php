@@ -14,7 +14,7 @@ class BranchesTableSeeder extends Seeder
     {
         $branch = new Branch();
         $branch->name = "Ignacio Sandoval";
-        $branch->address = "Ignacio Sandoval 1948 Interior A4, La Cantera, 28018";
+        $branch->address = "Ignacio Sandoval 1948 Interior A4, La Cantera, Colima. C.P. 28018";
         $branch->municipality = "Colima";
         $branch->state = "Colima";
         $branch->phone = "3126884480";
