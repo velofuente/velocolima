@@ -18,7 +18,7 @@ use App\Http\Controllers\PurchaseController;
 // Route::get('/addCard', 'OpenPayController@addCustomerCard');
 Route::get('/', function () {
     return view('welcome');
-});    
+});
 //Route::get('/', 'HomeController@index');
 
 Auth::routes(['verify' => true]);
@@ -82,6 +82,13 @@ Route::post('deleteClient', 'OpenPayController@deleteCustomer');
 
 Route::post('sendMail', 'MailSendingController@coachInfo');
 
+// Admin Index
+Route::get('admin', 'AdminController@index')->name('admin');
+// Show Pages
+Route::get('admin-instructors', 'AdminController@showInstructors')->name('admin-instructors');
+Route::get('admin-schedules', 'AdminController@showSchedules')->name('admin-schedules');
+Route::get('admin-products', 'AdminController@showProducts')->name('admin-products');
+Route::get('admin-branches', 'AdminController@showBranches')->name('admin-branches');
 //Instructor
 Route::post('addInstructor', 'AdminController@addInstructor');
 Route::post('editInstructor', 'AdminController@editInstructor');
