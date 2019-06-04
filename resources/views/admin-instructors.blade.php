@@ -6,7 +6,7 @@
 
 {{-- Table  --}}
 @if (count($instructors) > 0)
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
         <thead style="font-size: 1em;">
             <tr style="font-size: 1em;">
                 <th scope="col">ID</th>
@@ -17,7 +17,7 @@
                 <th scope="col">Fecha de Nacimiento</th>
                 {{-- <th scope="col">Información</th> --}}
                 <th scope="col">Estatus</th>
-                <th scope="col">Acción</th>
+                <th scope="col" colspan="2" class="text-center">Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -32,7 +32,7 @@
                     <td>{{ date('d-M-o', strtotime($instructor->birth_date)) }}</td>
                     {{-- <td>{{$instructor->bio}}</td> --}}
                     <td>Estatus</td>
-                    <td><button class="btn btn-primary btn-sm editInstructor" id="editInstructor-{{ $instructor->id }}" value="{{$instructor->id}}" data-toggle="modal" data-target="#editInstructorModal">Editar</button></td>
+                    <td><button class="btn btn-primary btn-sm editInstructor" id="editInstructor-{{ $instructor->id }}" value="{{$instructor->id}}" data-myid="{{ $instructor->id }}" data-myname="{{ $instructor->name }}" data-mylastname="{{ $instructor->last_name }}" data-myemail="{{ $instructor->email }}" data-mybirthdate="{{$instructor->birth_date}}" data-myphone="{{ $instructor->phone }}" data-mybio="{{$instructor->bio}}" data-toggle="modal" data-target="#editInstructorModal">Editar</button></td>
                     <td><button class="btn btn-danger btn-sm deleteInstructor" id="deleteInstructor-{{ $instructor->id }}" value="{{$instructor->id}}">Eliminar</button></td>
                 </tr>
             @endforeach
@@ -159,8 +159,8 @@
                 {{-- </form> --}}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addInstructorButton">Añadir Instructor</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" id="addInstructorButton">Añadir Instructor</button>
             </div>
         </div>
     </div>
@@ -184,7 +184,7 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="name" class="mr-sm-2">Nombre:</label>
-                            <input id="nameInstructor" type="text" placeholder="Nombre(s)" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus >
+                            <input id="editNameInstructor" data-mytitle="" type="text" placeholder="Nombre(s)" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus >
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('name') }}</strong>
@@ -198,11 +198,7 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                                 <label for="last_name" class="mr-sm-2">Apellido(s):</label>
-                            <input id="last_nameInstructor" placeholder="Apellido(s)" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required autofocus>
-                            {{-- <ul class="input-requirements">
-                                <li id="lastNameError1">Mínimo 3 caracteres</li>
-                                <li id="lastNameError2">Solamente números y letras (no caracteres especiales)</li>
-                            </ul> --}}
+                            <input id="editLastNameInstructor" placeholder="Apellido(s)" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required>
                             @if ($errors->has('last_name'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('last_name') }}</strong>
@@ -216,7 +212,7 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="email" class="mr-sm-2">E-Mail:</label>
-                            <input id="emailInstructor" placeholder="E-Mail" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                            <input id="editEmailInstructor" placeholder="E-Mail" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
                             @if ($errors->has('email'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('email') }}</strong>
@@ -232,15 +228,12 @@
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="name" class="mr-sm-2">Fecha de Nacimiento:</label>
                             <div class="input-group">
-                                <input id="birth_dateInstructor" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required >
+                                <input id="editBirthDateInstructor" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required>
                                 @if ($errors->has('birth_date'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('birth_date') }}</strong>
                                 </span>
                                 @endif
-                                {{-- <div class="input-group-append">
-                                    <span class="input-group-text text-secondary bg-white">Nacimiento</span>
-                                </div> --}}
                             </div>
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -257,7 +250,7 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="name" class="mr-sm-2">Teléfono:</label>
-                            <input id="phoneInstructor" placeholder="Teléfono" type="number" min="0" minlength="10" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus>
+                            <input id="editPhoneInstructor" placeholder="Teléfono" type="number" min="0" minlength="10" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required>
                             @if ($errors->has('phone'))
                                 <span class="invalid-feedback" style="display: block !important" role="alert">
                                     <strong>{{ $errors->first('phone') }}</strong>
@@ -271,7 +264,7 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="bio" class="mr-sm-2">Biografía</label>
-                            <textarea id="bioInstructor" placeholder="Información Extra" type="textarea" class="form-control{{ $errors->has('bioInstructor') ? ' is-invalid' : '' }}" name="bioInstructor" value="{{ old('bioInstructor') }}" required autofocus></textarea>
+                            <textarea id="editBioInstructor" placeholder="Información Extra" type="textarea" class="form-control{{ $errors->has('bioInstructor') ? ' is-invalid' : '' }}" name="bioInstructor" value="{{ old('bioInstructor') }}" required></textarea>
                             @if ($errors->has('bioInstructor'))
                                 <span class="invalid-feedback" style="display: block !important" role="alert">
                                     <strong>{{ $errors->first('bioInstructor') }}</strong>
@@ -283,8 +276,8 @@
                 {{-- </form> --}}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addInstructorButton">Añadir Instructor</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" id="editInstructorButton">Editar Instructor</button>
             </div>
         </div>
     </div>
@@ -293,20 +286,22 @@
 {{-- Add, Delete & Edit Instructors Scripts --}}
 <script>
     $(document).ready(function (){
+        var instructor_id = null;
         var name = null;
         var last_name = null;
         var email = null;
         var birth_date = null;
         var phone = null;
         var bio = null;
-        var instructor_id = null;
 
+        //OnClick addInstructor Button
         $('#addInstructorButton').on('click', function(event) {
             event.preventDefault();
             addInstructor();
             $('#addInstructorButton').attr('disabled', true);
         })
 
+        //OnClick deleteInstructor Button
         $('.deleteInstructor').on('click', function(event) {
             $(this).prop("disabled", true)
             event.preventDefault();
@@ -326,24 +321,64 @@
             // $('#deleteInstructorButton').attr('disabled', true);
         })
 
-        $('#editInstructorButton').on('click', function (){
-            $(this).prop('disabled', true);
+        //OnClick editInstructor Button
+        $('.editInstructor').on('click', function (){
+            // $(this).prop('disabled', true);
             event.preventDefault();
 
             //Get Full ID of the button (which contains the instructor ID)
             var fullId = this.id;
             //Split the ID of the fullId by his dash
-            var splittedId = fullId.split("-");
+            var splitedId = fullId.split("-");
             if(splitedId.length > 1){
-                // console.log(splittedId);
-                var instructorId = splitted[1];
-                editInstructor(instructorId, this);
+                // console.log(splitedId);
+                var instructorId = splitedId[1];
+                // editInstructor(instructorId, this);
             } else {
                 $(this).prop("disabled", false)
                 console.log("Malformed ID")
             }
-            // $('#editInstructorButton').attr('disabled', true);
          })
+
+        //OnClick editInstructorModal Button
+
+        //When Modal Opened
+        $('#editInstructorModal').on('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = $(event.relatedTarget)
+            // Extract info from data-* attributes
+            instructor_id = button.data('myid')
+            name = button.data('myname') // Extract info from data-* attributes
+            last_name = button.data('mylastname');
+            email = button.data('myemail');
+            birth_date = button.data('mybirthdate');
+            phone = button.data('myphone');
+            bio = button.data('mybio');
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-body #editNameInstructor').val(name)
+            modal.find('.modal-body #editLastNameInstructor').val(last_name)
+            modal.find('.modal-body #editEmailInstructor').val(email)
+            modal.find('.modal-body #editBirthDateInstructor').val(birth_date)
+            modal.find('.modal-body #editPhoneInstructor').val(phone)
+            modal.find('.modal-body #editBioInstructor').val(bio)
+        })
+
+        //Edit Instructor Button Inside Modal
+        $('#editInstructorButton').on('click', function(){
+            $('#editInstructorButton').prop("disabled", true)
+            event.preventDefault();
+
+            name = $('#editNameInstructor').val(); // Extract info from data-* attributes
+            last_name = $('#editLastNameInstructor').val();
+            email = $('#editEmailInstructor').val();
+            birth_date = $('#editBirthDateInstructor').val();
+            phone = $('#editPhoneInstructor').val();
+            bio = $('#editBioInstructor').val();
+
+            editInstructor(instructor_id);
+        })
 
         function addInstructor(){
             name = $('#nameInstructor').val()
@@ -370,7 +405,7 @@
                 success: function(result) {
                     $.LoadingOverlay("hide");
                     if(result.status == "OK"){
-                        console.log(result.status);
+                        // console.log(result.status);
                         Swal.fire({
                             title: 'Instructor Añadido',
                             text: result.message,
@@ -391,7 +426,7 @@
                 },
                 error: function(result){
                     $.LoadingOverlay("hide");
-                    alert(result);
+                    // alert(result);
                 }
             });
         }
@@ -452,12 +487,59 @@
                             // alert(result);
                         }
                     });
+                } else {
+                    $(button).prop("disabled", false)
                 }
             })
         }
 
-        function editInstructor(){
-
-        }
+        function editInstructor(instructor_id){
+            $.ajax({
+                url: "editInstructor",
+                type: 'POST',
+                cache: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                beforeSend: function(){
+                    $.LoadingOverlay("show");
+                },
+                data: {
+                    instructor_id: instructor_id,
+                    name: name,
+                    last_name: last_name,
+                    email: email,
+                    birth_date: birth_date,
+                    phone: phone,
+                    bio: bio,
+                },
+                success: function(result) {
+                    $.LoadingOverlay("hide");
+                    if(result.status == "OK"){
+                        // console.log(result.status);
+                        Swal.fire({
+                            title: 'Instructor Añadido',
+                            text: result.message,
+                            type: 'success',
+                            confirmButtonText: 'Aceptar'
+                        })
+                        window.location.reload();
+                    }
+                    else {
+                        $.LoadingOverlay("hide");
+                        Swal.fire({
+                            title: 'Error',
+                            text: result.message,
+                            type: 'warning',
+                            confirmButtonText: 'Aceptar'
+                        })
+                    }
+                },
+                error: function(result){
+                    $.LoadingOverlay("hide");
+                    // alert(result);
+                }
+            });
+        };
     })
 </script>

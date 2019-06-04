@@ -24,12 +24,12 @@ class AdminController extends Controller
     }
 
     public function showSchedules(){
-        $schedules = Schedules::all();
+        $schedules = Schedule::all();
         return view('/admin-schedules', compact ('schedules'));
     }
 
     public function showProducts(){
-        $products = Products::all();
+        $products = Product::all();
         return view('/admin-products', compact ('products'));
     }
 
