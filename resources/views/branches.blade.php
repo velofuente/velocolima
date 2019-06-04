@@ -41,7 +41,7 @@
                             <p class="branchName">{{$branch->name}}</p>
                             <span class="branchInfo">{{$branch->address}}</span>
                             {{-- <p>{{$branch->phone}}</p> --}}
-                            <p class="branchInfo">312XXXXXXX</p>
+                            <p class="branchInfo">{{$branch->phone}}</p>
                             {{-- <button class="button-primary">Reservar</button> --}}
                             <p class="text-center mx-auto"> <a class="btnReservar" href="{{url("/schedule")}}">Reservar</a> </p>
                         </div>
