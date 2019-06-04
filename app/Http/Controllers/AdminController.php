@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Instructor, Schedule, Branch, Product};
-use DB;
+use App\{Instructor, Schedule, Branch, Product, Tool};
+use DB, Log;
 
 class AdminController extends Controller
 {
@@ -82,14 +82,16 @@ class AdminController extends Controller
     }
     public function addSchedule(Request $request){
         DB::beginTransaction();
-        Schedule::create([
+        $schedule = Schedule::create([
             'day' => $request->day,
             'hour' => $request->hour,
             'instructor_id' => $request->instructor_id,
             'class_id' => 1,
-            'reservation_limit' => $request->reservation_limit,
+            'reserv_lim_x' => $request->reserv_lim_x,
+            'reserv_lim_y' => $request->reserv_lim_y,
             'room_id' => 1,
         ]);
+        $this->configGridBikes($request->disabledBikes, $request->instructorBikes, $schedule);
         DB::commit();
         return response()->json([
             'status' => 'OK',
@@ -102,7 +104,8 @@ class AdminController extends Controller
         $Schedule->day = $request->day;
         $Schedule->hour = $request->hour;
         $Schedule->instructor_id = $request->instructor_id;
-        $Schedule->reservation_limit = $request->reservation_limit;
+        $Schedule->reserv_lim_x = $request->reserv_lim_x;
+        $Schedule->reserv_lim_y = $request->reserv_lim_y;
         $Schedule->save();
         DB::commit();
         return response()->json([
@@ -202,7 +205,25 @@ class AdminController extends Controller
             'message' => "Product eliminado con exito",
         ]);
     }
-    public function configGridBikes(Request $request){
+    public function configGridBikes($disabledBikes, $instructorBikes, $schedule){
+        DB::beginTransaction();
+        log::info($instructorBikes);
+        log::info($disabledBikes);
 
+        foreach ($instructorBikes as $bike) {
+            Tool::create([
+                'type' => 'instructor',
+                'position' => $bike,
+                'schedule_id' => $schedule->id,
+            ]);
+        }
+        foreach ($disabledBikes as $bike) {
+            Tool::create([
+                'type' => 'disabled',
+                'position' => $bike,
+                'schedule_id' => $schedule->id,
+            ]);
+        }
+        DB::commit();
     }
 }

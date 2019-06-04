@@ -14,7 +14,9 @@ class BookClassController extends Controller
         //obtiene el usuario que hizo el request
         $requestUser = $request->user();
         //Obtiene el cupo de la clase
-        $availability = DB::table('schedules')->select('reservation_limit')->where('id', $request->schedule_id)->first();
+        $availability_x = DB::table('schedules')->select('reserv_lim_x')->where('id', $request->schedule_id)->first();
+        $availability_y = DB::table('schedules')->select('reserv_lim_y')->where('id', $request->schedule_id)->first();
+        $availability = $availability_x + $availability_y;
         //obtiene el numero de reservaciones que se han hecho a esa clase
         $instances = DB::table('user_schedules')->where('schedule_id', $request->schedule_id)->count();
         //obtiene y revisa si el usuario ya tiene esta clase reservada
@@ -35,7 +37,7 @@ class BookClassController extends Controller
             //valida si el usuario tiene clases disponibles
             if($classes>0){
                 //Valida si hay lugar disponible
-                if($instances < $availability->reservation_limit){
+                if($instances < $availability){
                     if($alreadyReserved && $alreadyReserved->status!='cancelled'){
                         DB::commit();
                         return response()->json([

@@ -15,6 +15,10 @@ use App\Http\Controllers\PurchaseController;
 |
 */
 
+Route::get('prueba', function () {
+    return view('bike_grid');
+});
+
 // Route::get('/addCard', 'OpenPayController@addCustomerCard');
 Route::get('/', function () {
     return view('welcome');
