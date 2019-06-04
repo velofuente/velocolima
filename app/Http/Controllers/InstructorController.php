@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Instructor,Branch,Schedule,Product, User,UserSchedule};
+use App\{Instructor,Branch,Schedule,Product, User,UserSchedule, Tool};
 use Response;
 
 class InstructorController extends Controller
@@ -75,19 +75,21 @@ class InstructorController extends Controller
         $branches = Branch::all();
         $products = Product::all();
         $selectedBike = UserSchedule::where("user_id", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->first();
+        $instructorBike = Tool::where("schedule_id", $schedules->id)->where("type", "instructor")->first();
+        $disabledBikes = Tool::where("schedule_id", $schedules->id)->where("type", "disabled")->get();
         if($selectedBike){
             $selectedBike = $selectedBike->bike;
         } else {
             $selectedBike = 0;
         }
         $reservedPlaces = UserSchedule::where("user_id", "<>", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->get()->pluck("bike")->toArray();
-        if($instances<$schedules->reservation_limit)
-            return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces"));
+        if($instances < ($schedules->reserv_lim_x + $schedules->reserv_lim_y))
+            return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBike", "disabledBikes"));
         else
             return response()->json([
                 'status' => 'ERROR',
                 'message' => "No hay cupo disponible.",
-            ]); 
+            ]);
     }
 
     /**

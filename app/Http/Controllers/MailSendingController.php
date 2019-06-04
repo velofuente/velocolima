@@ -10,7 +10,7 @@ class MailSendingController extends Controller
     public function coachInfo(Request $request)
     {
         try {
-            \Mail::to($request->email)->send(new CoachInfo($request->name,$request->email,$request->phone,$request->instagram));
+            \Mail::to('pjimenez0@ucol.mx')->send(new CoachInfo($request->name,$request->email,$request->phone,$request->instagram));
             return response()->json([
                 'status' => 'OK',
                 'message' => "Informacion enviada con exito!",

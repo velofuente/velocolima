@@ -17,6 +17,9 @@ class CreateToolsTable extends Migration
             $table->increments('id');
             $table->string('type');
             $table->string('position');
+            //Foreign Key to Schedule
+            $table->unsignedInteger('schedule_id');
+            $table->foreign('schedule_id')->references('id')->on('schedules');
             $table->timestamps();
         });
     }
