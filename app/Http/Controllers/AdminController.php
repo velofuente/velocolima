@@ -91,7 +91,7 @@ class AdminController extends Controller
             'reserv_lim_y' => $request->reserv_lim_y,
             'room_id' => 1,
         ]);
-        $this->configGridBikes($request->array_disabled, $request->bike_instructor, $schedule);
+        $this->configGridBikes($request->disabledBikes, $request->instructorBikes, $schedule);
         DB::commit();
         return response()->json([
             'status' => 'OK',
@@ -205,19 +205,19 @@ class AdminController extends Controller
             'message' => "Product eliminado con exito",
         ]);
     }
-    public function configGridBikes($array_disabled, $bike_instructor, $schedule){
+    public function configGridBikes($disabledBikes, $instructorBikes, $schedule){
         DB::beginTransaction();
-        log::info($bike_instructor);
-        log::info($array_disabled);
+        log::info($instructorBikes);
+        log::info($disabledBikes);
 
-        foreach ($bike_instructor as $bike) {
+        foreach ($instructorBikes as $bike) {
             Tool::create([
                 'type' => 'instructor',
                 'position' => $bike,
                 'schedule_id' => $schedule->id,
             ]);
         }
-        foreach ($array_disabled as $bike) {
+        foreach ($disabledBikes as $bike) {
             Tool::create([
                 'type' => 'disabled',
                 'position' => $bike,

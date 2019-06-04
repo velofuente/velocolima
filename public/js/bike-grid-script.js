@@ -40,13 +40,13 @@ $('#x, #y').on('input', function (){
 
 function sendGrid(){
     var disabledBikes = [];
-    var instructor_bike = [];
+    var instructorBikes = [];
     $( ".disabled" ).each(function () {
         disabledBikes.push($(this).text());
     })
     //return disabledBikes;
     $( ".instructor" ).each(function () {
-        instructor_bike.push($(this).text());
+        instructorBikes.push($(this).text());
     })
     $.ajax({
         url: "addSchedule",
@@ -60,8 +60,8 @@ function sendGrid(){
             reserv_lim_x: $('#x').val(),
             reserv_lim_y: $('#y').val(),
             room_id: 1,
-            array_disabled: disabledBikes,
-            bike_instructor: instructor_bike
+            disabledBikes: disabledBikes,
+            instructorBikes: instructorBikes
         },
         success: function(result){
             if(result.status == "OK"){

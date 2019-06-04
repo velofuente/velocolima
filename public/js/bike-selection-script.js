@@ -17,6 +17,12 @@ function drawMainBikes(){
                 if($.inArray(count, reservedPlaces) != -1){
                     classes = "occupied";
                 }
+                if($.inArray(count, disabledBikes) != -1){
+                    classes = "disabled";
+                }
+                if($.inArray(count, instructorBikes) != -1){
+                    classes = "instructor";
+                }
             }
             var ball = $("<span>").attr("class", classes).attr("id", "ball-" + count).text(count);
             divr.append(ball);

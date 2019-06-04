@@ -75,7 +75,7 @@ class InstructorController extends Controller
         $branches = Branch::all();
         $products = Product::all();
         $selectedBike = UserSchedule::where("user_id", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->first();
-        $instructorBike = Tool::where("schedule_id", $schedules->id)->where("type", "instructor")->first();
+        $instructorBikes = Tool::where("schedule_id", $schedules->id)->where("type", "instructor")->get();
         $disabledBikes = Tool::where("schedule_id", $schedules->id)->where("type", "disabled")->get();
         if($selectedBike){
             $selectedBike = $selectedBike->bike;
@@ -84,7 +84,7 @@ class InstructorController extends Controller
         }
         $reservedPlaces = UserSchedule::where("user_id", "<>", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->get()->pluck("bike")->toArray();
         if($instances < ($schedules->reserv_lim_x + $schedules->reserv_lim_y))
-            return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBike", "disabledBikes"));
+            return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes"));
         else
             return response()->json([
                 'status' => 'ERROR',
