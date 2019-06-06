@@ -215,7 +215,7 @@
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 text-center">
                                 <button type="submit" class="btn submitButton" id="submitButton">
-                                    {{ __('¡Se Véloz!') }}
+                                    {{ __('Regístrate') }}
                                 </button>
                             </div>
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
