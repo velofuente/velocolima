@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\{UserSchedule, UserWaitList, User, Purchase};
+use App\{UserSchedule, UserWaitList, User, Purchase, Tool, Schedule};
 use SebastianBergmann\Environment\Console;
 
 class BookClassController extends Controller
@@ -14,9 +14,11 @@ class BookClassController extends Controller
         //obtiene el usuario que hizo el request
         $requestUser = $request->user();
         //Obtiene el cupo de la clase
-        $availability_x = DB::table('schedules')->select('reserv_lim_x')->where('id', $request->schedule_id)->first();
-        $availability_y = DB::table('schedules')->select('reserv_lim_y')->where('id', $request->schedule_id)->first();
-        $availability = $availability_x + $availability_y;
+        $availability_x = Schedule::select('reserv_lim_x')->where('id', $request->schedule_id)->first();
+        $availability_y = Schedule::select('reserv_lim_y')->where('id', $request->schedule_id)->first();
+        $instructorBikes = Tool::where("schedule_id", $request->schedule_id)->where("type", "instructor")->get();
+        $disabledBikes = Tool::where("schedule_id", $request->schedule_id)->where("type", "disabled")->get();
+        $availability = $availability_x->reserv_lim_x * $availability_y->reserv_lim_y - ($disabledBikes->count() + $instructorBikes->count());
         //obtiene el numero de reservaciones que se han hecho a esa clase
         $instances = DB::table('user_schedules')->where('schedule_id', $request->schedule_id)->count();
         //obtiene y revisa si el usuario ya tiene esta clase reservada
@@ -38,6 +40,22 @@ class BookClassController extends Controller
             if($classes>0){
                 //Valida si hay lugar disponible
                 if($instances < $availability){
+                    if(in_array($request->bike, (array)$disabledBikes)){
+                        DB::commit();
+                        return response()->json([
+                            'status' => 'ERROR',
+                            'message' => "Este lugar no se encuentra disponible.",
+                            'updateClass' => 1
+                        ]);
+                    }
+                    if(in_array($request->bike, (array)$instructorBikes)){
+                        DB::commit();
+                        return response()->json([
+                            'status' => 'ERROR',
+                            'message' => "Este lugar no se encuentra disponible.",
+                            'updateClass' => 1
+                        ]);
+                    }
                     if($alreadyReserved && $alreadyReserved->status!='cancelled'){
                         DB::commit();
                         return response()->json([
@@ -63,12 +81,12 @@ class BookClassController extends Controller
                     return response()->json([
                         'status' => 'OK',
                         'message' => "Lugar reservado con éxito",
-                    ]);    
+                    ]);
                 } else{
                     return response()->json([
                         'status' => 'ERROR',
                         'message' => "No hay cupo disponible.",
-                    ]); 
+                    ]);
                 }
             } else {
                 return response()->json([
@@ -133,13 +151,13 @@ class BookClassController extends Controller
         $requestUser = $request->user();
         $waitList = DB::table('wait_lists')->select('id')->where('schedule_id', "{$request->schedule_id}")->first();
         UserWaitList::create([
-            'user_id' => $requestUser->id, 
+            'user_id' => $requestUser->id,
             'wait_list_id' => $waitList,
             'status' => 'active',
         ]);
         return response()->json([
             'status' => 'OK',
             'message' => "Has sido agregado a la lista de espera de esta clase",
-        ]); 
+        ]);
     }
 }
