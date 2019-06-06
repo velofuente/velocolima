@@ -2,11 +2,11 @@
 <html lang="es_mx">
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="shortcut icon" href="favicon.png" type="img/favicon.png">
+    {{-- <link rel="shortcut icon" href="favicon.png" type="img/favicon.png"> --}}
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('css/admin-styles.css')}}">
+    <link rel="stylesheet" href="{{asset('css/admin-bike-grid.css')}}">
 </head>
 <body>
 

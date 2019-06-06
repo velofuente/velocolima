@@ -1,11 +1,30 @@
-function drawMainBikes(){
+function drawMainBikes(x,y){
     var bikesContainer = $("#bikes-div");
 
-    var number_of_rows = 3;
-    var number_of_cols = 5;
+    var number_of_rows = x;
+    var number_of_cols = y;
     // var tbody = $("<tbody>").attr("id", "bodyTableBicis");
     // var firstChar = "a";
+
+    // console.log( disabledBikes );
+    // console.log( instructorBikes );
+
+    //Run into the DisabledBikes to obtain only the numbers
+    // for (var index = 0; index < disabledBikes.length; index++) {
+    //     console.log(Object.values(disabledBikes[index]));
+    // }
+    // function prueba(){
+    //     if($.inArray("1", disabledBikes) != -1){
+    //         return "encontrado";
+    //     } else{
+    //         return "pues no";
+    //     }
+    // }
+    // console.log("tipo:" + typeof Array.from(disabledBikes));
     var count = 1;
+    console.log("disabledBikes: " + JSON.parse(disabledBikes));
+    console.log("reservedPlaces: " + JSON.parse(reservedPlaces));
+    console.log("instructorBikes: " + JSON.parse(instructorBikes));
     for (var i = 0; i < number_of_rows; i++){
         // var trow = $("<tr>").attr("id", firstChar);
         var divr = $("<div>").attr("id", "divr" + i).attr("class", "col-md-12");
@@ -15,12 +34,13 @@ function drawMainBikes(){
                 classes = "selected";
             } else {
                 if($.inArray(count, reservedPlaces) != -1){
+                    console.log('entró ocupado')
                     classes = "occupied";
-                }
-                if($.inArray(count, disabledBikes) != -1){
+                } else if($.inArray(count.toString(), disabledBikes) != -1){
+                    console.log('entró disabled');
                     classes = "disabled";
-                }
-                if($.inArray(count, instructorBikes) != -1){
+                } else if($.inArray(count.toString(), instructorBikes) != -1){
+                    console.log('entró instructor');
                     classes = "instructor";
                 }
             }
@@ -31,14 +51,12 @@ function drawMainBikes(){
             // var bicycle = $("<p>").attr("class", "bikes").text(firstChar + "" + j);
             // td.append(bicycle);
             // trow.append(td);
-            console.log(j);
+            // console.log(j);
         }
-        console.log(i);
-
+        // console.log(i);
         bikesContainer.append(divr);
         // firstChar = nextChar(firstChar);
         // tbody.append(trow);
-
     }
 }
 
@@ -90,7 +108,7 @@ function tableCreate(){
 // tableCreate();
 
 //IMPORTANTE
-drawMainBikes();
+drawMainBikes(x,y);
 
 
 

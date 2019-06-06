@@ -71,10 +71,69 @@
     height: 120px;
 }
 
+.showBallFree{
+    width: 70px;
+    height: 70px;
+    margin: 1px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    border: 1px solid #FF0E3B;
+    background: none;
+    color: #bababa;
+    text-align: center;
+    transition: .3s ease;
+    font-size: 1.2em;
+    margin: 0;
+}
+.showBallFree:hover{
+    color: #FFF;
+    background: #FF0E3B;
+}
+.showBallDisabled{
+    width: 70px;
+    height: 70px;
+    margin: 1px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    border: 1px solid gray;
+    background: none;
+    color: #bababa;
+    text-align: center;
+    transition: .3s ease;
+    font-size: 1.2em;
+    margin: 0;
+}
+.showBallInstructor{
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    margin: 1px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    border: 1px solid yellowgreen;
+    background: none;
+    color: #bababa;
+    text-align: center;
+    transition: .3s ease;
+    font-size: 1.2em;
+    margin: 0;
+}
+
+.showBallInstructor:hover{
+    color: #FFF;
+    background: greenyellow;
+}
+
 .occupied {
     width: 70px;
     height: 70px;
-    margin: 2px !important;
+    margin: 1px !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -92,12 +151,12 @@
     cursor: pointer;
     width: 70px;
     height: 70px;
-    margin: 2px !important;
+    margin: 1px !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 100%;
-    border: 1px solid black;
+    border: 1px solid gray;
     background: none;
     color: #bababa;
     text-align: center;
@@ -110,7 +169,7 @@
     cursor: pointer;
     width: 70px;
     height: 70px;
-    margin: 2px !important;
+    margin: 1px !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -260,7 +319,7 @@
 .selected{
     width: 70px;
     height: 70px;
-    margin: 5px !important;
+    margin: 2px !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
