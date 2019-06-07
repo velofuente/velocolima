@@ -35,7 +35,6 @@
             </div>
             <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" alt="">
         </div>
-
         <div class="row" id="main-bikes">
             <div class="centeredDiv" id="bikes-div">
             </div>
@@ -50,7 +49,11 @@
     <script type="text/javascript">
         var crfsToken = '{{ csrf_token() }}';
         var selectedBike = "{{ $selectedBike }}";
-        var reservedPlaces = jQuery.parseJSON("{!! json_encode($reservedPlaces) !!}");
+        var disabledBikes = '{!! json_encode($disabledBikes) !!}';
+        var instructorBikes = '{!! json_encode($instructorBikes) !!}';
+        var x = "{{ $schedules->reserv_lim_x }}";
+        var y = "{{ $schedules->reserv_lim_y }}";
+        var reservedPlaces = "{!! json_encode($reservedPlaces) !!}";
         var opId = "{{ env('OPENPAY_ID') }}";
         var opPublicKey = "{{ env('OPENPAY_PUBLIC_KEY') }}";
         var opSandbox = {{ env('OPENPAY_SANDBOX') }};

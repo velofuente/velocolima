@@ -24,8 +24,9 @@ class AdminController extends Controller
     }
 
     public function showSchedules(){
-        $schedules = Schedule::all();
-        return view('/admin-schedules', compact ('schedules'));
+        $schedules = Schedule::all()->sortByDesc('day');
+        $instructors = Instructor::all();
+        return view('/admin-schedules', compact ('schedules','instructors'));
     }
 
     public function showProducts(){
