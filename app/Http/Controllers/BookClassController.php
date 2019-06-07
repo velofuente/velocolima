@@ -16,7 +16,9 @@ class BookClassController extends Controller
         //Obtiene el cupo de la clase
         $availability_x = Schedule::select('reserv_lim_x')->where('id', $request->schedule_id)->first();
         $availability_y = Schedule::select('reserv_lim_y')->where('id', $request->schedule_id)->first();
+        //bici del instructor
         $instructorBikes = Tool::where("schedule_id", $request->schedule_id)->where("type", "instructor")->get();
+        //bicis dsabilitadas
         $disabledBikes = Tool::where("schedule_id", $request->schedule_id)->where("type", "disabled")->get();
         $availability = $availability_x->reserv_lim_x * $availability_y->reserv_lim_y - ($disabledBikes->count() + $instructorBikes->count());
         //obtiene el numero de reservaciones que se han hecho a esa clase
@@ -107,7 +109,7 @@ class BookClassController extends Controller
                     $bookedClass->status = 'active';
                 }
                 $bookedClass->bike = $request->bike;
-                $bookedClass->changedSit = 1;//cambios
+                $bookedClass->changedSit = 1;
                 $bookedClass->save();
                 //Resta una clase a la compra del usuario y actualiza ese campo en la base de datos
                 $compra->n_classes -= 1;
