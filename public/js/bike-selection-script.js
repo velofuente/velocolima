@@ -22,9 +22,9 @@ function drawMainBikes(x,y){
     // }
     // console.log("tipo:" + typeof Array.from(disabledBikes));
     var count = 1;
-    console.log("disabledBikes: " + JSON.parse(disabledBikes));
-    console.log("reservedPlaces: " + JSON.parse(reservedPlaces));
-    console.log("instructorBikes: " + JSON.parse(instructorBikes));
+    // console.log("disabledBikes: " + JSON.parse(disabledBikes));
+    // console.log("reservedPlaces: " + JSON.parse(reservedPlaces));
+    // console.log("instructorBikes: " + JSON.parse(instructorBikes));
     for (var i = 0; i < number_of_rows; i++){
         // var trow = $("<tr>").attr("id", firstChar);
         var divr = $("<div>").attr("id", "divr" + i).attr("class", "col-md-12");
@@ -34,13 +34,10 @@ function drawMainBikes(x,y){
                 classes = "selected";
             } else {
                 if($.inArray(count, reservedPlaces) != -1){
-                    console.log('entró ocupado')
                     classes = "occupied";
-                } else if($.inArray(count.toString(), disabledBikes) != -1){
-                    console.log('entró disabled');
+                } else if($.inArray(count.toString(), JSON.parse(disabledBikes)) != -1){
                     classes = "disabled";
-                } else if($.inArray(count.toString(), instructorBikes) != -1){
-                    console.log('entró instructor');
+                } else if($.inArray(count.toString(), JSON.parse(instructorBikes)) != -1){
                     classes = "instructor";
                 }
             }

@@ -53,10 +53,10 @@
                     @csrf
                     <div class="row">
                         <div class="col">
-                            Filas: <input class="form-control" type="text" name="x" id="x">
+                            Filas: <input class="form-control" maxlength="2" type="text" name="x" id="x">
                         </div>
                         <div class="col">
-                            Columnas: <input class="form-control" type="text" name="y" id="y">
+                            Columnas: <input class="form-control" maxlength="2" type="text" name="y" id="y">
                         </div>
                         <div class="col">
                             Día: <input class="form-control" type="date" name="day" id="day">
