@@ -169,7 +169,7 @@ $(document).ready(function(){
                 _token: crfsToken,
                 day: $('#day').val(),
                 hour: $('#hour').val(),
-                instructor_id: $('#scheduleInstructor').val(),
+                instructor_id: $('#instructorInput').val(),
                 // class_id: 1,
                 reserv_lim_x: $('#x').val(),
                 reserv_lim_y: $('#y').val(),

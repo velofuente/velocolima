@@ -83,7 +83,7 @@
                         <a href="#" id="users">
                             <li>
                                 {{-- <i class="fa fa-user fa-lg"></i> --}}
-                                Users
+                                Usuarios
                             </li>
                         </a>
                     </ul>

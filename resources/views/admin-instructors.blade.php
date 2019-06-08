@@ -156,6 +156,20 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
+
+                    <div class="form-group row my-4">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="bio" class="mr-sm-2">Imágenes</label>
+                            <input type="file" name="pic" accept="image/*">
+                            @if ($errors->has('bioInstructor'))
+                                <span class="invalid-feedback" style="display: block !important" role="alert">
+                                    <strong>{{ $errors->first('bioInstructor') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
                 {{-- </form> --}}
             </div>
             <div class="modal-footer">
