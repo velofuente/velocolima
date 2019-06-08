@@ -147,7 +147,7 @@
 }
 
 .disabled {
-    cursor: pointer;
+    /* cursor: pointer; */
     width: 70px;
     height: 70px;
     margin: 1px !important;
@@ -157,7 +157,8 @@
     border-radius: 100%;
     border: 1px solid black;
     background: none;
-    color: #bababa;
+    /* color: #bababa; */
+    color: black;
     text-align: center;
     transition: .3s ease;
     font-size: 1.2em;
