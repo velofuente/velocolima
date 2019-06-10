@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Instructor, Schedule, Branch, Product, Tool};
+use Illuminate\Support\Facades\Hash;
+use App\{Instructor, Schedule, Branch, Product, Tool, User};
 use DB, Log;
 
 class AdminController extends Controller
@@ -115,7 +116,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Schedule editado con exito",
+            'message' => "Horario editado con exito",
         ]);
     }
     public function deleteSchedule(Request $request){
@@ -125,7 +126,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Schedule eliminado con exito",
+            'message' => "Horario eliminado con exito",
         ]);
     }
     public function addBranch(Request $request){
@@ -143,7 +144,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Branch agregado con exito",
+            'message' => "Sucursal agregado con exito",
         ]);
     }
     public function editBranch(Request $request){
@@ -160,7 +161,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Branch editado con exito",
+            'message' => "Sucursal editado con exito",
         ]);
     }
     public function deleteBranch(Request $request){
@@ -170,49 +171,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Branch eliminado con exito",
-        ]);
-    }
-    public function addProduct(Request $request){
-        DB::beginTransaction();
-        Product::create([
-            'n_classes' => $request->n_classes,
-            'price' => $request->price,
-            'description' => $request->description,
-            'expiration_days' => $request->expiration_days,
-            'type' => $request->type,
-            'status' => $request->status,
-        ]);
-        DB::commit();
-        return response()->json([
-            'status' => 'OK',
-            'message' => "Producto agregado con exito",
-        ]);
-    }
-    public function editProduct(Request $request){
-        DB::beginTransaction();
-        $Product = Product::find($request->branch_id);
-        $Product->n_classes = $request->n_classes;
-        $Product->price = $request->price;
-        $Product->description = $request->description;
-        $Product->expiration_days = $request->expiration_days;
-        $Product->type = $request->type;
-        $Product->municipality = $request->status;
-        $Product->save();
-        DB::commit();
-        return response()->json([
-            'status' => 'OK',
-            'message' => "Product editado con exito",
-        ]);
-    }
-    public function deleteProduct(Request $request){
-        DB::beginTransaction();
-        $Product = Product::find($request->product_id);
-        $Product->delete();
-        DB::commit();
-        return response()->json([
-            'status' => 'OK',
-            'message' => "Product eliminado con exito",
+            'message' => "Sucursal eliminado con exito",
         ]);
     }
     public function configGridBikes($disabledBikes, $instructorBikes, $branch){
@@ -235,5 +194,113 @@ class AdminController extends Controller
             ]);
         }
         DB::commit();
+    }
+    public function addProduct(Request $request){
+        DB::beginTransaction();
+        Product::create([
+            'n_classes' => $request->n_classes,
+            'price' => $request->price,
+            'description' => $request->description,
+            'expiration_days' => $request->expiration_days,
+            'type' => $request->type,
+            'status' => $request->status,
+        ]);
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Producto agregado con exito",
+        ]);
+    }
+    public function editProduct(Request $request){
+        DB::beginTransaction();
+        $Product = Product::find($request->product_id);
+        $Product->n_classes = $request->n_classes;
+        $Product->price = $request->price;
+        $Product->description = $request->description;
+        $Product->expiration_days = $request->expiration_days;
+        $Product->type = $request->type;
+        $Product->status = $request->status;
+        $Product->save();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Producto editado con exito",
+        ]);
+    }
+    public function deleteProduct(Request $request){
+        DB::beginTransaction();
+        $Product = Product::find($request->product_id);
+        $Product->delete();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Producto eliminado con exito",
+        ]);
+    }
+    public function addUser(Request $request){
+        DB::beginTransaction();
+        $user = $request->user();
+        $rules = [
+            'name' => ['required', 'string', 'max:60'],
+            'last_name' => ['required', 'string', 'max:60'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'birth_date' => ['required', 'date'],
+            'phone' => ['required', 'int', 'max:999999999999999'],
+            'gender' => ['required', 'string', 'max:6', 'in:Hombre,Mujer'],
+        ];
+        $messages = [
+            "required" => "Este campo es requerido",
+            "numeric" => "Este campo solo acepta numeros",
+            "int" => "Este campo solo acepta numeros",
+            "confirmed" => "Las contraseñas o coinciden",
+            "unique" => "Este usuario ya existe",
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        User::create([
+            'name' => $request->name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'birth_date' => $request->birth_date,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'role_id' => 2,
+            'branch_id' => $user->branch_id,
+        ]);
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Usuario agregado con exito",
+        ]);
+    }
+    public function editUser(Request $request){
+        DB::beginTransaction();
+        $User = User::find($request->user_id);
+        $User->name = $request->n_classes;
+        $User->last_name = $request->price;
+        $User->email = $request->description;
+        $User->phone = $request->type;
+        $User->save();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Usuario editado con exito",
+        ]);
+    }
+    public function deleteUser(Request $request){
+        DB::beginTransaction();
+        $User = User::find($request->user_id);
+        $User->delete();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Usuario eliminado con exito",
+        ]);
     }
 }
