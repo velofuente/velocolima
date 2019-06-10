@@ -75,15 +75,15 @@ class InstructorController extends Controller
         $branches = Branch::all();
         $products = Product::all();
         $selectedBike = UserSchedule::where("user_id", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->first();
-        $instructorBikes = Tool::select("position")->where("schedule_id", $schedules->id)->where("type", "instructor")->get()->pluck("position");
-        $disabledBikes = Tool::select("position")->where("schedule_id", $schedules->id)->where("type", "disabled")->get()->pluck("position");
+        $instructorBikes = Tool::select("position")->where("branch_id", $schedules->branch_id)->where("type", "instructor")->get()->pluck("position");
+        $disabledBikes = Tool::select("position")->where("branch_id", $schedules->branch_id)->where("type", "disabled")->get()->pluck("position");
         if($selectedBike){
             $selectedBike = $selectedBike->bike;
         } else {
             $selectedBike = 0;
         }
         $reservedPlaces = UserSchedule::where("user_id", "<>", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->get()->pluck("bike")->toArray();
-        if($instances < ($schedules->reserv_lim_x + $schedules->reserv_lim_y))
+        if($instances < ($schedules->branch->reserv_lim_x * $schedules->branch->reserv_lim_y))
             return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes"));
         else
             return response()->json([

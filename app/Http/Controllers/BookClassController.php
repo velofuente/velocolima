@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use DB, log;
 use App\{UserSchedule, UserWaitList, User, Purchase, Tool, Schedule};
 use SebastianBergmann\Environment\Console;
 
@@ -13,12 +13,18 @@ class BookClassController extends Controller
     {
         //obtiene el usuario que hizo el request
         $requestUser = $request->user();
+        //obtiene el cupo de la clase
+        $availability = Schedule::select('reservation_limit')->where('id', $request->schedule_id)->first();
         //obtiene el numero de reservaciones que se han hecho a esa clase
-        $instances = DB::table('user_schedules')->where('schedule_id', $request->schedule_id)->count();
+        $instances = UserSchedule::where('schedule_id', $request->schedule_id)->count();
         //obtiene y revisa si el usuario ya tiene esta clase reservada
         $bookedClass = userSchedule::where('schedule_id', $request->schedule_id)->where('user_id', $requestUser->id)->first();
         //Validaa si el lugar está disponible
         $alreadyReserved = UserSchedule::where("bike", $request->bike)->where("schedule_id", $request->schedule_id)->first();
+        //instructores de esa clase
+        $instructorBikes = Tool::where("branch_id", $request->branch_id)->where("type", "instructor")->get();
+        //bicicletas no disponibles de esa clase
+        $disabledBikes = Tool::where("branch_id", $request->branch_id)->where("type", "disabled")->get();
         //obtiene la compra con la fecha de caducidad mas proxima del usuario con clases disponibles
         $compra = Purchase::where('user_id', $requestUser->id)
         ->where('n_classes', "<>", 0)
@@ -33,7 +39,7 @@ class BookClassController extends Controller
             //valida si el usuario tiene clases disponibles
             if($classes>0){
                 //Valida si hay lugar disponible
-                if($instances < $availability){
+                if($instances < $availability->reservation_limit){
                     if(in_array($request->bike, (array)$disabledBikes)){
                         DB::commit();
                         return response()->json([
@@ -99,13 +105,17 @@ class BookClassController extends Controller
                 }
                 if($bookedClass->status == 'cancelled'){
                     $bookedClass->status = 'active';
+                    $bookedClass->bike = $request->bike;
+                    $bookedClass->changedSit = 1;
+                    $bookedClass->save();
+                    //Resta una clase a la compra del usuario y actualiza ese campo en la base de datos
+                    $compra->n_classes -= 1;
+                    $compra->save();
+                }else{
+                    $bookedClass->bike = $request->bike;
+                    $bookedClass->changedSit = 1;
+                    $bookedClass->save();
                 }
-                $bookedClass->bike = $request->bike;
-                $bookedClass->changedSit = 1;
-                $bookedClass->save();
-                //Resta una clase a la compra del usuario y actualiza ese campo en la base de datos
-                $compra->n_classes -= 1;
-                $compra->save();
                 DB::commit();
                 return response()->json([
                     'status' => 'Ok',
