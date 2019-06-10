@@ -18,6 +18,8 @@ class BranchesTableSeeder extends Seeder
         $branch->municipality = "Colima";
         $branch->state = "Colima";
         $branch->phone = "3126884480";
+        $branch->reserv_lim_x = 3;
+        $branch->reserv_lim_y = 5;
         $branch->save();
     }
 }

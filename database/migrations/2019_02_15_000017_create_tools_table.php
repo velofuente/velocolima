@@ -18,8 +18,8 @@ class CreateToolsTable extends Migration
             $table->string('type');
             $table->string('position');
             //Foreign Key to Schedule
-            $table->unsignedInteger('schedule_id');
-            $table->foreign('schedule_id')->references('id')->on('schedules');
+            $table->unsignedInteger('branch_id');
+            $table->foreign('branch_id')->references('id')->on('branches');
             $table->timestamps();
         });
     }
