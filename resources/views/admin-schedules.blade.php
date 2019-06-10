@@ -14,7 +14,7 @@
                 <th scope="col">Hora</th>
                 <th scope="col">Instructor</th>
                 <th scope="col">Límite de Reservación</th>
-                <th scope="col">Estatus</th>
+                <th scope="col">Sucursal</th>
                 <th scope="col" colspan="2" class="text-center">Acción</th>
             </tr>
         </thead>
@@ -27,7 +27,7 @@
                     <td>{{ date('h:s A', strtotime($schedule->hour)) }}</td>
                     <td>{{$schedule->instructor->name}}</td>
                     <td>{{$schedule->reservation_limit}}</td>
-                    <td>Estatus</td>
+                    <td>{{$schedule->branch->name}}</td>
                     <td><button class="btn btn-primary btn-sm editSchedule" id="editSchedule-{{ $schedule->id }}" value="{{$schedule->id}}" data-toggle="modal" data-target="#editScheduleModal">Editar</button></td>
                     <td><button class="btn btn-danger btn-sm deleteSchedule" id="deleteSchedule-{{ $schedule->id }}" value="{{$schedule->id}}">Eliminar</button></td>
                 </tr>
@@ -52,12 +52,12 @@
                 {{-- <form method="POST" action="{{ route('addSchedule') }}" class="registration"> --}}
                     @csrf
                     <div class="row">
-                        <div class="col">
+                        {{-- <div class="col">
                             Filas: <input class="form-control" maxlength="2" type="text" name="x" id="x">
                         </div>
                         <div class="col">
                             Columnas: <input class="form-control" maxlength="2" type="text" name="y" id="y">
-                        </div>
+                        </div> --}}
                         <div class="col">
                             Día: <input class="form-control" type="date" name="day" id="day">
                         </div>
@@ -71,8 +71,15 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="col">
+                            Sucursal <select class="form-control" name="branchInput" id="branchInput">
+                                @foreach ($branches as $branch)
+                                    <option value="{{$branch->id}}" class="text-center" id="scheduleBranch">{{$branch->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                    <div class="row my-4 mx-auto justify-content-center">
+                    {{-- <div class="row my-4 mx-auto justify-content-center">
                         <div class="col">
                             <p>Asiento Libre</p>
                             <span class="mx-auto common showBallFree">1</span>
@@ -85,7 +92,7 @@
                             <p>Asiento Deshabilitado</p>
                             <span class="showBallDisabled">1</span>
                         </div>
-                    </div>
+                    </div> --}}
                     {{-- <div class="row">
                         <div class="col my-4">
                             <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -99,10 +106,10 @@
                             <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         </div>
                     </div> --}}
-                    <div class="row my-4" id="main-bikes">
+                    {{-- <div class="row my-4" id="main-bikes">
                         <div class="centeredDiv" id="bikes-div">
                         </div>
-                    </div>
+                    </div> --}}
                 {{-- </form> --}}
             </div>
             <div class="modal-footer">
@@ -117,7 +124,7 @@
 <script type="text/javascript">
     var crfsToken = '{{ csrf_token() }}';
 </script>
-<script src="{{asset('js/bike-grid-script.js')}}"></script>
+{{-- <script src="{{asset('js/bike-grid-script.js')}}"></script> --}}
 
 <script>
 $(document).ready(function(){
@@ -148,6 +155,7 @@ $(document).ready(function(){
     })
 
     function addSchedule(){
+        console.log('entro');
         //Array to get disabled bikes and instructor bike(s)
         var disabledBikes = [];
         var instructorBikes = [];
@@ -170,9 +178,10 @@ $(document).ready(function(){
                 day: $('#day').val(),
                 hour: $('#hour').val(),
                 instructor_id: $('#instructorInput').val(),
+                branch_id: $('#branchInput').val(),
                 // class_id: 1,
-                reserv_lim_x: $('#x').val(),
-                reserv_lim_y: $('#y').val(),
+                //reserv_lim_x: $('#x').val(),
+                //reserv_lim_y: $('#y').val(),
                 // room_id: 1,
                 disabledBikes: disabledBikes,
                 instructorBikes: instructorBikes

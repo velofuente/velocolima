@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Schedule extends Model
 {
     use SoftDeletes;
-    
+
     protected $table = 'schedules';
     protected $guarded = [];
 
@@ -18,6 +18,10 @@ class Schedule extends Model
 
     public function room(){
         return $this->belongsTo(Room::class);
+    }
+
+    public function branch(){
+        return $this->hasOne(Branch::class, 'id', 'branch_id');
     }
 
 }

@@ -122,7 +122,8 @@
                     },
                     error: function(result){
                         $.LoadingOverlay("hide");
-                        alert('error');
+                        // alert('error');
+                        console.log(result);
                     }
                 });
             }

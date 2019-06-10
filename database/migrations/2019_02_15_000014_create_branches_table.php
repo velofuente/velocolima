@@ -20,6 +20,8 @@ class CreateBranchesTable extends Migration
             $table->string('municipality');
             $table->string('state');
             $table->string('phone', 15);
+            $table->tinyInteger('reserv_lim_x');
+            $table->tinyInteger('reserv_lim_y');
             $table->softDeletes();
             $table->timestamps();
         });

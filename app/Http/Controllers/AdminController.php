@@ -26,7 +26,8 @@ class AdminController extends Controller
     public function showSchedules(){
         $schedules = Schedule::all()->sortByDesc('day');
         $instructors = Instructor::all();
-        return view('/admin-schedules', compact ('schedules','instructors'));
+        $branches = Branch::all();
+        return view('/admin-schedules', compact ('schedules','instructors','branches'));
     }
 
     public function showProducts(){
@@ -82,17 +83,21 @@ class AdminController extends Controller
         ]);
     }
     public function addSchedule(Request $request){
+        $availability_x = Branch::select('reserv_lim_x')->where('id', $request->branch_id)->first();
+        $availability_y = Branch::select('reserv_lim_y')->where('id', $request->branch_id)->first();
+        $instructorBikes = Tool::where("branch_id", $request->branch_id)->where("type", "instructor")->get();
+        $disabledBikes = Tool::where("branch_id", $request->branch_id)->where("type", "disabled")->get();
+        $availability = $availability_x->reserv_lim_x * $availability_y->reserv_lim_y - ($disabledBikes->count() + $instructorBikes->count());
         DB::beginTransaction();
-        $schedule = Schedule::create([
+        Schedule::create([
             'day' => $request->day,
             'hour' => $request->hour,
             'instructor_id' => $request->instructor_id,
             'class_id' => 1,
-            'reserv_lim_x' => $request->reserv_lim_x,
-            'reserv_lim_y' => $request->reserv_lim_y,
             'room_id' => 1,
+            'branch_id' => $request->branch_id,
+            'reservation_limit' => $availability,
         ]);
-        $this->configGridBikes($request->disabledBikes, $request->instructorBikes, $schedule);
         DB::commit();
         return response()->json([
             'status' => 'OK',
@@ -105,8 +110,7 @@ class AdminController extends Controller
         $Schedule->day = $request->day;
         $Schedule->hour = $request->hour;
         $Schedule->instructor_id = $request->instructor_id;
-        $Schedule->reserv_lim_x = $request->reserv_lim_x;
-        $Schedule->reserv_lim_y = $request->reserv_lim_y;
+        $Schedule->branch_id = $request->branch_id;
         $Schedule->save();
         DB::commit();
         return response()->json([
@@ -126,13 +130,16 @@ class AdminController extends Controller
     }
     public function addBranch(Request $request){
         DB::beginTransaction();
-        Branch::create([
+        $branch = Branch::create([
             'name' => $request->name,
             'address' => $request->address,
             'municipality' => $request->municipality,
             'state' => $request->state,
             'phone' => $request->phone,
+            'reserv_lim_x' => $request->reserv_lim_x,
+            'reserv_lim_y' => $request->reserv_lim_y,
         ]);
+        $this->configGridBikes($request->disabledBikes, $request->instructorBikes, $branch);
         DB::commit();
         return response()->json([
             'status' => 'OK',
@@ -147,6 +154,8 @@ class AdminController extends Controller
         $Branch->municipality = $request->municipality;
         $Branch->state = $request->state;
         $Branch->phone = $request->phone;
+        $Branch->reserv_lim_x = $request->reserv_lim_x;
+        $Branch->reserv_lim_y = $request->reserv_lim_y;
         $Branch->save();
         DB::commit();
         return response()->json([
@@ -206,7 +215,7 @@ class AdminController extends Controller
             'message' => "Product eliminado con exito",
         ]);
     }
-    public function configGridBikes($disabledBikes, $instructorBikes, $schedule){
+    public function configGridBikes($disabledBikes, $instructorBikes, $branch){
         DB::beginTransaction();
         log::info($instructorBikes);
         log::info($disabledBikes);
@@ -215,14 +224,14 @@ class AdminController extends Controller
             Tool::create([
                 'type' => 'instructor',
                 'position' => $bike,
-                'schedule_id' => $schedule->id,
+                'schedule_id' => $branch->id,
             ]);
         }
         foreach ($disabledBikes as $bike) {
             Tool::create([
                 'type' => 'disabled',
                 'position' => $bike,
-                'schedule_id' => $schedule->id,
+                'schedule_id' => $branch->id,
             ]);
         }
         DB::commit();
