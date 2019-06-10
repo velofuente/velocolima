@@ -13,16 +13,6 @@ class BookClassController extends Controller
     {
         //obtiene el usuario que hizo el request
         $requestUser = $request->user();
-        //Obtiene el cupo de la clase
-        //$availability_x = Schedule::select('reserv_lim_x')->where('id', $request->schedule_id)->first();
-        $availability_x = Schedule::with('branch')->where('id', $request->schedule_id)->first();
-        return $availability_x;
-        $availability_y = Schedule::select('reserv_lim_y')->where('id', $request->schedule_id)->first();
-        //bici del instructor
-        $instructorBikes = Tool::where("branch_id", $request->branch_id)->where("type", "instructor")->get();
-        //bicis dsabilitadas
-        $disabledBikes = Tool::where("branch_id", $request->branch_id)->where("type", "disabled")->get();
-        $availability = $availability_x->reserv_lim_x * $availability_y->reserv_lim_y - ($disabledBikes->count() + $instructorBikes->count());
         //obtiene el numero de reservaciones que se han hecho a esa clase
         $instances = DB::table('user_schedules')->where('schedule_id', $request->schedule_id)->count();
         //obtiene y revisa si el usuario ya tiene esta clase reservada
