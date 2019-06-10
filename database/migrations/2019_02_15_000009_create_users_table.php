@@ -26,13 +26,16 @@ class CreateUsersTable extends Migration
             $table->string('phone', 15);
             //$table->float('weight', 5,2);
             //$table->tinyInteger('height')->unsigned(); asdaa
-            $table->float('shoe_size', 3,1);
-            $table->string('share_code',8)->default('ABCD');
+            $table->float('shoe_size', 3,1)->nullable();
+            $table->string('share_code',8)->nullable();
             //Foreign Key from Users to Role 1-instructor, 2-instuctor, 3-Common user
             $table->unsignedInteger('role_id')->default('3');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->string('customer_id')->nullable();
-            
+            //Foreign Key from User to Branch
+            $table->unsignedInteger('branch_id')->nullable();
+            $table->foreign('branch_id')->references('id')->on('branches');
+
             $table->rememberToken();
             $table->timestamps();
         });
