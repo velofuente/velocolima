@@ -93,6 +93,10 @@ Route::get('admin-instructors', 'AdminController@showInstructors')->name('admin-
 Route::get('admin-schedules', 'AdminController@showSchedules')->name('admin-schedules');
 Route::get('admin-products', 'AdminController@showProducts')->name('admin-products');
 Route::get('admin-branches', 'AdminController@showBranches')->name('admin-branches');
+Route::get('admin-users', 'AdminController@showUsers')->name('admin-users');
+Route::get('admin-sales', 'AdminController@showSales')->name('admin-sales');
+Route::get('admin-reports', 'AdminController@showReports')->name('admin-reports');
+
 //Instructor
 Route::post('addInstructor', 'AdminController@addInstructor');
 Route::post('editInstructor', 'AdminController@editInstructor');
@@ -109,3 +113,9 @@ Route::post('deleteBranch', 'AdminController@deleteBranch');
 Route::post('addProduct', 'AdminController@addProduct');
 Route::post('editProduct', 'AdminController@editProduct');
 Route::post('deleteProduct', 'AdminController@deleteProduct');
+//Admin
+Route::post('addUser', 'AdminController@addUser');
+Route::post('editUser', 'AdminController@editUser');
+Route::post('deleteUser', 'AdminController@deleteUser');
+//Ventas
+Route::post('sale', 'AdminController@sale');
