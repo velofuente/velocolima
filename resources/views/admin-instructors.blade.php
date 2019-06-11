@@ -157,7 +157,8 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
 
-                    <div class="form-group row my-4">
+                    {{-- Image Input --}}
+                    {{-- <div class="form-group row my-4">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="bio" class="mr-sm-2">Imágenes</label>
@@ -169,7 +170,7 @@
                             @endif
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                    </div>
+                    </div> --}}
                 {{-- </form> --}}
             </div>
             <div class="modal-footer">
@@ -441,6 +442,13 @@
                 error: function(result){
                     $.LoadingOverlay("hide");
                     // alert(result);
+                    Swal.fire({
+                        title: 'Error',
+                        text: "No se pudo procesar la solicitud.",
+                        type: 'warning',
+                        confirmButtonText: 'Aceptar'
+                    })
+                    $('#editInstructorButton').prop("disabled", false);
                 }
             });
         }

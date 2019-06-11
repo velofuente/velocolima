@@ -54,7 +54,7 @@ class AdminController extends Controller
 
     public function showReports(){
         $sales = Sale::all();
-        return view('/admin-reports', compact ('sales'));∫
+        return view('/admin-reports', compact ('sales'));
     }
 
     public function addInstructor(Request $request){

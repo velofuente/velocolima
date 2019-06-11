@@ -28,7 +28,7 @@
                     <td>{{$schedule->instructor->name}}</td>
                     <td>{{$schedule->reservation_limit}}</td>
                     <td>{{$schedule->branch->name}}</td>
-                    <td><button class="btn btn-primary btn-sm editSchedule" id="editSchedule-{{ $schedule->id }}" value="{{$schedule->id}}" data-toggle="modal" data-target="#editScheduleModal">Editar</button></td>
+                    <td><button class="btn btn-primary btn-sm editSchedule" id="editSchedule-{{ $schedule->id }}" value="{{$schedule->id}}" data-myid="{{$schedule->id}}" data-myday="{{ $schedule->day }}" data-myhour="{{ $schedule->hour }}" data-myinstructor="{{ $schedule->instructor->id }}" data-myreservation="{{ $schedule->reservation_limit }}" data-mybranch="{{$schedule->branch->id}}" data-toggle="modal" data-target="#editScheduleModal">Editar</button></td>
                     <td><button class="btn btn-danger btn-sm deleteSchedule" id="deleteSchedule-{{ $schedule->id }}" value="{{$schedule->id}}">Eliminar</button></td>
                 </tr>
             @endforeach
@@ -52,69 +52,85 @@
                 {{-- <form method="POST" action="{{ route('addSchedule') }}" class="registration"> --}}
                     @csrf
                     <div class="row">
-                        {{-- <div class="col">
-                            Filas: <input class="form-control" maxlength="2" type="text" name="x" id="x">
+                        <div class="col">
+                            <label for="day">Día: </label>
+                            <input class="form-control" type="date" name="day" id="addDaySchedule">
                         </div>
                         <div class="col">
-                            Columnas: <input class="form-control" maxlength="2" type="text" name="y" id="y">
-                        </div> --}}
-                        <div class="col">
-                            Día: <input class="form-control" type="date" name="day" id="day">
+                            <label for="hour">Hora:</label>
+                            <input class="form-control" type="time" name="hour" id="addHourSchedule">
                         </div>
                         <div class="col">
-                            Hora: <input class="form-control" type="time" name="hour" id="hour">
-                        </div>
-                        <div class="col">
-                            Instructor <select class="form-control" name="instructorInput" id="instructorInput">
+                            <label for="instructorInput">Instructor:</label>
+                            <select class="form-control" name="instructorInput" id="addInstructorSchedule">
                                 @foreach ($instructors as $instructor)
-                                    <option value="{{$instructor->id}}" class="text-center" id="scheduleInstructor">{{$instructor->name}}</option>
+                                    <option value="{{$instructor->id}}" class="text-center">{{$instructor->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col">
-                            Sucursal <select class="form-control" name="branchInput" id="branchInput">
+                            <label for="branchInput">Sucursal: </label>
+                            <select class="form-control" name="branchInput" id="branchInput">
                                 @foreach ($branches as $branch)
-                                    <option value="{{$branch->id}}" class="text-center" id="scheduleBranch">{{$branch->name}}</option>
+                                    <option value="{{$branch->id}}" class="text-center" id="addBranchSchedule">{{$branch->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                    {{-- <div class="row my-4 mx-auto justify-content-center">
-                        <div class="col">
-                            <p>Asiento Libre</p>
-                            <span class="mx-auto common showBallFree">1</span>
-                        </div>
-                        <div class="col">
-                            <p>Asiento Instructor</p>
-                            <span class="mx-auto showBallInstructor">1</span>
-                        </div>
-                        <div class="col">
-                            <p>Asiento Deshabilitado</p>
-                            <span class="showBallDisabled">1</span>
-                        </div>
-                    </div> --}}
-                    {{-- <div class="row">
-                        <div class="col my-4">
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                            <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                                Instructor <select class="form-control" name="instructorInput" id="instructorInput">
-                                    @foreach ($instructors as $instructor)
-                                        <option value="{{$instructor->id}}" class="text-center" id="scheduleInstructor">{{$instructor->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                        </div>
-                    </div> --}}
-                    {{-- <div class="row my-4" id="main-bikes">
-                        <div class="centeredDiv" id="bikes-div">
-                        </div>
-                    </div> --}}
                 {{-- </form> --}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-success" id="addScheduleButton">Añadir Horario</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Modal Edit Schedule --}}
+<div class="modal fade bd-example-modal-lg" id="editScheduleModal" tabindex="-1" role="dialog" aria-labelledby="editScheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editScheduleModalLabel">Editar Horario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{-- <form method="POST" action="{{ route('addSchedule') }}" class="registration"> --}}
+                    @csrf
+                    <div class="row">
+                        <div class="col">
+                            <label for="day">Día:</label>
+                            <input class="form-control" type="date" name="day" id="editDaySchedule">
+                        </div>
+                        <div class="col">
+                            <label for="hour">Hora:</label>
+                            <input class="form-control" type="time" name="hour" id="editHourSchedule">
+                        </div>
+                        <div class="col">
+                            <label for="editInstructor">Instructor:</label>
+                            <select class="form-control" name="editInstructor" id="editInstructorSchedule">
+                                @foreach ($instructors as $instructor)
+                                    <option value="{{$instructor->id}}" class="text-center">{{$instructor->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="branchInput">Sucursal:</label>
+                            <select class="form-control" name="branchInput" id="editBranchSchedule">
+                                @foreach ($branches as $branch)
+                                    <option value="{{$branch->id}}" class="text-center">{{$branch->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                {{-- </form> --}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" id="editScheduleButton">Editar Horario</button>
             </div>
         </div>
     </div>
@@ -128,6 +144,13 @@
 
 <script>
 $(document).ready(function(){
+    // var instructor_id = null;
+    var schedule_id = null;
+    var day = null;
+    var hour = null;
+    var instructor = null;
+    var branch = null;
+
     $('#addScheduleButton').on('click', function(event) {
         // event.preventDefault();
         $('#addScheduleButton').attr('disabled', true);
@@ -154,8 +177,59 @@ $(document).ready(function(){
         // $('#deleteScheduleButton').attr('disabled', true);
     })
 
+    //OnClick editSchedule Button
+    $('.editSchedule').on('click', function (){
+        // $(this).prop('disabled', true);
+        event.preventDefault();
+
+        //Get Full ID of the button (which contains the instructor ID)
+        var fullId = this.id;
+        //Split the ID of the fullId by his dash
+        var splitedId = fullId.split("-");
+        if(splitedId.length > 1){
+            // console.log(splitedId);
+            var instructorId = splitedId[1];
+            // editSchedule(instructorId, this);
+        } else {
+            $(this).prop("disabled", false)
+            console.log("Malformed ID")
+        }
+    })
+    //OnClick editScheduleModal Button
+
+    //When Modal Opened
+    $('#editScheduleModal').on('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = $(event.relatedTarget)
+        // Extract info from data-* attributes
+        schedule_id = button.data('myid')
+        day = button.data('myday') // Extract info from data-* attributes
+        hour = button.data('myhour');
+        instructor = button.data('myinstructor');
+        branch = button.data('mybranch');
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-body #editDaySchedule').val(day)
+        modal.find('.modal-body #editHourSchedule').val(hour)
+        modal.find('.modal-body #editInstructorSchedule').val(instructor)
+        modal.find('.modal-body #editBranchSchedule').val(branch)
+    })
+
+    //Edit Product Button Inside Modal
+    $('#editScheduleButton').on('click', function(){
+        $('#editScheduleButton').prop("disabled", true)
+        event.preventDefault();
+
+        day = $('#editDaySchedule').val(); // Extract info from data-* attributes
+        hour = $('#editHourSchedule').val();
+        instructor = $('#editInstructorSchedule').val();
+        branch = $('#editBranchSchedule').val();
+
+        editSchedule(schedule_id);
+    })
+
     function addSchedule(){
-        console.log('entro');
         //Array to get disabled bikes and instructor bike(s)
         var disabledBikes = [];
         var instructorBikes = [];
@@ -175,22 +249,22 @@ $(document).ready(function(){
             },
             data: {
                 _token: crfsToken,
-                day: $('#day').val(),
-                hour: $('#hour').val(),
-                instructor_id: $('#instructorInput').val(),
-                branch_id: $('#branchInput').val(),
+                day: $('#addDaySchedule').val(),
+                hour: $('#addHourSchedule').val(),
+                instructor_id: $('#addInstructorSchedule').val(),
+                branch_id: $('#addBranchSchedule').val(),
                 // class_id: 1,
                 //reserv_lim_x: $('#x').val(),
                 //reserv_lim_y: $('#y').val(),
                 // room_id: 1,
-                disabledBikes: disabledBikes,
-                instructorBikes: instructorBikes
+                // disabledBikes: disabledBikes,
+                // instructorBikes: instructorBikes
             },
             success: function(result){
                 if(result.status == "OK"){
                     $.LoadingOverlay('hide');
                     Swal.fire({
-                        title: 'Creado con exito',
+                        title: 'Horario creado con éxito',
                         text: result.message,
                         type: 'success',
                         confirmButtonText: 'Aceptar'
@@ -210,8 +284,60 @@ $(document).ready(function(){
         });
     }
 
-    function deleteSchedule(Schedule_id, button){
-        // Schedule_id = $('#deleteScheduleButton').val();
+    function editSchedule(schedule_id){
+        $.ajax({
+            url: "editSchedule",
+            type: 'POST',
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function(){
+                $.LoadingOverlay("show");
+            },
+            data: {
+                schedule_id: schedule_id,
+                day: day,
+                hour: hour,
+                instructor_id: instructor,
+                branch_id: branch,
+            },
+            success: function(result) {
+                $.LoadingOverlay("hide");
+                if(result.status == "OK"){
+                    // console.log(result.status);
+                    Swal.fire({
+                        title: 'Producto Editado',
+                        text: result.message,
+                        type: 'success',
+                        confirmButtonText: 'Aceptar'
+                    })
+                    window.location.reload();
+                }
+                else {
+                    $.LoadingOverlay("hide");
+                    Swal.fire({
+                        title: 'Error',
+                        text: result.message,
+                        type: 'warning',
+                        confirmButtonText: 'Aceptar'
+                    })
+                }
+            },
+            error: function(result){
+                $.LoadingOverlay("hide");
+                // alert(result);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'No se pudo procesar su solicitud',
+                    type: 'warning',
+                    confirmButtonText: 'Aceptar'
+                })
+            }
+        });
+    };
+
+    function deleteSchedule(schedule_id, button){
         Swal.fire({
             title: '¿Estás seguro?',
             text: "No se podrán revertir los cambios!",
@@ -230,7 +356,7 @@ $(document).ready(function(){
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     data: {
-                        schedule_id: Schedule_id,
+                        schedule_id: schedule_id,
                     },
                     success: function(result) {
                         $.LoadingOverlay("hide");
@@ -270,6 +396,6 @@ $(document).ready(function(){
                 $(button).prop("disabled", false)
             }
         })
-    }
+    };
 })
 </script>
