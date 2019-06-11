@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\{Instructor, Schedule, Branch, Product, Tool, User, Purchase, Sale};
+use App\{Instructor, Schedule, Branch, Product, Tool, User, Purchase, Sale, UserSchedule};
 use DB, Log;
 
 class AdminController extends Controller
@@ -55,6 +55,19 @@ class AdminController extends Controller
     public function showReports(){
         $sales = Sale::all();
         return view('/admin-reports', compact ('sales'));
+    }
+
+    public function showOperationsGrid(){
+        date_default_timezone_set('America/Mexico_City');
+        $id = [];
+        $schedules = Schedule::where('day', now()->format('Y-m-d'))
+            ->get()
+            ->sortBy('hour');
+        foreach ($schedules as $schedule) {
+            array_push($id,$schedule->id);
+        }
+        $userSchedules = UserSchedule::whereIn('schedule_id', $id)->get();
+        return view('/admin-operationsGrid', compact ('schedules', 'userSchedules'));
     }
 
     public function addInstructor(Request $request){
