@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\{Instructor, Schedule, Branch, Product, Tool, User};
+use App\{Instructor, Schedule, Branch, Product, Tool, User, Purchase, Sale};
 use DB, Log;
 
 class AdminController extends Controller
@@ -39,6 +39,22 @@ class AdminController extends Controller
     public function showBranches(){
         $branches = Branch::all();
         return view('/admin-branches', compact ('branches'));
+    }
+
+    public function showUsers(){
+        $users = User::where('role_id', 2)->get();
+        return view('/admin-users', compact ('users'));
+    }
+
+    public function showSales(){
+        $products = Product::where('status',1)->get();
+        $users = User::where('role_id', 3)->get();
+        return view('/admin-sales', compact ('products', 'users'));
+    }
+
+    public function showReports(){
+        $sales = Sale::all();
+        return view('/admin-reports', compact ('sales'));∫
     }
 
     public function addInstructor(Request $request){
@@ -301,6 +317,26 @@ class AdminController extends Controller
         return response()->json([
             'status' => 'OK',
             'message' => "Usuario eliminado con exito",
+        ]);
+    }
+    public function sale(Request $request){
+        $user = $request->user();
+        $product = Product::where('id', "{$request->product_id}")->first();
+        DB::beginTransaction();
+        $purchase = Purchase::create([
+            'product_id' => $product->id,
+            'user_id' => $request->client_id,
+            'n_classes' => $product->n_classes,
+            'expiration_days' => $product->expiration_days,
+        ]);
+        Sale::create([
+            'admin_id' => $user->id,
+            'purchase_id' => $purchase->id,
+        ]);
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Venta realizada con exito",
         ]);
     }
 }
