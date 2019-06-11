@@ -41,23 +41,19 @@ Route::get('/schedule', 'InstructorController@schedule');
 
 Route::get('/branches', 'BranchesController@index');
 
-// Route::get('/schedule', function(){
-//     return view ('schedule');
+Route::get('/legales', function() {
+    return view('legales');
+});
+
+// Route::get('/book', function(){
+//     return view('book');
 // });
 
-Route::get('/book', function(){
-    return view('book');
-});
-
-Route::get('/who-are-we', function(){
-    return view('who-are-we');
-});
+// Route::get('/who-are-we', function(){
+//     return view('who-are-we');
+// });
 
 Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
-
-Route::get('/first-visit', function (){
-    return view('first-visit');
-});
 
 Route::post('charge', 'PurchaseController@store');
 

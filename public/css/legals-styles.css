@@ -18,31 +18,60 @@
     src: url("css/fonts/velo/AvenirNextLTPro-UltLtCn.oto") format("opentype");
     src: url("css/fonts/velo/AvenirNextLTPro-UltLtCnlt.otf") format("opentype");
 }
-
-body{
-    font-family: 'Avenir' !important;
-    color: #F11635 !important;
-    background-color: #000 !important;
+.mainContainer{
+    margin-left: 4%;
+    margin-right: 4%;
 }
 
-.title {
-	background: linear-gradient(0.25turn, #961260, #BE1131, #9100FE) !important;
-    -webkit-background-clip: text !important;
-	-webkit-text-fill-color: transparent !important;
+.title{
+    font-family: 'Avenir Next' !important;
+    font-size: 70px;
+    font-weight: 250;
+    /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
+    background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-#instructorName {
-    color: #F4113A !important;
+.header{
+    color: #fff;
+    text-align: center;
+    font-weight: 100 !important;
+    font-size: 1.7em;
 }
 
-.card{
-    background-color: #000;
-    color: #000;
-    transition: 0.3s;
+.bodyText{
+    color: #fff;
+    text-align: justify;
+    text-justify: inter-word;
+    font-weight: 100;
+    font-size: 1em;
+    margin-bottom: 3%;
 }
 
-.card:hover{
-    background-color: #c72744cd;
-    background-color: #282828;
-    color: #FFF;
+@media screen and (max-width: 600px){
+    .title{
+        font-family: 'Avenir Next';
+        font-size: 40px;
+        font-weight: 250;
+        /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
+        background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .header{
+        color: #fff;
+        text-align: center;
+        font-weight: 100;
+        font-size: 1em;
+    }
+
+    .bodyText{
+        color: #fff;
+        text-align: justify;
+        text-justify: inter-word;
+        font-weight: 100;
+        font-size: 0.8em;
+    }
 }

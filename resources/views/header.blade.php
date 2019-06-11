@@ -100,7 +100,7 @@
         <a href="{{ url('/schedule') }}">Reservar</a>
         <a href="{{ url('/schedule#packages') }}">Comprar clases</a>
         <!-- <a href="{{ url('/who-are-we') }}">¿Quiénes somos?</a> -->
-        <a href="#">Legales</a>
+        <a href="{{ url('/legales') }}">Legales</a>
         @guest
             <a href="{{ url('/login')}}"> Login </a>
         @endguest
