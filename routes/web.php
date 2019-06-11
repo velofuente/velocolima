@@ -16,7 +16,7 @@ use App\Http\Controllers\PurchaseController;
 */
 
 Route::get('prueba', function () {
-    return view('bike_grid');
+    return view('pruebas');
 });
 
 // Route::get('/addCard', 'OpenPayController@addCustomerCard');
@@ -76,6 +76,7 @@ Route::get('/client', function(){
 
 Route::post('book', 'BookClassController@book');
 Route::post('cancelClass', 'BookClassController@cancelClass');
+Route::post('attendClass', 'BookClassController@attendClass');
 
 //OPENPAY
 //Route::get('user', 'UserController@getAuthenticatedUser');
@@ -96,6 +97,7 @@ Route::get('admin-branches', 'AdminController@showBranches')->name('admin-branch
 Route::get('admin-users', 'AdminController@showUsers')->name('admin-users');
 Route::get('admin-sales', 'AdminController@showSales')->name('admin-sales');
 Route::get('admin-reports', 'AdminController@showReports')->name('admin-reports');
+Route::get('admin-operationsGrid', 'AdminController@showOperationsGrid')->name('admin-operationsGrid');
 
 //Instructor
 Route::post('addInstructor', 'AdminController@addInstructor');
@@ -119,3 +121,5 @@ Route::post('editUser', 'AdminController@editUser');
 Route::post('deleteUser', 'AdminController@deleteUser');
 //Ventas
 Route::post('sale', 'AdminController@sale');
+
+

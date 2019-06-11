@@ -164,4 +164,20 @@ class BookClassController extends Controller
             'message' => "Has sido agregado a la lista de espera de esta clase",
         ]);
     }
+    public function attendClass(Request $request){
+        $requestedClass = UserSchedule::find($request->reservation_id);
+        if($requestedClass->status!='taken'){
+            $requestedClass->status = 'taken';
+            $requestedClass->save();
+            return response()->json([
+                'status' => 'OK',
+                'message' => "Asistencia registrada con exito",
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'ERROR',
+                'message' => "La clase ya fue registrada anteriormente.",
+            ]);
+        }
+    }
 }
