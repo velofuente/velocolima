@@ -140,7 +140,7 @@
                             <label for="typeProduct">Tipo de Producto: </label>
                             <select class="form-control" name="typeProduct" id="typeProduct">
                                 <option value="Deals" class="text-center">Promoción</option>
-                                <option value="Packages" class="text-center">Paquetes</option>
+                                <option value="Packages" class="text-center">Paquete</option>
                             </select>
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -376,11 +376,6 @@
             description = button.data('mydescription');
             expiration_days = button.data('myexpiration');
             type = button.data('mytype');
-            if (type == "Deals") {
-                type = 'Promoción'
-            } else {
-                type="Paquete"
-            }
             status = button.data('mystatus');
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
