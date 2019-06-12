@@ -68,11 +68,17 @@
                                 <li>New Service 2</li>
                                 <li>New Service 3</li>
                             </ul> --}}
-                        <a href="#" id="products">
+                        {{-- <a href="#" id="products">
                             <li data-toggle="collapse" data-target="#new" class="collapsed">
-                            {{-- <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a> --}}
-                                {{-- <i class="fa fa-car fa-lg"></i> --}}
+                            <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
+                                <i class="fa fa-car fa-lg"></i>
                                 Producto
+                            </li>
+                        </a> --}}
+                        <a href="#" id="products">
+                            <li>
+                                {{-- <i class="fa fa-user fa-lg"></i> --}}
+                                Productos
                             </li>
                         </a>
                             {{-- <ul class="sub-menu collapse" id="new">
@@ -90,6 +96,12 @@
                             <li>
                                 {{-- <i class="fa fa-user fa-lg"></i> --}}
                                 Ventas
+                            </li>
+                        </a>
+                        <a href="#" id="reports">
+                            <li>
+                                {{-- <i class="fa fa-user fa-lg"></i> --}}
+                                Reportes
                             </li>
                         </a>
                     </ul>
@@ -128,8 +140,13 @@
                     },
                     error: function(result){
                         $.LoadingOverlay("hide");
-                        // alert('error');
-                        console.log(result);
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Ocurrió un Error en la petición',
+                            type: 'warning',
+                            confirmButtonText: 'Aceptar'
+                        })
+                        // console.log(result);
                     }
                 });
             }

@@ -29,7 +29,8 @@ class CreateUsersTable extends Migration
             $table->float('shoe_size', 3,1)->nullable();
             $table->string('share_code',8)->nullable();
             //Foreign Key from Users to Role 1-instructor, 2-instuctor, 3-Common user
-            $table->unsignedInteger('role_id')->default('3');
+            // $table->unsignedInteger('role_id')->default('3');
+            $table->unsignedInteger('role_id');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->string('customer_id')->nullable();
             //Foreign Key from User to Branch

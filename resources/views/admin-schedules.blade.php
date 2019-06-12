@@ -54,7 +54,7 @@
                     <div class="row">
                         <div class="col">
                             <label for="day">Día: </label>
-                            <input class="form-control" type="date" name="day" id="addDaySchedule">
+                            <input class="form-control" min="1900-01-01" max="2100-12-31" type="date" name="day" id="addDaySchedule">
                         </div>
                         <div class="col">
                             <label for="hour">Hora:</label>
@@ -103,7 +103,7 @@
                     <div class="row">
                         <div class="col">
                             <label for="day">Día:</label>
-                            <input class="form-control" type="date" name="day" id="editDaySchedule">
+                            <input class="form-control" min="1900-01-01" max="2100-12-31" type="date" name="day" id="editDaySchedule">
                         </div>
                         <div class="col">
                             <label for="hour">Hora:</label>

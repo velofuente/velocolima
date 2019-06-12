@@ -390,13 +390,6 @@ $(document).ready(function(){
                 }
             }
         });
-        console.log('name: ' + name);
-        console.log('address: ' + address);
-        console.log('municipality: ' + municipality);
-        console.log('state: ' + state);
-        console.log('phone: ' + phone);
-        console.log('X: ' + reserv_lim_x);
-        console.log('Y: ' + reserv_lim_y);
     }
 
     function deleteBranch(branch_id, button){

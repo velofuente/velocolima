@@ -11,11 +11,12 @@
             <tr style="font-size: 1em;">
                 <th scope="col">ID</th>
                 <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
                 <th scope="col">Correo</th>
                 <th scope="col">Fecha de nacimiento</th>
                 <th scope="col">Teléfono</th>
                 <th scope="col">Género</th>
-                <th scope="col">Sucursal</th>
+                {{-- <th scope="col">Sucursal</th> --}}
                 <th scope="col" colspan="2" class="text-center">Acción</th>
             </tr>
         </thead>
@@ -24,13 +25,14 @@
                 <tr style="font-size: 0.9em;">
                     {{-- <th scope="row">{{$product->id}}</th> --}}
                     <td>{{$user->id}}</td>
-                    <td>{{$user->name}} {{$user->last_name}}</td>
+                    <td>{{$user->name}}</td>
+                    <td>{{$user->last_name}}</td>
                     <td>{{$user->email}}</td>
-                    <td>${{$user->birth_date}}</td>
+                    <td>{{$user->birth_date}}</td>
                     <td>{{$user->phone}}</td>
                     <td>{{$user->gender}}</td>
-                    <td>{{$user->branch->name}}</td>
-                    <td><button class="btn btn-primary btn-sm editUser" id="editUser-{{ $user->id }}" value="{{$user->id}}" data-myid="{{ $user->id }}" data-myname="{{ $user->name }}" data-mylastname="{{ $user->last_name }}" data-mybirthday="{{ $user->birth_day }}" data-myphone="{{$user->phone}}" data-myemail="{{$user->email}}" data-toggle="modal" data-target="#editUserModal">Editar</button></td>
+                    {{-- <td>{{$user->branch->name}}</td> --}}
+                    <td><button class="btn btn-primary btn-sm editUser" id="editUser-{{ $user->id }}" value="{{$user->id}}" data-myid="{{ $user->id }}" data-myname="{{ $user->name }}" data-mylastname="{{ $user->last_name }}" data-myemail="{{$user->email}}" data-mybirthdate="{{ $user->birth_date }}" data-myphone="{{$user->phone}}" data-toggle="modal" data-target="#editUserModal">Editar</button></td>
                     <td><button class="btn btn-danger btn-sm deleteUser" id="deleteUser-{{ $user->id }}" value="{{$user->id}}">Eliminar</button></td>
                 </tr>
             @endforeach
@@ -58,10 +60,10 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="name" class="mr-sm-2">Nombre:</label>
-                            <input id="addName" type="text" placeholder="Nombre" class="form-control{{ $errors->has('addName') ? ' is-invalid' : '' }}" name="name" value="{{ old('addName') }}" required autofocus >
-                            @if ($errors->has('addName'))
+                            <input id="addUserName" type="text" placeholder="Nombre" class="form-control{{ $errors->has('addUserName') ? ' is-invalid' : '' }}" name="name" value="{{ old('addUserName') }}" required autofocus >
+                            @if ($errors->has('addUserName'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('addName') }}</strong>
+                                    <strong>{{ $errors->first('addUserName') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -73,10 +75,10 @@
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="last_name" class="mr-sm-2">Apellido:</label>
                             <div class="input-group">
-                                <input id="addLastName" placeholder="Apellido" type="text" class="form-control{{ $errors->has('addLastName') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('addLastName') }}" required autofocus>
-                                @if ($errors->has('addLastName'))
+                                <input id="addUserLastName" placeholder="Apellido" type="text" class="form-control{{ $errors->has('addUserLastName') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('addUserLastName') }}" required>
+                                @if ($errors->has('addUserLastName'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('addLastName') }}</strong>
+                                        <strong>{{ $errors->first('addUserLastName') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -88,10 +90,10 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="email" class="mr-sm-2">Correo:</label>
-                            <input id="addEmail" placeholder="Correo" type="text" class="form-control{{ $errors->has('addEmail') ? ' is-invalid' : '' }}" name="email" value="{{ old('addEmail') }}" required>
-                            @if ($errors->has('addEmail'))
+                            <input id="addUserEmail" placeholder="Correo" type="email" class="form-control{{ $errors->has('addUserEmail') ? ' is-invalid' : '' }}" name="email" value="{{ old('addUserEmail') }}" required>
+                            @if ($errors->has('addUserEmail'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('addEmail') }}</strong>
+                                    <strong>{{ $errors->first('addUserEmail') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -102,10 +104,10 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="password" class="mr-sm-2">Contraseña:</label>
-                            <input id="addPassword" placeholder="Contraseña" minlength="7" type="password" class="form-control{{ $errors->has('addPassword') ? ' is-invalid' : '' }}" name="addPassword" value="{{ old('addPassword') }}" required>
-                            @if ($errors->has('addPassword'))
+                            <input id="addUserPassword" placeholder="Contraseña" minlength="7" type="password" class="form-control{{ $errors->has('addUserPassword') ? ' is-invalid' : '' }}" name="addUserPassword" value="{{ old('addUserPassword') }}" required>
+                            @if ($errors->has('addUserPassword'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('addPassword') }}</strong>
+                                    <strong>{{ $errors->first('addUserPassword') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -120,16 +122,16 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
-                    {{-- User's Birthday --}}
+                    {{-- User's Birth Date --}}
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="birth_date" class="mr-sm-2">Fecha de nacimiento:</label>
                             <div class="input-group">
-                                <input id="addBirthDate" placeholder="Fecha de Nacimiento" type="date" class="form-control{{ $errors->has('addBirthDate') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('addBirthDate') }}" required >
-                                @if ($errors->has('addBirthDate'))
+                                <input id="addUserBirthDate" min="1900-01-01" max="2100-12-31" placeholder="Fecha de Nacimiento" type="date" class="form-control{{ $errors->has('addUserBirthDate') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('addUserBirthDate') }}" required >
+                                @if ($errors->has('addUserBirthDate'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('addBirthDate') }}</strong>
+                                    <strong>{{ $errors->first('addUserBirthDate') }}</strong>
                                 </span>
                                 @endif
                             </div>
@@ -142,10 +144,10 @@
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="phone" class="mr-sm-2">Teléfono:</label>
                             <div class="input-group">
-                                <input id="addPhone" placeholder="Teléfono" type="number" class="form-control{{ $errors->has('addPhone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('addPhone') }}" required >
-                                @if ($errors->has('addPhone'))
+                                <input id="addUserPhone" placeholder="Teléfono" maxlength="15" type="number" class="form-control{{ $errors->has('addUserPhone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('addUserPhone') }}" required >
+                                @if ($errors->has('addUserPhone'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('addPhone') }}</strong>
+                                    <strong>{{ $errors->first('addUserPhone') }}</strong>
                                 </span>
                                 @endif
                             </div>
@@ -157,7 +159,7 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="gender">Género: </label>
-                            <select class="form-control" name="gender" id="addGender">
+                            <select class="form-control" name="gender" id="addUserGender" required>
                                 <option value="Hombre" class="text-center">Hombre</option>
                                 <option value="Mujer" class="text-center">Mujer</option>
                             </select>
@@ -191,10 +193,10 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="name" class="mr-sm-2">Nombre:</label>
-                            <input id="editName" type="text" placeholder="Nombre" class="form-control{{ $errors->has('editName') ? ' is-invalid' : '' }}" name="name" value="{{ old('editName') }}" required autofocus >
-                            @if ($errors->has('editName'))
+                            <input id="editUserName" type="text" placeholder="Nombre" class="form-control{{ $errors->has('editUserName') ? ' is-invalid' : '' }}" name="name" value="{{ old('editUserName') }}" required autofocus >
+                            @if ($errors->has('editUserName'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('editName') }}</strong>
+                                    <strong>{{ $errors->first('editUserName') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -204,12 +206,12 @@
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="last_name" class="mr-sm-2">Apellido:</label>
+                            <label for="editUserLastName" class="mr-sm-2">Apellido:</label>
                             <div class="input-group">
-                                <input id="editLastName" placeholder="Apellido" type="text" class="form-control{{ $errors->has('editLastName') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('editLastName') }}" required autofocus>
-                                @if ($errors->has('editLastName'))
+                                <input id="editUserLastName" placeholder="Apellido" type="text" class="form-control{{ $errors->has('editLastName') ? ' is-invalid' : '' }}" name="editUserLastName" value="{{ old('editLastName') }}" required autofocus>
+                                @if ($errors->has('editUserLastName'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('editLastName') }}</strong>
+                                        <strong>{{ $errors->first('editUserLastName') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -221,41 +223,41 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="email" class="mr-sm-2">Correo:</label>
-                            <input id="editEmail" placeholder="Correo" type="text" class="form-control{{ $errors->has('editEmail') ? ' is-invalid' : '' }}" name="email" value="{{ old('editEmail') }}" required>
-                            @if ($errors->has('editEmail'))
+                            <input id="editUserEmail" placeholder="Correo" type="email" class="form-control{{ $errors->has('editUserEmail') ? ' is-invalid' : '' }}" name="email" value="{{ old('editUserEmail') }}" required>
+                            @if ($errors->has('editUserEmail'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('editEmail') }}</strong>
+                                    <strong>{{ $errors->first('editUserEmail') }}</strong>
                                 </span>
                             @endif
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
-                    {{-- User's Birthday --}}
-                    <div class="form-group row mb-3">
+                    {{-- User's Birth Date --}}
+                    {{-- <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="birth_date" class="mr-sm-2">Fecha de nacimiento:</label>
                             <div class="input-group">
-                                <input id="editBirthDate" placeholder="Fecha de Nacimiento" type="date" class="form-control{{ $errors->has('editBirthDate') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('editBirthDate') }}" required >
-                                @if ($errors->has('editBirthDate'))
+                                <input id="editUserBirthDate" min="1900-01-01" max="2100-12-31" placeholder="Fecha de Nacimiento" type="date" class="form-control{{ $errors->has('editUserBirthDate') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('editUserBirthDate') }}" required >
+                                @if ($errors->has('editUserBirthDate'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('editBirthDate') }}</strong>
+                                    <strong>{{ $errors->first('editUserBirthDate') }}</strong>
                                 </span>
                                 @endif
                             </div>
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                    </div>
+                    </div> --}}
                     {{-- User's Phone --}}
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="phone" class="mr-sm-2">Teléfono:</label>
                             <div class="input-group">
-                                <input id="editPhone" placeholder="Teléfono" type="number" class="form-control{{ $errors->has('editPhone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('editPhone') }}" required >
-                                @if ($errors->has('editPhone'))
+                                <input id="editUserPhone" maxlength="15" placeholder="Teléfono" type="number" class="form-control{{ $errors->has('editUserPhone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('editUserPhone') }}" required >
+                                @if ($errors->has('editUserPhone'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('editPhone') }}</strong>
+                                    <strong>{{ $errors->first('editUserPhone') }}</strong>
                                 </span>
                                 @endif
                             </div>
@@ -280,18 +282,27 @@
         var last_name = null;
         var email = null;
         var password = null;
+        var password_confirm = null;
         var birth_date = null;
         var phone = null;
         var gender = null;
 
         // myid mynclasses myprice mydescription myexpiration mytype mystatus
-        // product_id n_classes price description expiration_days type status
+        // user_id n_classes price description expiration_days type status
 
         //OnClick Add User Button
         $('#addUserButton').on('click', function(event) {
             event.preventDefault();
-            addUser();
             $('#addUserButton').attr('disabled', true);
+            name = $('#addUserName').val();
+            last_name =  $('#addUserLastName').val();
+            email =  $('#addUserEmail').val();
+            password =  $('#addUserPassword').val();
+            password_confirm =  $('#password-confirm').val();
+            birth_date =  $('#addUserBirthDate').val();
+            phone =  $('#addUserPhone').val();
+            gender =  $('#addUserGender').val();
+            addUser();
         })
 
         //OnClick Delete User Button
@@ -351,11 +362,11 @@
 
             // Load the Inputs with the respective information
             var modal = $(this)
-            modal.find('.modal-body #editName').val(name)
-            modal.find('.modal-body #editLastName').val(last_name)
-            modal.find('.modal-body #editEmail').val(email)
-            modal.find('.modal-body #editPhone').val(phone)
-            modal.find('.modal-body #editBirthDate').val(birth_date)
+            modal.find('.modal-body #editUserName').val(name)
+            modal.find('.modal-body #editUserLastName').val(last_name)
+            modal.find('.modal-body #editUserEmail').val(email)
+            modal.find('.modal-body #editUserPhone').val(phone)
+            modal.find('.modal-body #editUserBirthDate').val(birth_date)
         })
 
         //Edit User Button Inside Modal
@@ -363,24 +374,17 @@
             $('#editUserButton').prop("disabled", true)
             event.preventDefault();
 
-            nClasses = $('#editnclassesUser').val(); // Extract info from data-* attributes
-            price = $('#editPriceUser').val();
-            description = $('#editDescriptionUser').val();
-            expiration_days = $('#editExpirationUser').val();
-            type = $('#editTypeUser').val();
-            status = $('#editStatusUser').val();
+            // Extract info from data-* attributes
+            name = $('#editUserName').val();
+            last_name = $('#editUserLastName').val();
+            email = $('#editUserEmail').val();
+            phone = $('#editUserPhone').val();
+            birth_date = $('#editUserBirthDate').val();
 
-            editUser(product_id);
+            editUser(user_id);
         })
 
         function addUser(){
-            nClasses = $('#nclassesUser').val()
-            price = $('#priceUser').val()
-            description = $('#Description').val()
-            expiration_days = $('#expirationUser').val()
-            type = $('#typeUser').val()
-            status = 1
-
             $.ajax({
                 url: 'addUser',
                 type: 'POST',
@@ -389,19 +393,20 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data: {
-                    n_classes: nClasses,
-                    price: price,
-                    description: description,
-                    expiration_days: expiration_days,
-                    type: type,
-                    status: status,
+                    name: name,
+                    last_name: last_name,
+                    email: email,
+                    password: password,
+                    birth_date: birth_date,
+                    phone: phone,
+                    gender: gender
                 },
                 success: function(result) {
                     $.LoadingOverlay("hide");
                     if(result.status == "OK"){
                         // console.log(result.status);
                         Swal.fire({
-                            title: 'Producto Añadido',
+                            title: 'Usuario Añadido',
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
@@ -425,7 +430,7 @@
             });
         }
 
-        function editUser(product_id){
+        function editUser(user_id){
             $.ajax({
                 url: "editUser",
                 type: 'POST',
@@ -437,20 +442,18 @@
                     $.LoadingOverlay("show");
                 },
                 data: {
-                    product_id: product_id,
-                    n_classes: nClasses,
-                    price: price,
-                    description: description,
-                    expiration_days: expiration_days,
-                    type: type,
-                    status: status,
+                    user_id: user_id,
+                    name: name,
+                    last_name: last_name,
+                    email: email,
+                    phone: phone
                 },
                 success: function(result) {
                     $.LoadingOverlay("hide");
                     if(result.status == "OK"){
                         // console.log(result.status);
                         Swal.fire({
-                            title: 'Producto Editado',
+                            title: 'Usuario Editado',
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
@@ -470,21 +473,20 @@
                 error: function(result){
                     $.LoadingOverlay("hide");
                     // alert(result);
-                    console.log(product_id, nClasses, price, description, expiration_days, type, status);
                 }
             });
         };
 
-        function deleteUser(product_id, button){
-            // product_id = $('#deleteUserButton').val();
+        function deleteUser(user_id, button){
+            // user_id = $('#deleteUserButton').val();
             Swal.fire({
                 title: '¿Estás seguro?',
-                text: "No se podrán revertir los camstatuss!",
+                text: "No se podrán revertir los cambios!",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, Eliminar Producto'
+                confirmButtonText: 'Sí, Eliminar Usuario'
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
@@ -495,14 +497,14 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         data: {
-                            product_id: product_id,
+                            user_id: user_id,
                         },
                         success: function(result) {
                             $.LoadingOverlay("hide");
                             if (result.status == "OK") {
                                 console.log(result.status);
                                 Swal.fire({
-                                    title: 'Producto Eliminado',
+                                    title: 'Usuario Eliminado',
                                     text: result.message,
                                     type: 'success',
                                     confirmButtonText: 'Aceptar'

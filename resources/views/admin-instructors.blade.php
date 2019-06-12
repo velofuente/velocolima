@@ -101,7 +101,6 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
-
                     {{-- Instructor's Birth Date --}}
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -142,7 +141,7 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
-
+                    {{-- Instructor's Bio --}}
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
@@ -236,7 +235,6 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
-
                     {{-- Instructor's Birth Date --}}
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -274,7 +272,7 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
-
+                    {{-- Instructor's Bio --}}
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
@@ -540,7 +538,7 @@
                     if(result.status == "OK"){
                         // console.log(result.status);
                         Swal.fire({
-                            title: 'Instructor Añadido',
+                            title: 'Instructor Editado',
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'

@@ -511,7 +511,7 @@
             // product_id = $('#deleteProductButton').val();
             Swal.fire({
                 title: '¿Estás seguro?',
-                text: "No se podrán revertir los camstatuss!",
+                text: "No se podrán revertir los cambios!",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

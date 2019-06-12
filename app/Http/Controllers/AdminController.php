@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\{Instructor, Schedule, Branch, Product, Tool, User, Purchase, Sale, UserSchedule};
+use Illuminate\Support\Facades\Validator;
 use DB, Log;
 use PhpParser\Node\Stmt\Return_;
 
@@ -270,29 +271,33 @@ class AdminController extends Controller
     }
     public function addUser(Request $request){
         DB::beginTransaction();
+        log::info($request->all());
         $user = $request->user();
-        $rules = [
-            'name' => ['required', 'string', 'max:60'],
-            'last_name' => ['required', 'string', 'max:60'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'birth_date' => ['required', 'date'],
-            'phone' => ['required', 'int', 'max:999999999999999'],
-            'gender' => ['required', 'string', 'max:6', 'in:Hombre,Mujer'],
-        ];
-        $messages = [
-            "required" => "Este campo es requerido",
-            "numeric" => "Este campo solo acepta numeros",
-            "int" => "Este campo solo acepta numeros",
-            "confirmed" => "Las contraseñas o coinciden",
-            "unique" => "Este usuario ya existe",
-        ];
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return back()
-                        ->withErrors($validator)
-                        ->withInput();
-        }
+        // $rules = [
+        //     'name' => ['required', 'string', 'max:60'],
+        //     'last_name' => ['required', 'string', 'max:60'],
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //     'password' => ['required', 'string', 'min:6', 'confirmed'],
+        //     'birth_date' => ['required', 'date'],
+        //     'phone' => ['required', 'int', 'max:999999999999999'],
+        //     'gender' => ['required', 'string', 'max:6', 'in:Hombre,Mujer'],
+        // ];
+        // log::info('entra después de $rules');
+        // $messages = [
+        //     "required" => "Este campo es requerido",
+        //     "numeric" => "Este campo solo acepta numeros",
+        //     "int" => "Este campo solo acepta numeros",
+        //     "confirmed" => "Las contraseñas o coinciden",
+        //     "unique" => "Este usuario ya existe",
+        // ];
+        // log::info('entra después de $messages');
+        // $validator = Validator::make($request->all(), $rules, $messages);
+        // if ($validator->fails()) {
+        //     return back()
+        //                 ->withErrors($validator)
+        //                 ->withInput();
+        // }
+        log::info('Entra después de $validator');
         User::create([
             'name' => $request->name,
             'last_name' => $request->last_name,
@@ -305,6 +310,7 @@ class AdminController extends Controller
             'branch_id' => $user->branch_id,
         ]);
         DB::commit();
+        log::info('entra después del DB::commit()');
         return response()->json([
             'status' => 'OK',
             'message' => "Usuario agregado con exito",
@@ -313,10 +319,11 @@ class AdminController extends Controller
     public function editUser(Request $request){
         DB::beginTransaction();
         $User = User::find($request->user_id);
-        $User->name = $request->n_classes;
-        $User->last_name = $request->price;
-        $User->email = $request->description;
-        $User->phone = $request->type;
+        // $User->name = $request->n_classes;
+        $User->name = $request->name;
+        $User->last_name = $request->last_name;
+        $User->email = $request->email;
+        $User->phone = $request->phone;
         $User->save();
         DB::commit();
         return response()->json([

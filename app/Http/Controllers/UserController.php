@@ -100,6 +100,7 @@ class UserController extends Controller
             'shoe_size' => $request->get('shoe_size'),
             'share_code' => $share_code,
             'customer_id' => null,
+            'role_id' => 3,
         ]);
         $user->save();
         $product = DB::table('products')->where('type', 'Deals')->first();
