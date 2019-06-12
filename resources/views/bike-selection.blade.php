@@ -36,7 +36,7 @@
             <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" alt="">
         </div>
         <div class="row" id="main-bikes">
-            <div class="centeredDiv" id="bikes-div">
+            <div class="centeredDiv" id="bikes-div" style="width: 100%">
             </div>
         </div>
     </div>

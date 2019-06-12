@@ -86,6 +86,12 @@
                                 Usuarios
                             </li>
                         </a>
+                        <a href="#" id="sales">
+                            <li>
+                                {{-- <i class="fa fa-user fa-lg"></i> --}}
+                                Ventas
+                            </li>
+                        </a>
                     </ul>
                 </div>
             </div>

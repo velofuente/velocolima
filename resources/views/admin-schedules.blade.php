@@ -24,7 +24,7 @@
                     {{-- <th scope="row">{{$schedule->id}}</th> --}}
                     <td>{{$schedule->id}}</td>
                     <td>{{ date('d-M-o', strtotime($schedule->day)) }}</td>
-                    <td>{{ date('h:s A', strtotime($schedule->hour)) }}</td>
+                    <td>{{ date('g:i A', strtotime($schedule->hour)) }}</td>
                     <td>{{$schedule->instructor->name}}</td>
                     <td>{{$schedule->reservation_limit}}</td>
                     <td>{{$schedule->branch->name}}</td>
@@ -70,9 +70,9 @@
                         </div>
                         <div class="col">
                             <label for="branchInput">Sucursal: </label>
-                            <select class="form-control" name="branchInput" id="branchInput">
+                            <select class="form-control" name="branchInput" id="addBranchSchedule">
                                 @foreach ($branches as $branch)
-                                    <option value="{{$branch->id}}" class="text-center" id="addBranchSchedule">{{$branch->name}}</option>
+                                    <option value="{{$branch->id}}" class="text-center" >{{$branch->name}}</option>
                                 @endforeach
                             </select>
                         </div>
