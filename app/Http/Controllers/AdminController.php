@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\{Instructor, Schedule, Branch, Product, Tool, User, Purchase, Sale, UserSchedule};
 use DB, Log;
+use PhpParser\Node\Stmt\Return_;
 
 class AdminController extends Controller
 {
@@ -25,7 +26,8 @@ class AdminController extends Controller
     }
 
     public function showSchedules(){
-        $schedules = Schedule::all()->sortByDesc('day');
+        // $schedules = Schedule::all()->sortByDesc('day');
+        $schedules = Schedule::all();
         $instructors = Instructor::all();
         $branches = Branch::all();
         return view('/admin-schedules', compact ('schedules','instructors','branches'));
@@ -169,8 +171,9 @@ class AdminController extends Controller
             'reserv_lim_x' => $request->reserv_lim_x,
             'reserv_lim_y' => $request->reserv_lim_y,
         ]);
-        $this->configGridBikes($request->disabledBikes, $request->instructorBikes, $branch);
         DB::commit();
+        $this->configGridBikes($request->disabledBikes, $request->instructorBikes, $branch);
+        // DB::commit();
         return response()->json([
             'status' => 'OK',
             'message' => "Sucursal agregado con exito",
@@ -204,22 +207,21 @@ class AdminController extends Controller
         ]);
     }
     public function configGridBikes($disabledBikes, $instructorBikes, $branch){
-        DB::beginTransaction();
         log::info($instructorBikes);
         log::info($disabledBikes);
-
+        DB::beginTransaction();
         foreach ($instructorBikes as $bike) {
             Tool::create([
                 'type' => 'instructor',
                 'position' => $bike,
-                'schedule_id' => $branch->id,
+                'branch_id' => $branch->id,
             ]);
         }
         foreach ($disabledBikes as $bike) {
             Tool::create([
                 'type' => 'disabled',
                 'position' => $bike,
-                'schedule_id' => $branch->id,
+                'branch_id' => $branch->id,
             ]);
         }
         DB::commit();

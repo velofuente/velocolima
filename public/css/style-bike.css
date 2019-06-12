@@ -130,8 +130,8 @@
 }
 
 .occupied {
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
     margin: 1px !important;
     display: inline-flex;
     align-items: center;
@@ -148,8 +148,8 @@
 
 .disabled {
     /* cursor: pointer; */
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
     margin: 1px !important;
     display: inline-flex;
     align-items: center;
@@ -167,8 +167,8 @@
 
 .instructor {
     cursor: pointer;
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
     margin: 1px !important;
     display: inline-flex;
     align-items: center;
@@ -290,8 +290,10 @@
 
 .bikes{
     cursor: pointer;
-    width: 70px;
-    height: 70px;
+    /* width: 65px;
+    height: 65px; */
+    width: 65px;
+    height: 65px;
     margin: 1px !important;
     display: inline-flex;
     align-items: center;
@@ -317,8 +319,8 @@
 }
 
 .selected{
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
     margin: 1px !important;
     display: inline-flex;
     align-items: center;

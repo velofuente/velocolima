@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Tool extends Model
 {
     protected $fillable = [
-        'type', 'position', 'schedule_id',
+        'type', 'position', 'branch_id',
     ];
 }
