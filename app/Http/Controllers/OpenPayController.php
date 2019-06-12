@@ -64,6 +64,15 @@ class OpenPayController extends Controller
                     return $card;
                 }catch(OpenpayApiTransactionError $e){
                     switch ($e->getErrorCode()) {
+                        case 2005:
+                            $message = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
+                            break;
+                        case 2006:
+                            $message = "El código de seguridad de la tarjeta (CVV2) no fue proporcionado.";
+                            break;
+                        case 2009:
+                            $message = "El código de seguridad de la tarjeta (CVV2) es inválido.";
+                            break;
                         case 3001:
                             $message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
                             break;
@@ -118,7 +127,8 @@ class OpenPayController extends Controller
 	        'name' => $request->name,
 	        'last_name' => $request->last_name,
 	        'email' => $request->email,
-	        'phone_number' => $request->phone_number,
+            'phone_number' => $request->phone_number,
+            'requires_account' => false,
         ];
         //Intentamos crear el usuario en OpenPay
         try {
@@ -161,9 +171,10 @@ class OpenPayController extends Controller
     }
     public function makeChargeCustomer(Request $request)
     {
+        log::info("entro");
         $openpay = self::openPay();
         $requestUser = $request->user();
-        
+
         // $card = DB::table('cards')->select('id','token_id')->where('user_id', "{$requestUser->id}")->where('selected', 1)->first();
         //Validar si no tiene tarjetas
 
@@ -180,6 +191,7 @@ class OpenPayController extends Controller
             $customer = $openpay->customers->get($requestUser->customer_id);
         }
         try{
+            log::info("entro al try");
             DB::beginTransaction();
             //Inicializamos array para compra (MI DB)
             $purchaseArray = [
@@ -189,12 +201,15 @@ class OpenPayController extends Controller
                 'n_classes' => $product->n_classes,
                 'expiration_days' => $product->expiration_days,
             ];
+            log::info("purchasearray creado");
             //Obtenemos el token de la tarjeta
             $cardToken = $request->token_id;
+            log::info("obtuvo token id");
             // $purchaseArray["card_id"] = $card->id;
             // $cardToken = $card->token_id;
             //Registramos la compra en el sistema
             $compra = Purchase::create($purchaseArray);
+            log::info("crea la compra");
             //Inicializamos array de cargo (OpenPay)
             $chargeData = [
                 'method' => 'card',
@@ -204,7 +219,9 @@ class OpenPayController extends Controller
                 'order_id' => 'ORDEN-'.$compra->id."-".time(),
                 'device_session_id' => $request->device_session_id
             ];
+            log::info("crea el charge data");
             $charge = $customer->charges->create($chargeData);
+            log::info($charge);
             DB::commit();
             Session::flash('alertTitle', "Compra realizada!");
             Session::flash('alertMessage', "Tu compra fue procesada exitosamente");
@@ -217,40 +234,53 @@ class OpenPayController extends Controller
                 //     "charge" => $charge
                 // ]
             ];
-        }catch(OpenpayApiTransactionError $e){
+        }catch(\OpenpayApiTransactionError $e){
+            Log::info(json_encode($e->getErrorCode()));
+            Log::info(json_encode($e->getDescription()));
+            Log::info(json_encode($e->getFraudRules()));
             switch ($e->getErrorCode()) {
-                case 3001:
+                case "2005":
+                    $message = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
+                    break;
+                case "2006":
+                    $message = "El código de seguridad de la tarjeta (CVV2) no fue proporcionado.";
+                    break;
+                case "2009":
+                    $message = "El código de seguridad de la tarjeta (CVV2) es inválido.";
+                    break;
+                case "3001":
                     $message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
                     break;
-                case 3002:
+                case "3002":
                     $message = "La tarjeta ha expirado.";
                     break;
-                case 3003:
+                case "3003":
                     $message = "La tarjeta no tiene fondos suficientes.";
                     break;
-                case 3006:
+                case "3006":
                     $message = "La operación no esta permitida para este cliente o esta transacción. Contacta a tu banco.";
                     break;
-                case 3007:
+                case "3007":
                     $message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
                     break;
-                case 3008:
+                case "3008":
                     $message = "La tarjeta no es soportada en transacciones en línea. Contacta a tu banco.";
                     break;
-                case 3010:
+                case "3010":
                     $message = "El banco ha restringido la tarjeta. Contacta a tu banco.";
                     break;
-                case 3012:
+                case "3012":
                     $message = "Se requiere solicitar al banco autorización para realizar este pago. Contacta a tu banco.";
                     break;
                 default:
                     $message = "Tarjeta no válida. Contacta a tu banco.";
             }
-        } catch (OpenpayApiRequestError $e){
+        } catch (\OpenpayApiRequestError $e){
             $message = "Tarjeta no válida. Contacta a tu banco.";
         } catch (Exception $e){
             $message = "No se pudo agregar la tarjeta, inténtalo nuevamente.";
         }
+        log::info($message);
         DB::rollback();
         return [
             "status" => "error",
@@ -284,6 +314,15 @@ class OpenPayController extends Controller
         }catch(OpenpayApiTransactionError $e){
             DB::rollback();
             switch ($e->getErrorCode()) {
+                case 2005:
+                    return "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
+                    break;
+                case 2006:
+                    return "El código de seguridad de la tarjeta (CVV2) no fue proporcionado.";
+                    break;
+                case 2009:
+                    return "El código de seguridad de la tarjeta (CVV2) es inválido.";
+                    break;
                 case 3001:
                     return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
                     break;

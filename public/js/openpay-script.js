@@ -55,7 +55,8 @@ var error_callbak = function(response) {
     // alert("ERROR [" + response.status + "] " + desc);
     // globalDataError = response.data;
     var errorMessage = getErrorCodeOP(response.data.error_code);
-    console.log(errorMessage);
+    globalDataError = response.data.error_code;
+    console.log(response.data.error_code);
     Swal.fire({
         title: 'Woops!',
         text: errorMessage,
@@ -66,7 +67,19 @@ var error_callbak = function(response) {
 };
 
 function getErrorCodeOP(errorCode){
+    // if(errorCode == 2005) {
+    //     return "Nel";
+    // }
     switch (errorCode) {
+        case 2005:
+            message = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
+            break;
+        case 2006:
+            $message = "El código de seguridad de la tarjeta (CVV2) no fue proporcionado.";
+            break;
+        case 2009:
+            message = "El código de seguridad de la tarjeta (CVV2) es inválido.";
+            break;
         case 3001:
             message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
             break;
@@ -94,6 +107,7 @@ function getErrorCodeOP(errorCode){
         default:
             message = "Tarjeta no válida. Contacta a tu banco.";
     }
+    console.log(errorCode);
     return message;
 }
 // Evitar que recargue la página
@@ -143,6 +157,8 @@ function makeCharge(){
             $.LoadingOverlay("show");
         },
         success: function(result){
+            $.LoadingOverlay("hide");
+            $("#pay-button").prop( "disabled", false);
             if (result.status == "OK") {
                 //swal success
                 // alert(result.message);
