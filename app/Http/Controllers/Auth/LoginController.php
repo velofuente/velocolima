@@ -5,6 +5,7 @@ use Auth, Session;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Log;
 use function GuzzleHttp\json_encode;
 use App\User;
 
@@ -52,10 +53,12 @@ class LoginController extends Controller
             // $value = $request->session()->get('key');
             // dd($value);
             $user = User::where('email', $request->email)->first();
-            if($user->role_id == 1)
-                redirect("admin");
-            else 
-                redirect("user");
+            if($user->role_id == 1){
+                log::info($user->role_id);
+                return redirect("/admin");
+            }
+            else
+                return redirect("/user");
         }
         return back()
             ->withErrors([

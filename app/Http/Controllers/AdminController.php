@@ -20,7 +20,6 @@ class AdminController extends Controller
         // return view('/admin', compact ('instructors', 'schedules', 'products', 'branches'));
         return view('/admin');
     }
-
     public function showInstructors(){
         $instructors = Instructor::all();
         return view('/admin-instructors', compact ('instructors'));
@@ -51,8 +50,27 @@ class AdminController extends Controller
 
     public function showSales(){
         $products = Product::where('status',1)->get();
-        $users = User::where('role_id', 3)->get();
-        return view('/admin-sales', compact ('products', 'users'));
+        // $users = User::where('role_id', 3)->get();
+        $data = DB::table('users')->where('role_id', 3)->orderBy('id', 'asc')->paginate(5);
+        return view('/admin-sales', compact ('products', 'data'));
+    }
+
+    function fetch_data(Request $request)
+    {
+        if($request->ajax())
+        {
+            $sort_by = $request->get('sortby');
+            $sort_type = $request->get('sorttype');
+                $query = $request->get('query');
+                $query = str_replace(" ", "%", $query);
+            $data = DB::table('users')
+                        ->where('name', 'like', '%'.$query.'%')
+                        ->orWhere('last_name', 'like', '%'.$query.'%')
+                        // ->orWhere('last_name', 'like', '%'.$query.'%')
+                        ->orderBy($sort_by, $sort_type)
+                        ->paginate(5);
+            return view('pagination_data', compact('data'))->render();
+        }
     }
 
     public function showReports(){
