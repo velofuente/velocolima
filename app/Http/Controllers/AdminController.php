@@ -56,7 +56,7 @@ class AdminController extends Controller
     }
 
     public function showReports(){
-        $sales = Sale::all();
+        $sales = Sale::with(['admin', 'purchase'])->whereRaw("date(created_at) = date(NOW())")->get();
         return view('/admin-reports', compact ('sales'));
     }
 
