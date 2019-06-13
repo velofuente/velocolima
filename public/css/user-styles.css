@@ -19,6 +19,10 @@
     src: url("css/fonts/velo/AvenirNextLTPro-UltLtCnlt.otf") format("opentype");
 }
 
+.deleteUserCard{
+    text-decoration: none;
+}
+
 body{
     background: #000;
     font-family: 'Avenir' !important;

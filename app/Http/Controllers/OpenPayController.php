@@ -225,7 +225,6 @@ class OpenPayController extends Controller
             ];
             log::info("crea el charge data");
             $charge = $customer->charges->create($chargeData);
-            log::info($charge);
             DB::commit();
             Session::flash('alertTitle', "Compra realizada!");
             Session::flash('alertMessage', "Tu compra fue procesada exitosamente");
@@ -239,6 +238,7 @@ class OpenPayController extends Controller
                 // ]
             ];
         }catch(\OpenpayApiTransactionError $e){
+            Log::info('OpenPayController@makeChargeCustomer');
             Log::info(json_encode($e->getErrorCode()));
             Log::info(json_encode($e->getDescription()));
             Log::info(json_encode($e->getFraudRules()));

@@ -140,3 +140,60 @@ function cancelClass(bookedClass_id){
         }
     })
 }
+
+function deleteUserCard(id){
+    Swal.fire({
+        title: 'Eliminar tarjeta',
+        text: "Seguro que deseas eliminar esta tarjeta?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: "deleteUserCard",
+                method: 'POST',
+                data: {
+                    _token: csrfToken,
+                    card_id: id
+                },
+                success: function(result) {
+                    $.LoadingOverlay("hide");
+                    if (result.status == "OK") {
+                        Swal.fire({
+                            title: 'Tarjeta Eliminada',
+                            text: result.message,
+                            type: 'success',
+                            confirmButtonText: 'Aceptar'
+                        })
+                        window.location.reload();
+                    } else {
+                        $.LoadingOverlay("hide");
+                        Swal.fire({
+                            title: 'Error',
+                            text: result.message,
+                            type: 'warning',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        $(button).prop("disabled", false)
+                    }
+                },
+                error: function(result){
+                    $.LoadingOverlay("hide");
+                    Swal.fire({
+                        title: 'Error',
+                        text: "No se pudo procesar la solicitud.",
+                        type: 'warning',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    $(button).prop("disabled", false)
+                    // alert(result);
+                }
+            });
+        } else {
+            $(button).prop("disabled", false)
+        }
+    })
+}

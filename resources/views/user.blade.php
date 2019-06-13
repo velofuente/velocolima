@@ -106,7 +106,7 @@
                         {{-- Print Card --}}
                         @foreach ($cards as $card)
                             <div class="text-center text-uppercase" style ="color: #FFF">
-                                {{$card->card_number}} {{$card->brand}}
+                                 <a class="deleteUserCard" href="javascript:deleteUserCard({{$card->id}})">{{$card->card_number}} {{$card->brand}}</a>
                             </div>
                         @endforeach
                         {{-- End Print Card --}}

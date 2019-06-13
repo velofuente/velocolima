@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Card;
+use Illuminate\Support\Facades\DB;
 
 class CardController extends Controller
 {
@@ -26,5 +27,15 @@ class CardController extends Controller
             'user_id' => $user_id
         ]);
         $card->save();
+    }
+    public function deleteUserCard(Request $request){
+        DB::beginTransaction();
+        $card = Card::find($request->card_id);
+        $card->delete();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Tarjeta eliminada con éxito"
+        ]);
     }
 }
