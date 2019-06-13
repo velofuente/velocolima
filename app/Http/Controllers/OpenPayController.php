@@ -23,26 +23,30 @@ class OpenPayController extends Controller
         $requestUser = $request->user();
         // dd($requestUser);
         $cardCount = Card::where('user_id', $requestUser->id)->count();
-        log::info($cardCount);
-        if($cardCount >= 3){
-            Session::flash('alertTitle', "Woops!");
-            Session::flash('alertMessage', "No puedes agregar mas de 3 tarjetas a tu perfil");
-            Session::flash('alertType', "error");
+        if($cardCount > 3){
             return "No puedes agregar mas de 3 tarjetas a tu perfil";
-        } else{
-            //Validar si el usuario ya existe en OpenPay
-            if ($requestUser->customer_id == null){
-                $openPayCustomer = $this->addCustomer($requestUser);
-                $requestUser->customer_id = $openPayCustomer->id;
-                $requestUser->save();
-            } else {
-                $openpay = self::openPay();
-                $openPayCustomer = $openpay->customers->get($requestUser->customer_id);
-            }
-            //Obtener el usuaro de OpenPay
-            $cardData = $this->getCardToken($request->token_id);
-            if (!isset($cardData->card)) {
-                return "No se encontró la tarjeta ingrasada, pruebe de nuevo ".json_encode($cardData);
+        }
+        //Validar si el usuario ya existe en OpenPay
+        if ($requestUser->customer_id == null){
+            $openPayCustomer = $this->addCustomer($requestUser);
+            $requestUser->customer_id = $openPayCustomer->id;
+            $requestUser->save();
+        } else {
+            $openpay = self::openPay();
+            $openPayCustomer = $openpay->customers->get($requestUser->customer_id);
+        }
+        //Obtener el usuaro de OpenPay
+        $cardData = $this->getCardToken($request->token_id);
+        if (!isset($cardData->card)) {
+            return "No se encontró la tarjeta ingrasada, pruebe de nuevo ".json_encode($cardData);
+        }
+        else{
+            //TODO: Validar si existe la tarjeta en mi base de datos con los datos obtenidos de getCardToken
+            $existsCard = DB::table('cards')->where(
+                'card_number', '=', "{$cardData->card->card_number}"
+                )->get();
+            if (!isset($existsCard)) {
+                return "La tarjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
             }
             else{
                 //TODO: Validar si existe la tarjeta en mi base de datos con los datos obtenidos de getCardToken
