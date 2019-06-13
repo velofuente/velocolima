@@ -21,6 +21,10 @@ class OpenPayController extends Controller
         //Obtener usuario de la petición
         $requestUser = $request->user();
         // dd($requestUser);
+        $cardCount = Card::where('user_id', $requestUser->id)->count();
+        if($cardCount > 3){
+            return "No puedes agregar mas de 3 tarjetas a tu perfil";
+        }
         //Validar si el usuario ya existe en OpenPay
         if ($requestUser->customer_id == null){
             $openPayCustomer = $this->addCustomer($requestUser);
