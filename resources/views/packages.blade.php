@@ -132,10 +132,10 @@
                         </div>
                         <input class="data mx-auto" type="text" name="" id="Discount" placeholder="Código de descuento" maxlength="10">
                         <button type="button" class="button">Aplicar código</button>
-                        {{-- <div class="">
-                            <input type="checkbox" name="conditions" id="conditions">
-                            <label for="conditions" class="conditions">Acepto términos y condiciones</label>
-                        </div> --}}
+                        <div class="">
+                            <input type="checkbox" name="conditions" id="conditions" required>
+                            <label for="conditions" class="conditions">Acepto <a href="/legales">términos y condiciones</a></label>
+                        </div>
                     </form>
             </div>
             <div class="modal-footer">
