@@ -180,4 +180,76 @@ class BookClassController extends Controller
             ]);
         }
     }
+    public function claimClass(Request $request){
+        //Validaa si el lugar está disponible
+        $alreadyReserved = UserSchedule::where("bike", $request->bike)->where("schedule_id", $request->schedule_id)->first();
+        //obtiene la compra con la fecha de caducidad mas proxima del usuario con clases disponibles
+        $compra = Purchase::where('user_id', $request->user_id)
+        ->where('n_classes', "<>", 0)
+        ->whereRaw("created_at < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
+        ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
+        //obtiene el numero total de clases
+        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$request->user_id}")->first();
+        $classes = $numClases->clases;
+        //valida si el usuario tiene clases disponibles
+        if($classes>0){
+            if($alreadyReserved && $alreadyReserved->status!='cancelled'){
+                DB::commit();
+                return response()->json([
+                    'status' => 'ERROR',
+                    'message' => "Ese lugar ya ha sido reservado.",
+                    'updateClass' => 1
+                ]);
+            }
+            //obtiene el id de la bici,id del horario, id de la compra
+            UserSchedule::create([
+                'user_id' => $request->user_id,
+                'schedule_id' => $request->schedule_id,
+                'purchase_id' => $compra->id,
+                //'tool_schedule_id' => $request->tool_schedule_id,
+                'bike' => $request->bike,
+                'status' => 'active',
+                'changedSit' => 0,
+            ]);
+            //Resta una clase a la compra del usuario y actualiza ese campo en la base de datos
+            $compra->n_classes -= 1;
+            $compra->save();
+            DB::commit();
+            return response()->json([
+                'status' => 'OK',
+                'message' => "Lugar reservado con éxito",
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'ERROR',
+                'message' => "El usuario no tiene clases compradas.",
+            ]);
+        }
+    }
+    public function preRegister(Request $request){
+        DB::beginTransaction();
+        $password = substr($$request->phone, -4);
+        $user = User::create([
+            'name' => $request->name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'password' => Hash::make($password),
+            'birth_date' => $request->birth_date,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'role_id' => 3,
+        ]);
+        UserSchedule::create([
+            'user_id' => $user->id,
+            'schedule_id' => $request->schedule_id,
+            'bike' => $request->bike,
+            'status' => 'active',
+            'changedSit' => 0,
+        ]);
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Usuario agregado con exito",
+        ]);
+    }
 }

@@ -77,6 +77,8 @@ Route::get('/client', function(){
 Route::post('book', 'BookClassController@book');
 Route::post('cancelClass', 'BookClassController@cancelClass');
 Route::post('attendClass', 'BookClassController@attendClass');
+Route::post('claimClass', 'BookClassController@claimClass');
+Route::post('preRegister', 'BookClassController@preRegister');
 
 //OPENPAY
 //Route::get('user', 'UserController@getAuthenticatedUser');
