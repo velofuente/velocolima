@@ -88,7 +88,7 @@ class AdminController extends Controller
             array_push($id,$schedule->id);
         }
         $userSchedules = UserSchedule::whereIn('schedule_id', $id)->get();
-        return view('/admin-operationsGrid', compact ('schedules', 'userSchedules'));
+        return view('/admin-operations', compact ('schedules', 'userSchedules'));
     }
 
     public function addInstructor(Request $request){
