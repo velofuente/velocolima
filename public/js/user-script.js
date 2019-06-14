@@ -48,6 +48,15 @@ $(document).ready(function() {
 
     function getErrorCodeOP(errorCode){
         switch (errorCode) {
+            case 2005:
+                message = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
+                break;
+            case 2006:
+                $message = "El código de seguridad de la tarjeta (CVV2) no fue proporcionado.";
+                break;
+            case 2009:
+                message = "El código de seguridad de la tarjeta (CVV2) es inválido.";
+                break;
             case 3001:
                 message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
                 break;
@@ -97,9 +106,22 @@ $(document).ready(function() {
                 $.LoadingOverlay("show");
             },
             success: function(result){
-                //console.log(result);
-                window.location.replace("/user");
-                console.log(result);
+                $.LoadingOverlay("hide");
+                $("#add-card-button").prop( "disabled", false);
+                if (result.status == "OK") {
+                    //swal success
+                    // alert(result.message);
+                    window.location.replace("/user");
+                } else {
+                    $.LoadingOverlay("hide");
+                    //swal error
+                    Swal.fire({
+                        title: 'Woops!',
+                        text: result.message,
+                        type: 'error',
+                        confirmButtonText: 'Aceptar'
+                    })
+                }
             }
         });
         // console.log('token_id: ', token_id);

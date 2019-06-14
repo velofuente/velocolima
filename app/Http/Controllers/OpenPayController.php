@@ -16,6 +16,7 @@ class OpenPayController extends Controller
 
     public function addCustomerCard(Request $request)
     {
+        DB::beginTransaction();
         //TODO: Implementar validador
         // log::info($request->all());
         //Obtener usuario de la petición
@@ -65,12 +66,15 @@ class OpenPayController extends Controller
                     Session::flash('alertMessage', "Tu tarjeta fue guardada exitosamente");
                     Session::flash('alertType', "success");
                     // Session::flash('alertButton', "Aceptar");
-
+                    DB::commit();
                     try{
                         $card = $openPayCustomer->cards->add($cardDataRequest);
                         return json_encode($card);
                         return $card;
                     }catch(\OpenpayApiTransactionError $e){
+                        Log::info(json_encode($e->getErrorCode()));
+                        Log::info(json_encode($e->getDescription()));
+                        Log::info(json_encode($e->getFraudRules()));
                         switch ($e->getErrorCode()) {
                             case 2005:
                                 $message = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";

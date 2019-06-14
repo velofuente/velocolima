@@ -164,6 +164,7 @@ function makeCharge(){
                 // alert(result.message);
                 window.location.replace("/user");
             } else {
+                $.LoadingOverlay("hide");
                 //swal error
                 Swal.fire({
                     title: 'Woops!',
