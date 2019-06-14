@@ -22,7 +22,7 @@ class CreateUserSchedulesTable extends Migration
             $table->unsignedInteger('schedule_id');
             $table->foreign('schedule_id')->references('id')->on('schedules');
             //Foreign Key to Purchase
-            $table->unsignedInteger('purchase_id');
+            $table->unsignedInteger('purchase_id')->nullable();
             $table->foreign('purchase_id')->references('id')->on('purchases');
             $table->integer('bike');
             /*
