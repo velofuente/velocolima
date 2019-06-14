@@ -13,4 +13,7 @@ class UserSchedule extends Model
     public function schedule(){
         return $this->hasOne(Schedule::class, "id", "schedule_id");
     }
+    public function user(){
+        return $this->hasOne(User::class, "id", "user_id");
+    }
 }
