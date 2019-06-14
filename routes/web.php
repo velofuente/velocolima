@@ -16,7 +16,7 @@ use App\Http\Controllers\PurchaseController;
 */
 
 Route::get('prueba', function () {
-    return view('pruebas');
+    return view('prueba');
 });
 
 // Route::get('/addCard', 'OpenPayController@addCustomerCard');
@@ -88,6 +88,7 @@ Route::post('getClient', 'OpenPayController@getCustomer');
 Route::post('deleteClient', 'OpenPayController@deleteCustomer');
 
 Route::post('sendMail', 'MailSendingController@coachInfo');
+Route::post('walkInRegister', 'MailSendingController@walkInRegister');
 
 // Admin Index
 Route::get('admin', 'AdminController@index')->name('admin');

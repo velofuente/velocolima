@@ -247,6 +247,7 @@ class BookClassController extends Controller
             'changedSit' => 0,
         ]);
         DB::commit();
+        app('App\Http\Controllers\MailSendingController')->walkInRegister($user->email,$user->name, $password);
         return response()->json([
             'status' => 'OK',
             'message' => "Usuario agregado con exito",
