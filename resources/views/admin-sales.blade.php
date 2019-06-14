@@ -1,83 +1,200 @@
-{{-- Table with the Info --}}
-<div class="row text-center mx-0 py-4">
-    <h3>Ventas</h3>
-    <button class="btn btn-success btn-sm mx-4 justify-content-right" data-toggle="modal" data-target="#addUserModal">Añadir Venta</button>
+{{-- Search Input --}}
+<div class="row text-center mx-0 py-1">
+    <div class="col-md-8">
+        <h3 class="text-center">Ventas</h3>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="text" name="searchUser" id="searchUser" placeholder="Buscar Usuario" class="form-control" />
+        </div>
+    </div>
 </div>
 
-{{-- Table Products --}}
-@if (count($products) > 0)
-    <table class="table table-striped table-hover" style="margin-bottom: 3em">
-        <thead style="font-size: 1em;">
-            <tr style="font-size: 1em;">
-                <th scope="col">ID</th>
-                <th scope="col">Cantidad de Clases</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Vigencia</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">Estatus</th>
-                {{-- <th scope="col">Sucursal</th> --}}
-                <th scope="col" colspan="2" class="text-center">Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($products as $product)
-                <tr style="font-size: 0.9em;">
-                    {{-- <th scope="row">{{$product->id}}</th> --}}
-                    <td>{{$product->id}}</td>
-                    <td>{{$product->n_classes}}</td>
-                    <td>{{$product->price}}</td>
-                    <td>{{$product->description}}</td>
-                    <td>{{$product->expiration_days}}</td>
-                    <td>{{$product->type}}</td>
-                    <td>{{$product->status}}</td>
-                    {{-- <td>{{$user->branch->name}}</td> --}}
-                    <td><button class="btn btn-primary btn-sm editUser" id="editUser-{{ $product->id }}" value="{{$product->id}}"
-                        data-myid="{{ $product->id }}" data-mynclasses="{{ $product->n_classes }}" data-myprice="{{ $product->price }}"
-                        data-mydescription="{{$product->description}}" data-myexpirationdays="{{ $product->expiration_days }}" data-mytype="{{$product->type}}" data-toggle="modal" data-target="#editUserModal">Editar</button></td>
-                    <td><button class="btn btn-danger btn-sm deleteUser" id="deleteUser-{{ $product->id }}" value="{{$product->id}}">Eliminar</button></td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-@else
-    <h2 class="text-center">No hay Usuarios Agregados</h2>
-@endif
+{{-- User's Table --}}
+<table class="table table-striped table-hover table-bordered">
+    <thead style="font-size: 1em;">
+        <tr style="font-size: 1em;">
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col" colspan="2" class="text-center">Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @include('pagination_data')
+    </tbody>
+</table>
+<input type="hidden" name="hidden_page" id="hidden_page" value="1" />
+<input type="hidden" name="hidden_column_name" id="hidden_column_name" value="id" />
+<input type="hidden" name="hidden_sort_type" id="hidden_sort_type" value="asc" />
 
-{{-- Table Users --}}
-@if (count($users) > 0)
-    <table class="table table-striped table-hover">
-        <thead style="font-size: 1em;">
-            <tr style="font-size: 1em;">
-                <th scope="col">ID</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Correo</th>
-                <th scope="col">Fecha de nacimiento</th>
-                <th scope="col">Teléfono</th>
-                <th scope="col">Género</th>
-                {{-- <th scope="col">Sucursal</th> --}}
-                <th scope="col" colspan="2" class="text-center">Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($users as $user)
-                <tr style="font-size: 0.9em;">
-                    {{-- <th scope="row">{{$product->id}}</th> --}}
-                    <td>{{$user->id}}</td>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->last_name}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->birth_date}}</td>
-                    <td>{{$user->phone}}</td>
-                    <td>{{$user->gender}}</td>
-                    {{-- <td>{{$user->branch->name}}</td> --}}
-                    <td><button class="btn btn-primary btn-sm editUser" id="editUser-{{ $user->id }}" value="{{$user->id}}" data-myid="{{ $user->id }}" data-myname="{{ $user->name }}" data-mylastname="{{ $user->last_name }}" data-myemail="{{$user->email}}" data-mybirthdate="{{ $user->birth_date }}" data-myphone="{{$user->phone}}" data-toggle="modal" data-target="#editUserModal">Editar</button></td>
-                    <td><button class="btn btn-danger btn-sm deleteUser" id="deleteUser-{{ $user->id }}" value="{{$user->id}}">Eliminar</button></td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-@else
-    <h2 class="text-center">No hay Usuarios Agregados</h2>
-@endif
+{{-- Packages Modal --}}
+<div class="modal fade" id="addSaleUserModal" tabindex="-1" role="dialog" aria-labelledby="addSaleUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleccionar Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @csrf
+                    <div class="form-group row mb-3">
+                        {{-- <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div> --}}
+                        @foreach ($products as $product)
+                        @if ($product->price != 0)
+                        <div class="col-4 col-xs-4 col-sm-4 col-md-4 my-3 productList">
+                            <a href="javascript:makeSaleUser({{$product->id}})">
+                                Clases: {{$product->n_classes}} <br />
+                                Precio: ${{$product->price}} <br />
+                                Vigencia: {{$product->expiration_days}} días <br />
+                            </a>
+                        </div>
+                        @endif
+                        @endforeach
+                        {{-- <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div> --}}
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Scripts Section --}}
+<script>
+var product_id = null;
+var client_id = null;
+$(document).ready(function(){
+    function clear_icon(){
+        $('#id_icon').html('');
+        $('#users_name_icon').html('');
+    }
+
+    // Fetch Data from Query
+    function fetch_data(page, sort_type, sort_by, query){
+        $.ajax({
+            url:"/admin-sales/fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query,
+            success:function(data){
+                $('tbody').html('');
+                $('tbody').html(data);
+            }
+        })
+    }
+
+    // On KeyUp Search Input
+    $(document).on('keyup', '#searchUser', function(){
+        var query = $('#searchUser').val();
+        var column_name = $('#hidden_column_name').val();
+        var sort_type = $('#hidden_sort_type').val();
+        var page = $('#hidden_page').val();
+        fetch_data(page, sort_type, column_name, query);
+    });
+
+    // Sort by Clicked Column
+    $(document).on('click', '.sorting', function(){
+        var column_name = $(this).data('column_name');
+        var order_type = $(this).data('sorting_type');
+        var reverse_order = '';
+        if(order_type == 'asc')
+            {
+                $(this).data('sorting_type', 'desc');
+                reverse_order = 'desc';
+                clear_icon();
+                $('#'+column_name+'_icon').html('<span class="glyphicon glyphicon-triangle-bottom"></span>');
+            }
+        if(order_type == 'desc')
+        {
+            $(this).data('sorting_type', 'asc');
+            reverse_order = 'asc';
+            clear_icon
+            $('#'+column_name+'_icon').html('<span class="glyphicon glyphicon-triangle-top"></span>');
+        }
+        $('#hidden_column_name').val(column_name);
+        $('#hidden_sort_type').val(reverse_order);
+        var page = $('#hidden_page').val();
+        var query = $('#searchUser').val();
+        fetch_data(page, reverse_order, column_name, query);
+    });
+
+    // Pagination
+    $(document).on('click', '.pagination a', function(event){
+        event.preventDefault();
+        var page = $(this).attr('href').split('page=')[1];
+        $('#hidden_page').val(page);
+        var column_name = $('#hidden_column_name').val();
+        var sort_type = $('#hidden_sort_type').val();
+
+        var query = $('#searchUser').val();
+
+        $('li').removeClass('active');
+        $(this).parent().addClass('active');
+        fetch_data(page, sort_type, column_name, query);
+    });
+});
+
+//Make Purchase
+function makeSaleUser(id){
+    product_id = id;
+    Swal.fire({
+        title: '¿Comprar Paquete?',
+        text: "Estás a punto de realizar una compra",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, Comprar Clases'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: 'sale',
+                type: 'POST',
+                cache: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    product_id: product_id,
+                    client_id: client_id
+                },
+                success: function(result) {
+                    $.LoadingOverlay("hide");
+                    if (result.status == "OK") {
+                        Swal.fire({
+                            title: 'Clases Compradas',
+                            text: result.message,
+                            type: 'success',
+                            confirmButtonText: 'Aceptar'
+                        })
+                        window.location.reload();
+                    } else {
+                        $.LoadingOverlay("hide");
+                        Swal.fire({
+                            title: 'Error',
+                            text: result.message,
+                            type: 'warning',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        // $(button).prop("disabled", false)
+                    }
+                },
+                error: function(result){
+                    $.LoadingOverlay("hide");
+                    Swal.fire({
+                        title: 'Error',
+                        text: "No se pudo procesar la solicitud.",
+                        type: 'warning',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    // $(button).prop("disabled", false)
+                    // alert(result);
+                }
+            });
+        }
+    })
+}
+</script>

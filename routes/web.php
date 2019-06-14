@@ -27,7 +27,8 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('user', 'UserController@index')->name('user');
+//TODO: Quitar el Middleware de User index
+Route::get('user', 'UserController@index')->name('user')->middleware('auth');
 
 // Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 Route::post('register', 'UserController@store');
@@ -95,7 +96,13 @@ Route::get('admin-schedules', 'AdminController@showSchedules')->name('admin-sche
 Route::get('admin-products', 'AdminController@showProducts')->name('admin-products');
 Route::get('admin-branches', 'AdminController@showBranches')->name('admin-branches');
 Route::get('admin-users', 'AdminController@showUsers')->name('admin-users');
-Route::get('admin-sales', 'AdminController@showSales')->name('admin-sales');
+// Route::get('admin-sales', 'AdminController@showSales')->name('admin-sales');
+
+// Live Search Routes
+Route::get('/admin-sales', 'AdminController@showSales')->name('admin-sales');
+Route::get('/admin-sales/fetch_data', 'AdminController@fetch_data');
+// End Live Search Routes
+
 Route::get('admin-reports', 'AdminController@showReports')->name('admin-reports');
 Route::get('admin-operationsGrid', 'AdminController@showOperationsGrid')->name('admin-operationsGrid');
 
@@ -121,5 +128,3 @@ Route::post('editUser', 'AdminController@editUser');
 Route::post('deleteUser', 'AdminController@deleteUser');
 //Ventas
 Route::post('sale', 'AdminController@sale');
-
-

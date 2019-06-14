@@ -361,7 +361,7 @@
                 $(this).prop("disabled", false)
                 console.log("Malformed ID")
             }
-            })
+        })
 
         //OnClick editProductModal Button
 
