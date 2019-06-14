@@ -136,6 +136,12 @@
                             <input type="checkbox" name="conditions" id="conditions" required>
                             <label for="conditions" class="conditions">Acepto <a href="/legales">términos y condiciones</a></label>
                         </div>
+
+                        <div class="OpenpayAdvice">
+                            <img style="width: 30%; height: 30%" name="Openpay" src="/img/iconos/OPENPAY_oscuro.png" alt="Openpay"><br />
+                            <label for="Openpay" style="font-size: 14px;">Transacciones realizadas vía Openpay</label>
+                        </div>
+
                     </form>
             </div>
             <div class="modal-footer">
