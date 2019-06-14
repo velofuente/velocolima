@@ -19,8 +19,9 @@
     src: url("css/fonts/velo/AvenirNextLTPro-UltLtCnlt.otf") format("opentype");
 }
 
-.deleteUserCard{
+a.deleteUserCard:link{
     text-decoration: none;
+    color: #ffffff;
 }
 
 body{
