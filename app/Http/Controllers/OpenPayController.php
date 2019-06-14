@@ -22,96 +22,101 @@ class OpenPayController extends Controller
         $requestUser = $request->user();
         // dd($requestUser);
         $cardCount = Card::where('user_id', $requestUser->id)->count();
-        if($cardCount > 3){
+        log::info($cardCount);
+        if($cardCount >= 3){
+            Session::flash('alertTitle', "Woops!");
+            Session::flash('alertMessage', "No puedes agregar mas de 3 tarjetas a tu perfil");
+            Session::flash('alertType', "error");
             return "No puedes agregar mas de 3 tarjetas a tu perfil";
-        }
-        //Validar si el usuario ya existe en OpenPay
-        if ($requestUser->customer_id == null){
-            $openPayCustomer = $this->addCustomer($requestUser);
-            $requestUser->customer_id = $openPayCustomer->id;
-            $requestUser->save();
-        } else {
-            $openpay = self::openPay();
-            $openPayCustomer = $openpay->customers->get($requestUser->customer_id);
-        }
-        //Obtener el usuaro de OpenPay
-        $cardData = $this->getCardToken($request->token_id);
-        if (!isset($cardData->card)) {
-            return "No se encontró la tarjeta ingrasada, pruebe de nuevo ".json_encode($cardData);
-        }
-        else{
-            //TODO: Validar si existe la tarjeta en mi base de datos con los datos obtenidos de getCardToken
-            $existsCard = DB::table('cards')->where(
-                'card_number', '=', "{$cardData->card->card_number}"
-                )->get();
-            if (!isset($existsCard)) {
-                return "La tarjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
+        } else{
+            //Validar si el usuario ya existe en OpenPay
+            if ($requestUser->customer_id == null){
+                $openPayCustomer = $this->addCustomer($requestUser);
+                $requestUser->customer_id = $openPayCustomer->id;
+                $requestUser->save();
+            } else {
+                $openpay = self::openPay();
+                $openPayCustomer = $openpay->customers->get($requestUser->customer_id);
+            }
+            //Obtener el usuaro de OpenPay
+            $cardData = $this->getCardToken($request->token_id);
+            if (!isset($cardData->card)) {
+                return "No se encontró la tarjeta ingrasada, pruebe de nuevo ".json_encode($cardData);
             }
             else{
-                $userCards = Card::where('user_id' , $requestUser->id)->get();
-                If(count($userCards)>0){
-                    Card::where('user_id' , $requestUser->id)->where('selected', 1)->update(['selected' => 0]);
+                //TODO: Validar si existe la tarjeta en mi base de datos con los datos obtenidos de getCardToken
+                $existsCard = DB::table('cards')->where(
+                    'card_number', '=', "{$cardData->card->card_number}"
+                    )->get();
+                if (!isset($existsCard)) {
+                    return "La tarjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
                 }
-                app('App\Http\Controllers\CardController')->store($cardData,$requestUser->id);
-                $cardDataRequest = [
-                    'token_id' => $cardData->id,
-                    'device_session_id' => $request->device_session_id
-                ];
-                Session::flash('alertTitle', "Tarjeta guardada!");
-                Session::flash('alertMessage', "Tu tarjeta fue guardada exitosamente");
-                Session::flash('alertType', "success");
-                // Session::flash('alertButton', "Aceptar");
-
-                try{
-                    $card = $openPayCustomer->cards->add($cardDataRequest);
-                    return json_encode($card);
-                    return $card;
-                }catch(OpenpayApiTransactionError $e){
-                    switch ($e->getErrorCode()) {
-                        case 2005:
-                            $message = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
-                            break;
-                        case 2006:
-                            $message = "El código de seguridad de la tarjeta (CVV2) no fue proporcionado.";
-                            break;
-                        case 2009:
-                            $message = "El código de seguridad de la tarjeta (CVV2) es inválido.";
-                            break;
-                        case 3001:
-                            $message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
-                            break;
-                        case 3002:
-                            $message = "La tarjeta ha expirado.";
-                            break;
-                        case 3003:
-                            $message = "La tarjeta no tiene fondos suficientes.";
-                            break;
-                        case 3006:
-                            $message = "La operación no esta permitida para este cliente o esta transacción. Contacta a tu banco.";
-                            break;
-                        case 3007:
-                            $message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
-                            break;
-                        case 3008:
-                            $message = "La tarjeta no es soportada en transacciones en línea. Contacta a tu banco.";
-                            break;
-                        case 3010:
-                            $message = "El banco ha restringido la tarjeta. Contacta a tu banco.";
-                            break;
-                        case 3012:
-                            $message = "Se requiere solicitar al banco autorización para realizar este pago. Contacta a tu banco.";
-                            break;
-                        default:
-                            $message = "Tarjeta no válida. Contacta a tu banco.";
+                else{
+                    $userCards = Card::where('user_id' , $requestUser->id)->get();
+                    If(count($userCards)>0){
+                        Card::where('user_id' , $requestUser->id)->where('selected', 1)->update(['selected' => 0]);
                     }
-                }catch(OpenpayApiRequestError $e){
-                    $message = "Tarjeta no válida. Contacta a tu banco.";
-                }catch(Exception $e){
-                    $message = "No se pudo agregar la tarjeta, inténtalo nuevamente.";
-                } return [
-                    "status" => "error",
-                    "message" => $message
-                ];
+                    app('App\Http\Controllers\CardController')->store($cardData,$requestUser->id);
+                    $cardDataRequest = [
+                        'token_id' => $cardData->id,
+                        'device_session_id' => $request->device_session_id
+                    ];
+                    Session::flash('alertTitle', "Tarjeta guardada!");
+                    Session::flash('alertMessage', "Tu tarjeta fue guardada exitosamente");
+                    Session::flash('alertType', "success");
+                    // Session::flash('alertButton', "Aceptar");
+
+                    try{
+                        $card = $openPayCustomer->cards->add($cardDataRequest);
+                        return json_encode($card);
+                        return $card;
+                    }catch(\OpenpayApiTransactionError $e){
+                        switch ($e->getErrorCode()) {
+                            case 2005:
+                                $message = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
+                                break;
+                            case 2006:
+                                $message = "El código de seguridad de la tarjeta (CVV2) no fue proporcionado.";
+                                break;
+                            case 2009:
+                                $message = "El código de seguridad de la tarjeta (CVV2) es inválido.";
+                                break;
+                            case 3001:
+                                $message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                                break;
+                            case 3002:
+                                $message = "La tarjeta ha expirado.";
+                                break;
+                            case 3003:
+                                $message = "La tarjeta no tiene fondos suficientes.";
+                                break;
+                            case 3006:
+                                $message = "La operación no esta permitida para este cliente o esta transacción. Contacta a tu banco.";
+                                break;
+                            case 3007:
+                                $message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                                break;
+                            case 3008:
+                                $message = "La tarjeta no es soportada en transacciones en línea. Contacta a tu banco.";
+                                break;
+                            case 3010:
+                                $message = "El banco ha restringido la tarjeta. Contacta a tu banco.";
+                                break;
+                            case 3012:
+                                $message = "Se requiere solicitar al banco autorización para realizar este pago. Contacta a tu banco.";
+                                break;
+                            default:
+                                $message = "Tarjeta no válida. Contacta a tu banco.";
+                        }
+                    }catch(\OpenpayApiRequestError $e){
+                        $message = "Tarjeta no válida. Contacta a tu banco.";
+                    }catch(\Exception $e){
+                        $message = "No se pudo agregar la tarjeta, inténtalo nuevamente.";
+                    } return [
+                        "status" => "error",
+                        "message" => $message
+                    ];
+                }
             }
         }
     }
@@ -315,7 +320,7 @@ class OpenPayController extends Controller
             $charge = $customer->charges->create($chargeData);
             DB::commit();
             return json_encode($charge);
-        }catch(OpenpayApiTransactionError $e){
+        }catch(\OpenpayApiTransactionError $e){
             DB::rollback();
             switch ($e->getErrorCode()) {
                 case 2005:
@@ -354,9 +359,9 @@ class OpenPayController extends Controller
                 default:
                     return "Tarjeta no válida. Contacta a tu banco.";
             }
-        }catch(OpenpayApiRequestError $e){
+        }catch(\OpenpayApiRequestError $e){
             return "Tarjeta no válida. Contacta a tu banco.";
-        }catch(Exception $e){
+        }catch(\Exception $e){
             return "No se pudo agregar la tarjeta, inténtalo nuevamente.";
         }
     }
