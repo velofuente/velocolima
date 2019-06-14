@@ -6,7 +6,6 @@
         <td>{{ $row->email }}</td>
         <td>{{ $row->phone }}</td>
         <td><button class="btn btn-success btn-sm salesUser" id="salesUser-{{ $row->id }}" value="{{$row->id}}" data-toggle="modal" data-target="#addSaleUserModal">Venta</button></td>
-        <td><button class="btn btn-danger btn-sm deleteProduct" id="deleteProduct-{{ $row->id }}" value="{{$row->id}}">Eliminar</button></td>
     </tr>
 @endforeach
 {{-- <tr>
@@ -29,9 +28,9 @@
         if(splitedId.length > 1){
             // console.log(splitedId);
             var userId = splitedId[1];
-            user_id = userId;
+            client_id = userId;
             // deleteProduct(userId, this);
-            console.log('id del usuario: '+user_id)
+            console.log('id del usuario: '+client_id)
         } else {
             $(this).prop("disabled", false)
             console.log("Malformed ID")

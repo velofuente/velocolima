@@ -1,9 +1,9 @@
 {{-- Search Input --}}
 <div class="row text-center mx-0 py-1">
-    <div class="col-md-9">
+    <div class="col-md-8">
         <h3 class="text-center">Ventas</h3>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="form-group">
             <input type="text" name="searchUser" id="searchUser" placeholder="Buscar Usuario" class="form-control" />
         </div>
@@ -46,11 +46,13 @@
                         {{-- <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div> --}}
                         @foreach ($products as $product)
                         @if ($product->price != 0)
-                            <div class="col-4 col-xs-4 col-sm-4 col-md-4 my-3 productList" value="{{$product->id}}">
+                        <div class="col-4 col-xs-4 col-sm-4 col-md-4 my-3 productList">
+                            <a href="javascript:makeSaleUser({{$product->id}})">
                                 Clases: {{$product->n_classes}} <br />
                                 Precio: ${{$product->price}} <br />
                                 Vigencia: {{$product->expiration_days}} días <br />
-                            </div>
+                            </a>
+                        </div>
                         @endif
                         @endforeach
                         {{-- <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div> --}}
@@ -65,10 +67,9 @@
 
 {{-- Scripts Section --}}
 <script>
+var product_id = null;
+var client_id = null;
 $(document).ready(function(){
-    var product_id = null;
-    var user_id = null;
-
     function clear_icon(){
         $('#id_icon').html('');
         $('#users_name_icon').html('');
@@ -134,26 +135,66 @@ $(document).ready(function(){
         $(this).parent().addClass('active');
         fetch_data(page, sort_type, column_name, query);
     });
-
-    //OnClick Sales User Button
-    $('.productList').on('click', function(event) {
-        // $(this).prop("disabled", true)
-        event.preventDefault();
-
-        //Get Full ID of the button (which contains the instructor ID)
-        var fullId = this.id;
-        //Split the ID of the fullId by his dash
-        var splitedId = fullId.split("-");
-        if(splitedId.length > 1){
-            // console.log(splitedId);
-            var productId = splitedId[1];
-            product_id = productId;
-            // deleteProduct(userId, this);
-            console.log('id del usuario: '+product_id);
-            // product_id = $('.productList').val();
-        } else {
-            console.log("Malformed ID")
-        }
-    });
 });
+
+//Make Purchase
+function makeSaleUser(id){
+    product_id = id;
+    Swal.fire({
+        title: '¿Comprar Paquete?',
+        text: "Estás a punto de realizar una compra",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, Comprar Clases'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: 'sale',
+                type: 'POST',
+                cache: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    product_id: product_id,
+                    client_id: client_id
+                },
+                success: function(result) {
+                    $.LoadingOverlay("hide");
+                    if (result.status == "OK") {
+                        Swal.fire({
+                            title: 'Clases Compradas',
+                            text: result.message,
+                            type: 'success',
+                            confirmButtonText: 'Aceptar'
+                        })
+                        window.location.reload();
+                    } else {
+                        $.LoadingOverlay("hide");
+                        Swal.fire({
+                            title: 'Error',
+                            text: result.message,
+                            type: 'warning',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        // $(button).prop("disabled", false)
+                    }
+                },
+                error: function(result){
+                    $.LoadingOverlay("hide");
+                    Swal.fire({
+                        title: 'Error',
+                        text: "No se pudo procesar la solicitud.",
+                        type: 'warning',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    // $(button).prop("disabled", false)
+                    // alert(result);
+                }
+            });
+        }
+    })
+}
 </script>

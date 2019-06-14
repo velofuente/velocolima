@@ -360,23 +360,31 @@ class AdminController extends Controller
         ]);
     }
     public function sale(Request $request){
-        $user = $request->user();
-        $product = Product::where('id', "{$request->product_id}")->first();
-        DB::beginTransaction();
-        $purchase = Purchase::create([
-            'product_id' => $product->id,
-            'user_id' => $request->client_id,
-            'n_classes' => $product->n_classes,
-            'expiration_days' => $product->expiration_days,
-        ]);
-        Sale::create([
-            'admin_id' => $user->id,
-            'purchase_id' => $purchase->id,
-        ]);
-        DB::commit();
-        return response()->json([
-            'status' => 'OK',
-            'message' => "Venta realizada con exito",
-        ]);
+        log::info($request);
+        try {
+            $admin = $request->user();
+            $product = Product::where('id', "{$request->product_id}")->first();
+            DB::beginTransaction();
+            $purchase = Purchase::create([
+                'product_id' => $product->id,
+                'user_id' => $request->client_id,
+                'n_classes' => $product->n_classes,
+                'expiration_days' => $product->expiration_days,
+            ]);
+            Sale::create([
+                'admin_id' => $admin->id,
+                'purchase_id' => $purchase->id,
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => 'OK',
+                'message' => "Venta realizada con exito",
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'Error',
+                'message' => "Error: " . $e->getMessage(),
+            ]);
+        }
     }
 }
