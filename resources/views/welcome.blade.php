@@ -4,7 +4,8 @@
 @endsection
 @section('content')
 <div class="mainPage" onclick="location.href='/schedule';">
-    <img src="img/homepage/1.jpg" alt="principal" width="100%" height="50%">
+    <img class="mainWelcomeImage" src="img/homepage/1.jpg" alt="principal" width="100%" height="50%">
+    <img class="tinyMainWelcomeImage" src="img/homepage/1Vertical.png" alt="principal" width="100%" height="100%">
     <img class="icon" src="img/iconos/ICONO_O.png" alt="">
     <img class="veloBrand" src="img/iconos/LOGO.png" alt="">
     {{-- <img class="music" src="img/iconos/FRASEMUSICA.png" alt="">

@@ -400,6 +400,23 @@ select:focus {outline:0;}
     cursor: pointer;
     /* margin-top: 5em; */
 }
+
+.tinyMainWelcomeImage{
+    display: none;
+}
+
+@media screen and (max-width: 600px){
+    .mainWelcomeImage{
+        display: none;
+    }
+    .tinyMainWelcomeImage{
+        display: block;
+    }
+    .icon{
+        display: none;
+    }
+}
+
 .fa-sign-out-alt{
     color: #FF0E3B;
 }
