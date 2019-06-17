@@ -57,18 +57,18 @@ class OpenPayController extends Controller
                     If(count($userCards)>0){
                         Card::where('user_id' , $requestUser->id)->where('selected', 1)->update(['selected' => 0]);
                     }
-                    app('App\Http\Controllers\CardController')->store($cardData,$requestUser->id);
-                    $cardDataRequest = [
-                        'token_id' => $cardData->id,
-                        'device_session_id' => $request->device_session_id
-                    ];
-                    Session::flash('alertTitle', "Tarjeta guardada!");
-                    Session::flash('alertMessage', "Tu tarjeta fue guardada exitosamente");
-                    Session::flash('alertType', "success");
                     // Session::flash('alertButton', "Aceptar");
                     DB::commit();
                     try{
+                        $cardDataRequest = [
+                            'token_id' => $cardData->id,
+                            'device_session_id' => $request->device_session_id
+                        ];
                         $card = $openPayCustomer->cards->add($cardDataRequest);
+                        app('App\Http\Controllers\CardController')->store($cardData,$requestUser->id);
+                        Session::flash('alertTitle', "Tarjeta guardada!");
+                        Session::flash('alertMessage', "Tu tarjeta fue guardada exitosamente");
+                        Session::flash('alertType', "success");
                         return json_encode($card);
                         return $card;
                     }catch(\OpenpayApiTransactionError $e){
