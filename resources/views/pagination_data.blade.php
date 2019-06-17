@@ -29,8 +29,6 @@
             // console.log(splitedId);
             var userId = splitedId[1];
             client_id = userId;
-            // deleteProduct(userId, this);
-            console.log('id del usuario: '+client_id)
         } else {
             $(this).prop("disabled", false)
             console.log("Malformed ID")

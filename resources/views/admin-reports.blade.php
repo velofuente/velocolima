@@ -15,9 +15,11 @@
         <thead style="font-size: 1em;">
             <tr style="font-size: 1em;">
                 <th scope="col">ID</th>
-                <th scope="col">Fecha/Hora Compra</th>
+                <th scope="col">Fecha Compra</th>
+                <th scope="col">Hora Compra</th>
                 <th scope="col">Cliente</th>
                 <th scope="col">Producto</th>
+                <th scope="col">Realizado por:</th>
             </tr>
         </thead>
         <tbody>
@@ -25,9 +27,11 @@
                 <tr style="font-size: 0.9em;">
                     {{-- <th scope="row">{{$product->id}}</th> --}}
                     <td>{{$sale->id}}</td>
-                    <td>{{$sale->purchase->created_at}}</td>
+                    <td>{{date('d-M-Y', strtotime($sale->purchase->created_at))}}</td>
+                    <td>{{date('g:i:s A', strtotime($sale->purchase->created_at))}}</td>
                     <td>{{$sale->purchase->client->name}} {{$sale->purchase->client->last_name}}</td>
                     <td>{{$sale->purchase->product->description}}</td>
+                    <td>{{$sale->admin->name}} {{$sale->admin->last_name}}</td>
                 </tr>
             @endforeach
         </tbody>

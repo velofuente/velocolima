@@ -107,7 +107,7 @@ Route::get('/admin-sales/fetch_data', 'AdminController@fetch_data');
 // End Live Search Routes
 
 Route::get('admin-reports', 'AdminController@showReports')->name('admin-reports');
-Route::get('admin-operationsGrid', 'AdminController@showOperationsGrid')->name('admin-operationsGrid');
+Route::get('admin-operations', 'AdminController@showOperationsGrid')->name('admin-operations');
 
 //Instructor
 Route::post('addInstructor', 'AdminController@addInstructor');
