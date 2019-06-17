@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Instructor,Branch,Schedule,Product, User,UserSchedule, Tool};
-use Response;
+use App\{Instructor,Branch,Schedule,Product, User,UserSchedule, Card};
+use Response, Auth;
 
 class InstructorController extends Controller
 {
@@ -61,7 +61,12 @@ class InstructorController extends Controller
         $schedules = Schedule::whereBetween('day', [now()->format('Y-m-d'), now()->modify('+7 days')])
                     ->get()
                     ->sortBy('hour');
-        return view('schedule', compact('instructors', 'branches', 'schedules','products'));
+        if(Auth::user()){
+            $cards = Card::where('user_id', Auth::user()->id);
+            return view('schedule', compact('instructors', 'branches', 'schedules','products','cards'));
+        }else{
+            return view('schedule', compact('instructors', 'branches', 'schedules','products'));
+        }
     }
 
     public function bikeSelection(Request $request, Schedule $schedules)
