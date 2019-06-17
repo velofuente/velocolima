@@ -46,6 +46,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{-- the Value of each Row contains its respective schedule_id --}}
                     @foreach ($userSchedules as $userSchedule)
                         <tr style="font-size: 0.9em;" id="tableBodyRow" value="{{$userSchedule->schedule_id}}">
                             <td>{{$userSchedule->user->name}}</td>
@@ -77,15 +78,38 @@
             $('#selectedSchedule').text($(this).text());
         });
 
+        // variable3 = document.getElementById('tableBodyRow');
         cols = document.querySelectorAll('#tableBodyRow');
-        variable3 = document.getElementById('tableBodyRow');
 
-        // for (let item of cols){
-        //       item.style.display = 'block';
-        // }
-        console.log(variable3);
+        // console.log(variable3);
         console.log(cols);
+
+        // var iterable = 0;
+        // cols.forEach(element => {
+        //     cols.getAttribute('value');
+        //     iterable = iterable + 1;
+        // });
     })
+
+    // function scheduleByInstructor() {
+    //     var selectInstructor = document.getElementById("ScheduleInstructor").value;
+    //     var scheduleBox = document.getElementsByClassName("scheduleItem");
+
+    //     if (selectInstructor == "allInstructors"){
+    //         for (let item of scheduleBox){
+    //             item.style.display = 'block';
+    //         }
+    //     } else {
+    //         for (let item of scheduleBox){
+    //             if (selectInstructor === item.id){
+    //                 item.style.display = 'block';
+    //             }
+    //             else {
+    //                 item.style.display = 'none';
+    //             }
+    //         }
+    //     }
+    // }
 
     function showClients(id){
         variable1 = id;

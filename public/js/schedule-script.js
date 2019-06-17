@@ -1,5 +1,6 @@
 function scheduleByInstructor() {
   var selectInstructor = document.getElementById("ScheduleInstructor").value;
+  console.log(selectInstructor);
   var scheduleBox = document.getElementsByClassName("scheduleItem");
 
   if (selectInstructor == "allInstructors"){
