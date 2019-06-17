@@ -91,6 +91,16 @@ class AdminController extends Controller
         return view('/admin-operations', compact ('schedules', 'userSchedules'));
     }
 
+    public function showClientsTable(Request $request){
+        $id = [];
+        $instances = UserSchedule::where('schedule_id', $request->schedule_id)->get();
+        foreach($instances as $instance){
+            array_push($id, $instance->user_id);
+        }
+        $clients = User::whereIn('id',$id)->get();
+        return $clients;
+    }
+
     public function addInstructor(Request $request){
         DB::beginTransaction();
         Instructor::create([
