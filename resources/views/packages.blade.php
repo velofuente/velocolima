@@ -2,6 +2,11 @@
     <div class="description">
         {{-- <img class="buyClass" src="/img/iconos/1.png" alt="Comprar Clases"> --}}
         <span class="text-center text_gradient"> Comprar Clases </span>
+        @auth
+            @if ($cards)
+                <h1>Si hay tarjetas</h1>
+            @endif
+        @endauth
     </div>
     <div class="row justify-content-center classes">
         @php
