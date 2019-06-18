@@ -17,14 +17,14 @@
 <script>
   $(document).ready(function() {
     Swal.fire({
-      title: 'Obten tu Primer Clase Gratis!',
-      text: "Completa tu Registro para recibir una clase gratis",
+      title: '¡Obtén tu primera clase gratis!',
+      text: "Completa tu registro para recibir una clase gratis",
       type: 'info',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       cancelButtonText: 'Cerrar',
-      confirmButtonText: 'Ir al Registro'
+      confirmButtonText: 'Ir al registro'
     }).then((result) => {
       if (result.value) {
         window.location.replace("/register");

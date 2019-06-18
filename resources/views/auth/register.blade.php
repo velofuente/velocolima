@@ -138,7 +138,7 @@
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
                                 <label for="gender" class="mr-sm-2">Sexo:</label>
-                                <select class="form-control" id="gender" name="gender" placeholder="Sexo" value="{{ old('gender') }}" required autofocus>
+                                <select class="form-control" id="gender" name="gender" placeholder="Sexo" value="{{ old('gender') }}" required>
                                     <option disabled selected hidden>Sexo</option>
                                     <option>Hombre</option>
                                     <option>Mujer</option>
