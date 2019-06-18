@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Instructor,Branch,Schedule,Product, User,UserSchedule, Card};
+use App\{Instructor,Branch,Schedule,Product, User,UserSchedule, Card, Tool};
 use Response, Auth;
 
 class InstructorController extends Controller
@@ -91,7 +91,14 @@ class InstructorController extends Controller
         }
         $reservedPlaces = UserSchedule::where("user_id", "<>", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->get()->pluck("bike")->toArray();
         if($instances < ($schedules->branch->reserv_lim_x * $schedules->branch->reserv_lim_y))
-            return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes"));
+            if(Auth::user()){
+                $cards = Card::where('user_id', Auth::user()->id)->get();
+                // dd($cards);
+                // $cards = Card::all();
+                return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes","cards"));
+            }else{
+                return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes"));
+            }
         else
             return response()->json([
                 'status' => 'ERROR',
