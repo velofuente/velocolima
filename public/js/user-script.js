@@ -171,7 +171,8 @@ function deleteUserCard(id){
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Si'
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si, Eliminar Tarjeta'
     }).then((result) => {
         if (result.value) {
             $.ajax({

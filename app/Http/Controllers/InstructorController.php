@@ -62,8 +62,9 @@ class InstructorController extends Controller
                     ->get()
                     ->sortBy('hour');
         if(Auth::user()){
-            // $cards = Card::where('user_id', Auth::user()->id);
-            $cards = Card::all();
+            $cards = Card::where('user_id', Auth::user()->id)->get();
+            // dd($cards);
+            // $cards = Card::all();
             return view('schedule', compact('instructors', 'branches', 'schedules','products','cards'));
         }else{
             return view('schedule', compact('instructors', 'branches', 'schedules','products'));

@@ -9,7 +9,8 @@ var product_id = null;
 //variable para validar si se debe guardar la tarjeta o no
 var checkbox = null;
 var globalDataError = null;
-
+//ID de la Tarjeta
+var card_id = null;
 $(document).ready(function() {
     // OpenPay.setId('mq3srrs4flndbb8qu1mm');
     // OpenPay.setApiKey('pk_1241cb6ad90940ca8c2970818786c8ad');
@@ -18,6 +19,10 @@ $(document).ready(function() {
     OpenPay.setSandboxMode(opSandbox);
     //Se genera el id de dispositivo
     device_session_id = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName");
+
+    $('#selectSavedCard').change(function(){
+        console.log($('#selectSavedCard').val());
+    });
 });
 
 $('#device_session_id').val(device_session_id);
@@ -34,6 +39,16 @@ $('#pay-button').on('click', function(event) {
     $("#pay-button").prop( "disabled", true);
     OpenPay.token.extractFormAndCreate('payment-form', sucess_callbak, error_callbak);
 });
+
+$('#pay-selected-card-button').on('click', function(event) {
+    event.preventDefault();
+    $("#pay-selected-card-button").prop( "disabled", true);
+    // OpenPay.token.extractFormAndCreate('payment-form-unsaved-card', sucess_callback, error_callback);
+    console.log('El id del SELECT es: ' + $('#selectSavedCard').val());
+    card_id = $('#selectSavedCard').val();
+    makeChargeSavedCard();
+});
+
 var sucess_callbak = function(response) {
     token_id = response.data.id;
     $('#token_id').val(token_id);
@@ -57,6 +72,14 @@ var sucess_callbak = function(response) {
 
     console.log("cargo realizado");
 };
+
+var sucess_callback = function(response) {
+    token_id = response.data.id;
+    $('#token_id').val(token_id);
+    makeChargeSavedCard();
+    console.log("cargo realizado");
+};
+
 var error_callbak = function(response) {
     // response.data.description != undefined ? response.data.description : response.message;
     // alert("ERROR [" + response.status + "] " + desc);
@@ -71,6 +94,19 @@ var error_callbak = function(response) {
         confirmButtonText: 'Aceptar'
     })
     $("#pay-button").prop("disabled", false);
+};
+
+var error_callback = function(response) {
+    var errorMessage = getErrorCodeOP(response.data.error_code);
+    globalDataError = response.data.error_code;
+    console.log(response.data.error_code);
+    Swal.fire({
+        title: 'Woops!',
+        text: errorMessage,
+        type: 'error',
+        confirmButtonText: 'Aceptar'
+    })
+    $("#pay-selected-card-button").prop("disabled", false);
 };
 
 function getErrorCodeOP(errorCode){
@@ -195,13 +231,15 @@ function makeCharge(){
 
 //Make Charge: Saved Card
 function makeChargeSavedCard(){
+    console.log("entro");
     tokenBearer = $('#tokenBearer').val();
+    console.log(card_id);
     $.ajax({
-        url: "/makeCharge",
+        url: "makeChargeCard",
         method: 'POST',
         data: {
             _token: crfsToken,
-            token_id: token_id,
+            card_id: card_id,
             device_session_id: device_session_id,
             product_id: product_id
         },
@@ -210,7 +248,6 @@ function makeChargeSavedCard(){
         },
         success: function(result){
             $.LoadingOverlay("hide");
-            $("#pay-button").prop( "disabled", false);
             if (result.status == "OK") {
                 //swal success
                 // alert(result.message);

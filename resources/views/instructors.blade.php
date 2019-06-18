@@ -38,7 +38,7 @@
                         </div>
                         @endforeach
                     @else
-                        <h3 class="text-center">Aún no hay instructores agregados</h3>
+                        <h3 class="text-center text-white">Aún no hay instructores agregados</h3>
                     @endif
                 </div>
             </div>

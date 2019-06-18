@@ -304,72 +304,114 @@ class OpenPayController extends Controller
     }
     public function makeChargeCard(Request $request)
     {
-        $openpay = self::openPay();
         $requestUser = $request->user();
-        $card = $request->token_id;
-        $customer = $openpay->customers->get($requestUser->customer_id);
+
+        //$card = Card::select('id','token_id')->where('user_id', "{$requestUser->id}")->where('selected', 1)->first();
+        $card = Card::select('id', 'token_id')->where('id',$request->card_id)->where('user_id', $requestUser->id)->first();
+        log::info($card);
+        //TODO: Validar producto
+        $product = Product::where('id', '=', "{$request->product_id}")->first();
+        log::info($product);
+        //TODO: validar si el usuario tiene un customer, si no tiene lo debe de crear
+        //Validar si usuario tiene cuenta con OpenPay
+        if ($requestUser->customer_id == null){
+            $customer = $this->addCustomer($requestUser);
+            $requestUser->customer_id = $customer->id;
+            $requestUser->save();
+        } else {
+            $openpay = self::openPay();
+            $customer = $openpay->customers->get($requestUser->customer_id);
+        }
         try{
             DB::beginTransaction();
-            $compra = Purchase::create([
-                'product_id' => $request->product_id,
+            //Inicializamos array para compra (MI DB)
+            $purchaseArray = [
+                'product_id' => $product->id,
                 'card_id' => $card->id,
-                'user_id' => $requestUser->id
-            ]);
+                'user_id' => $requestUser->id,
+                'n_classes' => $product->n_classes,
+                'expiration_days' => $product->expiration_days,
+            ];
+            //Obtenemos el token de la tarjeta
+            $cardToken = $card->token_id;
+            //Registramos la compra en el sistema
+            $compra = Purchase::create($purchaseArray);
+            //Inicializamos array de cargo (OpenPay)
             $chargeData = [
                 'method' => 'card',
-                'source_id' => $card->token_id,
-                'amount' => $request->amount,
-                'description' => $request->description,
-                'order_id' => 'ORDEN-'.$compra->id,
+                'source_id' => $cardToken,
+                'amount' => $product->price,
+                'description' => $product->description,
+                'order_id' => 'ORDEN-'.$compra->id."-".time(),
                 'device_session_id' => $request->device_session_id
             ];
+            log::info("crea el charge data");
             $charge = $customer->charges->create($chargeData);
             DB::commit();
-            return json_encode($charge);
+            Session::flash('alertTitle', "Compra realizada!");
+            Session::flash('alertMessage', "Tu compra fue procesada exitosamente");
+            Session::flash('alertType', "success");
+            // Session::flash('alertButton', "Aceptar");
+            return [
+                "status" => "OK",
+                "message" => "Compra realizada correctamente",
+                // "data" => [
+                //     "charge" => $charge
+                // ]
+            ];
         }catch(\OpenpayApiTransactionError $e){
-            DB::rollback();
+            Log::info('OpenPayController@makeChargeCustomer');
+            Log::info(json_encode($e->getErrorCode()));
+            Log::info(json_encode($e->getDescription()));
+            Log::info(json_encode($e->getFraudRules()));
             switch ($e->getErrorCode()) {
-                case 2005:
-                    return "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
+                case "2005":
+                    $message = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
                     break;
-                case 2006:
-                    return "El código de seguridad de la tarjeta (CVV2) no fue proporcionado.";
+                case "2006":
+                    $message = "El código de seguridad de la tarjeta (CVV2) no fue proporcionado.";
                     break;
-                case 2009:
-                    return "El código de seguridad de la tarjeta (CVV2) es inválido.";
+                case "2009":
+                    $message = "El código de seguridad de la tarjeta (CVV2) es inválido.";
                     break;
-                case 3001:
-                    return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                case "3001":
+                    $message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
                     break;
-                case 3002:
-                    return "La tarjeta ha expirado.";
+                case "3002":
+                    $message = "La tarjeta ha expirado.";
                     break;
-                case 3003:
-                    return "La tarjeta no tiene fondos suficientes.";
+                case "3003":
+                    $message = "La tarjeta no tiene fondos suficientes.";
                     break;
-                case 3006:
-                    return "La operación no esta permitida para este cliente o esta transacción. Contacta a tu banco.";
+                case "3006":
+                    $message = "La operación no esta permitida para este cliente o esta transacción. Contacta a tu banco.";
                     break;
-                case 3007:
-                    return "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
+                case "3007":
+                    $message = "Tarjeta declinada. Contacta a tu banco e inténtalo de nuevo.";
                     break;
-                case 3008:
-                    return "La tarjeta no es soportada en transacciones en línea. Contacta a tu banco.";
+                case "3008":
+                    $message = "La tarjeta no es soportada en transacciones en línea. Contacta a tu banco.";
                     break;
-                case 3010:
-                    return "El banco ha restringido la tarjeta. Contacta a tu banco.";
+                case "3010":
+                    $message = "El banco ha restringido la tarjeta. Contacta a tu banco.";
                     break;
-                case 3012:
-                    return "Se requiere solicitar al banco autorización para realizar este pago. Contacta a tu banco.";
+                case "3012":
+                    $message = "Se requiere solicitar al banco autorización para realizar este pago. Contacta a tu banco.";
                     break;
                 default:
-                    return "Tarjeta no válida. Contacta a tu banco.";
+                    $message = "Tarjeta no válida. Contacta a tu banco.";
             }
-        }catch(\OpenpayApiRequestError $e){
-            return "Tarjeta no válida. Contacta a tu banco.";
-        }catch(\Exception $e){
-            return "No se pudo agregar la tarjeta, inténtalo nuevamente.";
+        } catch (\OpenpayApiRequestError $e){
+            $message = "Tarjeta no válida. Contacta a tu banco.";
+        } catch (Exception $e){
+            $message = "No se pudo agregar la tarjeta, inténtalo nuevamente.";
         }
+        log::info($message);
+        DB::rollback();
+        return [
+            "status" => "error",
+            "message" => $message
+        ];
     }
     public function makeRefund(Request $request)
     {

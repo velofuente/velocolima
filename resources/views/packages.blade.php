@@ -94,7 +94,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form method="post" id="payment-form">
+                                <form method="post" id="payment-form-unsaved-card">
                                         @csrf
                                         <input type="hidden" name="token_id" id="token_id">
                                         <input type="hidden" name="device_session_id" id="device_session_id">

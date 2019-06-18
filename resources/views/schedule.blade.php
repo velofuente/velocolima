@@ -117,7 +117,7 @@
                 @endfor
             </div>
         @else
-            <h4 class="text-center">Aún no hay clases agendadas</h4>
+            <h4 class="text-center text-white">Aún no hay clases agendadas</h4>
         @endif
         </div>
     </div>
