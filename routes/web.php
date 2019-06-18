@@ -129,3 +129,4 @@ Route::post('editUser', 'AdminController@editUser');
 Route::post('deleteUser', 'AdminController@deleteUser');
 //Ventas
 Route::post('sale', 'AdminController@sale');
+//fin del commit
