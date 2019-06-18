@@ -22,6 +22,13 @@ $(document).ready(function() {
 
 $('#device_session_id').val(device_session_id);
 //Bearer en Variable del Script
+
+// Close Select Card Modal and Open No-Card Modal
+$('#use-new-card-button').on('click', function(event) {
+    $('#savedCardsModal').modal('hide');
+    $('#newCardChargeModal').modal('show');
+});
+
 $('#pay-button').on('click', function(event) {
     event.preventDefault();
     $("#pay-button").prop( "disabled", true);
@@ -142,6 +149,7 @@ function saveCard(){
     // console.log('Bearer: ', tokenBearer);
 };
 
+//Make Charge: New Card
 function makeCharge(){
     tokenBearer = $('#tokenBearer').val();
     $.ajax({
@@ -184,6 +192,52 @@ function makeCharge(){
     // console.log('Token CRSF: ', crfsToken);
     // console.log('Bearer: ', tokenBearer);
 }
+
+//Make Charge: Saved Card
+function makeChargeSavedCard(){
+    tokenBearer = $('#tokenBearer').val();
+    $.ajax({
+        url: "/makeCharge",
+        method: 'POST',
+        data: {
+            _token: crfsToken,
+            token_id: token_id,
+            device_session_id: device_session_id,
+            product_id: product_id
+        },
+        beforeSend: function(){
+            $.LoadingOverlay("show");
+        },
+        success: function(result){
+            $.LoadingOverlay("hide");
+            $("#pay-button").prop( "disabled", false);
+            if (result.status == "OK") {
+                //swal success
+                // alert(result.message);
+                window.location.replace("/user");
+            } else {
+                $.LoadingOverlay("hide");
+                //swal error
+                Swal.fire({
+                    title: 'Woops!',
+                    text: result.message,
+                    type: 'error',
+                    confirmButtonText: 'Aceptar'
+                })
+            }
+        },
+        failure: function (result) {
+            //swal error de comunicación
+            alert("Ocurrió un error en el pago, por favor intente de nuevo");
+        }
+    });
+    // console.log('token_id: ', token_id);
+    // console.log('device_session_id: ', device_session_id);
+    // console.log('Token CRSF: ', crfsToken);
+    // console.log('Bearer: ', tokenBearer);
+}
+
+
 $(document).on("click", ".pickClass", function(e) {
     var elementId = this.id;
     elementExploded = elementId.split("-")
