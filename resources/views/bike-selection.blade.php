@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-md-6 col-xs-6 bnd" id="placeDate">
                         <?php setlocale(LC_TIME,'es_MX.utf8'); $dt = Carbon::now(); $inicio = strftime("%A %d de %B,", strtotime($schedules->day));?>
-                        <h6 class="first" id="branch">ESTUDIO: <span>{{$schedules->room->branch->name}}</span></h6>
+                        <h6 class="first" id="branch">ESTUDIO: <span>{{$schedules->branch->name}}</span></h6>
                         <h6 class="first" id="date"> FECHA: <span>{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i', strtotime($schedules->hour))}} </span></h6>
                     </div>
                     <div class="col-2 col-xs-6"></div>
