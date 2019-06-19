@@ -15,7 +15,7 @@ class userAccess
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user()->role_id == 3) {
+        if ($request->user()->role_id == 3 || $request->user()->role_id == 1) {
             return $next($request);
         }
         return redirect('/');
