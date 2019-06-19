@@ -15,7 +15,8 @@
         <div class="row">
             <!-- Image -->
             <div id="instructorImage" class="col-md-5">
-                <img src="/img/instructors/{{$instructor->name}}-body.png" class="img-fluid" alt="Instructor image">
+                {{-- <img src="/img/instructors/{{$instructor->name}}-body.png" class="img-fluid" alt="Instructor image"> --}}
+                <img src="/img/instructors/Instructor-Body.png" class="img-fluid" alt="Instructor image">
             </div>
             <!-- Name, Description and Phrase -->
             <div class="info col-md-7">
