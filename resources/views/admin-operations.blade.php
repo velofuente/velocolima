@@ -26,7 +26,6 @@
             @endforeach
         </div>
     </div>
-
 </div>
 
 {{-- Bike Grid & Table of Users--}}
