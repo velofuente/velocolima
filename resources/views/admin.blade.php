@@ -92,6 +92,12 @@
                                 Usuarios
                             </li>
                         </a>
+                        <a href="#" id="clients">
+                            <li>
+                                {{-- <i class="fa fa-user fa-lg"></i> --}}
+                                Clientes
+                            </li>
+                        </a>
                         <a href="#" id="operations">
                             <li>
                                 {{-- <i class="fa fa-user fa-lg"></i> --}}
@@ -127,6 +133,8 @@
             $('#menu-list a').click(function(){
                 //Get the id of the link and save it to pageCalled variable
                 pageCalled = this.id;
+                $('#menu-list a').removeClass("active-menu");
+                $(this).addClass("active-menu");
                 //Call the function to display the desired page
                 callPage(pageCalled);
             });

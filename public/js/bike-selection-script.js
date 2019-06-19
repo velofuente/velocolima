@@ -168,6 +168,7 @@ function reservePlace(id, elementBall){
                     type: 'success',
                     confirmButtonText: 'Aceptar'
                   })
+                window.location.replace("/user");
             } else {
                 if(typeof result.updateClass != "undefined"){
                     if (result.updateClass == 1) {

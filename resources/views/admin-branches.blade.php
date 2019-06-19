@@ -372,13 +372,15 @@ $(document).ready(function(){
             success: function(result){
                 if(result.status == "OK"){
                     $.LoadingOverlay('hide');
+                    $('.modal-backdrop').remove();
+                    $('.active-menu').trigger('click');
+                    $('#addBranchModal').modal('hide');
                     Swal.fire({
                         title: 'Sucursal creada con éxito',
                         text: result.message,
                         type: 'success',
                         confirmButtonText: 'Aceptar'
                     })
-                    window.location.reload();
                 } else {
                     $.LoadingOverlay('hide');
                     Swal.fire({
@@ -416,13 +418,14 @@ $(document).ready(function(){
                     success: function(result) {
                         $.LoadingOverlay("hide");
                         if (result.status == "OK") {
+                            $('.modal-backdrop').remove();
+                            $('.active-menu').trigger('click');
                             Swal.fire({
                                 title: 'Sucursal Eliminado',
                                 text: result.message,
                                 type: 'success',
                                 confirmButtonText: 'Aceptar'
                             })
-                            window.location.reload();
                         } else {
                             $.LoadingOverlay("hide");
                             Swal.fire({

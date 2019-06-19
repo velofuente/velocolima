@@ -418,14 +418,15 @@
                 success: function(result) {
                     $.LoadingOverlay("hide");
                     if(result.status == "OK"){
-                        // console.log(result.status);
+                        $('.modal-backdrop').remove();
+                        $('.active-menu').trigger('click');
+                        $('#addInstructorModal').modal('hide');
                         Swal.fire({
                             title: 'Instructor Añadido',
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
                         })
-                        window.location.reload();
                     }
                     else {
                         $.LoadingOverlay("hide");
@@ -477,13 +478,14 @@
                             $.LoadingOverlay("hide");
                             if (result.status == "OK") {
                                 console.log(result.status);
+                                $('.modal-backdrop').remove();
+                                $('.active-menu').trigger('click');
                                 Swal.fire({
                                     title: 'Instructor Eliminado',
                                     text: result.message,
                                     type: 'success',
                                     confirmButtonText: 'Aceptar'
                                 })
-                                window.location.reload();
                             } else {
                                 $.LoadingOverlay("hide");
                                 Swal.fire({
@@ -537,13 +539,15 @@
                     $.LoadingOverlay("hide");
                     if(result.status == "OK"){
                         // console.log(result.status);
+                        $('.modal-backdrop').remove();
+                        $('.active-menu').trigger('click');
+                        $('#editInstructorModal').modal('hide');
                         Swal.fire({
                             title: 'Instructor Editado',
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
                         })
-                        window.location.reload();
                     }
                     else {
                         $.LoadingOverlay("hide");

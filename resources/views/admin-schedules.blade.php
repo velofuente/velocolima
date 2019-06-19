@@ -263,13 +263,15 @@ $(document).ready(function(){
             success: function(result){
                 if(result.status == "OK"){
                     $.LoadingOverlay('hide');
+                    $('.modal-backdrop').remove();
+                    $('.active-menu').trigger('click');
+                    $('#addScheduleModal').modal('hide');
                     Swal.fire({
                         title: 'Horario creado con éxito',
                         text: result.message,
                         type: 'success',
                         confirmButtonText: 'Aceptar'
                     })
-                    window.location.reload();
                 } else {
                     $.LoadingOverlay('hide');
                     Swal.fire({
@@ -305,14 +307,15 @@ $(document).ready(function(){
             success: function(result) {
                 $.LoadingOverlay("hide");
                 if(result.status == "OK"){
-                    // console.log(result.status);
+                    $('.modal-backdrop').remove();
+                    $('.active-menu').trigger('click');
+                    $('#editScheduleModal').modal('hide');
                     Swal.fire({
                         title: 'Producto Editado',
                         text: result.message,
                         type: 'success',
                         confirmButtonText: 'Aceptar'
                     })
-                    window.location.reload();
                 }
                 else {
                     $.LoadingOverlay("hide");
@@ -362,13 +365,14 @@ $(document).ready(function(){
                         $.LoadingOverlay("hide");
                         if (result.status == "OK") {
                             console.log(result.status);
+                            $('.modal-backdrop').remove();
+                            $('.active-menu').trigger('click');
                             Swal.fire({
                                 title: 'Horario Eliminado',
                                 text: result.message,
                                 type: 'success',
                                 confirmButtonText: 'Aceptar'
                             })
-                            window.location.reload();
                         } else {
                             $.LoadingOverlay("hide");
                             Swal.fire({
