@@ -431,7 +431,9 @@
                 success: function(result) {
                     $.LoadingOverlay("hide");
                     if(result.status == "OK"){
-                        // console.log(result.status);
+                        $('.modal-backdrop').remove();
+                        $('.active-menu').trigger('click');
+                        $('#addProductModal').modal('hide');
                         Swal.fire({
                             title: 'Producto Añadido',
                             text: result.message,
@@ -480,14 +482,15 @@
                 success: function(result) {
                     $.LoadingOverlay("hide");
                     if(result.status == "OK"){
-                        // console.log(result.status);
+                        $('.modal-backdrop').remove();
+                        $('.active-menu').trigger('click');
+                        $('#editProductModal').modal('hide');
                         Swal.fire({
                             title: 'Producto Editado',
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
                         })
-                        window.location.reload();
                     }
                     else {
                         $.LoadingOverlay("hide");
@@ -533,6 +536,8 @@
                             $.LoadingOverlay("hide");
                             if (result.status == "OK") {
                                 console.log(result.status);
+                                $('.modal-backdrop').remove();
+                                $('.active-menu').trigger('click');
                                 Swal.fire({
                                     title: 'Producto Eliminado',
                                     text: result.message,

@@ -48,6 +48,11 @@ class AdminController extends Controller
         return view('/admin-users', compact ('users'));
     }
 
+    public function showClients(){
+        $clients = User::where('role_id', 3)->get();
+        return view('/admin-clients', compact ('clients'));
+    }
+
     public function showSales(){
         $products = Product::where('status',1)->get();
         // $users = User::where('role_id', 3)->get();

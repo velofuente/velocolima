@@ -97,6 +97,7 @@ Route::get('admin-schedules', 'AdminController@showSchedules')->name('admin-sche
 Route::get('admin-products', 'AdminController@showProducts')->name('admin-products');
 Route::get('admin-branches', 'AdminController@showBranches')->name('admin-branches');
 Route::get('admin-users', 'AdminController@showUsers')->name('admin-users');
+Route::get('admin-clients', 'AdminController@showClients')->name('admin-clients');
 // Route::get('admin-sales', 'AdminController@showSales')->name('admin-sales');
 
 // Live Search Routes

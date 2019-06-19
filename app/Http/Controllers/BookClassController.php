@@ -118,7 +118,7 @@ class BookClassController extends Controller
                 }
                 DB::commit();
                 return response()->json([
-                    'status' => 'Ok',
+                    'status' => 'OK',
                     'message' => "Lugar cambiado con exito",
                 ]);
             } else{
@@ -135,6 +135,7 @@ class BookClassController extends Controller
         $purchase = Purchase::find($requestedClass->purchase_id);
         if($requestedClass->status!='cancelled'){
             $requestedClass->status = 'cancelled';
+            $requestedClass->changedSit = 0;
             $requestedClass->save();
             $purchase->n_classes += 1;
             $purchase->save();
