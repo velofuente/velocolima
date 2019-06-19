@@ -157,8 +157,14 @@ function cancelClass(bookedClass_id){
             $.LoadingOverlay("show");
         },
         success: function(result){
+            Swal.fire({
+                title: 'Clase cancelada',
+                text: result.message,
+                type: 'success',
+                confirmButtonText: 'Aceptar'
+            }),
+            $.LoadingOverlay('hide');
             window.location.replace("/user");
-            console.log(result);
         }
     })
 }
