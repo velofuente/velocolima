@@ -2,8 +2,13 @@ body{
     background-color: black;
 }
 
+
 .main{
     /* margin-top: 13em; */
+}
+
+.instructorBodyImage {
+	filter: invert(100%);
 }
 
 .container-fluid{
