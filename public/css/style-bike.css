@@ -129,6 +129,26 @@
     background: greenyellow;
 }
 
+.bikes{
+    cursor: pointer;
+    /* width: 65px;
+    height: 65px; */
+    width: 65px;
+    height: 65px;
+    margin: 1px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    border: 1px solid #FF0E3B;
+    background: none;
+    color: #bababa;
+    text-align: center;
+    transition: .3s ease;
+    font-size: 1.2em;
+    margin: 0;
+}
+
 .occupied {
     width: 65px;
     height: 65px;
@@ -148,8 +168,8 @@
 
 .disabled {
     /* cursor: pointer; */
-    width: 65px;
-    height: 65px;
+    width: 30px;
+    height: 30px;
     margin: 1px !important;
     display: inline-flex;
     align-items: center;
@@ -209,6 +229,77 @@
     .main-bikes{
         margin: 2em 15% 0em 15%;
     }
+    .bikes{
+        cursor: pointer;
+        /* width: 65px;
+        height: 65px; */
+        width: 45px;
+        height: 45px;
+        margin: 1px !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        border: 1px solid #FF0E3B;
+        background: none;
+        color: #bababa;
+        text-align: center;
+        transition: .3s ease;
+        font-size: 1.2em;
+        margin: 0;
+    }
+    .occupied {
+        width: 45px;
+        height: 45px;
+        margin: 1px !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid gray;
+        border-radius: 100%;
+        background: gray;
+        color: #bababa;
+        text-align: center;
+        transition: .3s ease;
+        font-size: 1.2em;
+        margin: 0;
+    }
+    .disabled {
+        /* cursor: pointer; */
+        width: 10px;
+        height: 10px;
+        margin: 1px !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        border: 1px solid black;
+        background: none;
+        /* color: #bababa; */
+        color: transparent;
+        text-align: center;
+        transition: .3s ease;
+        font-size: 1.2em;
+        margin: 0;
+    }
+
+    .instructor {
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        margin: 1px !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        border: 1px solid yellowgreen;
+        background: none;
+        color: #bababa;
+        text-align: center;
+        transition: .3s ease;
+        font-size: 1.2em;
+        margin: 0;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -248,6 +339,60 @@
     #goBack:hover{
         background-position: right center;
     }
+    .bikes{
+        cursor: pointer;
+        /* width: 65px;
+        height: 65px; */
+        width: 45px;
+        height: 45px;
+        margin: 1px !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        border: 1px solid #FF0E3B;
+        background: none;
+        color: #bababa;
+        text-align: center;
+        transition: .3s ease;
+        font-size: 1.2em;
+        margin: 0;
+    }
+    .occupied {
+        width: 45px;
+        height: 45px;
+        margin: 1px !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid gray;
+        border-radius: 100%;
+        background: gray;
+        color: #bababa;
+        text-align: center;
+        transition: .3s ease;
+        font-size: 1.2em;
+        margin: 0;
+    }
+    .disabled {
+        /* cursor: pointer; */
+        width: 5px;
+        height: 5px;
+        margin: 1px !important;
+        color: transparent;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        border: 1px solid black;
+        background: none;
+        /* color: #bababa; */
+        color: transparent;
+        text-align: center;
+        transition: .3s ease;
+        font-size: 1.2em;
+        margin: 0;
+    }
 }
 
 @media screen and (min-width: 1501px) {
@@ -286,26 +431,6 @@
     margin: auto;
     width: 50%;
     text-align: center;
-}
-
-.bikes{
-    cursor: pointer;
-    /* width: 65px;
-    height: 65px; */
-    width: 65px;
-    height: 65px;
-    margin: 1px !important;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    border: 1px solid #FF0E3B;
-    background: none;
-    color: #bababa;
-    text-align: center;
-    transition: .3s ease;
-    font-size: 1.2em;
-    margin: 0;
 }
 
 .bikes:hover{

@@ -54,9 +54,10 @@
 
         {{-- Schedule Section --}}
         <input type="hidden" name="timezoneSet" value="{{date_default_timezone_set('America/Mexico_City')}}">
-        <input type="hidden" name="actualDay" value="{{$today=now()->modify('+6 days')}}">
+        <input type="hidden" name="actualDay" value="{{$today=now()}}">
         <input type="hidden" name="thisDay" value="{{$thisDay=now()}}">
         <div class="container" name="calendar">
+            <h1 class="text-center text-white">SCHEDULE BACKUP</h1>
         @if(count($schedules) > 0)
             <div class="row" name="dates">
                 @for ($i = 0; $i < 7; $i++)

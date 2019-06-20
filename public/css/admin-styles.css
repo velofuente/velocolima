@@ -32,14 +32,14 @@ body{
   /* width: 80%; */
   height: auto;
   position: absolute;
-  right: 29%;
+  right: 34% !important;
   /* outline: 1px solid; */
 }
 
 /* Part of the Screen for Verical Navigation Bar */
 .leftSpan {
-  width: 20%;
-  height: 100%;
+  width: 15% !important;
+  height: 80%;
   position: fixed;
   /* outline: 1px solid; */
 }
@@ -53,7 +53,7 @@ body{
   background-color: #1f1e1e;
   position: fixed;
   top: 0px;
-  width: 20%;
+  width: 15%;
   height: 100%;
   color: #FFF;
 }

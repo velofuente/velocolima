@@ -30,7 +30,7 @@
                 <div class="brand">
                     <img src="{{asset('img/iconos/CroppedLogo.png')}}" width="60px" height="25px" id="welcomeLogo">
                 </div>
-                <i class="fa fa-bars fa-2x toggle-btn active" data-toggle="collapse" data-target="#menu-content"></i>
+                {{-- <i class="fa fa-bars fa-2x toggle-btn active" data-toggle="collapse" data-target="#menu-content"></i> --}}
                 <div class="menu-list" id="menu-list">
                     <ul id="menu-content" class="menu-content collapse out text-center">
                         <a href="#" id="instructors">

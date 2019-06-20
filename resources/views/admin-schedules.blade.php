@@ -10,7 +10,7 @@
         <thead style="font-size: 1em;">
             <tr style="font-size: 1em;">
                 <th scope="col">ID</th>
-                <th scope="col">Día</th>
+                <th scope="col">Fecha</th>
                 <th scope="col">Hora</th>
                 <th scope="col">Instructor</th>
                 <th scope="col">Límite de Reservación</th>
@@ -136,270 +136,276 @@
     </div>
 </div>
 
+{{-- <script src="{{asset('js/bike-grid-script.js')}}"></script> --}}
+
 {{-- Add, Delete & Edit Schedule Scripts --}}
 <script type="text/javascript">
     var crfsToken = '{{ csrf_token() }}';
 </script>
-{{-- <script src="{{asset('js/bike-grid-script.js')}}"></script> --}}
 
+{{-- All the Functions --}}
 <script>
-$(document).ready(function(){
-    // var instructor_id = null;
-    var schedule_id = null;
-    var day = null;
-    var hour = null;
-    var instructor = null;
-    var branch = null;
+    $(document).ready(function(){
+        // var instructor_id = null;
+        var schedule_id = null;
+        var day = null;
+        var hour = null;
+        var instructor = null;
+        var branch = null;
 
-    $('#addScheduleButton').on('click', function(event) {
-        // event.preventDefault();
-        $('#addScheduleButton').attr('disabled', true);
-        addSchedule();
-    });
-
-    //OnClick deleteSchedule Button
-    $('.deleteSchedule').on('click', function(event) {
-        $(this).prop("disabled", true)
-        event.preventDefault();
-
-        //Get Full ID of the button (which contains the Schedule ID)
-        var fullId = this.id;
-        //Split the ID of the fullId by his dash
-        var splitedId = fullId.split("-");
-        if(splitedId.length > 1){
-            // console.log(splitedId);
-            var ScheduleId = splitedId[1];
-            deleteSchedule(ScheduleId, this);
-        } else {
-            $(this).prop("disabled", false)
-            console.log("Malformed ID")
+        if ( $('[type="date"]').prop('type') != 'date' ) {
+            $('[type="date"]').datepicker();
         }
-        // $('#deleteScheduleButton').attr('disabled', true);
-    })
 
-    //OnClick editSchedule Button
-    $('.editSchedule').on('click', function (){
-        // $(this).prop('disabled', true);
-        event.preventDefault();
-
-        //Get Full ID of the button (which contains the instructor ID)
-        var fullId = this.id;
-        //Split the ID of the fullId by his dash
-        var splitedId = fullId.split("-");
-        if(splitedId.length > 1){
-            // console.log(splitedId);
-            var instructorId = splitedId[1];
-            // editSchedule(instructorId, this);
-        } else {
-            $(this).prop("disabled", false)
-            console.log("Malformed ID")
-        }
-    })
-    //OnClick editScheduleModal Button
-
-    //When Modal Opened
-    $('#editScheduleModal').on('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = $(event.relatedTarget)
-        // Extract info from data-* attributes
-        schedule_id = button.data('myid')
-        day = button.data('myday') // Extract info from data-* attributes
-        hour = button.data('myhour');
-        instructor = button.data('myinstructor');
-        branch = button.data('mybranch');
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('.modal-body #editDaySchedule').val(day)
-        modal.find('.modal-body #editHourSchedule').val(hour)
-        modal.find('.modal-body #editInstructorSchedule').val(instructor)
-        modal.find('.modal-body #editBranchSchedule').val(branch)
-    })
-
-    //Edit Product Button Inside Modal
-    $('#editScheduleButton').on('click', function(){
-        $('#editScheduleButton').prop("disabled", true)
-        event.preventDefault();
-
-        day = $('#editDaySchedule').val(); // Extract info from data-* attributes
-        hour = $('#editHourSchedule').val();
-        instructor = $('#editInstructorSchedule').val();
-        branch = $('#editBranchSchedule').val();
-
-        editSchedule(schedule_id);
-    })
-
-    function addSchedule(){
-        //Array to get disabled bikes and instructor bike(s)
-        var disabledBikes = [];
-        var instructorBikes = [];
-        //Select each ball with class "disabled" and push it into the array
-        $( ".disabled" ).each(function () {
-            disabledBikes.push($(this).text());
-        })
-        //Same as above, but with instructor(s) bike(s);
-        $( ".instructor" ).each(function () {
-            instructorBikes.push($(this).text());
-        })
-        $.ajax({
-            url: "addSchedule",
-            method: 'POST',
-            beforeSend: function(){
-                $.LoadingOverlay('show');
-            },
-            data: {
-                _token: crfsToken,
-                day: $('#addDaySchedule').val(),
-                hour: $('#addHourSchedule').val(),
-                instructor_id: $('#addInstructorSchedule').val(),
-                branch_id: $('#addBranchSchedule').val(),
-                // class_id: 1,
-                //reserv_lim_x: $('#x').val(),
-                //reserv_lim_y: $('#y').val(),
-                // room_id: 1,
-                // disabledBikes: disabledBikes,
-                // instructorBikes: instructorBikes
-            },
-            success: function(result){
-                if(result.status == "OK"){
-                    $.LoadingOverlay('hide');
-                    $('.modal-backdrop').remove();
-                    $('.active-menu').trigger('click');
-                    $('#addScheduleModal').modal('hide');
-                    Swal.fire({
-                        title: 'Horario creado con éxito',
-                        text: result.message,
-                        type: 'success',
-                        confirmButtonText: 'Aceptar'
-                    })
-                } else {
-                    $.LoadingOverlay('hide');
-                    Swal.fire({
-                        title: 'Woops!',
-                        text: result.message,
-                        type: 'error',
-                        confirmButtonText: 'Aceptar'
-                    })
-                }
-                // console.log(result);
-            }
+        $('#addScheduleButton').on('click', function(event) {
+            // event.preventDefault();
+            $('#addScheduleButton').attr('disabled', true);
+            addSchedule();
         });
-    }
 
-    function editSchedule(schedule_id){
-        $.ajax({
-            url: "editSchedule",
-            type: 'POST',
-            cache: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            beforeSend: function(){
-                $.LoadingOverlay("show");
-            },
-            data: {
-                schedule_id: schedule_id,
-                day: day,
-                hour: hour,
-                instructor_id: instructor,
-                branch_id: branch,
-            },
-            success: function(result) {
-                $.LoadingOverlay("hide");
-                if(result.status == "OK"){
-                    $('.modal-backdrop').remove();
-                    $('.active-menu').trigger('click');
-                    $('#editScheduleModal').modal('hide');
-                    Swal.fire({
-                        title: 'Producto Editado',
-                        text: result.message,
-                        type: 'success',
-                        confirmButtonText: 'Aceptar'
-                    })
+        //OnClick deleteSchedule Button
+        $('.deleteSchedule').on('click', function(event) {
+            $(this).prop("disabled", true)
+            event.preventDefault();
+
+            //Get Full ID of the button (which contains the Schedule ID)
+            var fullId = this.id;
+            //Split the ID of the fullId by his dash
+            var splitedId = fullId.split("-");
+            if(splitedId.length > 1){
+                // console.log(splitedId);
+                var ScheduleId = splitedId[1];
+                deleteSchedule(ScheduleId, this);
+            } else {
+                $(this).prop("disabled", false)
+                console.log("Malformed ID")
+            }
+            // $('#deleteScheduleButton').attr('disabled', true);
+        })
+
+        //OnClick editSchedule Button
+        $('.editSchedule').on('click', function (){
+            // $(this).prop('disabled', true);
+            event.preventDefault();
+
+            //Get Full ID of the button (which contains the instructor ID)
+            var fullId = this.id;
+            //Split the ID of the fullId by his dash
+            var splitedId = fullId.split("-");
+            if(splitedId.length > 1){
+                // console.log(splitedId);
+                var instructorId = splitedId[1];
+                // editSchedule(instructorId, this);
+            } else {
+                $(this).prop("disabled", false)
+                console.log("Malformed ID")
+            }
+        })
+        //OnClick editScheduleModal Button
+
+        //When Modal Opened
+        $('#editScheduleModal').on('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = $(event.relatedTarget)
+            // Extract info from data-* attributes
+            schedule_id = button.data('myid')
+            day = button.data('myday') // Extract info from data-* attributes
+            hour = button.data('myhour');
+            instructor = button.data('myinstructor');
+            branch = button.data('mybranch');
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-body #editDaySchedule').val(day)
+            modal.find('.modal-body #editHourSchedule').val(hour)
+            modal.find('.modal-body #editInstructorSchedule').val(instructor)
+            modal.find('.modal-body #editBranchSchedule').val(branch)
+        })
+
+        //Edit Product Button Inside Modal
+        $('#editScheduleButton').on('click', function(){
+            $('#editScheduleButton').prop("disabled", true)
+            event.preventDefault();
+
+            day = $('#editDaySchedule').val(); // Extract info from data-* attributes
+            hour = $('#editHourSchedule').val();
+            instructor = $('#editInstructorSchedule').val();
+            branch = $('#editBranchSchedule').val();
+
+            editSchedule(schedule_id);
+        })
+
+        function addSchedule(){
+            //Array to get disabled bikes and instructor bike(s)
+            var disabledBikes = [];
+            var instructorBikes = [];
+            //Select each ball with class "disabled" and push it into the array
+            $( ".disabled" ).each(function () {
+                disabledBikes.push($(this).text());
+            })
+            //Same as above, but with instructor(s) bike(s);
+            $( ".instructor" ).each(function () {
+                instructorBikes.push($(this).text());
+            })
+            $.ajax({
+                url: "addSchedule",
+                method: 'POST',
+                beforeSend: function(){
+                    $.LoadingOverlay('show');
+                },
+                data: {
+                    _token: crfsToken,
+                    day: $('#addDaySchedule').val(),
+                    hour: $('#addHourSchedule').val(),
+                    instructor_id: $('#addInstructorSchedule').val(),
+                    branch_id: $('#addBranchSchedule').val(),
+                    // class_id: 1,
+                    //reserv_lim_x: $('#x').val(),
+                    //reserv_lim_y: $('#y').val(),
+                    // room_id: 1,
+                    // disabledBikes: disabledBikes,
+                    // instructorBikes: instructorBikes
+                },
+                success: function(result){
+                    if(result.status == "OK"){
+                        $.LoadingOverlay('hide');
+                        $('.modal-backdrop').remove();
+                        $('.active-menu').trigger('click');
+                        $('#addScheduleModal').modal('hide');
+                        Swal.fire({
+                            title: 'Horario creado con éxito',
+                            text: result.message,
+                            type: 'success',
+                            confirmButtonText: 'Aceptar'
+                        })
+                    } else {
+                        $.LoadingOverlay('hide');
+                        Swal.fire({
+                            title: 'Woops!',
+                            text: result.message,
+                            type: 'error',
+                            confirmButtonText: 'Aceptar'
+                        })
+                    }
+                    // console.log(result);
                 }
-                else {
+            });
+        }
+
+        function editSchedule(schedule_id){
+            $.ajax({
+                url: "editSchedule",
+                type: 'POST',
+                cache: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                beforeSend: function(){
+                    $.LoadingOverlay("show");
+                },
+                data: {
+                    schedule_id: schedule_id,
+                    day: day,
+                    hour: hour,
+                    instructor_id: instructor,
+                    branch_id: branch,
+                },
+                success: function(result) {
                     $.LoadingOverlay("hide");
+                    if(result.status == "OK"){
+                        $('.modal-backdrop').remove();
+                        $('.active-menu').trigger('click');
+                        $('#editScheduleModal').modal('hide');
+                        Swal.fire({
+                            title: 'Producto Editado',
+                            text: result.message,
+                            type: 'success',
+                            confirmButtonText: 'Aceptar'
+                        })
+                    }
+                    else {
+                        $.LoadingOverlay("hide");
+                        Swal.fire({
+                            title: 'Error',
+                            text: result.message,
+                            type: 'warning',
+                            confirmButtonText: 'Aceptar'
+                        })
+                    }
+                },
+                error: function(result){
+                    $.LoadingOverlay("hide");
+                    // alert(result);
                     Swal.fire({
                         title: 'Error',
-                        text: result.message,
+                        text: 'No se pudo procesar su solicitud',
                         type: 'warning',
                         confirmButtonText: 'Aceptar'
                     })
                 }
-            },
-            error: function(result){
-                $.LoadingOverlay("hide");
-                // alert(result);
-                Swal.fire({
-                    title: 'Error',
-                    text: 'No se pudo procesar su solicitud',
-                    type: 'warning',
-                    confirmButtonText: 'Aceptar'
-                })
-            }
-        });
-    };
+            });
+        };
 
-    function deleteSchedule(schedule_id, button){
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "No se podrán revertir los cambios!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, Eliminar Horario'
-        }).then((result) => {
-            if (result.value) {
-                $.ajax({
-                    url: 'deleteSchedule',
-                    type: 'POST',
-                    cache: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: {
-                        schedule_id: schedule_id,
-                    },
-                    success: function(result) {
-                        $.LoadingOverlay("hide");
-                        if (result.status == "OK") {
-                            console.log(result.status);
-                            $('.modal-backdrop').remove();
-                            $('.active-menu').trigger('click');
-                            Swal.fire({
-                                title: 'Horario Eliminado',
-                                text: result.message,
-                                type: 'success',
-                                confirmButtonText: 'Aceptar'
-                            })
-                        } else {
+        function deleteSchedule(schedule_id, button){
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "No se podrán revertir los cambios!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, Eliminar Horario'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: 'deleteSchedule',
+                        type: 'POST',
+                        cache: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            schedule_id: schedule_id,
+                        },
+                        success: function(result) {
+                            $.LoadingOverlay("hide");
+                            if (result.status == "OK") {
+                                console.log(result.status);
+                                $('.modal-backdrop').remove();
+                                $('.active-menu').trigger('click');
+                                Swal.fire({
+                                    title: 'Horario Eliminado',
+                                    text: result.message,
+                                    type: 'success',
+                                    confirmButtonText: 'Aceptar'
+                                })
+                            } else {
+                                $.LoadingOverlay("hide");
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: result.message,
+                                    type: 'warning',
+                                    confirmButtonText: 'Aceptar'
+                                });
+                                $(button).prop("disabled", false)
+                            }
+                        },
+                        error: function(result){
                             $.LoadingOverlay("hide");
                             Swal.fire({
                                 title: 'Error',
-                                text: result.message,
+                                text: "No se pudo procesar la solicitud.",
                                 type: 'warning',
                                 confirmButtonText: 'Aceptar'
                             });
                             $(button).prop("disabled", false)
+                            // alert(result);
                         }
-                    },
-                    error: function(result){
-                        $.LoadingOverlay("hide");
-                        Swal.fire({
-                            title: 'Error',
-                            text: "No se pudo procesar la solicitud.",
-                            type: 'warning',
-                            confirmButtonText: 'Aceptar'
-                        });
-                        $(button).prop("disabled", false)
-                        // alert(result);
-                    }
-                });
-            } else {
-                $(button).prop("disabled", false)
-            }
-        })
-    };
-})
+                    });
+                } else {
+                    $(button).prop("disabled", false)
+                }
+            })
+        };
+    })
 </script>
