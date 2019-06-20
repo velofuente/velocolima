@@ -21,7 +21,7 @@
             {{-- Instructors --}}
             <div class="container mx-auto mt-4" name="instructors" >
                 <div class="row">
-                    @if (count($instructors) > 0))
+                    @if (count($instructors) > 0)
                         @foreach ($instructors as $instructor)
                         <div class="col-md-4 col-sm-6 col-xs-6">
                         <a href="/instructors/{{$instructor->id}}" class="h4" style="text-decoration: none">
