@@ -26,7 +26,7 @@
                 <input type="hidden" name="WeekShown" value="{{$weekShown=now()}}">
                 <input type="hidden" name="setMonth" value="{{$month=strftime('%B', strtotime($weekShown))}}">
                 <span class="weekShown">
-                    del {{date('d')}} al {{date('d', strtotime($weekShown->modify("+6 days")))}} de {{$month}}
+                    del {{date('d')}} al {{date('d', strtotime($weekShown->modify("+12 days")))}} de {{$month}}
                 </span>
             </div>
             {{-- Empty Section at the Middle of the NavBar --}}
