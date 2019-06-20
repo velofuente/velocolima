@@ -160,8 +160,8 @@
                     <div class="form-group row my-4">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="image" class="mr-sm-2">Imágenes</label>
-                            <input type="file" name="pic" accept="image/png, image/jpeg" multiple>
+                            <label for="headImage">Foto de perfil</label><input class="mb-2" type="file" name="pic" accept="image/png, image/jpeg">
+                            <label for="headImage">Foto de cuerpo completo</label><input type="file" name="pic" accept="image/png, image/jpeg">
                             @if ($errors->has('image'))
                                 <span class="invalid-feedback" style="display: block !important" role="alert">
                                     <strong>{{ $errors->first('image') }}</strong>
