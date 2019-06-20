@@ -8,9 +8,12 @@ use App\{Instructor, Schedule, Branch, Product, Tool, User, Purchase, Sale, User
 use Illuminate\Support\Facades\Validator;
 use DB, Log;
 use PhpParser\Node\Stmt\Return_;
+// use App\Traits\UploadTrait;
 
 class AdminController extends Controller
 {
+    // use UploadTrait;
+
     public function index()
     {
         // $instructors = Instructor::all();
@@ -116,6 +119,9 @@ class AdminController extends Controller
             'phone' => $request->phone,
             'bio' => $request->bio,
         ]);
+        // $pathHead = $request->head->storeAs('public/img/instructors', '{$request->name}-Head.png');
+        // $pathBody = $request->body->storeAs('public/img/instructors', '{$request->name}-Body.png');
+        // log::info($pathHead, $pathBody);
         DB::commit();
         return response()->json([
             'status' => 'OK',

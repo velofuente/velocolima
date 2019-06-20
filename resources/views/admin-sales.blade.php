@@ -164,13 +164,15 @@ function makeSaleUser(id){
                 success: function(result) {
                     $.LoadingOverlay("hide");
                     if (result.status == "OK") {
+                        $('.modal-backdrop').remove();
+                        $('#reports').trigger('click');
+                        $('#addSaleUserModal').modal('hide');
                         Swal.fire({
                             title: 'Clases Compradas',
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
                         })
-                        window.location.reload();
                     } else {
                         $.LoadingOverlay("hide");
                         Swal.fire({
