@@ -39,7 +39,7 @@
                 <thead style="font-size: 1em;">
                     <tr style="font-size: 1em;">
                         <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
+                        <th scope="col">Teléfono</th>
                         <th scope="col">Email</th>
                         <th scope="col">Talla de Calzado</th>
                     </tr>
@@ -47,9 +47,10 @@
                 <tbody>
                     {{-- the Value of each Row contains its respective schedule_id --}}
                     @foreach ($userSchedules as $userSchedule)
-                        <tr style="font-size: 0.9em;" id="tableBodyRow" value="{{$userSchedule->schedule_id}}">
-                            <td>{{$userSchedule->user->name}}</td>
-                            <td>{{$userSchedule->user->last_name}}</td>
+                        <tr style="font-size: 0.9em;" id="tableBodyRow">
+                            <input type="hidden" value="{{$userSchedule->schedule_id}}" id="hiddenUsers">
+                            <td>{{$userSchedule->user->name}} {{$userSchedule->user->last_name}}</td>
+                            <td> {{$userSchedule->user->phone}} </td>
                             <td>{{$userSchedule->user->email}}</td>
                             <td>{{$userSchedule->user->shoe_size}}</td>
                         </tr>
@@ -57,7 +58,7 @@
                 </tbody>
             </table>
         @else
-            <h2 class="text-center">No hay Productos Agregados</h2>
+            <h2 class="text-center">No hay usuarios en esta sesión</h2>
         @endif
     </div>
 </div>
@@ -65,8 +66,8 @@
 {{-- Add, Delete & Edit Products Scripts --}}
 <script>
     var variable1 = null;
-    var variable2 = null;
-    var variable3 = null;
+    var variable2 = [];
+    var variable3 = [];
     var cols = null;
 
     $(document).ready(function (){
@@ -77,43 +78,22 @@
             $('#selectedSchedule').text($(this).text());
         });
 
-        // variable3 = document.getElementById('tableBodyRow');
         cols = document.querySelectorAll('#tableBodyRow');
-
-        // console.log(variable3);
-        console.log(cols);
-
-        // var iterable = 0;
-        // cols.forEach(element => {
-        //     cols.getAttribute('value');
-        //     iterable = iterable + 1;
-        // });
-    })
-
-    // function scheduleByInstructor() {
-    //     var selectInstructor = document.getElementById("ScheduleInstructor").value;
-    //     var scheduleBox = document.getElementsByClassName("scheduleItem");
-
-    //     if (selectInstructor == "allInstructors"){
-    //         for (let item of scheduleBox){
-    //             item.style.display = 'block';
-    //         }
-    //     } else {
-    //         for (let item of scheduleBox){
-    //             if (selectInstructor === item.id){
-    //                 item.style.display = 'block';
-    //             }
-    //             else {
-    //                 item.style.display = 'none';
-    //             }
-    //         }
-    //     }
-    // }
+    });
 
     function showClients(id){
         variable1 = id;
         variable2 = document.getElementById("tableBodyRow");
         console.log('ID guardado (Schedule): ' + id);
+        var i = 0;
+
+        // cols.forEach(element => {
+        //     console.log(cols[i]);
+        //     i++;
+        // });
+
+        //Línea para Eliminar la Fila de la Tabla
+        cols.item(0).remove();
         $('#main-bikes').show();
     }
 </script>

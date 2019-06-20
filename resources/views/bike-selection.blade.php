@@ -19,8 +19,8 @@
                 <div class="row">
                     <div class="col-md-6 col-xs-6 bnd" id="placeDate">
                         <?php setlocale(LC_TIME,'es_MX.utf8'); $dt = Carbon::now(); $inicio = strftime("%A %d de %B,", strtotime($schedules->day));?>
-                        <h6 class="first" id="branch">ESTUDIO: <span>{{$schedules->branch->name}}</span></h6>
-                        <h6 class="first" id="date"> FECHA: <span>{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i', strtotime($schedules->hour))}} </span></h6>
+                        <h6 class="col-md-6 col-xs-12 ml-0 first" id="branch">ESTUDIO: <span>{{$schedules->branch->name}}</span></h6>
+                        <h6 class="col-md-6 col-xs-12 first" id="date"> FECHA: <span>{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i A', strtotime($schedules->hour))}} </span></h6>
                     </div>
                     <div class="col-2 col-xs-6"></div>
                     <div class="col col-xs-0" id="selectBikeLogo">
@@ -33,7 +33,8 @@
                 {{-- <img class="resClass" src="/img/iconos/2.png" alt=""> --}}
                 <span class="text-center text_gradient_bike_selection"> Reserva tu Clase </span>
             </div>
-            <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" alt="">
+            {{-- <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" alt=""> --}}
+            <img id="profilePic" src="{{ asset('img/instructors/Instructor-Head.png') }}" alt="">
         </div>
         <div class="row" id="main-bikes">
             <div class="centeredDiv" id="bikes-div" style="width: 100%">
