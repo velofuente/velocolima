@@ -146,7 +146,7 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="bio" class="mr-sm-2">Biografía</label>
-                            <textarea id="bioInstructor" placeholder="Información Extra" type="textarea" class="form-control{{ $errors->has('bioInstructor') ? ' is-invalid' : '' }}" name="bioInstructor" value="{{ old('bioInstructor') }}" required autofocus></textarea>
+                            <textarea id="bioInstructor" placeholder="Información Extra" type="textarea" class="form-control{{ $errors->has('bioInstructor') ? ' is-invalid' : '' }}" name="bioInstructor" value="{{ old('bioInstructor') }}" required autofocus>Coach Certificado Vélo</textarea>
                             @if ($errors->has('bioInstructor'))
                                 <span class="invalid-feedback" style="display: block !important" role="alert">
                                     <strong>{{ $errors->first('bioInstructor') }}</strong>
