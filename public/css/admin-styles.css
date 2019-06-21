@@ -39,7 +39,7 @@ body{
 /* Part of the Screen for Verical Navigation Bar */
 .leftSpan {
   width: 15% !important;
-  height: 80%;
+  height: 100%;
   position: fixed;
   /* outline: 1px solid; */
 }
@@ -161,7 +161,40 @@ a:link{
   -ms-transition: all 1s ease;
   transition: all 1s ease;
 }
-@media (max-width: 767px) {
+
+@media screen and (max-width: 700px) {
+  /* Part of the Screen for the Displayed Pages */
+  .rightSpan {
+    /* width: 80%; */
+    height: auto;
+    position: absolute;
+    right: 24% !important;
+    /* outline: 1px solid; */
+  }
+
+  /* Part of the Screen for Verical Navigation Bar */
+  .leftSpan {
+    width: 15% !important;
+    height: 100%;
+    position: fixed;
+    /* outline: 1px solid; */
+  }
+
+  /* Verical Navigation Bar Version */
+  .nav-side-menu {
+    overflow: auto;
+    font-family: 'Avenir Next';
+    font-size: 15px;
+    font-weight: 200;
+    background-color: #1f1e1e;
+    position: fixed;
+    top: 0px;
+    width: 25%;
+    height: 100%;
+    color: #FFF;
+  }
+}
+/* @media (max-width: 767px) {
   .nav-side-menu {
     position: relative;
     width: 100%;
@@ -191,4 +224,4 @@ a:link{
   .nav-side-menu .menu-list .menu-content {
     display: block;
   }
-}
+} */

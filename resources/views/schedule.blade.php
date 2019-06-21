@@ -27,7 +27,6 @@
                 {{-- <input type="hidden" name="setMonth" value="{{$month=strftime('%B', strtotime($weekShown)) . "+1 month")}}"> --}}
                 <input type="hidden" name="setMonth" value="{{$month=strftime('%B', strtotime($weekShown))}}">
                 <span class="weekShown">
-                    {{-- del {{date('d', strtotime($weekShown->modify("+6 days")))}} al {{date('d', strtotime($weekShown->modify("+6 days")))}} de {{$month}} --}}
                     del {{date('d', strtotime($weekShown->modify("+5 days")))}} al {{date('d', strtotime($weekShown->modify("+6 days")))}} de JULIO
                 </span>
             </div>
