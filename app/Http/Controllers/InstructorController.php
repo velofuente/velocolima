@@ -58,7 +58,7 @@ class InstructorController extends Controller
         $products = Product::all();
 
         date_default_timezone_set('America/Mexico_City');
-        $schedules = Schedule::whereBetween('day', [now()->modify('+6 days')->format('Y-m-d'), now()->modify('+13 days')])
+        $schedules = Schedule::whereBetween('day', [now()->modify('+5 days')->format('Y-m-d'), now()->modify('+12 days')])
                     ->get()
                     ->sortBy('hour');
         if(Auth::user()){

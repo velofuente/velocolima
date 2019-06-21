@@ -25,14 +25,15 @@
 
     <div class="mx-0 px-0">
         {{-- SideBar Partial Display Version --}}
-        <div class="col-6 mx-0 px-0 leftSpan">
-            <div class="nav-side-menu" style="z-index: 1000">
+        <div class="col-6 mx-0 px-0 leftSpan" style="z-index: 1000">
+            <div class="nav-side-menu">
                 <div class="brand">
                     <img src="{{asset('img/iconos/CroppedLogo.png')}}" width="60px" height="25px" id="welcomeLogo">
                 </div>
-                <i class="fa fa-bars fa-2x toggle-btn active" data-toggle="collapse" data-target="#menu-content"></i>
+                {{-- <i class="fa fa-bars fa-2x toggle-btn active" data-toggle="collapse" data-target="#menu-content"></i> --}}
                 <div class="menu-list" id="menu-list">
-                    <ul id="menu-content" class="menu-content collapse out text-center">
+                    <ul id="menu-content" class="menu-content text-center">
+                    {{-- <ul id="menu-content" class="menu-content collapse out text-center"> --}}
                         <a href="#" id="instructors">
                             <li>
                                 {{-- <i class="fa fa-dashboard fa-lg"></i> --}}
