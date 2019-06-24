@@ -2,6 +2,7 @@
 @section('title')
   Home
 @endsection
+
 @section('content')
 <div class="mainPage" onclick="location.href='/schedule';">
     <img class="mainWelcomeImage" src="img/homepage/1.jpg" alt="principal" width="100%" height="50%">
@@ -22,6 +23,7 @@
       text: "Completa tu registro para recibir una clase gratis",
       type: 'info',
       showCancelButton: true,
+      // background: '#131313',
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       cancelButtonText: 'Cerrar',

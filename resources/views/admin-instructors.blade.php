@@ -16,7 +16,7 @@
                 <th scope="col">Teléfono</th>
                 <th scope="col">Fecha de Nacimiento</th>
                 {{-- <th scope="col">Información</th> --}}
-                <th scope="col">Estatus</th>
+                {{-- <th scope="col">Estatus</th> --}}
                 <th scope="col" colspan="2" class="text-center">Acción</th>
             </tr>
         </thead>
@@ -31,7 +31,7 @@
                     <td>{{$instructor->phone}}</td>
                     <td>{{ date('d-M-o', strtotime($instructor->birth_date)) }}</td>
                     {{-- <td>{{$instructor->bio}}</td> --}}
-                    <td>Estatus</td>
+                    {{-- <td>Estatus</td> --}}
                     <td><button class="btn btn-primary btn-sm editInstructor" id="editInstructor-{{ $instructor->id }}" value="{{$instructor->id}}" data-myid="{{ $instructor->id }}" data-myname="{{ $instructor->name }}" data-mylastname="{{ $instructor->last_name }}" data-myemail="{{ $instructor->email }}" data-mybirthdate="{{$instructor->birth_date}}" data-myphone="{{ $instructor->phone }}" data-mybio="{{$instructor->bio}}" data-toggle="modal" data-target="#editInstructorModal">Editar</button></td>
                     <td><button class="btn btn-danger btn-sm deleteInstructor" id="deleteInstructor-{{ $instructor->id }}" value="{{$instructor->id}}">Eliminar</button></td>
                 </tr>
@@ -297,6 +297,29 @@
     </div>
 </div>
 
+{{-- Lock the number inputs to only allow numbers. --}}
+<script>
+    // Select the Phone Input.
+    var phone = document.getElementById('phoneInstructor');
+    var editPhone = document.getElementById('editPhoneInstructor');
+
+    // Lock the input to only numbers.
+    phone.onkeydown = function(e) {
+        if(!((e.keyCode > 95 && e.keyCode < 106)
+        || (e.keyCode > 47 && e.keyCode < 58)
+        || e.keyCode == 8 || e.keyCode == 9)) {
+            return false;
+        }
+    }
+    editPhone.onkeydown = function(e) {
+        if(!((e.keyCode > 95 && e.keyCode < 106)
+        || (e.keyCode > 47 && e.keyCode < 58)
+        || e.keyCode == 8 || e.keyCode == 9)) {
+            return false;
+        }
+    }
+</script>
+
 {{-- Add, Delete & Edit Instructors Scripts --}}
 <script>
     $(document).ready(function (){
@@ -307,6 +330,17 @@
         var birth_date = null;
         var phone = null;
         var bio = null;
+
+        // // Jquery UI DatePicker (Safari)
+        if ( $('[type="date"]').prop('type') != 'date' ) {
+            $('[type="date"]').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1920:2013',
+                dateFormat: 'yy-mm-dd',
+                // showButtonPanel: true,
+            });
+        }
 
         //OnClick addInstructor Button
         $('#addInstructorButton').on('click', function(event) {

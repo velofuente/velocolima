@@ -243,6 +243,15 @@
             }
         }
     </script>
+    {{-- <script>
+        $('#birth_date').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '1920:2013',
+            dateFormat: 'yy-mm-dd',
+            // showButtonPanel: true,
+        });
+    </script> --}}
     <script>
         $(document).ready(function() {
             const genderOldValue = '{{ old('gender') }}';
@@ -258,6 +267,9 @@
                 // Use datepicker on the date inputs
                 $("input[type=date]").datepicker({
                 dateFormat: 'yy/mm/dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1920:2013',
                     onSelect: function(dateText, inst) {
                         $(inst).val(dateText); // Write the value in the input
                     }
