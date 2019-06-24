@@ -40,12 +40,13 @@ Route::get('/branches', 'BranchesController@index');
 Route::post('sendMail', 'MailSendingController@coachInfo');
 Route::post('charge', 'PurchaseController@store');
 Route::post('login', 'Auth\LoginController@login')->name('login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('register', 'UserController@store');
 
 // Route::get('/addCard', 'OpenPayController@addCustomerCard');
-// Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 // Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('test', 'UserController@test');
 
 // Route::get('/schedule', function(){
@@ -111,7 +112,6 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
 Route::group(['middleware' => ['auth','user.access']], function(){
     Route::get('user', 'UserController@index')->name('user')->middleware('auth');
     Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
-    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
     Route::resource('user', 'UserController');
     Route::patch('user', 'UserController@updatePassword')->name('updatePassword');
     Route::post('updateData', 'UserController@updateData');

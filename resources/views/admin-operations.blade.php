@@ -1,7 +1,7 @@
 {{-- Show the Schedules (ordered by Hour) for today --}}
 <div class="row text-center mx-0 py-3">
-    <h3 class="col-4">Operaciones</h3>
-    <div class="dropdown col-8">
+    <h3 class="col-md-4 col-sm-12 col-xs-12">Operaciones</h3>
+    <div class="dropdown col-md-8 col-sm-12 col-xs-12">
         <button class="btn btn-success mx-3 dropdown-toggle" id="dropdownSchedule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span id="selectedSchedule">Horario</span>
         </button>
@@ -30,10 +30,10 @@
 
 {{-- Bike Grid & Table of Users--}}
 <div class="row" id="main-bikes">
-    <div class="centeredDiv col-10" id="bikes-div" style="width: 100%">
+    <div class="centeredDiv col-md-10" id="bikes-div" style="width: 100%">
         <h1>System Grid Test</h1>
     </div>
-    <div class="col-2">
+    <div class="col-md-2">
         @if (count($userSchedules) > 0)
             <table class="table table-striped table-hover">
                 <thead style="font-size: 1em;">

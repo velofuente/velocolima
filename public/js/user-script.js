@@ -157,13 +157,13 @@ function cancelClass(bookedClass_id){
             $.LoadingOverlay("show");
         },
         success: function(result){
+            $.LoadingOverlay('hide');
             Swal.fire({
                 title: 'Clase cancelada',
                 text: result.message,
                 type: 'success',
                 confirmButtonText: 'Aceptar'
             }),
-            $.LoadingOverlay('hide');
             window.location.replace("/user");
         }
     })
@@ -206,7 +206,7 @@ function deleteUserCard(id){
                             type: 'warning',
                             confirmButtonText: 'Aceptar'
                         });
-                        $(button).prop("disabled", false)
+                        // $(button).prop("disabled", false)
                     }
                 },
                 error: function(result){
@@ -217,12 +217,12 @@ function deleteUserCard(id){
                         type: 'warning',
                         confirmButtonText: 'Aceptar'
                     });
-                    $(button).prop("disabled", false)
+                    // $(button).prop("disabled", false)
                     // alert(result);
                 }
             });
         } else {
-            $(button).prop("disabled", false)
+            // $(button).prop("disabled", false)
         }
     })
 }

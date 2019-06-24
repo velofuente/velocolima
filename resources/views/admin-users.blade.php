@@ -290,6 +290,38 @@
         // myid mynclasses myprice mydescription myexpiration mytype mystatus
         // user_id n_classes price description expiration_days type status
 
+        // Select the Phone Input.
+        var phone = document.getElementById('addUserPhone');
+        var editPhone = document.getElementById('editUserPhone');
+
+        // Lock the input only to numbers.
+        phone.onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+            || (e.keyCode > 47 && e.keyCode < 58)
+            || e.keyCode == 8 || e.keyCode == 9)) {
+                return false;
+            }
+        }
+        // Lock the input only to numbers.
+        editPhone.onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+            || (e.keyCode > 47 && e.keyCode < 58)
+            || e.keyCode == 8 || e.keyCode == 9)) {
+                return false;
+            }
+        }
+
+        // // Jquery UI DatePicker (Safari)
+        if ( $('[type="date"]').prop('type') != 'date' ) {
+            $('[type="date"]').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1920:2013',
+                dateFormat: 'yy-mm-dd',
+                // showButtonPanel: true,
+            });
+        }
+
         //OnClick Add User Button
         $('#addUserButton').on('click', function(event) {
             event.preventDefault();

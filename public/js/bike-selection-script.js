@@ -166,7 +166,7 @@ function reservePlace(id, elementBall){
                     title: 'Lugar reservado',
                     text: result.message,
                     type: 'success',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: 'Aceptar',
                   })
                 window.location.replace("/user");
             } else {

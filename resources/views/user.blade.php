@@ -592,6 +592,18 @@
     <script src="{{ asset('/js/user-script.js') }}"></script>
     <script>var crfsToken = '{{ csrf_token() }}';</script>
     <script>
+        // // Jquery UI DatePicker (Safari)
+        if ( $('[type="date"]').prop('type') != 'date' ) {
+            $('[type="date"]').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1920:2013',
+                dateFormat: 'yy-mm-dd',
+                // showButtonPanel: true,
+            });
+        }
+    </script>
+    <script>
         // Select the Phone Input.
         var phoneInput = document.getElementById('phone');
         var cardNumberInput = document.getElementById('cardNumber');

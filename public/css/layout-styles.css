@@ -71,6 +71,7 @@
     font-family: "AvenirNextLTPro UltLtCnlt";
     src: url("fonts/AvenirNextLTPro-UltLtCnlt.otf")format("opentype");
 }
+
 /* whole html */
 html, body {
     background-color: black;

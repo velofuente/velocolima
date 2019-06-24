@@ -154,7 +154,13 @@
         var branch = null;
 
         if ( $('[type="date"]').prop('type') != 'date' ) {
-            $('[type="date"]').datepicker();
+            $('[type="date"]').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1920:2013',
+                dateFormat: 'yy-mm-dd',
+                // showButtonPanel: true,
+            });
         }
 
         $('#addScheduleButton').on('click', function(event) {
