@@ -35,7 +35,7 @@ Route::get('/legales', function () {
 Auth::routes(['verify' => true]);
 Route::resource('instructors', 'InstructorController');
 Route::get('/schedule', 'InstructorController@schedule');
-Route::get('/scheduleBackup', 'InstructorController@scheduleBackup');
+// Route::get('/scheduleBackup', 'InstructorController@scheduleBackup');
 Route::get('/branches', 'BranchesController@index');
 Route::post('sendMail', 'MailSendingController@coachInfo');
 Route::post('charge', 'PurchaseController@store');
