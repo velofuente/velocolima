@@ -51,27 +51,27 @@ class InstructorController extends Controller
         return view('instructor-info', compact('instructor'));
     }
 
+    // public function scheduleBackup()
+    // {
+    //     $instructors = Instructor::all();
+    //     $branches = Branch::all();
+    //     $products = Product::all();
+
+    //     date_default_timezone_set('America/Mexico_City');
+    //     $schedules = Schedule::whereBetween('day', [now()->modify('+5 days')->format('Y-m-d'), now()->modify('+12 days')])
+    //                 ->get()
+    //                 ->sortBy('hour');
+    //     if(Auth::user()){
+    //         $cards = Card::where('user_id', Auth::user()->id)->get();
+    //         // dd($cards);
+    //         // $cards = Card::all();
+    //         return view('scheduleBackup', compact('instructors', 'branches', 'schedules','products','cards'));
+    //     }else{
+    //         return view('scheduleBackup', compact('instructors', 'branches', 'schedules','products'));
+    //     }
+    // }
+
     public function schedule()
-    {
-        $instructors = Instructor::all();
-        $branches = Branch::all();
-        $products = Product::all();
-
-        date_default_timezone_set('America/Mexico_City');
-        $schedules = Schedule::whereBetween('day', [now()->modify('+5 days')->format('Y-m-d'), now()->modify('+12 days')])
-                    ->get()
-                    ->sortBy('hour');
-        if(Auth::user()){
-            $cards = Card::where('user_id', Auth::user()->id)->get();
-            // dd($cards);
-            // $cards = Card::all();
-            return view('schedule', compact('instructors', 'branches', 'schedules','products','cards'));
-        }else{
-            return view('schedule', compact('instructors', 'branches', 'schedules','products'));
-        }
-    }
-
-    public function scheduleBackup()
     {
         $instructors = Instructor::all();
         $branches = Branch::all();
@@ -85,9 +85,9 @@ class InstructorController extends Controller
             $cards = Card::where('user_id', Auth::user()->id)->get();
             // dd($cards);
             // $cards = Card::all();
-            return view('scheduleBackup', compact('instructors', 'branches', 'schedules','products','cards'));
+            return view('schedule', compact('instructors', 'branches', 'schedules','products','cards'));
         }else{
-            return view('scheduleBackup', compact('instructors', 'branches', 'schedules','products'));
+            return view('schedule', compact('instructors', 'branches', 'schedules','products'));
         }
     }
 
