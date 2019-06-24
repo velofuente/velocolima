@@ -54,7 +54,7 @@
         var instructorBikes = '{!! json_encode($instructorBikes) !!}';
         var x = "{{ $schedules->branch->reserv_lim_x }}";
         var y = "{{ $schedules->branch->reserv_lim_y }}";
-        var reservedPlaces = "{!! json_encode($reservedPlaces) !!}";
+        var reservedPlaces = '{!! json_encode($reservedPlaces) !!}';
         var opId = "{{ env('OPENPAY_ID') }}";
         var opPublicKey = "{{ env('OPENPAY_PUBLIC_KEY') }}";
         var opSandbox = "{{ env('OPENPAY_SANDBOX') }}";

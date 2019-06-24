@@ -93,7 +93,7 @@
         // });
 
         //Línea para Eliminar la Fila de la Tabla
-        cols.item(0).remove();
+        // cols.item(0).remove();
         $('#main-bikes').show();
     }
 </script>
