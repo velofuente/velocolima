@@ -24,9 +24,10 @@
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3">
                 <input type="hidden" name="timezoneSet" value="{{setlocale(LC_TIME,'es_MX.utf8')}}">
                 <input type="hidden" name="WeekShown" value="{{$weekShown=now()}}">
+                {{-- <input type="hidden" name="setMonth" value="{{$month=strftime('%B', strtotime($weekShown)) . "+1 month")}}"> --}}
                 <input type="hidden" name="setMonth" value="{{$month=strftime('%B', strtotime($weekShown))}}">
                 <span class="weekShown">
-                    del {{date('d')}} al {{date('d', strtotime($weekShown->modify("+6 days")))}} de {{$month}}
+                    del {{date('d', strtotime($weekShown->modify("+2 days")))}} al {{date('d', strtotime($weekShown->modify("+6 days")))}} de JULIO
                 </span>
             </div>
             {{-- Empty Section at the Middle of the NavBar --}}
@@ -54,10 +55,9 @@
 
         {{-- Schedule Section --}}
         <input type="hidden" name="timezoneSet" value="{{date_default_timezone_set('America/Mexico_City')}}">
-        <input type="hidden" name="actualDay" value="{{$today=now()}}">
+        <input type="hidden" name="actualDay" value="{{$today=now()->modify('+2 days')}}">
         <input type="hidden" name="thisDay" value="{{$thisDay=now()}}">
         <div class="container" name="calendar">
-            <h1 class="text-center text-white">SCHEDULE BACKUP</h1>
         @if(count($schedules) > 0)
             <div class="row" name="dates">
                 @for ($i = 0; $i < 7; $i++)
