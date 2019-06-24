@@ -22,9 +22,6 @@ function drawMainBikes(x,y){
     // }
     // console.log("tipo:" + typeof Array.from(disabledBikes));
     var count = 1;
-    // console.log("disabledBikes: " + JSON.parse(disabledBikes));
-    // console.log("reservedPlaces: " + JSON.parse(reservedPlaces));
-    // console.log("instructorBikes: " + JSON.parse(instructorBikes));
     for (var i = 0; i < number_of_rows; i++){
         // var trow = $("<tr>").attr("id", firstChar);
         var divr = $("<div>").attr("id", "divr" + i).attr("class", "col-md-12");
@@ -33,9 +30,10 @@ function drawMainBikes(x,y){
             if(selectedBike == count){
                 classes = "selected";
             } else {
-                if($.inArray(count, reservedPlaces) != -1){
+                if($.inArray(count.toString(), JSON.parse(reservedPlaces)) != -1){
                     classes = "occupied";
                 } else if($.inArray(count.toString(), JSON.parse(disabledBikes)) != -1){
+                    // Marca que el Occupied pertenece al array de DisabledBikes y no al ReservedPlaces
                     classes = "disabled";
                 } else if($.inArray(count.toString(), JSON.parse(instructorBikes)) != -1){
                     classes = "instructor";
@@ -55,6 +53,9 @@ function drawMainBikes(x,y){
         // firstChar = nextChar(firstChar);
         // tbody.append(trow);
     }
+    // console.log('ReservedPlaces: ' + reservedPlaces);
+    // console.log('DisabledBikes: ' + disabledBikes);
+    // console.log('InstructorBikes: ' + instructorBikes);
 }
 
 function tableCreate(){
@@ -183,7 +184,7 @@ function reservePlace(id, elementBall){
                     confirmButtonText: 'Aceptar'
                   })
             }
-            console.log(result);
+            // console.log(result);
         }
     });
 }

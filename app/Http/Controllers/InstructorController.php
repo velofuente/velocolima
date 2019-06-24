@@ -103,13 +103,14 @@ class InstructorController extends Controller
         $products = Product::all();
         $selectedBike = UserSchedule::where("user_id", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->first();
         $instructorBikes = Tool::select("position")->where("branch_id", $schedules->branch_id)->where("type", "instructor")->get()->pluck("position");
-        $disabledBikes = Tool::select("position")->where("branch_id", $schedules->branch_id)->where("type", "disabled")->get()->pluck("position");
+        $disabledBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedules->branch_id)->where("type", "disabled")->get()->pluck("position")->toArray());
         if($selectedBike){
             $selectedBike = $selectedBike->bike;
         } else {
             $selectedBike = 0;
         }
-        $reservedPlaces = UserSchedule::where("user_id", "<>", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->get()->pluck("bike")->toArray();
+        $reservedPlaces = array_map('strval', UserSchedule::where("user_id", "<>", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->get()->pluck("bike")->toArray());
+        // dd($reservedPlaces);
         if($instances < ($schedules->branch->reserv_lim_x * $schedules->branch->reserv_lim_y))
             if(Auth::user()){
                 $cards = Card::where('user_id', Auth::user()->id)->get();
