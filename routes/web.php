@@ -77,7 +77,7 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
     Route::get('admin-users', 'AdminController@showUsers')->name('admin-users');
     Route::get('admin-clients', 'AdminController@showClients')->name('admin-clients');
     // Route::get('admin-sales', 'AdminController@showSales')->name('admin-sales');
-
+    Route::post('preRegister', 'BookClassController@preRegister');
     // Live Search Routes
     Route::get('/admin-sales', 'AdminController@showSales')->name('admin-sales');
     Route::get('/admin-sales/fetch_data', 'AdminController@fetch_data');
@@ -119,7 +119,6 @@ Route::group(['middleware' => ['auth','user.access']], function(){
     Route::post('cancelClass', 'BookClassController@cancelClass');
     Route::post('attendClass', 'BookClassController@attendClass');
     Route::post('claimClass', 'BookClassController@claimClass');
-    Route::post('preRegister', 'BookClassController@preRegister');
     //OPENPAY
     //Route::get('user', 'UserController@getAuthenticatedUser');
     Route::post('/addCard','OpenPayController@addCustomerCard');

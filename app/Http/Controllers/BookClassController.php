@@ -229,12 +229,12 @@ class BookClassController extends Controller
     }
     public function preRegister(Request $request){
         DB::beginTransaction();
-        $password = substr($$request->phone, -4);
+        $password = substr($request->phone, -4);
         $user = User::create([
             'name' => $request->name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'password' => Hash::make($password),
+            'password' => Hash::make('temporal' . $password),
             'birth_date' => $request->birth_date,
             'phone' => $request->phone,
             'gender' => $request->gender,
