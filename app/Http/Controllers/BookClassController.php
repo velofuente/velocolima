@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB, log;
-use App\{UserSchedule, UserWaitList, User, Purchase, Tool, Schedule};
+use App\{UserSchedule, UserWaitList, User, Purchase, Tool, Schedule, Product};
+use Illuminate\Support\Facades\Hash;
 use SebastianBergmann\Environment\Console;
 
 class BookClassController extends Controller
@@ -230,6 +231,17 @@ class BookClassController extends Controller
     public function preRegister(Request $request){
         DB::beginTransaction();
         $password = substr($request->phone, -4);
+
+        // Available alpha caracters
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        // generate a pin based on 2 * 7 digits + a random character
+        $pin = $characters[rand(0, strlen($characters) - 1)]
+        . $characters[rand(0, strlen($characters) - 1)]
+        . $characters[rand(0, strlen($characters) - 1)]
+        . $characters[rand(0, strlen($characters) - 1)];
+        // shuffle the result
+        $share_code = str_shuffle($pin);
+
         $user = User::create([
             'name' => $request->name,
             'last_name' => $request->last_name,
@@ -237,21 +249,30 @@ class BookClassController extends Controller
             'password' => Hash::make('temporal' . $password),
             'birth_date' => $request->birth_date,
             'phone' => $request->phone,
+            'shoe_size' => $request->shoe_size,
             'gender' => $request->gender,
+            'share_code' => $share_code,
             'role_id' => 3,
         ]);
+        // $purchase = Purchase::create([
+        //     'product_id' => 2,
+        //     'user_id' => $user->id,
+        //     'n_classes' => 1,
+        //     'expiration_days' => 1,
+        // ]);
         UserSchedule::create([
             'user_id' => $user->id,
             'schedule_id' => $request->schedule_id,
+            // 'purchase_id' => null,
             'bike' => $request->bike,
             'status' => 'active',
             'changedSit' => 0,
         ]);
-        DB::commit();
         app('App\Http\Controllers\MailSendingController')->walkInRegister($user->email,$user->name, $password);
+        DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Usuario agregado con exito",
+            'message' => "Usuario agregado con éxito",
         ]);
     }
 }
