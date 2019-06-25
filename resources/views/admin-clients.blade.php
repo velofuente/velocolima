@@ -15,9 +15,11 @@
                 <th scope="col">Fecha de nacimiento</th>
                 <th scope="col">Teléfono</th>
                 <th scope="col">Talla de Calzado</th>
+                <th scope="col">Clases disponibles</th>
+                <th scope="col">Clases Reservadas</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="table-clients">
             @foreach ($clients as $client)
                 <tr style="font-size: 0.9em;">
                     <td>{{$client->id}}</td>
@@ -27,6 +29,8 @@
                     <td>{{$client->birth_date}}</td>
                     <td>{{$client->phone}}</td>
                     <td>{{$client->shoe_size}}</td>
+                    <td>{{($client->availableClasses->clases) ? $client->availableClasses->clases : 'N/D'}}</td>
+                    <td>{{($client->bookedClasses) ? $client->bookedClasses : 'N/D'}}</td>
                 </tr>
             @endforeach
         </tbody>

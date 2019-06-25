@@ -52,7 +52,19 @@ class AdminController extends Controller
     }
 
     public function showClients(){
-        $clients = User::where('role_id', 3)->get();
+        //$numClases = User::join('purchases','purchases.user_id','=','users.id')->select(DB::raw('SUM(n_classes) as clases'))->get();
+        // $numClases = User::select(DB::raw())->where('role_id', 3)->get();
+        //$temp = [];
+        $clients = User::where('role_id',3)->orderBy('id')->get();//paginate(5);
+        foreach ($clients as $client){
+            $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$client->id}")->first();
+            $bookedClasses = UserSchedule::with("schedule.instructor", "schedule.room", "schedule")->where('user_id', "{$client->id}")->where('status', 'active')->count();
+            $client->availableClasses = $numClases;
+            $client->bookedClasses = $bookedClasses;
+            //array_push($temp,$numClases->clases);
+        }
+        log::info($clients);
+        // return  $temp;
         return view('/admin-clients', compact ('clients'));
     }
 
