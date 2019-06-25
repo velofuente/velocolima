@@ -89,9 +89,13 @@ class AdminController extends Controller
     public function showOperationsGrid(){
         date_default_timezone_set('America/Mexico_City');
         $id = [];
-        $schedules = Schedule::where('day', now()->format('Y-m-d'))
+        // $schedules = Schedule::where('day', now()->format('Y-m-d'))
+        //     ->get()
+        //     ->sortBy('hour');
+        $schedules = Schedule::whereBetween('day', [now()->format('Y-m-d'), now()->modify('+7 days')])
             ->get()
-            ->sortBy('hour');
+            ->sortBy('hour')
+            ->sortBy('day');
         foreach ($schedules as $schedule) {
             array_push($id,$schedule->id);
         }

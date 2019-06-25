@@ -6,12 +6,14 @@
             <span id="selectedSchedule">Horario</span>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownSchedule">
+        @if (count($userSchedules) > 0)
             @foreach ($schedules as $schedule)
-                @if ($schedule->day == date('Y-m-d'))
-                    @if ($schedule->hour >= date('H:i:s'))
+                {{-- @if ($schedule->day == date('Y-m-d')) --}}
+                    {{-- @if ($schedule->hour >= date('H:i:s')) --}}
                         <a class="dropdown-item" href="javascript:showClients({{$schedule->id}})" id="{{$schedule->id}}">
-                            <span>{{ date('g:i A', strtotime($schedule->hour)) }} |</span>
-                            <span>{{$schedule->instructor->name}}</span>
+                            <span class="col-4 text-center">{{ date('l', strtotime($schedule->day)) }}</span>
+                            <span class="col-4 text-center">{{ date('g:i A', strtotime($schedule->hour)) }} </span>
+                            <span class="col-4 text-center">{{$schedule->instructor->name}}</span>
                             {{-- <img width="60%" height="60%" src="{{ asset('img/instructors/' . $schedule->instructor->name . '-Head.png') }}" alt=""> --}}
                         </a>
                     {{-- @else
@@ -19,11 +21,14 @@
                             <span>{{ date('g:i A', strtotime($schedule->hour)) }}</span>
                             <span>{{$schedule->instructor->name}}</span>
                         </a> --}}
-                    @endif
-                @else
-                    <h3 class="text-left">No hay horarios creados el día de hoy</h3>
-                @endif
+                    {{-- @endif --}}
+                {{-- @else --}}
+                    {{-- <h3 class="text-left">No hay horarios creados el día de hoy</h3> --}}
+                {{-- @endif --}}
             @endforeach
+        @else
+              <h3>No hay Horarios Creados<h3>
+        @endif
         </div>
     </div>
 </div>
@@ -42,18 +47,24 @@
                         <th scope="col">Teléfono</th>
                         <th scope="col">Email</th>
                         <th scope="col">Talla de Calzado</th>
+                        <th scope="col">Asiento</th>
+                        {{-- <th scope="col">ScheduleID</th> --}}
                     </tr>
                 </thead>
                 <tbody>
                     {{-- the Value of each Row contains its respective schedule_id --}}
                     @foreach ($userSchedules as $userSchedule)
-                        <tr style="font-size: 0.9em;" id="tableBodyRow">
-                            <input type="hidden" value="{{$userSchedule->schedule_id}}" id="hiddenUsers">
-                            <td>{{$userSchedule->user->name}} {{$userSchedule->user->last_name}}</td>
-                            <td> {{$userSchedule->user->phone}} </td>
-                            <td>{{$userSchedule->user->email}}</td>
-                            <td>{{$userSchedule->user->shoe_size}}</td>
-                        </tr>
+                        @if ($userSchedule->status != 'cancelled')
+                            <tr style="font-size: 0.9em;" id="tableBodyRow">
+                                <input type="hidden" value="{{$userSchedule->schedule_id}}" id="hiddenUsers">
+                                <td>{{$userSchedule->user->name}} {{$userSchedule->user->last_name}}</td>
+                                <td> {{$userSchedule->user->phone}} </td>
+                                <td>{{$userSchedule->user->email}}</td>
+                                <td>{{$userSchedule->user->shoe_size}}</td>
+                                <td>{{$userSchedule->bike}}</td>
+                                <td>{{$userSchedule->schedule_id}}</td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>
@@ -79,18 +90,24 @@
         });
 
         cols = document.querySelectorAll('#tableBodyRow');
+        // console.log(cols);
     });
 
     function showClients(id){
         variable1 = id;
-        variable2 = document.getElementById("tableBodyRow");
+        // variable2 = document.getElementById("tableBodyRow");
         console.log('ID guardado (Schedule): ' + id);
         var i = 0;
 
-        // cols.forEach(element => {
-        //     console.log(cols[i]);
-        //     i++;
-        // });
+        $('tr:hidden').show();
+        cols.forEach(element => {
+            cols[i].cells[5].style.display = 'none';
+            if (cols[i].cells[5].innerText != id) {
+                cols.item(i).style.display = 'none';
+                // cols.item(i).remove();
+            }
+            i++;
+        });
 
         //Línea para Eliminar la Fila de la Tabla
         // cols.item(0).remove();
