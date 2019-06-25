@@ -84,6 +84,7 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
     // End Live Search Routes
     Route::get('admin-reports', 'AdminController@showReports')->name('admin-reports');
     Route::get('admin-operations', 'AdminController@showOperationsGrid')->name('admin-operations');
+    Route::post('showClientsTable', 'AdminController@showClientsTable');
     //Instructor
     Route::post('addInstructor', 'AdminController@addInstructor');
     Route::post('editInstructor', 'AdminController@editInstructor');
