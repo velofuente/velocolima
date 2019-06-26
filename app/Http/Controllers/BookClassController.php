@@ -40,7 +40,7 @@ class BookClassController extends Controller
             //valida si el usuario tiene clases disponibles
             if($classes>0){
                 //Valida si hay lugar disponible
-                if($instances < $availability->reservation_limit){
+                if($instances <= $availability->reservation_limit){
                     if(in_array($request->bike, (array)$disabledBikes)){
                         DB::commit();
                         return response()->json([
