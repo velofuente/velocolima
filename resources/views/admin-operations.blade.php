@@ -113,6 +113,10 @@
                         </span>
                     @endif
                 </div>
+                <div class="row mx-auto">
+                    <h5 class="col-8">Seleccionar Lugar</h5>
+                    <select class="col-4" name="bikesSelect" id="bikesSelect"></select>
+                </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -136,6 +140,11 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->shoe_size}}</td>
                                 <td>{{$user->id}}</td>
+                                <td>
+                                    <select class="form-control" id="bikesSelect" name="bikesSelect" placeholder="bikesSelect" value="{{ old('bikesSelect') }}" required>
+                                        <option disabled selected hidden>Lugares Disponibles</option>
+                                    </select>
+                                </td>
                                 <td><button class="btn btn-success btn-sm userAssist" id="userAssist-{{ $user->id }}" value="{{$user->id}}" data-id="{{$user->id}}" data-toggle="modal" data-target="#editInstructorModal">Asistencia</button></td>
                             @endforeach
                         </tr>
@@ -305,7 +314,7 @@
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                                 <label for="shoe_size" class="mr-sm-2">Selecciona lugar:</label>
                             <div class="input-group">
-                                <select class="form-control" id="opRegBike" name="shoe_size" placeholder="Talla de Calzado" value="{{ old('shoe_size') }}" required>
+                                <select class="form-control" id="opRegBike" name="opRegBike" placeholder="opRegBike" value="{{ old('opRegBike') }}" required>
                                     <option disabled selected hidden>Lugares Disponibles</option>
                                     {{-- @foreach ($userSchedules as $userSchedule)
                                         @if($userSchedule->schedule_id == El Id del schedule del primer Dropdown)
@@ -439,7 +448,7 @@
         cols.forEach(element => {
             // Hide a Column, which contains the Id of the User
             cols[i].cells[5].style.display = 'none';
-            cols[i].cells[6].style.display = 'none';
+            // cols[i].cells[6].style.display = 'none';
             if (cols[i].cells[5].innerText != id) {
                 cols.item(i).style.display = 'none';
                 // cols.item(i).remove();
@@ -512,6 +521,7 @@
             success: function(response) {
                 $.each(response, function(index, value){
                     $('#opRegBike').append('<option value="'+value+'">'+value+'</option>');
+                    $('#bikesSelect').append('<option value="'+value+'">'+value+'</option>');
                 })
             },
             error: function(response){
