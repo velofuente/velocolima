@@ -159,6 +159,28 @@ class AdminController extends Controller
         return $availableBikes;
     }
 
+    public function getNonScheduledUsers(Request $request){
+        $nonScheduledUsers = [];
+        $users = User::orderBy("id")->get();
+        $temp = $users->count();
+        $schedule = Schedule::find($request->schedule_id);
+        $instances = array_map('strval', UserSchedule::select("user_id")->where('schedule_id', $schedule->id)->orderBy("id")->get()->pluck("user_id")->toArray());
+        log::info($users);
+        log::info($instances);
+        log::info($temp);
+        foreach ($users as $user) {
+            if(!in_array($user->id, $instances)){
+                $nonScheduledUsers[] = $user;
+            }
+        }
+        /*for ($i=0; $i < $temp; $i++) {
+            if(!in_array($users[$i], $instances))
+                $nonScheduledUsers[] = $users[$i];
+        }*/
+        log::info($nonScheduledUsers);
+        return $nonScheduledUsers;
+    }
+
     public function addInstructor(Request $request){
         DB::beginTransaction();
         Instructor::create([
