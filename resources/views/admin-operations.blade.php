@@ -145,7 +145,7 @@
                                         <option disabled selected hidden>Lugares Disponibles</option>
                                     </select>
                                 </td>
-                                <td><button class="btn btn-success btn-sm userAssist" id="userAssist-{{ $user->id }}" value="{{$user->id}}" data-id="{{$user->id}}" data-toggle="modal" data-target="#editInstructorModal">Asistencia</button></td>
+                                <td><button class="btn btn-success btn-sm "  id="clientAssist-{{ $user->id }}" value="{{$user->id}}" data-id="{{$user->id}}">Asistencia</button></td>
                             @endforeach
                         </tr>
                     </tbody>
@@ -375,6 +375,7 @@
     $(document).ready(function (){
         $('#main-bikes').hide();
         $('#addOpUserButton').hide()
+        
 
         // Dropdown Selected Option
         $('.dropdown-menu a').click(function(){
@@ -404,6 +405,7 @@
                 console.log("Malformed ID");
             }
         });
+
     });
 
     function searchUsers() {
@@ -488,7 +490,7 @@
                     '<td value="'+value.id+'">'+value.name+' '+value.last_name+'</td>'+
                     '<td>'+value.email+'</td>'+
                     '<td>'+value.shoe_size+'</td>'+
-                    '<td><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td>'+
+                    '<td><button class="btn btn-success btn-sm" onclick="javascript:selectedClientAssist('+value.id+');return false;" id="clientAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td>'+
                     '</tr>');
                 });
                 $('#table-clients').hide();
@@ -519,6 +521,7 @@
                 schedule_id: id
             },
             success: function(response) {
+                $('#bikesSelect').empty();
                 $.each(response, function(index, value){
                     $('#opRegBike').append('<option value="'+value+'">'+value+'</option>');
                     $('#bikesSelect').append('<option value="'+value+'">'+value+'</option>');
@@ -650,5 +653,70 @@
                 // alert(result);
             }
         });
+    }
+
+    function claimClass(schedule_id,bike,user_id, button){
+        $.ajax({
+            url: 'claimClass',
+            type: 'POST',
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                schedule_id: schedule_id,
+                bike: bike,
+                user_id: user_id
+            },
+            success: function(result) {
+                $.LoadingOverlay("hide");
+                if (result.status == "OK") {
+                    console.log(result.status);
+                    $('.modal-backdrop').remove();
+                    $('.active-menu').trigger('click');
+                    Swal.fire({
+                        title: 'Asistencia registrada',
+                        text: result.message,
+                        type: 'success',
+                        confirmButtonText: 'Aceptar'
+                    })
+                } else {
+                    $.LoadingOverlay("hide");
+                    Swal.fire({
+                        title: 'Error',
+                        text: result.message,
+                        type: 'warning',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    $(button).prop("disabled", false)
+                }
+            },
+            error: function(result){
+                $.LoadingOverlay("hide");
+                Swal.fire({
+                    title: 'Error',
+                    text: "No se pudo procesar la solicitud.",
+                    type: 'warning',
+                    confirmButtonText: 'Aceptar'
+                });
+                $(button).prop("disabled", false)
+                // alert(result);
+            }
+        });
+    }
+
+    function selectedClientAssist(user_id){
+        console.log("entró a claim");
+        $(this).prop("disabled", true)
+        event.preventDefault();
+        var bike = $('#bikesSelect').val();
+        //Get Full ID of the button (which contains the instructor ID)
+        var fullId = this.id;
+        //Split the ID of the fullId by his dash
+        if(user_id > 0){
+            claimClass(schedule_id,bike,user_id, this);
+        } else {
+            $(this).prop("disabled", false);
+        }        
     }
 </script>
