@@ -93,12 +93,31 @@ class AdminController extends Controller
         }
     }
 
+    function fetch_users(Request $request)
+    {
+        if($request->ajax())
+        {
+            $sort_by = $request->get('sortby');
+            $sort_type = $request->get('sorttype');
+                $query = $request->get('query');
+                $query = str_replace(" ", "%", $query);
+            $data = DB::table('user_schedules')
+                        ->where('name', 'like', '%'.$query.'%')
+                        ->orWhere('last_name', 'like', '%'.$query.'%')
+                        // ->orWhere('last_name', 'like', '%'.$query.'%')
+                        ->orderBy($sort_by, $sort_type)
+                        ->paginate(5);
+            return view('pagination_data', compact('data'))->render();
+        }
+    }
+
     public function showReports(){
         $sales = Sale::with(['admin', 'purchase'])->whereRaw("date(created_at) = date(NOW())")->get();
         return view('/admin-reports', compact ('sales'));
     }
 
     public function showOperationsGrid(){
+        $users = User::all();
         date_default_timezone_set('America/Mexico_City');
         $id = [];
         // $schedules = Schedule::where('day', now()->format('Y-m-d'))
@@ -112,7 +131,7 @@ class AdminController extends Controller
             array_push($id,$schedule->id);
         }
         $userSchedules = UserSchedule::whereIn('schedule_id', $id)->get();
-        return view('/admin-operations', compact ('schedules', 'userSchedules'));
+        return view('/admin-operations', compact ('schedules', 'userSchedules', 'users'));
     }
 
     public function showClientsTable(Request $request){
@@ -123,6 +142,43 @@ class AdminController extends Controller
         }
         $clients = User::whereIn('id',$id)->get();
         return $clients;
+    }
+
+    public function getOperationBikes(Request $request){
+        $availableBikes = [];
+        $schedule = Schedule::find($request->schedule_id);
+        $branch = Branch::find($schedule->branch_id);
+        $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
+        $unavailableBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedule->branch_id)->get()->pluck("position")->toArray());
+        $reservedPlaces = array_map('strval', UserSchedule::where("schedule_id", $schedule->id)->where("status","<>","cancelled")->get()->pluck("bike")->toArray());
+        for ($i=1; $i < $temp; $i++) {
+            if(!in_array($i, $unavailableBikes))
+                if(!in_array($i, $reservedPlaces))
+                    array_push($availableBikes, $i);
+        }
+        return $availableBikes;
+    }
+
+    public function getNonScheduledUsers(Request $request){
+        $nonScheduledUsers = [];
+        $users = User::orderBy("id")->get();
+        $temp = $users->count();
+        $schedule = Schedule::find($request->schedule_id);
+        $instances = array_map('strval', UserSchedule::select("user_id")->where('schedule_id', $schedule->id)->orderBy("id")->get()->pluck("user_id")->toArray());
+        log::info($users);
+        log::info($instances);
+        log::info($temp);
+        foreach ($users as $user) {
+            if(!in_array($user->id, $instances)){
+                $nonScheduledUsers[] = $user;
+            }
+        }
+        /*for ($i=0; $i < $temp; $i++) {
+            if(!in_array($users[$i], $instances))
+                $nonScheduledUsers[] = $users[$i];
+        }*/
+        log::info($nonScheduledUsers);
+        return $nonScheduledUsers;
     }
 
     public function addInstructor(Request $request){
