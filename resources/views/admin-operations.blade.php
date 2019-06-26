@@ -81,8 +81,11 @@
                                 <td>{{$userSchedule->user->shoe_size}}</td>
                                 <td> {{$userSchedule->user->phone}} </td>
                                 <td>{{$userSchedule->schedule_id}}</td>
-                                <td>{{$userSchedule->user->id}}</td>
-                                <td><button class="btn btn-success btn-sm userAssist" id="userAssist-{{ $userSchedule->user->id }}" value="{{$userSchedule->user->id}}" data-id="{{$userSchedule->user->id}}" data-toggle="modal" data-target="#editInstructorModal">Asistencia</button></td>
+                                @if($userSchedule->status != 'taken')
+                                    <td><button class="btn btn-success btn-sm userAssist" id="userAssist-{{ $userSchedule->id }}" value="{{$userSchedule->id}}" data-id="{{$userSchedule->id}}">Asistencia</button></td>
+                                @else
+                                    <td>Asistió</td>
+                                @endif
                             </tr>
                         @endif
                     @endforeach
@@ -373,6 +376,25 @@
         cols = document.querySelectorAll('#tableBodyRow');
         allUsers = document.querySelectorAll('#opSearchUser');
         // console.log(cols);
+
+        //OnClick attendClass Button
+        $('.userAssist').on('click', function(event) {
+            $(this).prop("disabled", true)
+            event.preventDefault();
+
+            //Get Full ID of the button (which contains the instructor ID)
+            var fullId = this.id;
+            //Split the ID of the fullId by his dash
+            var splitedId = fullId.split("-");
+            if(splitedId.length > 1){
+                // console.log(splitedId);
+                var reservation_id = splitedId[1];
+                attendClass(reservation_id, this);
+            } else {
+                $(this).prop("disabled", false);
+                console.log("Malformed ID");
+            }
+        });
     });
 
     function searchUsers() {
@@ -572,5 +594,51 @@
             }
         });
     }
-
+    function attendClass(reservation_id, button){
+        $.ajax({
+            url: 'attendClass',
+            type: 'POST',
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                reservation_id: reservation_id,
+            },
+            success: function(result) {
+                $.LoadingOverlay("hide");
+                if (result.status == "OK") {
+                    console.log(result.status);
+                    $('.modal-backdrop').remove();
+                    $('.active-menu').trigger('click');
+                    Swal.fire({
+                        title: 'Asistencia registrada',
+                        text: result.message,
+                        type: 'success',
+                        confirmButtonText: 'Aceptar'
+                    })
+                } else {
+                    $.LoadingOverlay("hide");
+                    Swal.fire({
+                        title: 'Error',
+                        text: result.message,
+                        type: 'warning',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    $(button).prop("disabled", false)
+                }
+            },
+            error: function(result){
+                $.LoadingOverlay("hide");
+                Swal.fire({
+                    title: 'Error',
+                    text: "No se pudo procesar la solicitud.",
+                    type: 'warning',
+                    confirmButtonText: 'Aceptar'
+                });
+                $(button).prop("disabled", false)
+                // alert(result);
+            }
+        });
+    }
 </script>
