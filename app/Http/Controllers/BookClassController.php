@@ -17,7 +17,7 @@ class BookClassController extends Controller
         //obtiene el cupo de la clase
         $availability = Schedule::select('reservation_limit')->where('id', $request->schedule_id)->first();
         //obtiene el numero de reservaciones que se han hecho a esa clase
-        $instances = UserSchedule::where('schedule_id', $request->schedule_id)->count();
+        $instances = UserSchedule::where('schedule_id', $request->schedule_id)->where('status', "active")->count();
         //obtiene y revisa si el usuario ya tiene esta clase reservada
         $bookedClass = userSchedule::where('schedule_id', $request->schedule_id)->where('user_id', $requestUser->id)->first();
         //Validaa si el lugar está disponible
