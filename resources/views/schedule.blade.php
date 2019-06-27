@@ -56,34 +56,47 @@
         <input type="hidden" name="timezoneSet" value="{{date_default_timezone_set('America/Mexico_City')}}">
         <input type="hidden" name="actualDay" value="{{$today=now()}}">
         <input type="hidden" name="thisDay" value="{{$thisDay=now()}}">
-        <div class="container" name="calendar">
+        <div class="container" id="calendario" name="calendar">
             {{-- <h1 class="text-center text-white">SCHEDULE BACKUP</h1> --}}
-        @if(count($schedules) > 0)
-            <div class="row" name="dates">
-                @for ($i = 0; $i < 7; $i++)
-                <section class="col" id="scheduleDayColumn">
-                    <ul>
-                        <li class="scheduleDayText">
-                            <input type="hidden" name="langLocal" value="<?php setlocale(LC_TIME,'es_MX.utf8'); $dayNumber=strftime('%d', strtotime($today));?>">
-                            <input type="hidden" name="langLocal" value="<?php $dayName = strftime("%a", strtotime($today));?>">
-                        <span class="number"> {{$dayName}}.{{$dayNumber}}</span>
-                        </li>
-                        @foreach ($schedules as $schedule)
-                            @if ($schedule->day == $today->format('Y-m-d'))
-                                {{-- If the Schedule Day == Actual (Real) Day of the Week then check the hour scheduled --}}
-                                @if ($schedule->day == $thisDay->format('Y-m-d'))
-                                    @if ($schedule->hour < $today->format('H:i:s'))
-                                        {{-- Disabled Boxes --}}
-                                        <span class="scheduleItemLinkDisabled">
-                                            <li class="scheduleItemDisabled" id="{{$schedule->instructor->name}}">
-                                                <p class="scheduleItemTextInstructor">
-                                                    {{$schedule->instructor->name}}
-                                                </p>
-                                                <p class="scheduleItemTextHourDisabled">
-                                                    {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                </p>
-                                            </li>
-                                        </span>
+            @if(count($schedules) > 0)
+                <div class="row" name="dates">
+                    @for ($i = 0; $i < 7; $i++)
+                    <section class="col" id="scheduleDayColumn">
+                        <ul>
+                            <li class="scheduleDayText">
+                                <input type="hidden" name="langLocal" value="<?php setlocale(LC_TIME,'es_MX.utf8'); $dayNumber=strftime('%d', strtotime($today));?>">
+                                <input type="hidden" name="langLocal" value="<?php $dayName = strftime("%a", strtotime($today));?>">
+                            <span class="number"> {{$dayName}}.{{$dayNumber}}</span>
+                            </li>
+                            @foreach ($schedules as $schedule)
+                                @if ($schedule->day == $today->format('Y-m-d'))
+                                    {{-- If the Schedule Day == Actual (Real) Day of the Week then check the hour scheduled --}}
+                                    @if ($schedule->day == $thisDay->format('Y-m-d'))
+                                        @if ($schedule->hour < $today->format('H:i:s'))
+                                            {{-- Disabled Boxes --}}
+                                            <span class="scheduleItemLinkDisabled">
+                                                <li class="scheduleItemDisabled" id="{{$schedule->instructor->name}}">
+                                                    <p class="scheduleItemTextInstructor">
+                                                        {{$schedule->instructor->name}}
+                                                    </p>
+                                                    <p class="scheduleItemTextHourDisabled">
+                                                        {{ date('g:i A', strtotime($schedule->hour)) }}
+                                                    </p>
+                                                </li>
+                                            </span>
+                                        @else
+                                            {{-- Enabled Boxes --}}
+                                            <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
+                                                <li class="scheduleItem" id="{{$schedule->instructor->name}}">
+                                                    <p class="scheduleItemTextInstructor">
+                                                        {{$schedule->instructor->name}}
+                                                    </p>
+                                                    <p class="scheduleItemTextHour">
+                                                        {{ date('g:i A', strtotime($schedule->hour)) }}
+                                                    </p>
+                                                </li>
+                                            </a>
+                                        @endif
                                     @else
                                         {{-- Enabled Boxes --}}
                                         <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
@@ -97,29 +110,16 @@
                                             </li>
                                         </a>
                                     @endif
-                                @else
-                                    {{-- Enabled Boxes --}}
-                                    <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
-                                        <li class="scheduleItem" id="{{$schedule->instructor->name}}">
-                                            <p class="scheduleItemTextInstructor">
-                                                {{$schedule->instructor->name}}
-                                            </p>
-                                            <p class="scheduleItemTextHour">
-                                                {{ date('g:i A', strtotime($schedule->hour)) }}
-                                            </p>
-                                        </li>
-                                    </a>
                                 @endif
-                            @endif
-                        @endforeach
-                    </ul>
-                </section>
-                <input type="hidden" value="{{$today->modify('+1 day')}}">
-                @endfor
-            </div>
-        @else
-            <h4 class="text-center text-white">Aún no hay clases agendadas</h4>
-        @endif
+                            @endforeach
+                        </ul>
+                    </section>
+                    <input type="hidden" value="{{$today->modify('+1 day')}}">
+                    @endfor
+                </div>
+            @else
+                <h4 class="text-center text-white">Aún no hay clases agendadas</h4>
+            @endif
         </div>
     </div>
     @include('packages')

@@ -53,6 +53,40 @@
                     $amount++;
                 @endphp
             @endif
+            {{-- Products == Deals --}}
+            @if ($product != $products{0} && $product->type == "Deals")
+                {{-- {{dd($product)}} --}}
+                {{-- <div class="content-normal pickClass" style=" margin-left: 10px; min-width: 190px !important; min-height: 280px !important;" id="prod-{{$product->id}}"> --}}
+                <div class="content-normal pickClass mx-2" id="prod-{{$product->id}}">
+                    @guest
+                        <div id="content-normal-deal" class="px-4 content-n" data-toggle="modal" data-target="#loginModal">
+                    @endguest
+                    @auth
+                        @if (count($cards) > 0)
+                            <div id="content-normal-deal" class="px-4 content-n" data-toggle="modal" data-target="#savedCardsModal">
+                        @else
+                            <div id="content-normal-deal" class="px-4 content-n" data-toggle="modal" data-target="#newCardChargeModal">
+                        @endif
+                    @endauth
+                    {{-- <div id="content-normal" class="content-n" data-toggle="modal" data-target="#savedCardsModal" onclick="classQuantity('{{ $product->n_classes }}')" class="pickClass"> --}}
+                        <h5 id="package-description" class="mt-0 text-center mx-auto">Promoción <br><span id="DBDescription" class="text-center mx-auto">{{$product->description}}<span></h5>
+                        <h3 id="amountDeal">{{$product->n_classes}}</h3>
+                        @if ($flag)
+                            <h4 class="class">CLASE</h4>
+                            {{$flag=false}}
+                        @else
+                            <h4 class="class">CLASES</h4>
+                        @endif
+                        <p class="precio" style="font-size: 17px; font-family: 'Avenir Next Condensed'; font-weight: 300;">${{$product->price}}</p>
+                        <p class="exp" style="font-size: 17px;">Expira: {{$product->expiration_days}} días</p>
+                        {{-- <input type="hidden" name="product_id" id="product_id" value="{{$product->id}}"> --}}
+                    </div>
+                </div>
+                @php
+                    $amount++;
+                @endphp
+            @endif
+
         @endforeach
         <!-- LogIn Modal -->
         @guest
