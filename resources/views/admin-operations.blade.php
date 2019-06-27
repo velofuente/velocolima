@@ -375,7 +375,6 @@
     $(document).ready(function (){
         $('#main-bikes').hide();
         $('#addOpUserButton').hide()
-        
 
         // Dropdown Selected Option
         $('.dropdown-menu a').click(function(){
@@ -717,6 +716,6 @@
             claimClass(schedule_id,bike,user_id, this);
         } else {
             $(this).prop("disabled", false);
-        }        
+        }
     }
 </script>
