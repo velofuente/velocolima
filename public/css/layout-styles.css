@@ -515,6 +515,7 @@ select:focus {outline:0;}
     overflow: hidden;
     min-height: 250px;
     cursor: pointer;
+    /* cursor: pointer; */
 }
 
 #package-description{
@@ -523,6 +524,7 @@ select:focus {outline:0;}
     font-size: 15px;
     padding-top: .3em;
     font-family: 'AvenirNextLTPro Regular' !important
+    /* font-family: 'AvenirNextLTPro Regular' !important */
 }
 #DBDescription{
     color: white;
@@ -530,12 +532,14 @@ select:focus {outline:0;}
     font-size: 15px;
     padding-top: .3em;
     font-family: 'AvenirNextLTPro Bold' !important;
+    /* font-family: 'AvenirNextLTPro Bold' !important; */
 }
 
 #amountDeal{
     font-size: 6em;
     padding: 0em 0 0 0;
     font-weight: 400;
+    /* font-weight: 400; */
 }
 
 #content-normal{
