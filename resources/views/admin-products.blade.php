@@ -440,7 +440,6 @@
                             type: 'success',
                             confirmButtonText: 'Aceptar'
                         })
-                        window.location.reload();
                     }
                     else {
                         $.LoadingOverlay("hide");
@@ -544,7 +543,6 @@
                                     type: 'success',
                                     confirmButtonText: 'Aceptar'
                                 })
-                                window.location.reload();
                             } else {
                                 $.LoadingOverlay("hide");
                                 Swal.fire({

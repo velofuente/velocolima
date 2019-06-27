@@ -254,18 +254,18 @@ class BookClassController extends Controller
             'share_code' => $share_code,
             'role_id' => 3,
         ]);
-        // $purchase = Purchase::create([
-        //     'product_id' => 2,
-        //     'user_id' => $user->id,
-        //     'n_classes' => 1,
-        //     'expiration_days' => 1,
-        // ]);
+        $purchase = Purchase::create([
+            'product_id' => 2,
+            'user_id' => $user->id,
+            'n_classes' => 0,
+            'expiration_days' => 1,
+        ]);
         UserSchedule::create([
             'user_id' => $user->id,
             'schedule_id' => $request->schedule_id,
-            // 'purchase_id' => null,
+            'purchase_id' => $purchase,
             'bike' => $request->bike,
-            'status' => 'active',
+            'status' => 'taken',
             'changedSit' => 0,
         ]);
         app('App\Http\Controllers\MailSendingController')->walkInRegister($user->email,$user->name, $password);
