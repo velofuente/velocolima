@@ -263,7 +263,7 @@ class BookClassController extends Controller
         UserSchedule::create([
             'user_id' => $user->id,
             'schedule_id' => $request->schedule_id,
-            'purchase_id' => $purchase,
+            'purchase_id' => $purchase->id,
             'bike' => $request->bike,
             'status' => 'taken',
             'changedSit' => 0,
