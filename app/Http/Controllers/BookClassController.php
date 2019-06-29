@@ -210,7 +210,7 @@ class BookClassController extends Controller
                 'purchase_id' => $compra->id,
                 //'tool_schedule_id' => $request->tool_schedule_id,
                 'bike' => $request->bike,
-                'status' => 'taken',
+                'status' => 'active',
                 'changedSit' => 0,
             ]);
             //Resta una clase a la compra del usuario y actualiza ese campo en la base de datos
@@ -265,7 +265,7 @@ class BookClassController extends Controller
             'schedule_id' => $request->schedule_id,
             'purchase_id' => $purchase->id,
             'bike' => $request->bike,
-            'status' => 'taken',
+            'status' => 'active',
             'changedSit' => 0,
         ]);
         app('App\Http\Controllers\MailSendingController')->walkInRegister($user->email,$user->name, $password);

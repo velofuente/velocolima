@@ -111,6 +111,8 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
     Route::post('deleteUser', 'AdminController@deleteUser');
     //Ventas
     Route::post('sale', 'AdminController@sale');
+    //Clientes
+    Route::post('addClient', 'AdminController@addClient');
 });
 
 // Grupo de Middeleware para Usuarios Promedio

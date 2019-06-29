@@ -480,4 +480,37 @@ class AdminController extends Controller
             ]);
         }
     }
+    public function addClient(Request $request)
+    {
+        log::info("entró a addclient");
+        // Available alpha caracters
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        // generate a pin based on 2 * 7 digits + a random character
+        $pin = $characters[rand(0, strlen($characters) - 1)]
+        . $characters[rand(0, strlen($characters) - 1)]
+        . $characters[rand(0, strlen($characters) - 1)]
+        . $characters[rand(0, strlen($characters) - 1)];
+        // shuffle the result
+        $share_code = str_shuffle($pin);
+        DB::beginTransaction();
+        $user = new User([
+            'name' => $request->get('name'),
+            'last_name' => $request->get('last_name'),
+            'email' => $request->get('email'),
+            'password' => Hash::make($request->get('password')),
+            'birth_date' => $request->get('birth_date'),
+            'phone' => $request->get('phone'),
+            'gender' => $request->get('gender'),
+            'shoe_size' => $request->get('shoe_size'),
+            'share_code' => $share_code,
+            'customer_id' => null,
+            'role_id' => 3,
+        ]);
+        $user->save();
+        DB::commit();
+        return response()->json([
+            'status' => 'OK',
+            'message' => "Cliente registrado con exito",
+        ]);
+    }
 }
