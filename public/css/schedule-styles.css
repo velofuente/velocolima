@@ -97,6 +97,27 @@ ul{
     float: none;
 } */
 
+@media screen and (max-width: 700px) {
+    .redes-fijas {
+        display: none;
+    }
+    .red {
+        display: none
+    }
+    #calendario {
+          overflow: auto;
+    }
+    #topNavBar {
+        position: relative;
+    }
+    /* Agregar id="rowSchedule" a la row dentro de #calendario  */
+    #rowSchedule {
+        width: 30em;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+}
+
 span.number{
     display: inline;
     margin: 0px;

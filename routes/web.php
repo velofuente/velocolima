@@ -33,6 +33,7 @@ Route::get('/legales', function () {
 });
 
 Auth::routes(['verify' => true]);
+
 Route::resource('instructors', 'InstructorController');
 Route::get('/schedule', 'InstructorController@schedule');
 // Route::get('/scheduleBackup', 'InstructorController@scheduleBackup');
@@ -44,7 +45,7 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('register', 'UserController@store');
 
 // Route::get('/addCard', 'OpenPayController@addCustomerCard');
-Route::get('/', 'HomeController@index');
+// Route::get('/', 'HomeController@index');
 // Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('test', 'UserController@test');

@@ -59,7 +59,7 @@
         <div class="container" id="calendario" name="calendar">
             {{-- <h1 class="text-center text-white">SCHEDULE BACKUP</h1> --}}
             @if(count($schedules) > 0)
-                <div class="row" name="dates">
+                <div class="row" id="rowSchedule" name="dates">
                     @for ($i = 0; $i < 7; $i++)
                     <section class="col" id="scheduleDayColumn">
                         <ul>

@@ -114,7 +114,8 @@
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
                                 <label for="birth_date" class="mr-sm-2">Fecha de Nacimiento:</label>
                                 <div class="input-group">
-                                    <input id="birth_date" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required >
+                                    {{-- <input id="birth_date" min="1900-01-01" max="2100-12-31" type="date" fecha="active" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required > --}}
+                                    <input id="birth_date" min="1900-01-01" max="2100-12-31" style="z-index: 0" type="text" fecha="active" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required >
                                     @if ($errors->has('birth_date'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('birth_date') }}</strong>
@@ -262,17 +263,53 @@
             $('#gender').val(genderOldValue);
             }
 
-            //datePicker on Safari
-            if ( $('[type="date"]').prop('type') != 'date' ) {
-                // Use datepicker on the date inputs
-                $("input[type=date]").datepicker({
-                dateFormat: 'yy/mm/dd',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '1920:2013',
+
+            $('input[fecha=active]').on('focus', function(event) {
+                $('input[fecha=active]').datepicker({
+                    dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+                    dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+                    dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+                    monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                    currentText: "Hoy",
+                    dateFormat: 'yy/mm/dd',
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: '1920:2019',
                     onSelect: function(dateText, inst) {
                         $(inst).val(dateText); // Write the value in the input
                     }
+                });
+                //  // Use datepicker on the date inputs
+                //  $("input[type=date]").datepicker({
+                //     dateFormat: 'yy/mm/dd',
+                //     changeMonth: true,
+                //     changeYear: true,
+                //     yearRange: '1920:2019',
+                //         onSelect: function(dateText, inst) {
+                //             $(inst).val(dateText); // Write the value in the input
+                //         }
+                // });
+            });
+
+            //datePicker on Safari
+            // if ( $('[type="date"]').prop('type') != 'date' || $('[type="date"]').prop('type') == 'date' ) {
+            if ( $('[type="date"]').prop('type') != 'date' ) {
+                // Use datepicker on the date inputs
+                $("input[type=date]").datepicker({
+                    dateFormat: 'yy/mm/dd',
+                    dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+                    dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+                    dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+                    monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                    currentText: "Hoy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: '1920:2019',
+                        onSelect: function(dateText, inst) {
+                            $(inst).val(dateText); // Write the value in the input
+                        }
                 });
                 // Code below to avoid the classic date-picker
                 // $("input[type=date]").on('click', function() {
