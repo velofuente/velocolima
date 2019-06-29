@@ -81,7 +81,21 @@ ul{
     color: rgb(255, 255, 255);
     list-style: none;
 }
-
+/* #calendario {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+}
+#calendario > .row {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+#calendario > .row > .col {
+    display: inline-block;
+    float: none;
+} */
 
 span.number{
     display: inline;
