@@ -179,13 +179,18 @@ class OpenPayController extends Controller
     public function getCardToken($tokenId)
     {
         $key = env("OPENPAY_PUBLIC_KEY", '');
+        log::info('Public Key: ' . $key);
         $merchantId = env("OPENPAY_ID", '');
-    // $apiUrl = "https://{$key}@sandbox-api.openpay.mx/v1/{$merchantId}/tokens/{$tokenId}";
+        log::info('$merchantId: ' . $merchantId);
+        log::info('$tokenId: ' . $tokenId);
         $apiUrl = "https://{$key}@api.openpay.mx/v1/{$merchantId}/tokens/{$tokenId}";
+        log::info('$apiUrl: ' . $apiUrl);
+        // $apiUrl = "https://sandbox-api.openpay.mx/v1/{$merchantId}/tokens/{$tokenId}";
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $card = json_decode(curl_exec($curl));
+        log::info('$card: ' . json_encode($card));
         curl_close($curl);
         return $card;
     }

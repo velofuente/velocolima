@@ -88,7 +88,6 @@ $(document).ready(function() {
     }
 
     function addCard(){
-        console.log('entro');
         tokenBearer = $('#tokenBearer').val();
         $.ajax({
             url: "/addCard",
@@ -117,7 +116,8 @@ $(document).ready(function() {
                     //swal error
                     Swal.fire({
                         title: 'Woops!',
-                        text: result.message,
+                        // text: result.message,
+                        text: 'result.message',
                         type: 'error',
                         confirmButtonText: 'Aceptar'
                     })
