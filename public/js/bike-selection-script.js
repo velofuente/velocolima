@@ -22,6 +22,7 @@ function drawMainBikes(x,y){
     // }
     // console.log("tipo:" + typeof Array.from(disabledBikes));
     var count = 1;
+    var bikeNum = 1;
     for (var i = 0; i < number_of_rows; i++){
         // var trow = $("<tr>").attr("id", firstChar);
         var divr = $("<div>").attr("id", "divr" + i).attr("class", "col-md-12");
@@ -29,18 +30,31 @@ function drawMainBikes(x,y){
             var classes = "bikes";
             if(selectedBike == count){
                 classes = "selected";
+                var ball = $("<span>").attr("class", classes).attr("id", "ball-" + count).text(bikeNum);
+                divr.append(ball);
+                bikeNum++;
             } else {
                 if($.inArray(count.toString(), JSON.parse(reservedPlaces)) != -1){
                     classes = "occupied";
+                    var ball = $("<span>").attr("class", classes).attr("id", "ball-" + count).text(bikeNum);
+                    divr.append(ball);
+                    bikeNum++;
                 } else if($.inArray(count.toString(), JSON.parse(disabledBikes)) != -1){
                     // Marca que el Occupied pertenece al array de DisabledBikes y no al ReservedPlaces
                     classes = "disabled";
+                    var ball = $("<span>").attr("class", classes);
+                    divr.append(ball);
                 } else if($.inArray(count.toString(), JSON.parse(instructorBikes)) != -1){
                     classes = "instructor";
+                    var ball = $("<span>").attr("class", classes).text("I");
+                    divr.append(ball);
+                } else{
+                    var ball = $("<span>").attr("class", classes).attr("id", "ball-" + count).text(bikeNum);
+                    divr.append(ball);
+                    bikeNum++;
                 }
             }
-            var ball = $("<span>").attr("class", classes).attr("id", "ball-" + count).text(count);
-            divr.append(ball);
+           
             count++;
             // var td = $("<td>").attr("id", firstChar + "" + j);
             // var bicycle = $("<p>").attr("class", "bikes").text(firstChar + "" + j);
