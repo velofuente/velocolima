@@ -43,6 +43,7 @@ Route::post('charge', 'PurchaseController@store');
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('register', 'UserController@store');
+Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
 
 // Route::get('/addCard', 'OpenPayController@addCustomerCard');
 // Route::get('/', 'HomeController@index');
@@ -117,7 +118,6 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
 // Grupo de Middeleware para Usuarios Promedio
 Route::group(['middleware' => ['auth','user.access']], function(){
     Route::get('user', 'UserController@index')->name('user')->middleware('auth');
-    Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
     Route::resource('user', 'UserController');
     Route::patch('user', 'UserController@updatePassword')->name('updatePassword');
     Route::post('updateData', 'UserController@updateData');
