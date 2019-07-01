@@ -264,7 +264,7 @@
             }
 
 
-            $('input[fecha=active]').on('focus', function(event) {
+            $('input[fecha=active]').on('click', function(event) {
                 $('input[fecha=active]').datepicker({
                     dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
                     dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
@@ -279,7 +279,7 @@
                     onSelect: function(dateText, inst) {
                         $(inst).val(dateText); // Write the value in the input
                     }
-                });
+                }).focus();
                 //  // Use datepicker on the date inputs
                 //  $("input[type=date]").datepicker({
                 //     dateFormat: 'yy/mm/dd',

@@ -47,7 +47,7 @@ Route::post('register', 'UserController@store');
 // Route::get('/addCard', 'OpenPayController@addCustomerCard');
 // Route::get('/', 'HomeController@index');
 // Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('test', 'UserController@test');
 
 // Route::get('/schedule', function(){
