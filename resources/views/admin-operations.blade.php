@@ -372,6 +372,9 @@
     var shoe_size = null;
     var bike = null;
 
+    var activeDropdownSchedule = null;
+    var previousSchedule = null;
+
     $(document).ready(function (){
         $('#main-bikes').hide();
         $('#addOpUserButton').hide()
@@ -379,6 +382,15 @@
         // Dropdown Selected Option
         $('.dropdown-menu a').click(function(){
             $('#selectedSchedule').text($(this).text());
+
+            // Active Schedule Dropdown
+            $(activeDropdownSchedule).removeClass('active');
+            $(this).addClass('active');
+            activeDropdownSchedule = this;
+            previousSchedule = activeDropdownSchedule;
+            $(previousSchedule).removeClass('active');
+            console.log(previousSchedule);
+
         });
 
         // Cols = HTMLTableElement
@@ -405,8 +417,20 @@
             }
         });
 
+        // Jquery UI DatePicker (Safari)
+        if ( $('[type="date"]').prop('type') != 'date' ) {
+            $('[type="date"]').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1920:2019',
+                dateFormat: 'yy-mm-dd',
+                // showButtonPanel: true,
+            });
+        }
+
     });
 
+    // Search Registered User
     function searchUsers() {
         var input, filter, table, tr, name, email, i;
         input = document.getElementById("opSearchInput");
