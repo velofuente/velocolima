@@ -117,7 +117,7 @@ $(document).ready(function() {
                     Swal.fire({
                         title: 'Woops!',
                         // text: result.message,
-                        text: 'result.message',
+                        text: result.message,
                         type: 'error',
                         confirmButtonText: 'Aceptar'
                     })
