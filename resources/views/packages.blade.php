@@ -224,8 +224,8 @@
                                         <label for="data">Guarda datos de mi tarjeta</label>
                                     </div>
 
-                                    <input class="data mx-auto" type="text" name="" id="Discount" placeholder="Código de descuento" maxlength="10">
-                                    <button type="button" class="button">Aplicar código</button>
+                                    {{-- <input class="data mx-auto" type="text" name="" id="Discount" placeholder="Código de descuento" maxlength="10">
+                                    <button type="button" class="button">Aplicar código</button> --}}
 
                                     <div class="">
                                         <input type="checkbox" name="conditions" id="conditions" required>
