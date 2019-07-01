@@ -24,11 +24,6 @@ class UserController extends Controller
         $cards = DB::table('cards')->where('user_id', '=', "{$requestUser->id}")->get();
         $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->first();
         $classes = $numClases->clases;
-        /*
-        $bookedClasses = UserSchedule::with("schedule.instructor", "schedule.room", "schedule" => funtion($query){
-            return $query->whereRaw("DATE(created_ad) >= CURRENT_DATE()")->get();
-        })->where('user_id', "{$requestUser->id}")->where('status', 'active')->get();
-        */
         $bookedClasses = UserSchedule::with("schedule.instructor", "schedule.room", "schedule")->where('user_id', "{$requestUser->id}")->where('status', 'active')->get();
         $previousClasses = UserSchedule::where('user_id', "{$requestUser->id}")->whereNotIn("status", ["active"])->whereRaw("created_at < NOW()")->get();
         $UserWaitLists = UserWaitList::with('waitList.schedule.instructor', 'waitList.schedule')->where('user_id', "{$requestUser->id}")->get();
