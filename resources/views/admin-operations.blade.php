@@ -759,8 +759,6 @@
                         type: 'success',
                         confirmButtonText: 'Aceptar'
                     })
-                    console.log(reservation_id);
-                    showClients(reservation_id);
                 } else {
                     $.LoadingOverlay("hide");
                     Swal.fire({
