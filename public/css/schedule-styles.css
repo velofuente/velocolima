@@ -112,7 +112,7 @@ ul{
     }
     /* Agregar id="rowSchedule" a la row dentro de #calendario  */
     #rowSchedule {
-        width: 30em;
+        width: 43em;
         overflow-x: scroll;
         overflow-y: hidden;
     }
