@@ -131,6 +131,7 @@ Route::group(['middleware' => ['auth','user.access']], function(){
     Route::post('/addCard','OpenPayController@addCustomerCard');
     Route::post('makeCharge', 'OpenPayController@makeChargeCustomer');
     Route::post('makeChargeCard', 'OpenPayController@makeChargeCard');
+    Route::post('deleteUserCard', 'CardController@deleteUserCard');
     Route::post('getClient', 'OpenPayController@getCustomer');
     Route::post('deleteClient', 'OpenPayController@deleteCustomer');
     Route::post('walkInRegister', 'MailSendingController@walkInRegister');

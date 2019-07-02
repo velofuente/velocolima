@@ -147,6 +147,7 @@ class AdminController extends Controller
     public function getOperationBikes(Request $request){
         $availableBikes = [];
         $schedule = Schedule::find($request->schedule_id);
+        log::info('getBikes: '.$schedule);
         $branch = Branch::find($schedule->branch_id);
         $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
         $unavailableBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedule->branch_id)->get()->pluck("position")->toArray());
@@ -164,6 +165,7 @@ class AdminController extends Controller
         $users = User::orderBy("id")->get();
         $temp = $users->count();
         $schedule = Schedule::find($request->schedule_id);
+        log::info('getNon: '.$schedule);
         $instances = array_map('strval', UserSchedule::select("user_id")->where('schedule_id', $schedule->id)->orderBy("id")->get()->pluck("user_id")->toArray());
         log::info($users);
         log::info($instances);
