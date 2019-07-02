@@ -77,7 +77,53 @@
                                 <input type="hidden" value="{{$userSchedule->schedule_id}}" id="hiddenUsers">
                                 <td>{{$userSchedule->user->name}} {{$userSchedule->user->last_name}}</td>
                                 <td>{{$userSchedule->user->email}}</td>
-                                <td>{{$userSchedule->bike}}</td>
+                                {{-- <td>{{$userSchedule->bike}}</td> --}}
+                                @switch($userSchedule->bike)
+                                    @case(2)
+                                        <td>1</td>
+                                        @break
+                                    @case(10)
+                                        <td>2</td>
+                                        @break
+                                    @case(12)
+                                        <td>3</td>
+                                        @break
+                                    @case(14)
+                                        <td>4</td>
+                                        @break
+                                    @case(20)
+                                        <td>5</td>
+                                        @break
+                                    @case(22)
+                                        <td>6</td>
+                                        @break
+                                    @case(24)
+                                        <td>7</td>
+                                        @break
+                                    @case(26)
+                                        <td>8</td>
+                                        @break
+                                    @case(30)
+                                        <td>9</td>
+                                        @break
+                                    @case(32)
+                                        <td>10</td>
+                                        @break
+                                    @case(36)
+                                        <td>11</td>
+                                        @break
+                                    @case(38)
+                                        <td>12</td>
+                                        @break
+                                    @case(40)
+                                        <td>13</td>
+                                        @break
+                                    @case(42)
+                                        <td>14</td>
+                                        @break
+                                    @default
+                                        <td>14</td>
+                                @endswitch
                                 <td>{{$userSchedule->user->shoe_size}}</td>
                                 <td> {{$userSchedule->user->phone}} </td>
                                 <td>{{$userSchedule->schedule_id}}</td>
@@ -385,11 +431,10 @@
 
             // Active Schedule Dropdown
             $(activeDropdownSchedule).removeClass('active');
+            console.log(activeDropdownSchedule);
             $(this).addClass('active');
             activeDropdownSchedule = this;
-            previousSchedule = activeDropdownSchedule;
-            $(previousSchedule).removeClass('active');
-            console.log(previousSchedule);
+            console.log(this);
 
         });
 
@@ -546,8 +591,68 @@
             success: function(response) {
                 $('#bikesSelect').empty();
                 $.each(response, function(index, value){
-                    $('#opRegBike').append('<option value="'+value+'">'+value+'</option>');
-                    $('#bikesSelect').append('<option value="'+value+'">'+value+'</option>');
+                    // $('#opRegBike').append('<option value="'+value+'">'+value+'</option>');
+                    // $('#bikesSelect').append('<option value="'+value+'">'+value+'</option>');
+                    switch (value) {
+                        case 2:
+                            $('#opRegBike').append('<option value="'+value+'">'+1+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+1+'</option>');
+                            break;
+                        case 10:
+                            $('#opRegBike').append('<option value="'+value+'">'+2+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+2+'</option>');
+                            break;
+                        case 12:
+                            $('#opRegBike').append('<option value="'+value+'">'+3+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+3+'</option>');
+                            break;
+                        case 14:
+                            $('#opRegBike').append('<option value="'+value+'">'+4+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+4+'</option>');
+                            break;
+                        case 20:
+                            $('#opRegBike').append('<option value="'+value+'">'+5+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+5+'</option>');
+                            break;
+                        case 22:
+                            $('#opRegBike').append('<option value="'+value+'">'+6+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+6+'</option>');
+                            break;
+                        case 24:
+                            $('#opRegBike').append('<option value="'+value+'">'+7+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+7+'</option>');
+                            break;
+                        case 26:
+                            $('#opRegBike').append('<option value="'+value+'">'+8+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+8+'</option>');
+                            break;
+                        case 30:
+                            $('#opRegBike').append('<option value="'+value+'">'+9+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+9+'</option>');
+                            break;
+                        case 32:
+                            $('#opRegBike').append('<option value="'+value+'">'+10+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+10+'</option>');
+                            break;
+                        case 36:
+                            $('#opRegBike').append('<option value="'+value+'">'+11+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+11+'</option>');
+                            break;
+                        case 38:
+                            $('#opRegBike').append('<option value="'+value+'">'+12+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+12+'</option>');
+                            break;
+                        case 40:
+                            $('#opRegBike').append('<option value="'+value+'">'+13+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+13+'</option>');
+                            break;
+                        case 42:
+                            $('#opRegBike').append('<option value="'+value+'">'+14+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+14+'</option>');
+                            break;
+                        default:
+                            break;
+                    }
                 })
             },
             error: function(response){
@@ -631,6 +736,7 @@
         });
     }
     function attendClass(reservation_id, button){
+        console.log('attendClass');
         $.ajax({
             url: 'attendClass',
             type: 'POST',
@@ -653,6 +759,8 @@
                         type: 'success',
                         confirmButtonText: 'Aceptar'
                     })
+                    console.log(reservation_id);
+                    showClients(reservation_id);
                 } else {
                     $.LoadingOverlay("hide");
                     Swal.fire({
