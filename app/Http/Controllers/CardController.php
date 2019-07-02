@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Card;
 use Illuminate\Support\Facades\DB;
+use Log;
 
 class CardController extends Controller
 {
@@ -31,6 +32,7 @@ class CardController extends Controller
     public function deleteUserCard(Request $request){
         DB::beginTransaction();
         $card = Card::find($request->card_id);
+        log::info($card);
         $card->delete();
         DB::commit();
         return response()->json([

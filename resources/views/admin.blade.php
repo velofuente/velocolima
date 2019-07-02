@@ -152,6 +152,8 @@
     </div>
 
     <script>
+        var activeDropdownSchedule = null;
+        var previousSchedule = null;
         $(document).ready(function (){
             //Variable to get the clicked link
             var pageCalled = null;

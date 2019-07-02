@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\{Instructor,Branch,Schedule,Product, User,UserSchedule, Card, Tool};
-use Response, Auth;
+use Response, Auth, Log;
 
 class InstructorController extends Controller
 {

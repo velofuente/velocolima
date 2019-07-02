@@ -23,7 +23,10 @@
             @foreach ($schedules as $schedule)
                 {{-- @if ($schedule->day == date('Y-m-d')) --}}
                     {{-- @if ($schedule->hour >= date('H:i:s')) --}}
-                        <a class="dropdown-item" href="javascript:showClients({{$schedule->id}})" id="{{$schedule->id}}">
+
+                        {{-- <a class="dropdown-item" href="javascript:showClients({{$schedule->id}})" id="{{$schedule->id}}"> --}}
+                        <a class="dropdown-item scheduleList" href="#" id="{{$schedule->id}}">
+
                             {{-- <span class="col-4 text-center">{{ date('l', strtotime($schedule->day)) }}</span> --}}
                             <span class="col-4">{{strftime("%a", strtotime($schedule->day))}}</span>
                             <span class="col-4">{{date('g:i A', strtotime($schedule->hour))}} </span>
@@ -418,8 +421,9 @@
     var shoe_size = null;
     var bike = null;
 
-    var activeDropdownSchedule = null;
-    var previousSchedule = null;
+    var assistButton = null;
+    var id = null;
+
 
     $(document).ready(function (){
         $('#main-bikes').hide();
@@ -431,11 +435,8 @@
 
             // Active Schedule Dropdown
             $(activeDropdownSchedule).removeClass('active');
-            console.log(activeDropdownSchedule);
             $(this).addClass('active');
             activeDropdownSchedule = this;
-            console.log(this);
-
         });
 
         // Cols = HTMLTableElement
@@ -461,6 +462,13 @@
                 console.log("Malformed ID");
             }
         });
+
+        $('.scheduleList').on('click', function(event){
+            event.preventDefault();
+            id = $(this).attr('id');
+            showClients(id);
+        });
+        // $(document).on('click', '.active', function(){ console.log($(this).attr('id')) })
 
         // Jquery UI DatePicker (Safari)
         if ( $('[type="date"]').prop('type') != 'date' ) {
@@ -736,7 +744,6 @@
         });
     }
     function attendClass(reservation_id, button){
-        console.log('attendClass');
         $.ajax({
             url: 'attendClass',
             type: 'POST',
@@ -750,9 +757,10 @@
             success: function(result) {
                 $.LoadingOverlay("hide");
                 if (result.status == "OK") {
-                    console.log(result.status);
                     $('.modal-backdrop').remove();
                     $('.active-menu').trigger('click');
+                    showClients(id);
+                    console.log('attendClass: ' + id);
                     Swal.fire({
                         title: 'Asistencia registrada',
                         text: result.message,
@@ -800,7 +808,6 @@
             success: function(result) {
                 $.LoadingOverlay("hide");
                 if (result.status == "OK") {
-                    console.log(result.status);
                     $('.modal-backdrop').remove();
                     $('.active-menu').trigger('click');
                     Swal.fire({
@@ -835,7 +842,6 @@
     }
 
     function selectedClientAssist(user_id){
-        console.log("entró a claim");
         $(this).prop("disabled", true)
         event.preventDefault();
         var bike = $('#bikesSelect').val();
