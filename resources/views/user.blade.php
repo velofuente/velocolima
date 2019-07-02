@@ -167,61 +167,64 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($bookedClasses as $bookedClass)
-                                                            <tr>
-                                                                <td>{{ date('d-M-Y', strtotime($bookedClass->schedule->day)) }}</td>
-                                                                <td>{{ date('h:i A', strtotime($bookedClass->schedule->hour)) }}</td>
-                                                                @switch($bookedClass->bike)
-                                                                    @case(2)
-                                                                        <td>1</td>
-                                                                        @break
-                                                                    @case(10)
-                                                                        <td>2</td>
-                                                                        @break
-                                                                    @case(12)
-                                                                        <td>3</td>
-                                                                        @break
-                                                                    @case(14)
-                                                                        <td>4</td>
-                                                                        @break
-                                                                    @case(20)
-                                                                        <td>5</td>
-                                                                        @break
-                                                                    @case(22)
-                                                                        <td>6</td>
-                                                                        @break
-                                                                    @case(24)
-                                                                        <td>7</td>
-                                                                        @break
-                                                                    @case(26)
-                                                                        <td>8</td>
-                                                                        @break
-                                                                    @case(30)
-                                                                        <td>9</td>
-                                                                        @break
-                                                                    @case(32)
-                                                                        <td>10</td>
-                                                                        @break
-                                                                    @case(36)
-                                                                        <td>11</td>
-                                                                        @break
-                                                                    @case(38)
-                                                                        <td>12</td>
-                                                                        @break
-                                                                    @case(40)
-                                                                        <td>13</td>
-                                                                        @break
-                                                                    @case(42)
-                                                                        <td>14</td>
-                                                                        @break
-                                                                    @default
-                                                                        <td>14</td>
-                                                                @endswitch
-                                                                {{-- <td>{{ $bookedClass->bike }}</td> --}}
-                                                                @if($bookedClass->status == 'active')
-                                                                    <td>Activo</td>
-                                                                @endif
-                                                                <td><button type="button" id="cancelClass-{{$bookedClass->id}}" class="btn btn-danger cancelClass">Cancelar</button></td>
-                                                            </tr>
+                                                            {{-- {{dd(date('d-M-Y', strtotime($bookedClass->schedule->day)) >= date('d-M-Y', strtotime(NOW())))}} --}}
+                                                            @if(date('d-M-Y', strtotime($bookedClass->schedule->day)) <= date('d-M-Y', strtotime(NOW())) )
+                                                                <tr>
+                                                                    <td>{{ date('d-M-Y', strtotime($bookedClass->schedule->day)) }}</td>
+                                                                    <td>{{ date('h:i A', strtotime($bookedClass->schedule->hour)) }}</td>
+                                                                    @switch($bookedClass->bike)
+                                                                        @case(2)
+                                                                            <td>1</td>
+                                                                            @break
+                                                                        @case(10)
+                                                                            <td>2</td>
+                                                                            @break
+                                                                        @case(12)
+                                                                            <td>3</td>
+                                                                            @break
+                                                                        @case(14)
+                                                                            <td>4</td>
+                                                                            @break
+                                                                        @case(20)
+                                                                            <td>5</td>
+                                                                            @break
+                                                                        @case(22)
+                                                                            <td>6</td>
+                                                                            @break
+                                                                        @case(24)
+                                                                            <td>7</td>
+                                                                            @break
+                                                                        @case(26)
+                                                                            <td>8</td>
+                                                                            @break
+                                                                        @case(30)
+                                                                            <td>9</td>
+                                                                            @break
+                                                                        @case(32)
+                                                                            <td>10</td>
+                                                                            @break
+                                                                        @case(36)
+                                                                            <td>11</td>
+                                                                            @break
+                                                                        @case(38)
+                                                                            <td>12</td>
+                                                                            @break
+                                                                        @case(40)
+                                                                            <td>13</td>
+                                                                            @break
+                                                                        @case(42)
+                                                                            <td>14</td>
+                                                                            @break
+                                                                        @default
+                                                                            <td>14</td>
+                                                                    @endswitch
+                                                                    {{-- <td>{{ $bookedClass->bike }}</td> --}}
+                                                                    @if($bookedClass->status == 'active')
+                                                                        <td>Activo</td>
+                                                                    @endif
+                                                                    <td><button type="button" id="cancelClass-{{$bookedClass->id}}" class="btn btn-danger cancelClass">Cancelar</button></td>
+                                                                </tr>
+                                                            @endif
                                                         @endforeach
                                                     </tbody>
                                                 </table>
