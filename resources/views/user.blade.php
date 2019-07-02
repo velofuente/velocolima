@@ -167,12 +167,10 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($bookedClasses as $bookedClass)
-                                                            {{-- {{dd(date('d-M-Y', strtotime($bookedClass->schedule->day)) >= date('d-M-Y', strtotime(NOW())))}} --}}
-                                                            {{-- @if(date('d-M-Y', strtotime($bookedClass->schedule->day)) >= date('d-M-Y', strtotime(NOW())) ) --}}
-                                                            @if( date('Y',strtotime($bookedClass->schedule->day)) >= date('Y', strtotime(now())) )
-                                                                @if( date('m',strtotime($bookedClass->schedule->day)) >= date('m', strtotime(now())) )
-                                                                    @if( date('d',strtotime($bookedClass->schedule->day)) >= date('d', strtotime(now())) )
-                                                                        @if ($bookedClass->schedule->hour  >= date('H:i:s'))
+                                                            {{-- @if( date('Y',strtotime($bookedClass->schedule->day)) >= date('Y', strtotime(now())) )
+                                                                @if( date('m',strtotime($bookedClass->schedule->day)) >= date('m', strtotime(now())) ) --}}
+                                                                    @if( \Carbon\Carbon::parse($bookedClass->schedule->day)->gte( now()->format('Y-m-d')) )
+                                                                        @if (  \Carbon\Carbon::parse($bookedClass->schedule->hour)->gte( now()->format('H:i:s'))  )
                                                                             <tr>
                                                                                 <td>{{ date('d-M-Y', strtotime($bookedClass->schedule->day)) }}</td>
                                                                                 <td>{{ date('h:i A', strtotime($bookedClass->schedule->hour)) }}</td>
@@ -230,8 +228,8 @@
                                                                             </tr>
                                                                         @endif
                                                                     @endif
-                                                                @endif
-                                                            @endif
+                                                                {{-- @endif
+                                                            @endif --}}
                                                         @endforeach
                                                     </tbody>
                                                 </table>
