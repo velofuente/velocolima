@@ -182,7 +182,6 @@ class OpenPayController extends Controller
         $merchantId = env("OPENPAY_ID", '');
         // $apiUrl = "https://{$key}@sandbox-api.openpay.mx/v1/{$merchantId}/tokens/{$tokenId}";
         $apiUrl = "https://{$key}@api.openpay.mx/v1/{$merchantId}/tokens/{$tokenId}";
-        log::info($apiUrl);
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

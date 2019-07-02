@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Card;
 use Illuminate\Support\Facades\DB;
+use Log;
 
 class CardController extends Controller
 {
