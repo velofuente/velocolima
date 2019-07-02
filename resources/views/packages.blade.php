@@ -57,6 +57,7 @@
                 @endphp
             @endif
         @endforeach
+
         @foreach ($products as $product)
             @if ($product != $products{0} && $product->type != "Deals" && $product->status == 1)
                 {{-- <div class="content-normal pickClass" style=" margin-left: 10px; min-width: 190px !important; min-height: 280px !important;" id="prod-{{$product->id}}"> --}}
@@ -89,7 +90,6 @@
                 @endphp
             @endif
         @endforeach
-
         <!-- LogIn Modal -->
         @guest
         <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalTitle" aria-hidden="true">
