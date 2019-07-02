@@ -168,9 +168,10 @@
                                                     <tbody>
                                                         @foreach ($bookedClasses as $bookedClass)
                                                             {{-- {{dd(date('d-M-Y', strtotime($bookedClass->schedule->day)) >= date('d-M-Y', strtotime(NOW())))}} --}}
-                                                            @if(date('d-M-Y', strtotime($bookedClass->schedule->day)) >= date('d-M-Y', strtotime(NOW())) )
+                                                            {{-- @if(date('d-M-Y', strtotime($bookedClass->schedule->day)) >= date('d-M-Y', strtotime(NOW())) ) --}}
+                                                            @if( date('Y',strtotime($bookedClass->schedule->day)) >= date('Y', strtotime(now())) )
                                                                 @if( date('m',strtotime($bookedClass->schedule->day)) >= date('m', strtotime(now())) )
-                                                                    @if( date('Y',strtotime($bookedClass->schedule->day)) >= date('Y', strtotime(now())) )
+                                                                    @if( date('d',strtotime($bookedClass->schedule->day)) >= date('d', strtotime(now())) )
                                                                         @if ($bookedClass->schedule->hour  >= date('H:i:s'))
                                                                             <tr>
                                                                                 <td>{{ date('d-M-Y', strtotime($bookedClass->schedule->day)) }}</td>
