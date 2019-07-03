@@ -43,17 +43,29 @@
             <div class="modal-body">
                 @csrf
                     <div class="form-group row mb-3">
-                        {{-- <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div> --}}
                         @foreach ($products as $product)
-                        @if ($product->price != 0)
-                        <div class="col-4 col-xs-4 col-sm-4 col-md-4 my-3 productList">
-                            <a href="javascript:makeSaleUser({{$product->id}})">
-                                Clases: {{$product->n_classes}} <br />
-                                Precio: ${{$product->price}} <br />
-                                Vigencia: {{$product->expiration_days}} días <br />
-                            </a>
-                        </div>
-                        @endif
+                        {{-- <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div> --}}
+                            @if ($product->price != 0 && $product->type == "Deals")
+                                <div class="col-4 col-xs-4 col-sm-4 col-md-4 my-3 productList">
+                                    <a href="javascript:makeSaleUser({{$product->id}})">
+                                        {{$product->description}} <br />
+                                        Clases: {{$product->n_classes}} <br />
+                                        Precio: ${{$product->price}} <br />
+                                        Vigencia: {{$product->expiration_days}} días <br />
+                                    </a>
+                                </div>
+                            @endif
+                        @endforeach
+                        @foreach ($products as $product)
+                            @if ($product->price != 0 && $product->type == "Packages")
+                                <div class="col-4 col-xs-4 col-sm-4 col-md-4 my-3 productList">
+                                    <a href="javascript:makeSaleUser({{$product->id}})">
+                                        Clases: {{$product->n_classes}} <br />
+                                        Precio: ${{$product->price}} <br />
+                                        Vigencia: {{$product->expiration_days}} días <br />
+                                    </a>
+                                </div>
+                            @endif
                         @endforeach
                         {{-- <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div> --}}
                     </div>

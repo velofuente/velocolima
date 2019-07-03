@@ -263,7 +263,7 @@
             $('#gender').val(genderOldValue);
             }
 
-
+            $('input[fecha=active]').attr('placeholder', 'aaaa/mm/dd')
             $('input[fecha=active]').on('click', function(event) {
                 $('input[fecha=active]').datepicker({
                     dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
