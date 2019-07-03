@@ -30,7 +30,8 @@ class AdminController extends Controller
 
     public function showSchedules(){
         // $schedules = Schedule::all()->sortByDesc('day');
-        $schedules = Schedule::all();
+        // $schedules = Schedule::all();
+        $schedules = Schedule::orderBy('day')->orderBy('hour')->get();
         $instructors = Instructor::all();
         $branches = Branch::all();
         return view('/admin-schedules', compact ('schedules','instructors','branches'));
@@ -199,7 +200,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Instructor agregado con exito",
+            'message' => "Instructor agregado con éxito",
         ]);
     }
     public function editInstructor(Request $request){
@@ -215,7 +216,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Instructor editado con exito",
+            'message' => "Instructor editado con éxito",
         ]);
     }
     public function deleteInstructor(Request $request){
@@ -225,7 +226,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Instructor eliminado con exito",
+            'message' => "Instructor eliminado con éxito",
         ]);
     }
 
@@ -264,7 +265,7 @@ class AdminController extends Controller
             DB::commit();
             return response()->json([
                 'status' => 'OK',
-                'message' => "Horario agregado con exito",
+                'message' => "Horario agregado con éxito",
             ]);
         }
     }
@@ -286,7 +287,7 @@ class AdminController extends Controller
             DB::commit();
             return response()->json([
                 'status' => 'OK',
-                'message' => "Horario editado con exito",
+                'message' => "Horario editado con éxito",
             ]);
         }
     }
@@ -297,7 +298,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Horario eliminado con exito",
+            'message' => "Horario eliminado con éxito",
         ]);
     }
     public function addBranch(Request $request){
@@ -316,7 +317,7 @@ class AdminController extends Controller
         // DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Sucursal agregado con exito",
+            'message' => "Sucursal agregado con éxito",
         ]);
     }
     public function editBranch(Request $request){
@@ -333,7 +334,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Sucursal editado con exito",
+            'message' => "Sucursal editado con éxito",
         ]);
     }
     public function deleteBranch(Request $request){
@@ -343,7 +344,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Sucursal eliminado con exito",
+            'message' => "Sucursal eliminado con éxito",
         ]);
     }
     public function configGridBikes($disabledBikes, $instructorBikes, $branch){
@@ -379,7 +380,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Producto agregado con exito",
+            'message' => "Producto agregado con éxito",
         ]);
     }
     public function editProduct(Request $request){
@@ -395,7 +396,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Producto editado con exito",
+            'message' => "Producto editado con éxito",
         ]);
     }
     public function deleteProduct(Request $request){
@@ -405,7 +406,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Producto eliminado con exito",
+            'message' => "Producto eliminado con éxito",
         ]);
     }
     public function addUser(Request $request){
@@ -452,7 +453,7 @@ class AdminController extends Controller
         log::info('entra después del DB::commit()');
         return response()->json([
             'status' => 'OK',
-            'message' => "Usuario agregado con exito",
+            'message' => "Usuario agregado con éxito",
         ]);
     }
     public function editUser(Request $request){
@@ -467,7 +468,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Usuario editado con exito",
+            'message' => "Usuario editado con éxito",
         ]);
     }
     public function deleteUser(Request $request){
@@ -477,7 +478,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Usuario eliminado con exito",
+            'message' => "Usuario eliminado con éxito",
         ]);
     }
     public function sale(Request $request){
@@ -499,7 +500,7 @@ class AdminController extends Controller
             DB::commit();
             return response()->json([
                 'status' => 'OK',
-                'message' => "Venta realizada con exito",
+                'message' => "Venta realizada con éxito",
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -538,7 +539,7 @@ class AdminController extends Controller
         DB::commit();
         return response()->json([
             'status' => 'OK',
-            'message' => "Cliente registrado con exito",
+            'message' => "Cliente registrado con éxito",
         ]);
     }
 }

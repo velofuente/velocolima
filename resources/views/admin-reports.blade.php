@@ -11,7 +11,7 @@
 
 {{-- Table  --}}
 @if (count($sales) > 0)
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover" style="margin: 0 0">
         <thead style="font-size: 1em;">
             <tr style="font-size: 1em;">
                 <th scope="col">ID</th>

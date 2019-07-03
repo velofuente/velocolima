@@ -14,7 +14,7 @@ class MailSendingController extends Controller
             \Mail::to('rueda@velocycling.mx')->send(new CoachInfo($request->name,$request->email,$request->phone,$request->instagram));
             return response()->json([
                 'status' => 'OK',
-                'message' => "Informacion enviada con exito!",
+                'message' => "Informacion enviada con éxito!",
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -29,7 +29,7 @@ class MailSendingController extends Controller
             \Mail::to($user_email)->send(new walkInRegister($user_name, $user_email, $user_password));
             return response()->json([
                 'status' => 'OK',
-                'message' => "Informacion enviada con exito!",
+                'message' => "Informacion enviada con éxito!",
             ]);
         } catch (\Exception $e) {
             return response()->json([

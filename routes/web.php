@@ -97,7 +97,6 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
     Route::post('deleteInstructor', 'AdminController@deleteInstructor');
     //Horario
     Route::post('addSchedule', 'AdminController@addSchedule');
-    Route::post('repeatedSchedue', 'AdminController@repeatedSchedule');
     Route::post('editSchedule', 'AdminController@editSchedule');
     Route::post('deleteSchedule', 'AdminController@deleteSchedule');
     //Lugar
