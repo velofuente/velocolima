@@ -228,41 +228,67 @@ class AdminController extends Controller
             'message' => "Instructor eliminado con exito",
         ]);
     }
+
+    public function repeatedSchedule(Request $request){
+        $schedule = Schedule::select('*')->where('day', $request->day)->where('hour', $request->hour)->first();
+        return response()->json([
+            'status' => 'Error',
+            'message' => 'Ya existe un horario con esa fecha y hora',
+        ]);
+    }
+
     public function addSchedule(Request $request){
         $availability_x = Branch::select('reserv_lim_x')->where('id', $request->branch_id)->first();
         $availability_y = Branch::select('reserv_lim_y')->where('id', $request->branch_id)->first();
         $instructorBikes = Tool::where("branch_id", $request->branch_id)->where("type", "instructor")->get();
         $disabledBikes = Tool::where("branch_id", $request->branch_id)->where("type", "disabled")->get();
         $availability = $availability_x->reserv_lim_x * $availability_y->reserv_lim_y - ($disabledBikes->count() + $instructorBikes->count());
-        DB::beginTransaction();
-        Schedule::create([
-            'day' => $request->day,
-            'hour' => $request->hour,
-            'instructor_id' => $request->instructor_id,
-            'class_id' => 1,
-            'room_id' => 1,
-            'branch_id' => $request->branch_id,
-            'reservation_limit' => $availability,
-        ]);
-        DB::commit();
-        return response()->json([
-            'status' => 'OK',
-            'message' => "Horario agregado con exito",
-        ]);
+
+        $schedule = Schedule::select('*')->where('day', $request->day)->where('hour', $request->hour)->first();
+        if($schedule){
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'Ya existe un horario con esa fecha y hora',
+            ]);
+        } else {
+            DB::beginTransaction();
+            Schedule::create([
+                'day' => $request->day,
+                'hour' => $request->hour,
+                'instructor_id' => $request->instructor_id,
+                'class_id' => 1,
+                'room_id' => 1,
+                'branch_id' => $request->branch_id,
+                'reservation_limit' => $availability,
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => 'OK',
+                'message' => "Horario agregado con exito",
+            ]);
+        }
     }
     public function editSchedule(Request $request){
-        DB::beginTransaction();
-        $Schedule = Schedule::find($request->schedule_id);
-        $Schedule->day = $request->day;
-        $Schedule->hour = $request->hour;
-        $Schedule->instructor_id = $request->instructor_id;
-        $Schedule->branch_id = $request->branch_id;
-        $Schedule->save();
-        DB::commit();
-        return response()->json([
-            'status' => 'OK',
-            'message' => "Horario editado con exito",
-        ]);
+        $schedule = Schedule::select('*')->where('day', $request->day)->where('hour', $request->hour)->first();
+        if($schedule){
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'Ya existe un horario con esa fecha y hora',
+            ]);
+        } else {
+            DB::beginTransaction();
+            $Schedule = Schedule::find($request->schedule_id);
+            $Schedule->day = $request->day;
+            $Schedule->hour = $request->hour;
+            $Schedule->instructor_id = $request->instructor_id;
+            $Schedule->branch_id = $request->branch_id;
+            $Schedule->save();
+            DB::commit();
+            return response()->json([
+                'status' => 'OK',
+                'message' => "Horario editado con exito",
+            ]);
+        }
     }
     public function deleteSchedule(Request $request){
         DB::beginTransaction();
