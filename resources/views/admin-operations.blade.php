@@ -131,7 +131,7 @@
                                 <td> {{$userSchedule->user->phone}} </td>
                                 <td>{{$userSchedule->schedule_id}}</td>
                                 @if($userSchedule->status != 'taken')
-                                    <td><button class="btn btn-success btn-sm userAssist" id="userAssist-{{ $userSchedule->id }}" value="{{$userSchedule->id}}" data-id="{{$userSchedule->id}}">Asistencia</button></td>
+                                    <td class="assistButton" id="assistButton-{{ $userSchedule->id }}"><button class="btn btn-success btn-sm userAssist" id="userAssist-{{ $userSchedule->id }}" value="{{$userSchedule->id}}" data-id="{{$userSchedule->id}}">Asistencia</button></td>
                                 @else
                                     <td>Asistió</td>
                                 @endif
@@ -437,6 +437,8 @@
             $(activeDropdownSchedule).removeClass('active');
             $(this).addClass('active');
             activeDropdownSchedule = this;
+
+            previousSchedule = this;
         });
 
         // Cols = HTMLTableElement
@@ -547,6 +549,20 @@
         getNonScheduledUsers(schedule_id);
     }
 
+    function selectedClientAssist(user_id){
+        $(this).prop("disabled", true)
+        event.preventDefault();
+        var bike = $('#bikesSelect').val();
+        //Get Full ID of the button (which contains the instructor ID)
+        var fullId = this.id;
+        //Split the ID of the fullId by his dash
+        if(user_id > 0){
+            claimClass(schedule_id,bike,user_id, this);
+        } else {
+            $(this).prop("disabled", false);
+        }
+    }
+
     //AJAX Get Non Scheduled Users
     function getNonScheduledUsers(id){
         $.ajax({
@@ -598,6 +614,7 @@
             },
             success: function(response) {
                 $('#bikesSelect').empty();
+                $('#opRegBike').empty();
                 $.each(response, function(index, value){
                     // $('#opRegBike').append('<option value="'+value+'">'+value+'</option>');
                     // $('#bikesSelect').append('<option value="'+value+'">'+value+'</option>');
@@ -757,10 +774,12 @@
             success: function(result) {
                 $.LoadingOverlay("hide");
                 if (result.status == "OK") {
-                    $('.modal-backdrop').remove();
-                    $('.active-menu').trigger('click');
+                    // $('.modal-backdrop').remove();
+                    // $('.active-menu').trigger('click');
+                    $('.active').click();
+                    $('#userAssist-' + reservation_id).remove();
+                    $('#assistButton-' + reservation_id).html('Asistió');
                     showClients(id);
-                    console.log('attendClass: ' + id);
                     Swal.fire({
                         title: 'Asistencia registrada',
                         text: result.message,
@@ -810,8 +829,11 @@
                 if (result.status == "OK") {
                     $('.modal-backdrop').remove();
                     $('.active-menu').trigger('click');
+                    $('.active').click();
+                    // $(activeDropdownSchedule).removeClass('active');
+                    // $(activeDropdownSchedule).click();
                     Swal.fire({
-                        title: 'Asistencia registrada',
+                        title: 'Asignado con éxito',
                         text: result.message,
                         type: 'success',
                         confirmButtonText: 'Aceptar'
@@ -839,19 +861,5 @@
                 // alert(result);
             }
         });
-    }
-
-    function selectedClientAssist(user_id){
-        $(this).prop("disabled", true)
-        event.preventDefault();
-        var bike = $('#bikesSelect').val();
-        //Get Full ID of the button (which contains the instructor ID)
-        var fullId = this.id;
-        //Split the ID of the fullId by his dash
-        if(user_id > 0){
-            claimClass(schedule_id,bike,user_id, this);
-        } else {
-            $(this).prop("disabled", false);
-        }
     }
 </script>

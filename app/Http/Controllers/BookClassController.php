@@ -120,7 +120,7 @@ class BookClassController extends Controller
                 DB::commit();
                 return response()->json([
                     'status' => 'OK',
-                    'message' => "Lugar cambiado con exito",
+                    'message' => "Lugar cambiado con éxito",
                 ]);
             } else{
                 return response()->json([
@@ -142,7 +142,7 @@ class BookClassController extends Controller
             $purchase->save();
             return response()->json([
                 'status' => 'OK',
-                'message' => "Clase cancelada con exito",
+                'message' => "Clase cancelada con éxito",
             ]);
         }else{
             return response()->json([
@@ -173,7 +173,7 @@ class BookClassController extends Controller
             $requestedClass->save();
             return response()->json([
                 'status' => 'OK',
-                'message' => "Asistencia registrada con exito",
+                'message' => "Asistencia registrada con éxito",
             ]);
         }else{
             return response()->json([

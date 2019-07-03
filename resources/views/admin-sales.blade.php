@@ -11,7 +11,7 @@
 </div>
 
 {{-- User's Table --}}
-<table class="table table-striped table-hover table-bordered">
+<table class="table table-striped table-hover table-bordered" style="margin: 0 0">
     <thead style="font-size: 1em;">
         <tr style="font-size: 1em;">
             <th scope="col">ID</th>
