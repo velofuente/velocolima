@@ -154,13 +154,28 @@
         var branch = null;
 
         if ( $('[type="date"]').prop('type') != 'date' ) {
+            $('[type="date"]').attr('placeholder', 'yyyy-mm-dd')
             $('[type="date"]').datepicker({
+                // showButtonPanel: true,
+                dateFormat: 'yy/mm/dd',
+                dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+                dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+                dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+                monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                currentText: "Hoy",
                 changeMonth: true,
                 changeYear: true,
-                // yearRange: '1920:2013',
+                yearRange: '1920:2019',
                 dateFormat: 'yy-mm-dd',
-                // showButtonPanel: true,
+                onSelect: function(dateText, inst) {
+                    $(inst).val(dateText); // Write the value in the input
+                }
             });
+        }
+
+        if ( $('[type="time"]').prop('type') != 'time' ) {
+            $('[type="time"]').attr('placeholder', '23:00')
         }
 
         $('#addScheduleButton').on('click', function(event) {

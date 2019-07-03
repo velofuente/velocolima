@@ -235,6 +235,30 @@
         $('#registerClientButton').on('click', function(){
             register();
         });
+
+        if ( $('[type="date"]').prop('type') != 'date' ) {
+            $('[type="date"]').attr('placeholder', 'yyyy-mm-dd')
+            // Use datepicker on the date inputs
+            $("input[type=date]").datepicker({
+                dateFormat: 'yy/mm/dd',
+                dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+                dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+                dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+                monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                currentText: "Hoy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1920:2019',
+                onSelect: function(dateText, inst) {
+                    $(inst).val(dateText); // Write the value in the input
+                }
+            });
+            // Code below to avoid the classic date-picker
+            // $("input[type=date]").on('click', function() {
+            // return false;
+            // });
+        }
     });
     // AJAX Register New User
     function register(){

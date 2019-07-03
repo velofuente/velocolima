@@ -77,6 +77,7 @@
                                     <input type="date" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" min="1900-01-01" max="2100-12-31" name="birth_date" value="{{ Auth::user()->birth_date }}">
                                     <input type="number" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="phone" min="0" value="{{ Auth::user()->phone }}">
                                     <input type="number" step=".1" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="shoe_size" value="{{ Auth::user()->shoe_size }}">
+                                    {{-- {{dd(Auth::user())}} --}}
                                 </div>
                                 <button type="submit" class="btn d-block mx-auto mb-4 gradient_button" role="button">Guardar Datos</button>
                             </form>
@@ -169,8 +170,12 @@
                                                         @foreach ($bookedClasses as $bookedClass)
                                                             {{-- @if( date('Y',strtotime($bookedClass->schedule->day)) >= date('Y', strtotime(now())) )
                                                                 @if( date('m',strtotime($bookedClass->schedule->day)) >= date('m', strtotime(now())) ) --}}
-                                                                    @if( \Carbon\Carbon::parse($bookedClass->schedule->day)->gte( now()->format('Y-m-d')) )
-                                                                        @if (  \Carbon\Carbon::parse($bookedClass->schedule->hour)->gte( now()->format('H:i:s'))  )
+                                                                    {{-- @if( \Carbon\Carbon::parse($bookedClass->schedule->day)->gte( now()->format('Y-m-d')) ) --}}
+                                                                        {{-- @if (  \Carbon\Carbon::parse($bookedClass->schedule->hour)->gte( now()->format('H:i:s'))  ) --}}
+                                                                        @php
+                                                                            $scheduleFullDate = $bookedClass->schedule->day . ' ' . $bookedClass->schedule->hour
+                                                                        @endphp
+                                                                        @if ( \Carbon\Carbon::parse($scheduleFullDate)->gte( now()->format('Y-m-d H:i:s')) )
                                                                             <tr>
                                                                                 <td>{{ date('d-M-Y', strtotime($bookedClass->schedule->day)) }}</td>
                                                                                 <td>{{ date('h:i A', strtotime($bookedClass->schedule->hour)) }}</td>
@@ -227,7 +232,7 @@
                                                                                 <td><button type="button" id="cancelClass-{{$bookedClass->id}}" class="btn btn-danger cancelClass">Cancelar</button></td>
                                                                             </tr>
                                                                         @endif
-                                                                    @endif
+                                                                    {{-- @endif --}}
                                                                 {{-- @endif
                                                             @endif --}}
                                                         @endforeach
@@ -649,11 +654,20 @@
         // // Jquery UI DatePicker (Safari)
         if ( $('[type="date"]').prop('type') != 'date' ) {
             $('[type="date"]').datepicker({
+                // showButtonPanel: true,
+                dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+                dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+                dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+                monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                currentText: "Hoy",
                 changeMonth: true,
                 changeYear: true,
                 yearRange: '1920:2019',
                 dateFormat: 'yy-mm-dd',
-                // showButtonPanel: true,
+                onSelect: function(dateText, inst) {
+                    $(inst).val(dateText); // Write the value in the input
+                }
             });
         }
     </script>
