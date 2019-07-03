@@ -301,10 +301,11 @@
                         })
                     } else {
                         $.LoadingOverlay('hide');
+                        $('#addScheduleButton').prop('disabled', false);
                         Swal.fire({
-                            title: 'Woops!',
+                            title: 'Error',
                             text: result.message,
-                            type: 'error',
+                            type: 'warning',
                             confirmButtonText: 'Aceptar'
                         })
                     }
@@ -346,6 +347,7 @@
                     }
                     else {
                         $.LoadingOverlay("hide");
+                        $('#editScheduleButton').prop('disabled', false);
                         Swal.fire({
                             title: 'Error',
                             text: result.message,
