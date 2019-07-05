@@ -107,7 +107,7 @@
         @yield('extraScripts')
 
         @php
-            $alertTitle = "Woops!";
+            $alertTitle = "Error";
             $alertMessage = "Ocurrió un error.";
             $alertType = "error";
             $alertButton = "Aceptar";

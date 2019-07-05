@@ -99,6 +99,9 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
     Route::post('addSchedule', 'AdminController@addSchedule');
     Route::post('editSchedule', 'AdminController@editSchedule');
     Route::post('deleteSchedule', 'AdminController@deleteSchedule');
+    Route::get('getNextClasses', 'AdminController@getNextClasses');
+    Route::get('getPreviousClasses', 'AdminController@getPreviousClasses');
+    Route::post('scheduledReservedPlaces', 'AdminController@scheduledReservedPlaces');
     //Lugar
     Route::post('addBranch', 'AdminController@addBranch');
     Route::post('editBranch', 'AdminController@editBranch');

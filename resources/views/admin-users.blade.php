@@ -100,7 +100,7 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
                     {{-- User's Password --}}
-                    <div class="form-group row mb-3">
+                    {{-- <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="password" class="mr-sm-2">Contraseña:</label>
@@ -112,16 +112,16 @@
                             @endif
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                    </div>
+                    </div> --}}
                     {{-- User's Password Confirmation --}}
-                    <div class="form-group row mb-3">
+                    {{-- <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="password-confirm" class="mr-sm-2">Confirmar contraseña:</label>
                             <input id="password-confirm" placeholder="Confirmar contraseña" minlength="7" type="password" class="form-control" name="password_confirmation" required>
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                    </div>
+                    </div> --}}
                     {{-- User's Birth Date --}}
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -428,7 +428,7 @@
                     name: name,
                     last_name: last_name,
                     email: email,
-                    password: password,
+                    // password: password,
                     birth_date: birth_date,
                     phone: phone,
                     gender: gender

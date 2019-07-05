@@ -19,9 +19,40 @@
     src: url("css/fonts/velo/AvenirNextLTPro-UltLtCnlt.otf") format("opentype");
 }
 
+a.deleteUserCard{
+    text-decoration: none;
+    color: #fff;
+}
+
 a.deleteUserCard:link{
     text-decoration: none;
-    color: #ffffff;
+    color: #fff;
+}
+
+.brandSavedCards{
+    /* width:60px;
+    height:35px; */
+    width:15%;
+    height:10%;
+    min-width: 2.7em;
+    min-height: 1.5em;
+    /* max-width: 2.7em;
+    max-height: 1.5em; */
+    opacity: 0.9;
+}
+
+.userCards{
+    margin: 0.4em 0em;
+    padding: 0px;
+    border-radius: 4%;
+    font-family: 'Avenir Next';
+    /* font-weight: 300; */
+    font-size: 17px;
+}
+
+.userCards:hover{
+    background-color: rgb(37, 37, 37);
+    transition: 0.3s;
 }
 
 body{

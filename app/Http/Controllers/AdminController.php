@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\{Instructor, Schedule, Branch, Product, Tool, User, Purchase, Sale, UserSchedule};
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use DB, Log;
 use PhpParser\Node\Stmt\Return_;
@@ -35,6 +36,32 @@ class AdminController extends Controller
         $instructors = Instructor::all();
         $branches = Branch::all();
         return view('/admin-schedules', compact ('schedules','instructors','branches'));
+    }
+
+    public function getNextClasses(){
+        $schedules = Schedule::with(['instructor', 'branch'])->select("*", DB::RAW("CONCAT(day, ' ', hour) fullDate"))->orderBy('fullDate')->get();
+        $nextSchedules = [];
+        foreach ($schedules as $schedule){
+            if (Carbon::parse($schedule->fullDate)->gte( now()->format('Y-m-d H:i:s')) ){
+                date('d-M-o', strtotime($schedule->day));
+                date('g:i A', strtotime($schedule->hour));
+                $nextSchedules[] = $schedule;
+            }
+        }
+        return $nextSchedules;
+    }
+
+    public function getPreviousClasses(){
+        $schedules = Schedule::with(['instructor', 'branch'])->select("*", DB::RAW("CONCAT(day, ' ', hour) fullDate"))->orderBy('fullDate', 'desc')->get();
+        $previousSchedules = [];
+        foreach ($schedules as $schedule){
+            if (Carbon::parse($schedule->fullDate)->lt( now()->format('Y-m-d H:i:s')) ){
+                date('d-M-o', strtotime($schedule->day));
+                date('g:i A', strtotime($schedule->hour));
+                $previousSchedules[] = $schedule;
+            }
+        }
+        return $previousSchedules;
     }
 
     public function showProducts(){
@@ -157,6 +184,27 @@ class AdminController extends Controller
             if(!in_array($i, $unavailableBikes))
                 if(!in_array($i, $reservedPlaces))
                     array_push($availableBikes, $i);
+        }
+        return $availableBikes;
+    }
+
+    function scheduledReservedPlaces(Request $request){
+        $availableBikes = [];
+        $schedule = Schedule::find($request->schedule_id);
+        log::info('getBikes: '.$schedule);
+        $branch = Branch::find($schedule->branch_id);
+        $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
+        $unavailableBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedule->branch_id)->get()->pluck("position")->toArray());
+        $reservedPlaces = array_map('strval', UserSchedule::where("schedule_id", $schedule->id)->where("status","<>","cancelled")->get()->pluck("bike")->toArray());
+        for ($i=1; $i < $temp; $i++) {
+            if(!in_array($i, $unavailableBikes))
+                if(!in_array($i, $reservedPlaces))
+                    array_push($availableBikes, $i);
+        }
+        if ( count($availableBikes) < 14 ){
+            log::info('clase con reservaciones');
+        } else {
+            log::info('clase con reservaciones');
         }
         return $availableBikes;
     }
@@ -410,8 +458,8 @@ class AdminController extends Controller
         ]);
     }
     public function addUser(Request $request){
+        $password = substr($request->phone, -4);
         DB::beginTransaction();
-        log::info($request->all());
         $user = $request->user();
         // $rules = [
         //     'name' => ['required', 'string', 'max:60'],
@@ -437,12 +485,12 @@ class AdminController extends Controller
         //                 ->withErrors($validator)
         //                 ->withInput();
         // }
-        log::info('Entra después de $validator');
-        User::create([
+        $newUser = User::create([
             'name' => $request->name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            // 'password' => Hash::make($password),
+            'password' => Hash::make('temporal'.$password),
             'birth_date' => $request->birth_date,
             'phone' => $request->phone,
             'gender' => $request->gender,
@@ -450,7 +498,7 @@ class AdminController extends Controller
             'branch_id' => $user->branch_id,
         ]);
         DB::commit();
-        log::info('entra después del DB::commit()');
+        app('App\Http\Controllers\MailSendingController')->walkInRegister($newUser->email,$newUser->name, $password);
         return response()->json([
             'status' => 'OK',
             'message' => "Usuario agregado con éxito",

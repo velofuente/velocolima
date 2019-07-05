@@ -111,8 +111,8 @@ class UserController extends Controller
             'expiration_days' => $product->expiration_days,
         ]);
         $deal->save();
-        Session::flash('alertTitle', "Clase Gratis!");
-        Session::flash('alertMessage', "Gracias por unirte a Vèlo, tu primera clase va por nuestra cuenta!");
+        Session::flash('alertTitle', "Clase gratis");
+        Session::flash('alertMessage', "Gracias por unirte a Vèlo, tu primera clase va por nuestra cuenta");
         Session::flash('alertType', "success");
         // Session::flash('alertButton', "Aceptar");
         Auth::login($user);

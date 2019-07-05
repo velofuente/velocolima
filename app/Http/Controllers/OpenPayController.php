@@ -24,7 +24,11 @@ class OpenPayController extends Controller
         // dd($requestUser);
         $cardCount = Card::where('user_id', $requestUser->id)->count();
         if($cardCount > 3){
-            return "No puedes agregar mas de 3 tarjetas a tu perfil";
+            $message = "No puedes agregar más de 3 tarjetas a tu perfil";
+            return [
+                "status" => "error",
+                "message" => $message
+            ];
         }
         //Validar si el usuario ya existe en OpenPay
         if ($requestUser->customer_id == null){
@@ -38,15 +42,24 @@ class OpenPayController extends Controller
         //Obtener el usuaro de OpenPay
         $cardData = $this->getCardToken($request->token_id);
         if (!isset($cardData->card)) {
-            return "No se encontró la tarjeta ingrasada, pruebe de nuevo ".json_encode($cardData);
+            $message = "No se encontró la tarjeta ingrasada, pruebe de nuevo ";
+            return [
+                "status" => 'error',
+                "message" => $message,
+            ];
         }
         else{
             //TODO: Validar si existe la tarjeta en mi base de datos con los datos obtenidos de getCardToken
+            log::info('existCard');
             $existsCard = DB::table('cards')->where(
                 'card_number', '=', "{$cardData->card->card_number}"
                 )->get();
             if (!isset($existsCard)) {
-                return "La tarjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
+                $message = "La tarjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
+                return [
+                    "status" => "error",
+                    "message" => $message,
+                ];
             }
             else{
                 //TODO: Validar si existe la tarjeta en mi base de datos con los datos obtenidos de getCardToken
@@ -70,7 +83,7 @@ class OpenPayController extends Controller
                         $card = $openPayCustomer->cards->add($cardDataRequest);
                         app('App\Http\Controllers\CardController')->store($cardData,$requestUser->id);
                         DB::commit();
-                        Session::flash('alertTitle', "Tarjeta guardada!");
+                        Session::flash('alertTitle', "Tarjeta guardada");
                         Session::flash('alertMessage', "Tu tarjeta fue guardada exitosamente");
                         Session::flash('alertType', "success");
                         return [
@@ -242,7 +255,7 @@ class OpenPayController extends Controller
             log::info("crea el charge data");
             $charge = $customer->charges->create($chargeData);
             DB::commit();
-            Session::flash('alertTitle', "Compra realizada!");
+            Session::flash('alertTitle', "Compra realizada");
             Session::flash('alertMessage', "Tu compra fue procesada exitosamente");
             Session::flash('alertType', "success");
             // Session::flash('alertButton', "Aceptar");
@@ -353,7 +366,7 @@ class OpenPayController extends Controller
             log::info("crea el charge data");
             $charge = $customer->charges->create($chargeData);
             DB::commit();
-            Session::flash('alertTitle', "Compra realizada!");
+            Session::flash('alertTitle', "Compra realizada");
             Session::flash('alertMessage', "Tu compra fue procesada exitosamente");
             Session::flash('alertType', "success");
             // Session::flash('alertButton', "Aceptar");
