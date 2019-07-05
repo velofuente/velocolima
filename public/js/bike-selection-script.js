@@ -192,7 +192,7 @@ function reservePlace(id, elementBall){
                     }
                 }
                 Swal.fire({
-                    title: 'Woops!',
+                    title: 'Error',
                     text: result.message,
                     type: 'error',
                     confirmButtonText: 'Aceptar'

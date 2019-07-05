@@ -88,7 +88,7 @@ var error_callbak = function(response) {
     globalDataError = response.data.error_code;
     console.log(response.data.error_code);
     Swal.fire({
-        title: 'Woops!',
+        title: 'Error',
         text: errorMessage,
         type: 'error',
         confirmButtonText: 'Aceptar'
@@ -101,7 +101,7 @@ var error_callback = function(response) {
     globalDataError = response.data.error_code;
     console.log(response.data.error_code);
     Swal.fire({
-        title: 'Woops!',
+        title: 'Error',
         text: errorMessage,
         type: 'error',
         confirmButtonText: 'Aceptar'
@@ -211,7 +211,7 @@ function makeCharge(){
                 $.LoadingOverlay("hide");
                 //swal error
                 Swal.fire({
-                    title: 'Woops!',
+                    title: 'Error',
                     text: result.message,
                     type: 'error',
                     confirmButtonText: 'Aceptar'
@@ -256,7 +256,7 @@ function makeChargeSavedCard(){
                 $.LoadingOverlay("hide");
                 //swal error
                 Swal.fire({
-                    title: 'Woops!',
+                    title: 'Error',
                     text: result.message,
                     type: 'error',
                     confirmButtonText: 'Aceptar'

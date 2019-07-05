@@ -384,7 +384,7 @@ $(document).ready(function(){
                 } else {
                     $.LoadingOverlay('hide');
                     Swal.fire({
-                        title: 'Woops!',
+                        title: 'Error',
                         text: result.message,
                         type: 'error',
                         confirmButtonText: 'Aceptar'

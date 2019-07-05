@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB, log;
+use DB;
+use Illuminate\Support\Facades\Log;
 use App\{UserSchedule, UserWaitList, User, Purchase, Tool, Schedule, Product};
 use Illuminate\Support\Facades\Hash;
 use SebastianBergmann\Environment\Console;
@@ -147,7 +148,7 @@ class BookClassController extends Controller
         }else{
             return response()->json([
                 'status' => 'ERROR',
-                'message' => "La clase que quieres cancelar ya ha sido cancelada. Intenta refrescando la pagina.",
+                'message' => "La clase que quieres cancelar ya ha sido cancelada. Intenta refrescando la página.",
             ]);
         }
     }
@@ -268,8 +269,8 @@ class BookClassController extends Controller
             'status' => 'active',
             'changedSit' => 0,
         ]);
-        app('App\Http\Controllers\MailSendingController')->walkInRegister($user->email,$user->name, $password);
         DB::commit();
+        app('App\Http\Controllers\MailSendingController')->walkInRegister($user->email,$user->name, $password);
         return response()->json([
             'status' => 'OK',
             'message' => "Usuario agregado con éxito",

@@ -105,13 +105,41 @@
                         <h5 class="text-center mx-auto pt-2 myclss">Formas de Pago</h5>
 
                         {{-- Print Card --}}
-                        @foreach ($cards as $card)
-                            <div class="text-center text-uppercase" style ="color: #FFF">
-                                 <a class="deleteUserCard" href="javascript:deleteUserCard({{$card->id}})">{{$card->card_number}} {{$card->brand}}</a>
-                            </div>
-                        @endforeach
+                        <div class="text-center text-uppercase">
+                            @foreach ($cards as $card)
+                                @if ($card->brand == "visa")
+                                    <a class="deleteUserCard" href="javascript:deleteUserCard({{$card->id}})">
+                                        <div class="userCards">
+                                            <img class="brandSavedCards" src="/img/iconos/VISA.png" alt="visa">
+                                            <span style="margin-left: 3%">{{ substr($card->card_number, -4) }}</span>
+                                        </div>
+                                    </a>
+                                @elseif ($card->brand == "american_express")
+                                    <a class="deleteUserCard" href="javascript:deleteUserCard({{$card->id}})">
+                                        <div class="userCards">
+                                            <img class="brandSavedCards" src="/img/iconos/AMERICAN.png" alt="express">
+                                            <span style="margin-left: 3%">{{ substr($card->card_number, -4) }}</span>
+                                        </div>
+                                    </a>
+                                @elseif ($card->brand == "mastercard")
+                                    <a class="deleteUserCard" href="javascript:deleteUserCard({{$card->id}})">
+                                        <div class="userCards">
+                                            <img class="brandSavedCards" src="/img/iconos/MASTER.png" alt="mastercard" >
+                                            <span style="margin-left: 3%">{{ substr($card->card_number, -4) }}</span>
+                                        </div>
+                                    </a>
+                                @elseif ($card->brand == "carnet")
+                                    <a class="deleteUserCard" href="javascript:deleteUserCard({{$card->id}})">
+                                        <div class="userCards">
+                                            <img class="brandSavedCards" src="/img/iconos/CARNET.png" alt="carnet" >
+                                            <span style="margin-left: 3%">{{ substr($card->card_number, -4) }}</span>
+                                        </div>
+                                    </a>
+                                @endif
+                            @endforeach
+                        </div>
                         {{-- End Print Card --}}
-                        <a class="btn bg-white text-dark text-center mb-2 mt-2 w-75 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></a>
+                        <a class="btn bg-white text-dark text-center mb-2 mt-3 w-75 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></a>
                     </div>
                 </div>
                 {{-- Classes Buttons --}}

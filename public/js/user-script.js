@@ -38,7 +38,7 @@ $(document).ready(function() {
         var errorMessage = getErrorCodeOP(response.data.error_code);
         console.log(errorMessage);
         Swal.fire({
-            title: 'Woops!',
+            title: 'Error',
             text: errorMessage,
             type: 'error',
             confirmButtonText: 'Aceptar'
@@ -115,7 +115,7 @@ $(document).ready(function() {
                     $.LoadingOverlay("hide");
                     //swal error
                     Swal.fire({
-                        title: 'Woops!',
+                        title: 'Error',
                         // text: result.message,
                         text: result.message,
                         type: 'error',
