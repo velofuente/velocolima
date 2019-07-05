@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\{Instructor, Schedule, Branch, Product, Tool, User, Purchase, Sale, UserSchedule};
 use Carbon\Carbon;
+use App\Traits\GeneralTrait;
 use Illuminate\Support\Facades\Validator;
 use DB, Log;
 use PhpParser\Node\Stmt\Return_;
@@ -13,6 +14,7 @@ use PhpParser\Node\Stmt\Return_;
 
 class AdminController extends Controller
 {
+    use GeneralTrait;
     // use UploadTrait;
 
     public function index()
@@ -40,12 +42,29 @@ class AdminController extends Controller
 
     public function getNextClasses(){
         $schedules = Schedule::with(['instructor', 'branch'])->select("*", DB::RAW("CONCAT(day, ' ', hour) fullDate"))->orderBy('fullDate')->get();
-        $nextSchedules = [];
+        $reservedPlaces = [];
         foreach ($schedules as $schedule){
             if (Carbon::parse($schedule->fullDate)->gte( now()->format('Y-m-d H:i:s')) ){
-                date('d-M-o', strtotime($schedule->day));
-                date('g:i A', strtotime($schedule->hour));
-                $nextSchedules[] = $schedule;
+                $availableBikes = [];
+                $branch = Branch::find($schedule->branch_id);
+                $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
+                $unavailableBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedule->branch_id)->get()->pluck("position")->toArray());
+                $reservedPlaces = array_map('strval', UserSchedule::where("schedule_id", $schedule->id)->where("status","<>","cancelled")->get()->pluck("bike")->toArray());
+                for ($i=1; $i < $temp; $i++) {
+                    if(!in_array($i, $unavailableBikes) &&  !in_array($i, $reservedPlaces))
+                        // if(!in_array($i, $reservedPlaces))
+                        array_push($availableBikes, $i);
+                }
+
+                $formatDay = date('d M o', strtotime($schedule->day));
+                $formatHour = date('g:i A', strtotime($schedule->hour));
+                $nextSchedules[] = [
+                    'formatDay' => $formatDay,
+                    'formatHour' => $formatHour,
+                    'object' => $schedule,
+                    'availableBikes' => count($availableBikes),
+                    'reservedBikes' => count($reservedPlaces),
+                ];
             }
         }
         return $nextSchedules;
@@ -56,9 +75,27 @@ class AdminController extends Controller
         $previousSchedules = [];
         foreach ($schedules as $schedule){
             if (Carbon::parse($schedule->fullDate)->lt( now()->format('Y-m-d H:i:s')) ){
-                date('d-M-o', strtotime($schedule->day));
-                date('g:i A', strtotime($schedule->hour));
-                $previousSchedules[] = $schedule;
+
+                $availableBikes = [];
+                $branch = Branch::find($schedule->branch_id);
+                $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
+                $unavailableBikes = array_map('strval', Tool::select('position')->where('branch_id', $schedule->branch_id)->get()->pluck('position')->toArray());
+                $reservedPlaces = array_map('strval',UserSchedule::where("schedule_id", $schedule->id)->where('status','<>','cancelled')->get()->pluck('bike')->toArray());
+                for($i=1; $i < $temp; $i++){
+                    if(!in_array($i, $unavailableBikes) && !in_array($i, $reservedPlaces))
+                        // if(!in_array($i, $reservedPlaces))
+                        array_push($availableBikes, $i);
+                }
+
+                $formatDay = date('d M o', strtotime($schedule->day));
+                $formatHour = date('g:i A', strtotime($schedule->hour));
+                $previousSchedules[] = [
+                    'formatDay' => $formatDay,
+                    'formatHour' => $formatHour,
+                    'object' => $schedule,
+                    'availableBikes' => count($availableBikes),
+                    'reservedBikes' => count($reservedPlaces),
+                ];
             }
         }
         return $previousSchedules;
@@ -191,7 +228,6 @@ class AdminController extends Controller
     function scheduledReservedPlaces(Request $request){
         $availableBikes = [];
         $schedule = Schedule::find($request->schedule_id);
-        log::info('getBikes: '.$schedule);
         $branch = Branch::find($schedule->branch_id);
         $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
         $unavailableBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedule->branch_id)->get()->pluck("position")->toArray());
@@ -202,11 +238,18 @@ class AdminController extends Controller
                     array_push($availableBikes, $i);
         }
         if ( count($availableBikes) < 14 ){
-            log::info('clase con reservaciones');
+            return ([
+                $message = "La clase tiene reservaciones activas",
+                "status" => 'Error',
+                "message" => $message,
+            ]);
         } else {
-            log::info('clase con reservaciones');
+            return([
+                $message = "Clase libre para eliminar",
+                "status" => 'OK',
+                "message" => $message,
+            ]);
         }
-        return $availableBikes;
     }
 
     public function getNonScheduledUsers(Request $request){
@@ -287,6 +330,23 @@ class AdminController extends Controller
     }
 
     public function addSchedule(Request $request){
+        $rules = [
+            'branch_id' => 'required',
+            'day' => 'required',
+            'hour' => 'required',
+            'instructor_id' => 'required'
+        ];
+        $messages = [
+            'branch_id.required' => "Sucursal no válida.",
+            'day.required' => "Día no válido.",
+            'hour.required' => "Hora no válida.",
+            'instructor_id.required' => "Instructor no válido."
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()){
+            $code = 1006;
+            return $this->responseError(1006,$validator->errors());
+        }
         $availability_x = Branch::select('reserv_lim_x')->where('id', $request->branch_id)->first();
         $availability_y = Branch::select('reserv_lim_y')->where('id', $request->branch_id)->first();
         $instructorBikes = Tool::where("branch_id", $request->branch_id)->where("type", "instructor")->get();
@@ -318,7 +378,7 @@ class AdminController extends Controller
         }
     }
     public function editSchedule(Request $request){
-        $schedule = Schedule::select('*')->where('day', $request->day)->where('hour', $request->hour)->first();
+        $schedule = Schedule::select('*')->where('day', $request->day)->where('hour', $request->hour)->where('id', '!=', $request->schedule_id)->first();
         if($schedule){
             return response()->json([
                 'status' => 'Error',

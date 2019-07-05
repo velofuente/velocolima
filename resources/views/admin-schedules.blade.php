@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="{{asset('css/admin-schedules-styles.css')}}">
 {{-- Table with the Info --}}
 <div class="row text-center mx-0 py-4">
     <h3>Horarios</h3>
@@ -48,8 +49,10 @@
                 <th scope="col">Hora</th>
                 <th scope="col">Instructor</th>
                 <th scope="col">Límite de Reservación</th>
+                <th scope="col">Bicis Reservadas</th>
+                <th scope="col">Bicis Disponibles</th>
                 <th scope="col">Sucursal</th>
-                <th scope="col" colspan="2" class="text-center">Acción</th>
+                <th colspan="2" class="text-center">Acción</th>
             </tr>
         </thead>
         <tbody id="tableBodyNextClasses">
@@ -75,6 +78,8 @@
                 <th scope="col">Hora</th>
                 <th scope="col">Instructor</th>
                 <th scope="col">Límite de Reservación</th>
+                <th scope="col">Bicis Reservadas</th>
+                <th scope="col">Bicis Disponibles</th>
                 <th scope="col">Sucursal</th>
             </tr>
         </thead>
@@ -129,6 +134,10 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="addScheduleErrors">
+                        <ul id="addErrorsList">
+                        </ul>
                     </div>
                 {{-- </form> --}}
             </div>
@@ -250,7 +259,7 @@
             addSchedule();
         });
 
-        function addSchedule(){
+        function addSchedule(button){
             //Array to get disabled bikes and instructor bike(s)
             var disabledBikes = [];
             var instructorBikes = [];
@@ -262,6 +271,7 @@
             $( ".instructor" ).each(function () {
                 instructorBikes.push($(this).text());
             })
+            $('#addErrorsList').empty()
             $.ajax({
                 url: "addSchedule",
                 method: 'POST',
@@ -278,26 +288,42 @@
                 success: function(result){
                     if(result.status == "OK"){
                         $.LoadingOverlay('hide');
-                        $('.modal-backdrop').remove();
-                        $('.active-menu').trigger('click');
+                        // $('.modal-backdrop').remove();
+                        // $('.active-menu').trigger('click');
                         $('#addScheduleModal').modal('hide');
+                        $('#buttonNextClasses').click();
                         Swal.fire({
                             title: 'Horario creado con éxito',
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
-                        })
+                        });
                     } else {
-                        $.LoadingOverlay('hide');
                         $('#addScheduleButton').prop('disabled', false);
-                        Swal.fire({
-                            title: 'Error',
-                            text: result.message,
-                            type: 'warning',
-                            confirmButtonText: 'Aceptar'
-                        })
+                        $.LoadingOverlay('hide');
+                        $.each(result.error.message, function( index, value ) {
+                            $('#addErrorsList').append(
+                                '<li>'+value+'</li>',
+                            );
+                        });
+                        $('#addErrorsList').show().delay(4000).hide('slow');
+                        // Swal.fire({
+                        //     title: 'Error',
+                        //     text: result.error.message.day,
+                        //     type: 'warning',
+                        //     confirmButtonText: 'Aceptar'
+                        // })
                     }
                     // console.log(result);
+                }, error: function(result){
+                    $.LoadingOverlay('hide');
+                    $(button).prop('disabled', false);
+                    Swal.fire({
+                        title: 'Error',
+                        text: result.message,
+                        type: 'error',
+                        confirmButtonText: 'Aceptar'
+                    })
                 }
             });
         }
@@ -314,8 +340,8 @@
         if(splitedId.length > 1){
             // console.log(splitedId);
             var ScheduleId = splitedId[1];
-            // scheduledReservedPlaces(ScheduleId);
-            deleteSchedule(ScheduleId, this);
+            scheduledReservedPlaces(ScheduleId, this);
+            // deleteSchedule(ScheduleId, this);
         } else {
             $(this).prop("disabled", false)
             console.log("Malformed ID")
@@ -327,7 +353,7 @@
     $(document).on('click', '.editSchedule', function(event){
         // $(this).prop('disabled', true);
         event.preventDefault();
-        console.log('simón')
+        // console.log('simón')
         //Get Full ID of the button (which contains the instructor ID)
         var fullId = this.id;
         //Split the ID of the fullId by his dash
@@ -375,7 +401,7 @@
         editSchedule(schedule_id);
     })
 
-    function scheduledReservedPlaces(schedule_id){
+    function scheduledReservedPlaces(schedule_id, button){
         $.ajax({
             url: 'scheduledReservedPlaces',
             type: 'POST',
@@ -384,19 +410,28 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function(){
-                $.LoadingOverlay("show");
+                // $.LoadingOverlay("show");
+                $(button).prop('disabled', true);
             },
             data: {
                 schedule_id: schedule_id,
             },
             success: function(result){
-                $.LoadingOverlay("hide");
-                console.log('success');
+                if(result.status == "OK"){
+                    // $.LoadingOverlay("hide");
+                    $(button).prop('disabled', false);
+                    deleteSchedule(schedule_id, this);
+                } else {
+                    $.LoadingOverlay("hide");
+                    $(button).prop('disabled', false);
+                    Swal.fire({
+                        title: 'Error',
+                        text: result.message,
+                        type: 'warning',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
             },
-            error: function(result){
-                $.LoadingOverlay("hide");
-                console.log('fail');
-            }
         });
     }
 
@@ -458,6 +493,7 @@
     };
 
     function getNextClasses(){
+        $('#tableNextClasses').removeClass('table-striped table-hover');
         $.ajax({
             url: "getNextClasses",
             method: 'GET',
@@ -470,14 +506,16 @@
                 $.each(result, function(index, value){
                     $('#tableBodyNextClasses').append(
                         '<tr style="font-size: 0.9em;" class="rowNextClasses">',
-                            '<td>'+value.id+'</td>',
-                            '<td>'+value.day+'</td>',
-                            '<td>'+value.hour.substr(0,5)+'</td>',
-                            '<td>'+value.instructor.name+'</td>',
-                            '<td>'+value.reservation_limit+'</td>',
-                            '<td>'+value.branch.name+'</td>',
-                            '<td><button class="btn btn-primary btn-sm editSchedule" id="editSchedule-'+value.id+'" value="'+value.id+'" data-myid="'+value.id+'" data-myday="'+value.day+'" data-myhour="'+value.hour+'" data-myinstructor="'+value.instructor_id+'" data-myreservation="'+value.reservation_limit+'" data-mybranch="'+value.branch_id+'" data-toggle="modal" data-target="#editScheduleModal">Editar</button></td>',
-                            '<td><button class="btn btn-danger btn-sm deleteSchedule" id="deleteSchedule-'+value.id+'" value="'+value.id+'">Eliminar</button></td>',
+                            '<td>'+value.object.id+'</td>',
+                            '<td>'+value.formatDay+'</td>',
+                            '<td>'+value.formatHour+'</td>',
+                            '<td>'+value.object.instructor.name+'</td>',
+                            '<td>'+value.object.reservation_limit+'</td>',
+                            '<td>'+value.reservedBikes+'</td>',
+                            '<td>'+value.availableBikes+'</td>',
+                            '<td>'+value.object.branch.name+'</td>',
+                            '<td class="text-center "><button class="btn btn-primary btn-sm editSchedule" id="editSchedule-'+value.object.id+'" value="'+value.object.id+'" data-myid="'+value.object.id+'" data-myday="'+value.object.day+'" data-myhour="'+value.object.hour+'" data-myinstructor="'+value.object.instructor_id+'" data-myreservation="'+value.object.reservation_limit+'" data-mybranch="'+value.object.branch_id+'" data-toggle="modal" data-target="#editScheduleModal">Editar</button></td>',
+                            '<td class="text-center"><button class="btn btn-danger btn-sm deleteSchedule" id="deleteSchedule-'+value.object.id+'" value="'+value.object.id+'">Eliminar</button></td>',
                         '</tr>');
                 });
                 $('#tableNextClasses').show();
@@ -502,12 +540,14 @@
                 $.each(result, function(index, value){
                     $('#tableBodyPreviousClasses').append(
                         '<tr style="font-size: 0.9em;" class="rowPreviousClasses">',
-                            '<td>'+value.id+'</td>',
-                            '<td>'+value.day+'</td>',
-                            '<td>'+value.hour.substr(0,5)+'</td>',
-                            '<td>'+value.instructor.name+'</td>',
-                            '<td>'+value.reservation_limit+'</td>',
-                            '<td>'+value.branch.name+'</td>',
+                            '<td>'+value.object.id+'</td>',
+                            '<td>'+value.formatDay+'</td>',
+                            '<td>'+value.formatHour+'</td>',
+                            '<td>'+value.object.instructor.name+'</td>',
+                            '<td>'+value.object.reservation_limit+'</td>',
+                            '<td>'+value.reservedBikes+'</td>',
+                            '<td>'+value.availableBikes+'</td>',
+                            '<td>'+value.object.branch.name+'</td>',
                         '</tr>'
                     );
                 });
@@ -544,9 +584,10 @@
                     success: function(result) {
                         $.LoadingOverlay("hide");
                         if (result.status == "OK") {
-                            console.log(result.status);
-                            $('.modal-backdrop').remove();
-                            $('.active-menu').trigger('click');
+                            // console.log(result.status);
+                            // $('.modal-backdrop').remove();
+                            // $('.active-menu').trigger('click');
+                            $('#buttonNextClasses').click();
                             Swal.fire({
                                 title: 'Horario Eliminado',
                                 text: result.message,
