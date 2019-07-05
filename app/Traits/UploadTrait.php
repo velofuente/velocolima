@@ -15,4 +15,12 @@ trait UploadTrait
 
         return $file;
     }
+
+    public function responseError($code, $message){
+        return json([
+            "status" => "error",
+            "code" =>  $code,
+            "message" => $message
+        ]);
+    }
 }
