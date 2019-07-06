@@ -19,7 +19,7 @@
             <span id="selectedSchedule">Seleccionar Horario</span>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownSchedule">
-        @if (count($userSchedules) > 0)
+        @if (count($schedules) > 0)
             @foreach ($schedules as $schedule)
                 {{-- @if ($schedule->day == date('Y-m-d')) --}}
                     {{-- @if ($schedule->hour >= date('H:i:s')) --}}
@@ -44,7 +44,7 @@
                 {{-- @endif --}}
             @endforeach
         @else
-              <h3>No hay Horarios Creados<h3>
+              <h2>No hay Horarios Creados<h2>
         @endif
         </div>
     </div>
@@ -58,8 +58,8 @@
     {{-- <div class="centeredDiv col-md-10" id="bikes-div" style="width: 100%">
         <h1>System Grid Test</h1>
     </div> --}}
-    <div class="col-md-2">
-        @if (count($userSchedules) > 0)
+    @if (count($userSchedules) > 0)
+        <div class="col-md-2">
             <table class="table table-striped table-hover">
                 <thead style="font-size: 1em;">
                     <tr style="font-size: 1em;">
@@ -140,10 +140,10 @@
                     @endforeach
                 </tbody>
             </table>
-        @else
-            <h2 class="text-center">No hay usuarios en esta sesión</h2>
-        @endif
-    </div>
+        </div>
+    @else
+        <h2 class="text-left ml-4 mt-4">No hay reservaciones en este horario</h2>
+    @endif
 </div>
 
 

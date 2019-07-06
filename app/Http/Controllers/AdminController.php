@@ -330,29 +330,38 @@ class AdminController extends Controller
     }
 
     public function addSchedule(Request $request){
-        $rules = [
-            'branch_id' => 'required',
-            'day' => 'required',
-            'hour' => 'required',
-            'instructor_id' => 'required'
-        ];
-        $messages = [
-            'branch_id.required' => "Sucursal no válida.",
-            'day.required' => "Día no válido.",
-            'hour.required' => "Hora no válida.",
-            'instructor_id.required' => "Instructor no válido."
-        ];
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if($validator->fails()){
-            $code = 1006;
-            return $this->responseError(1006,$validator->errors());
-        }
+        // $rules = [
+        //     'branch_id' => 'required',
+        //     'day' => 'required',
+        //     'day' => 'date_format:Y-m-d H:i:s|before:today',
+        //     'hour' => 'required',
+        //     'instructor_id' => 'required'
+        // ];
+        // $messages = [
+        //     'branch_id.required' => "La sucursal ingresada no es válida.",
+        //     'day.required' => "El día ingresado no es válido.",
+        //     'hour.required' => "La hora ingresada no es válida.",
+        //     'instructor_id.required' => "El instructor ingresado no es válido."
+        // ];
+        // $validator = Validator::make($request->all(), $rules, $messages);
+        // if($validator->fails()){
+        //     $code = 1006;
+        //     return $this->responseError(1006,$validator->errors());
+        // }
+
         $availability_x = Branch::select('reserv_lim_x')->where('id', $request->branch_id)->first();
         $availability_y = Branch::select('reserv_lim_y')->where('id', $request->branch_id)->first();
         $instructorBikes = Tool::where("branch_id", $request->branch_id)->where("type", "instructor")->get();
         $disabledBikes = Tool::where("branch_id", $request->branch_id)->where("type", "disabled")->get();
         $availability = $availability_x->reserv_lim_x * $availability_y->reserv_lim_y - ($disabledBikes->count() + $instructorBikes->count());
 
+        $fullRequestDate = $request->day .' '. $request->hour;
+        if (Carbon::parse($fullRequestDate)->lte( now()->format('Y-m-d H:i:s')) ){
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'La fecha ingresada no es válida',
+            ]);
+        }
         $schedule = Schedule::select('*')->where('day', $request->day)->where('hour', $request->hour)->first();
         if($schedule){
             return response()->json([

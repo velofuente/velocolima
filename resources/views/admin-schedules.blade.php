@@ -207,6 +207,9 @@
 
 {{-- All the Functions --}}
 <script>
+    // Min Date to create a Schedule = Today
+    addDaySchedule.min = new Date().toISOString().split("T")[0];
+
     $(document).ready(function(){
         // var instructor_id = null;
         var schedule_id = null;
@@ -241,6 +244,7 @@
                 currentText: "Hoy",
                 changeMonth: true,
                 changeYear: true,
+                minDate: 0,
                 yearRange: '1920:2019',
                 dateFormat: 'yy-mm-dd',
                 onSelect: function(dateText, inst) {
@@ -291,6 +295,7 @@
                         // $('.modal-backdrop').remove();
                         // $('.active-menu').trigger('click');
                         $('#addScheduleModal').modal('hide');
+                        $('#addScheduleButton').prop('disabled', false);
                         $('#buttonNextClasses').click();
                         Swal.fire({
                             title: 'Horario creado con éxito',
@@ -301,26 +306,26 @@
                     } else {
                         $('#addScheduleButton').prop('disabled', false);
                         $.LoadingOverlay('hide');
-                        $.each(result.error.message, function( index, value ) {
-                            $('#addErrorsList').append(
-                                '<li>'+value+'</li>',
-                            );
-                        });
-                        $('#addErrorsList').show().delay(4000).hide('slow');
-                        // Swal.fire({
-                        //     title: 'Error',
-                        //     text: result.error.message.day,
-                        //     type: 'warning',
-                        //     confirmButtonText: 'Aceptar'
-                        // })
+                        // $.each(result.error.message, function( index, value ) {
+                        //     $('#addErrorsList').append(
+                        //         '<li>'+value+'</li>',
+                        //     );
+                        // });
+                        // $('#addErrorsList').show().delay(4000).hide('slow');
+                        Swal.fire({
+                            title: 'Error',
+                            text: result.message,
+                            type: 'warning',
+                            confirmButtonText: 'Aceptar'
+                        })
                     }
                     // console.log(result);
                 }, error: function(result){
                     $.LoadingOverlay('hide');
-                    $(button).prop('disabled', false);
+                    $('#addScheduleButton').prop('disabled', false);
                     Swal.fire({
                         title: 'Error',
-                        text: result.message,
+                        text: 'Ocurrió un error al procesar la solicitud',
                         type: 'error',
                         confirmButtonText: 'Aceptar'
                     })

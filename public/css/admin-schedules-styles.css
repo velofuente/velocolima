@@ -1,7 +1,7 @@
-table, th, td {
+/* table, th, td {
     width: 1180px !important;
-    /* width: 100% !important; */
-}
+    width: 100% !important;
+} */
 
 #addErrorsList{
     margin-top: 0.8em;
