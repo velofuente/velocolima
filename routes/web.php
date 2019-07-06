@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PurchaseController;
 use Monolog\Handler\RotatingFileHandler;
+use App\Http\Controllers\BookClassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,7 +103,9 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
     Route::get('getNextClasses', 'AdminController@getNextClasses');
     Route::get('getPreviousClasses', 'AdminController@getPreviousClasses');
     Route::post('scheduledReservedPlaces', 'AdminController@scheduledReservedPlaces');
-    //Lugar
+    Route::post('absentUserClass', 'BookClassController@absentUserClass');
+    Route::post('cancelUserClass', 'BookClassController@cancelUserClass');
+    //Sucursal
     Route::post('addBranch', 'AdminController@addBranch');
     Route::post('editBranch', 'AdminController@editBranch');
     Route::post('deleteBranch', 'AdminController@deleteBranch');

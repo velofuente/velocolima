@@ -131,6 +131,24 @@ class BookClassController extends Controller
             }
         }
     }
+    public function absentUserClass(Request $request){
+        $requestedClass = UserSchedule::find($request->schedule_id);
+        if($requestedClass!='cancelled'){
+            $requestedClass->status='cancelled';
+            $requestedClass->changedSit = 0;
+            $requestedClass->save();
+            return response()->json([
+                'status' => 'OK',
+                'message' => 'El usuario no asistió a la clase',
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'ERROR',
+                'message' => 'Ocurrió un error al procesar la solicitud',
+            ]);
+        }
+
+    }
     public function cancelClass(Request $request)
     {
         $requestedClass = UserSchedule::find($request->id);
@@ -183,6 +201,7 @@ class BookClassController extends Controller
             ]);
         }
     }
+
     public function claimClass(Request $request){
         //Validaa si el lugar está disponible
         $alreadyReserved = UserSchedule::where("bike", $request->bike)->where("schedule_id", $request->schedule_id)->first();

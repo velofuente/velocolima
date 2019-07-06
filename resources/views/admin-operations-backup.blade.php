@@ -12,7 +12,7 @@
 
 {{-- Main Title & Schedules Button --}}
 <div class="row text-center mx-0 pt-3">
-    <h3 class="col-xs-12 col-sm-12 col-md-3 col-lg-3 mx-auto">NuevOp</h3>
+    <h3 class="col-xs-12 col-sm-12 col-md-3 col-lg-3 mx-auto">Operaciones</h3>
     <div class="col-xs-0 col-sm-0 col-md-1 col-lg-1 mx-auto"></div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 mx-auto dropdown ">
         <button class="btn btn-info dropdown-toggle" id="dropdownSchedule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -132,8 +132,8 @@
                                 <td>{{$userSchedule->schedule_id}}</td>
                                 @if($userSchedule->status != 'taken')
                                     <td class="assistButton" id="assistButton-{{ $userSchedule->id }}"><button class="btn btn-success btn-sm userAssist" id="userAssist-{{ $userSchedule->id }}" value="{{$userSchedule->id}}" data-id="{{$userSchedule->id}}">Asistencia</button></td>
-                                    <td class="absentButton" id="absentButton-{{ $userSchedule->id }}"><button class="btn btn-info    btn-sm userAbsent" id="{{ $userSchedule->id }}" value="{{$userSchedule->id}}" data-id="{{$userSchedule->id}}">No asistió</button></td>
-                                    <td class="cancelButton" id="cancelButton-{{ $userSchedule->id }}"><button class="btn btn-danger  btn-sm userCancel" id="{{ $userSchedule->id }}" value="{{$userSchedule->id}}" data-id="{{$userSchedule->id}}">Cancelar</button></td>
+                                    <td class="absentButton"><button class="btn btn-info btn-sm userAbsent" id="userAbsent-{{ $userSchedule->id }}">No asistió</button></td>
+                                    <td class="cancelButton"><button class="btn btn-danger btn-sm userCancel" id="userCancel-{{ $userSchedule->id }}">Cancelar</button></td>
                                 @else
                                     <td>Asistió</td>
                                 @endif
@@ -467,57 +467,11 @@
             }
         });
 
-        $('.userAbsent').on('click', function(event){
-            event.preventDefault();
-            id = this.id;
-            $(this).prop('disabled', true);
-            absentClass(id, this);
-        });
-
         $('.scheduleList').on('click', function(event){
             event.preventDefault();
             id = $(this).attr('id');
             showClients(id);
         });
-
-        $('.userCancel').on('click' , function(event){
-            event.preventDefault();
-            id = this.id;
-            $(this).prop('disabled', true);
-            cancelClass(id, this);
-        });
-
-        function cancelClass(schedule_id, button){
-            $.ajax({
-                url: "cancelClass",
-                method: 'POST',
-                cache: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    id: schedule_id,
-                },
-                success: function(result){
-                    $(button).prop('disabled', false);
-                    Swal.fire({
-                        title: 'Cancelado con éxito',
-                        text: result.message,
-                        type: 'success',
-                        confirmButtonText: 'Aceptar'
-                    });
-                },
-                error: function(result){
-                    $(button).prop('disabled', false);
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Ha ocurrido un error al procesar la solicitud',
-                        type: 'warning',
-                        confirmButtonText: 'Aceptar'
-                    })
-                }
-            });
-        }
         // $(document).on('click', '.active', function(){ console.log($(this).attr('id')) })
 
         // Jquery UI DatePicker (Safari)
@@ -855,47 +809,6 @@
                 });
                 $(button).prop("disabled", false)
                 // alert(result);
-            }
-        });
-    }
-
-    function absentClass(schedule_id, button){
-        $.ajax({
-            url: "absentUserClass",
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                schedule_id: schedule_id,
-            },
-            success: function(result){
-                if (result.status == 'OK'){
-                    $(button).prop('disabled', false);
-                    Swal.fire({
-                        title: 'Llamada Exitosa',
-                        text: result.message,
-                        type: 'warning',
-                        confirmButtonText: 'Aceptar',
-                    });
-                } else {
-                    $(button).prop('disabled', false);
-                    Swal.fire({
-                        title: 'Error',
-                        text: result.message,
-                        type: 'warning',
-                        confirmButtonText: 'Aceptar',
-                    })
-                }
-            },
-            error: function (result){
-                $(button).prop('disabled', false),
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Ocurrió un error al procesar la solicitud',
-                    type: 'warning',
-                    confirmButtonText: 'Aceptar'
-                });
             }
         });
     }
