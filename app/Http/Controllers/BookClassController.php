@@ -133,8 +133,8 @@ class BookClassController extends Controller
     }
     public function absentUserClass(Request $request){
         $requestedClass = UserSchedule::find($request->schedule_id);
-        if($requestedClass!='cancelled'){
-            $requestedClass->status='cancelled';
+        if($requestedClass!='active'){
+            $requestedClass->status = 'absent';
             $requestedClass->changedSit = 0;
             $requestedClass->save();
             return response()->json([
@@ -142,18 +142,19 @@ class BookClassController extends Controller
                 'message' => 'El usuario no asistió a la clase',
             ]);
         }else{
+            log::info($requestedClass);
             return response()->json([
                 'status' => 'ERROR',
-                'message' => 'Ocurrió un error al procesar la solicitud',
+                'message' => 'Ocurrió un error al procesar la solicitud. Intenta refrescando la página.',
             ]);
         }
-
+        log::info($requestedClass);
     }
     public function cancelClass(Request $request)
     {
         $requestedClass = UserSchedule::find($request->id);
         $purchase = Purchase::find($requestedClass->purchase_id);
-        if($requestedClass->status!='cancelled'){
+        if($requestedClass->status=='active'){
             $requestedClass->status = 'cancelled';
             $requestedClass->changedSit = 0;
             $requestedClass->save();
@@ -187,7 +188,7 @@ class BookClassController extends Controller
     }
     public function attendClass(Request $request){
         $requestedClass = UserSchedule::find($request->reservation_id);
-        if($requestedClass->status!='taken'){
+        if($requestedClass->status=='active'){
             $requestedClass->status = 'taken';
             $requestedClass->save();
             return response()->json([
@@ -197,7 +198,7 @@ class BookClassController extends Controller
         }else{
             return response()->json([
                 'status' => 'ERROR',
-                'message' => "La clase ya fue registrada anteriormente.",
+                'message' => "Ocurrió un error al procesar la solicitud. Intenta refrescando la página.",
             ]);
         }
     }

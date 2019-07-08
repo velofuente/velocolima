@@ -43,6 +43,7 @@ class AdminController extends Controller
     public function getNextClasses(){
         $schedules = Schedule::with(['instructor', 'branch'])->select("*", DB::RAW("CONCAT(day, ' ', hour) fullDate"))->orderBy('fullDate')->get();
         $reservedPlaces = [];
+        $nextSchedules = [];
         foreach ($schedules as $schedule){
             if (Carbon::parse($schedule->fullDate)->gte( now()->format('Y-m-d H:i:s')) ){
                 $availableBikes = [];
@@ -67,6 +68,7 @@ class AdminController extends Controller
                 ];
             }
         }
+        log::info($nextSchedules);
         return $nextSchedules;
     }
 
@@ -205,14 +207,14 @@ class AdminController extends Controller
         foreach($instances as $instance){
             array_push($id, $instance->user_id);
         }
-        $clients = User::whereIn('id',$id)->get();
+        // $clients = User::whereIn('id',$id)->get();
+        $clients = UserSchedule::with('user')->where('schedule_id', $request->schedule_id)->whereIn('user_id', $id)->get();
         return $clients;
     }
 
     public function getOperationBikes(Request $request){
         $availableBikes = [];
         $schedule = Schedule::find($request->schedule_id);
-        log::info('getBikes: '.$schedule);
         $branch = Branch::find($schedule->branch_id);
         $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
         $unavailableBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedule->branch_id)->get()->pluck("position")->toArray());

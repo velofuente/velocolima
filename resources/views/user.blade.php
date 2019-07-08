@@ -304,6 +304,9 @@
                                                                     @case('cancelled')
                                                                         <td>Cancelado</td>
                                                                         @break
+                                                                    @case('absent')
+                                                                        <td>Ausente</td>
+                                                                        @break
                                                                     @case('taken')
                                                                         <td>Tomada</td>
                                                                         @break

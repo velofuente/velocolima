@@ -430,7 +430,7 @@
                     $.LoadingOverlay("hide");
                     $(button).prop('disabled', false);
                     Swal.fire({
-                        title: 'Error',
+                        title: 'No se puede eliminar',
                         text: result.message,
                         type: 'warning',
                         confirmButtonText: 'Aceptar'
@@ -510,7 +510,7 @@
                 $('#tableBodyNextClasses').empty();
                 $.each(result, function(index, value){
                     $('#tableBodyNextClasses').append(
-                        '<tr style="font-size: 0.9em;" class="rowNextClasses">',
+                        '<tr style="font-size: 0.9em;" class="rowNextClasses" id="rowSchedule-'+value.object.id+'">',
                             '<td>'+value.object.id+'</td>',
                             '<td>'+value.formatDay+'</td>',
                             '<td>'+value.formatHour+'</td>',
@@ -528,6 +528,16 @@
                 $('#buttonTopAddSchedule').show();
                 $('#buttonReservedBikes').show();
                 $('#buttonNonReservedBikes').show();
+            },
+            error: function(result){
+                $.LoadingOverlay('hide'),
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Ha ocuriddo un error al procesar la solicitud',
+                    // text: result.message,
+                    type: 'error',
+                    confirmButtonText: 'Aceptar'
+                })
             }
         });
     }
