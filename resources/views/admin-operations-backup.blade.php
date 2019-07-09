@@ -58,9 +58,9 @@
     {{-- <div class="centeredDiv col-md-10" id="bikes-div" style="width: 100%">
         <h1>System Grid Test</h1>
     </div> --}}
-    {{-- @if (count($userSchedules) > 0) --}}
+    @if (count($userSchedules) > 0)
         <div class="col-md-2">
-            <table class="table table-striped table-hover" id="tableClasses">
+            <table class="table table-striped table-hover">
                 <thead style="font-size: 1em;">
                     <tr style="font-size: 1em;">
                         <th scope="col">Nombre</th>
@@ -69,14 +69,14 @@
                         <th scope="col">Talla de Calzado</th>
                         <th scope="col">Teléfono</th>
                         {{-- <th scope="col">ScheduleID</th> --}}
-                        <th scope="col" colspan="3" class="text-center">Acción</th>
+                        <th scope="col" colspan="3">Acción</th>
                     </tr>
                 </thead>
-                <tbody id="tableBody">
+                <tbody>
                     {{-- the Value of each Row contains its respective schedule_id --}}
                     @foreach ($userSchedules as $userSchedule)
-                        {{-- @if ($userSchedule->status != 'cancelled') --}}
-                            <tr style="font-size: 0.9em;" class="tableBodyRow">
+                        @if ($userSchedule->status != 'cancelled')
+                            <tr style="font-size: 0.9em;" id="tableBodyRow">
                                 <input type="hidden" value="{{$userSchedule->schedule_id}}" id="hiddenUsers">
                                 <td>{{$userSchedule->user->name}} {{$userSchedule->user->last_name}}</td>
                                 <td>{{$userSchedule->user->email}}</td>
@@ -130,32 +130,22 @@
                                 <td>{{$userSchedule->user->shoe_size}}</td>
                                 <td> {{$userSchedule->user->phone}} </td>
                                 <td>{{$userSchedule->schedule_id}}</td>
-                                @if($userSchedule->status == 'active')
+                                @if($userSchedule->status != 'taken')
                                     <td class="assistButton" id="assistButton-{{ $userSchedule->id }}"><button class="btn btn-success btn-sm userAssist" id="userAssist-{{ $userSchedule->id }}" value="{{$userSchedule->id}}" data-id="{{$userSchedule->id}}">Asistencia</button></td>
-                                    <td class="absentButton" id="absentButton-{{ $userSchedule->id }}"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-{{ $userSchedule->id }}" value="{{$userSchedule->id}}" data-id="{{$userSchedule->id}}">Ausente</button></td>
-                                    <td class="cancelButton" id="cancelButton-{{ $userSchedule->id }}"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-{{ $userSchedule->id }}" value="{{$userSchedule->id}}" data-id="{{$userSchedule->id}}">Cancelar</button></td>
-                                @elseif ($userSchedule->status == 'taken')
-                                    <td></td>
-                                    <td>Asistencia</td>
-                                    <td></td>
-                                @elseif ($userSchedule->status == 'absent')
-                                    <td></td>
-                                    <td>Ausente</td>
-                                    <td></td>
-                                @elseif ($userSchedule->status == 'cancelled')
-                                    <td></td>
-                                    <td>Cancelado</td>
-                                    <td></td>
+                                    <td class="absentButton"><button class="btn btn-info btn-sm userAbsent" id="userAbsent-{{ $userSchedule->id }}">No asistió</button></td>
+                                    <td class="cancelButton"><button class="btn btn-danger btn-sm userCancel" id="userCancel-{{ $userSchedule->id }}">Cancelar</button></td>
+                                @else
+                                    <td>Asistió</td>
                                 @endif
                             </tr>
-                        {{-- @endif --}}
+                        @endif
                     @endforeach
                 </tbody>
             </table>
         </div>
-    {{-- @else
+    @else
         <h2 class="text-left ml-4 mt-4">No hay reservaciones en este horario</h2>
-    @endif --}}
+    @endif
 </div>
 
 
@@ -436,18 +426,10 @@
     var assistButton = null;
     var id = null;
 
-    $(document).ready(function (){
 
+    $(document).ready(function (){
         $('#main-bikes').hide();
         $('#addOpUserButton').hide()
-
-        // If this was a call from the Admin-Schedules row, then show the Ops for that schedule
-        if (scheduleOperations){
-            schedule_id = scheduleOperations;
-            showClientsTable(scheduleOperations);
-            $('a[id="'+schedule_id+'"]').addClass('active');
-            scheduleOperations = null;
-        }
 
         // Dropdown Selected Option
         $('.dropdown-menu a').click(function(){
@@ -462,13 +444,12 @@
         });
 
         // Cols = HTMLTableElement
-        cols = document.querySelectorAll('.tableBodyRow');
+        cols = document.querySelectorAll('#tableBodyRow');
         allUsers = document.querySelectorAll('#opSearchUser');
         // console.log(cols);
 
         //OnClick attendClass Button
-        // $('.userAssist').on('click', function(event) {
-        $(document).on('click', '.userAssist', function(event) {
+        $('.userAssist').on('click', function(event) {
             $(this).prop("disabled", true)
             event.preventDefault();
 
@@ -486,79 +467,11 @@
             }
         });
 
-        // $('.userAbsent').on('click', function(event){
-        $(document).on('click', '.userAbsent', function(event){
-            event.preventDefault();
-            $(this).prop('disabled', true);
-            var fullId = this.id;
-            var splittedId = fullId.split('-');
-            if(splittedId.length > 1){
-                var schedule_id = splittedId[1];
-                absentClass(schedule_id, this);
-            } else {
-                $(this).prop('disabled', false);
-                console.log('Malformed ID');
-            }
-        });
-
-
-        // $('.userCancel').on('click' , function(event){
-        $(document).on('click', '.userCancel', function(event){
-            event.preventDefault();
-            $(this).prop('disabled', true);
-            var fullId = this.id;
-            var splittedId = fullId.split('-');
-            if (splittedId.length > 1){
-                var schedule_id = splittedId[1];
-                cancelClass(schedule_id, this);
-            }
-        });
-
         $('.scheduleList').on('click', function(event){
-            $('#tableBody').empty();
             event.preventDefault();
-            schedule_id = $(this).attr('id');
-            // showClients(schedule_id);
-            showClientsTable(schedule_id);
+            id = $(this).attr('id');
+            showClients(id);
         });
-
-        function cancelClass(schedule_id, button){
-            $.ajax({
-                url: "cancelClass",
-                method: 'POST',
-                cache: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    id: schedule_id,
-                },
-                success: function(result){
-                    $(button).prop('disabled', false);
-                    $('#userAssist-'+schedule_id).remove();
-                    $('#userAbsent-'+schedule_id).remove();
-                    $('#userCancel-'+schedule_id).remove();
-                    $('#absentButton-'+schedule_id).html('Cancelado');
-                    $('.active').click();
-                    $('body').removeClass('modal-open');
-                    // Swal.fire({
-                    //     title: 'Cancelado con éxito',
-                    //     text: result.message,
-                    //     type: 'success',
-                    //     confirmButtonText: 'Aceptar'
-                    // });
-                },
-                error: function(result){
-                    $(button).prop('disabled', false);
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Ha ocurrido un error al procesar la solicitud',
-                        type: 'warning',
-                        confirmButtonText: 'Aceptar'
-                    })
-                }
-            });
-        }
         // $(document).on('click', '.active', function(){ console.log($(this).attr('id')) })
 
         // Jquery UI DatePicker (Safari)
@@ -609,7 +522,7 @@
     // Show Table Clients
     function showClients(id){
         schedule_id = id;
-        var scheduled_users = []
+        scheduled_users = []
         // variable2 = document.getElementById("tableBodyRow");
         var i = 0;
         $('tr:hidden').show();
@@ -628,7 +541,8 @@
             i++;
         });
 
-        //Command Line to delete the whole row of the table: cols.item(0).remove();
+        //Línea para Eliminar la Fila de la Tabla
+        // cols.item(0).remove();
         $('#main-bikes').show('fast');
         $('#addOpUserButton').show('fast');
         $('#opRegBike').empty();
@@ -816,10 +730,7 @@
                 $.LoadingOverlay("hide");
                 if(result.status == "OK"){
                     $('.modal-backdrop').remove();
-                    // $('.active-menu').trigger('click');
-                    $('.modal').hide();
-                    $('.active').click();
-                    $('body').removeClass('modal-open');
+                    $('.active-menu').trigger('click');
                     $('#registerOpUserModal').modal('hide');
                     Swal.fire({
                         title: 'Usuario Registrado',
@@ -867,17 +778,16 @@
                 if (result.status == "OK") {
                     // $('.modal-backdrop').remove();
                     // $('.active-menu').trigger('click');
+                    $('.active').click();
                     $('#userAssist-' + reservation_id).remove();
-                    $('#userAbsent-'+reservation_id).remove();
-                    $('#userCancel-'+reservation_id).remove()
-                    $('#absentButton-' + reservation_id).html('Asistencia');
-                    // showClients(id);
-                    // Swal.fire({
-                    //     title: 'Asistencia registrada',
-                    //     text: result.message,
-                    //     type: 'success',
-                    //     confirmButtonText: 'Aceptar'
-                    // })
+                    $('#assistButton-' + reservation_id).html('Asistió');
+                    showClients(id);
+                    Swal.fire({
+                        title: 'Asistencia registrada',
+                        text: result.message,
+                        type: 'success',
+                        confirmButtonText: 'Aceptar'
+                    })
                 } else {
                     $.LoadingOverlay("hide");
                     Swal.fire({
@@ -903,150 +813,6 @@
         });
     }
 
-    function absentClass(schedule_id, button){
-        $.ajax({
-            url: "absentUserClass",
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                schedule_id: schedule_id,
-            },
-            success: function(result){
-                if (result.status == 'OK'){
-                    $(button).prop('disabled', false);
-                    $('#userAssist-'+schedule_id).remove();
-                    $('#userAbsent-'+schedule_id).remove();
-                    $('#userCancel-'+schedule_id).remove();
-                    $('#absentButton-'+schedule_id).html('Ausente');
-                    // Swal.fire({
-                    //     title: 'Llamada Exitosa',
-                    //     text: result.message,
-                    //     type: 'success',
-                    //     confirmButtonText: 'Aceptar',
-                    // });
-                }
-                else {
-                    $(button).prop('disabled', false);
-                    Swal.fire({
-                        title: 'Error',
-                        text: result.message,
-                        type: 'warning',
-                        confirmButtonText: 'Aceptar',
-                    })
-                }
-            },
-            error: function (result){
-                $(button).prop('disabled', false),
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Ocurrió un error al procesar la solicitud',
-                    type: 'warning',
-                    confirmButtonText: 'Aceptar'
-                });
-            }
-        });
-    }
-
-    function showClientsTable(schedule_id){
-        $.ajax({
-            url: 'showClientsTable',
-            type: 'POST',
-            cache: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                schedule_id: schedule_id,
-            },
-            success: function(result) {
-                $('tr:hidden').show();
-                $('.tableBodyRow').empty();
-                $.each (result, function(index, value){
-                    if (value.status != 'cancelled'){
-                        if(value.status == 'taken'){
-                            $('#tableBody').append(
-                                '<tr class="tableBodyRow"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
-                            );
-                        } else if (value.status == 'absent'){
-                            $('#tableBody').append(
-                                '<tr class="tableBodyRow"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
-                            );
-                        } else {
-                            $('#tableBody').append(
-                                '<tr class="tableBodyRow"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
-                            );
-                        }
-                    }
-                });
-                $('#main-bikes').show('fast');
-                $('#addOpUserButton').show('fast');
-                $('#opRegBike').empty();
-                $('#opSearchUser').empty();
-                getOperationBikes(schedule_id);
-                getNonScheduledUsers(schedule_id);
-                switchBike();
-            },
-            error: function(result) {
-                console.log(result);
-            }
-        })
-    }
-
-    function switchBike(){
-        var bikeNumber = null;
-        $.each($('.tdBikeNumber'), function( index, value ) {
-            bikeNumber = $(value).text();
-            switch (bikeNumber) {
-                case '2':
-                    $(value).text('1')
-                    break;
-                case '10':
-                    $(value).text('2')
-                    break;
-                case '12':
-                    $(value).text('3')
-                    break;
-                case '14':
-                    $(value).text('4')
-                    break;
-                case '20':
-                    $(value).text('5')
-                    break;
-                case '22':
-                    $(value).text('6')
-                    break;
-                case '24':
-                    $(value).text('7')
-                    break;
-                case '26':
-                    $(value).text('8')
-                    break;
-                case '30':
-                    $(value).text('9')
-                    break;
-                case '32':
-                    $(value).text('10')
-                    break;
-                case '36':
-                    $(value).text('11')
-                    break;
-                case '38':
-                    $(value).text('12')
-                    break;
-                case '40':
-                $(value).text('13')
-                    break;
-                case '42':
-                    $(value).text('14')
-                    break;
-                default:
-                    break;
-            }
-        });
-    }
-
     function claimClass(schedule_id,bike,user_id, button){
         $.ajax({
             url: 'claimClass',
@@ -1064,12 +830,8 @@
                 $.LoadingOverlay("hide");
                 if (result.status == "OK") {
                     $('.modal-backdrop').remove();
-                    $('.modal').hide();
-                    $('.modal-open').removeClass('.modal-open');
-                    // $('.active-menu').trigger('click');
+                    $('.active-menu').trigger('click');
                     $('.active').click();
-                    $('body').removeClass('modal-open');
-                    $('#opSearchInput').val('');
                     // $(activeDropdownSchedule).removeClass('active');
                     // $(activeDropdownSchedule).click();
                     Swal.fire({

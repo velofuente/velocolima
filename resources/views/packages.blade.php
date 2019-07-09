@@ -41,11 +41,11 @@
                     {{-- <div id="content-normal" class="content-n" data-toggle="modal" data-target="#savedCardsModal" onclick="classQuantity('{{ $product->n_classes }}')" class="pickClass"> --}}
                         <h5 id="package-description" class="mt-0 text-center mx-auto">Promoción <br><span id="DBDescription" class="text-center mx-auto">{{$product->description}}<span></h5>
                         <h3 id="amountDeal">{{$product->n_classes}}</h3>
-                        @if ($flag)
-                            <h4 class="class">CLASE</h4>
-                            {{$flag=false}}
-                        @else
+                        @if ($product->n_classes > 1)
                             <h4 class="class">CLASES</h4>
+                            {{-- {{$flag=false}} --}}
+                        @else
+                            <h4 class="class">CLASE</h4>
                         @endif
                         <p class="precio" style="font-size: 17px; font-family: 'Avenir Next Condensed'; font-weight: 300;">${{$product->price}}</p>
                         <p class="exp" style="font-size: 17px;">Expira: {{$product->expiration_days}} días</p>

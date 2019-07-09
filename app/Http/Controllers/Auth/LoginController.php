@@ -62,7 +62,7 @@ class LoginController extends Controller
         }
         return back()
             ->withErrors([
-                'email' => "Formato de e-mail no valido",
+                // 'email' => "Formato de e-mail no valido",
                 'required' => "Campo requerido",
                 'password' => "Credenciales no válidas",
             ])

@@ -45,6 +45,10 @@ body{
   /* outline: 1px solid; */
 }
 
+#tableNextClasses {
+  cursor: pointer;
+}
+
 /* Verical Navigation Bar Version */
 .nav-side-menu {
   overflow: auto;
