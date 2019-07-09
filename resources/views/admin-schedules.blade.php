@@ -497,6 +497,20 @@
         });
     };
 
+    // Clickable Rows on Tables
+    $('#tableNextClasses').on('click', 'tr', function(event){
+        var id = $(this).attr('id');
+        var fullId = id.split('-');
+        if (fullId.length > 1){
+            var splittedId = fullId[1];
+            scheduleOperations = splittedId;
+            operationsSchedule = scheduleOperations;
+        }
+        if(!$(event.target).hasClass('text-center')) {
+            $('#frameView').load('admin-operations');
+        }
+    });
+
     function getNextClasses(){
         $('#tableNextClasses').removeClass('table-striped table-hover');
         $.ajax({
@@ -510,18 +524,8 @@
                 $('#tableBodyNextClasses').empty();
                 $.each(result, function(index, value){
                     $('#tableBodyNextClasses').append(
-                        '<tr style="font-size: 0.9em;" class="rowNextClasses" id="rowSchedule-'+value.object.id+'">',
-                            '<td>'+value.object.id+'</td>',
-                            '<td>'+value.formatDay+'</td>',
-                            '<td>'+value.formatHour+'</td>',
-                            '<td>'+value.object.instructor.name+'</td>',
-                            '<td>'+value.object.reservation_limit+'</td>',
-                            '<td>'+value.reservedBikes+'</td>',
-                            '<td>'+value.availableBikes+'</td>',
-                            '<td>'+value.object.branch.name+'</td>',
-                            '<td class="text-center "><button class="btn btn-primary btn-sm editSchedule" id="editSchedule-'+value.object.id+'" value="'+value.object.id+'" data-myid="'+value.object.id+'" data-myday="'+value.object.day+'" data-myhour="'+value.object.hour+'" data-myinstructor="'+value.object.instructor_id+'" data-myreservation="'+value.object.reservation_limit+'" data-mybranch="'+value.object.branch_id+'" data-toggle="modal" data-target="#editScheduleModal">Editar</button></td>',
-                            '<td class="text-center"><button class="btn btn-danger btn-sm deleteSchedule" id="deleteSchedule-'+value.object.id+'" value="'+value.object.id+'">Eliminar</button></td>',
-                        '</tr>');
+                        '<tr style="font-size: 0.9em;" class="rowNextClasses" id="rowSchedule-'+value.object.id+'"><td>'+value.object.id+'</td><td>'+value.formatDay+'</td><td>'+value.formatHour+'</td><td>'+value.object.instructor.name+'</td><td>'+value.object.reservation_limit+'</td><td>'+value.reservedBikes+'</td><td>'+value.availableBikes+'</td><td>'+value.object.branch.name+'</td><td class="text-center"><button class="btn btn-primary btn-sm editSchedule text-center" id="editSchedule-'+value.object.id+'" value="'+value.object.id+'" data-myid="'+value.object.id+'" data-myday="'+value.object.day+'" data-myhour="'+value.object.hour+'" data-myinstructor="'+value.object.instructor_id+'" data-myreservation="'+value.object.reservation_limit+'" data-mybranch="'+value.object.branch_id+'" data-toggle="modal" data-target="#editScheduleModal">Editar</button></td><td class="text-center"><button class="btn btn-danger btn-sm deleteSchedule text-center" id="deleteSchedule-'+value.object.id+'" value="'+value.object.id+'">Eliminar</button></td></tr>',
+                    );
                 });
                 $('#tableNextClasses').show();
                 $('#tablePreviousClasses').hide();
@@ -554,16 +558,7 @@
                 $('#tableBodyPreviousClasses').empty();
                 $.each(result, function(index, value){
                     $('#tableBodyPreviousClasses').append(
-                        '<tr style="font-size: 0.9em;" class="rowPreviousClasses">',
-                            '<td>'+value.object.id+'</td>',
-                            '<td>'+value.formatDay+'</td>',
-                            '<td>'+value.formatHour+'</td>',
-                            '<td>'+value.object.instructor.name+'</td>',
-                            '<td>'+value.object.reservation_limit+'</td>',
-                            '<td>'+value.reservedBikes+'</td>',
-                            '<td>'+value.availableBikes+'</td>',
-                            '<td>'+value.object.branch.name+'</td>',
-                        '</tr>'
+                        '<tr style="font-size: 0.9em;" class="rowPreviousClasses"><td>'+value.object.id+'</td><td>'+value.formatDay+'</td><td>'+value.formatHour+'</td><td>'+value.object.instructor.name+'</td><td>'+value.object.reservation_limit+'</td><td>'+value.reservedBikes+'</td><td>'+value.availableBikes+'</td><td>'+value.object.branch.name+'</td></tr>'
                     );
                 });
                 $('#tableNextClasses').hide();

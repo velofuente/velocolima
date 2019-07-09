@@ -12,7 +12,7 @@
 
 {{-- Main Title & Schedules Button --}}
 <div class="row text-center mx-0 pt-3">
-    <h3 class="col-xs-12 col-sm-12 col-md-3 col-lg-3 mx-auto">NuevOp</h3>
+    <h3 class="col-xs-12 col-sm-12 col-md-3 col-lg-3 mx-auto">Operaciones</h3>
     <div class="col-xs-0 col-sm-0 col-md-1 col-lg-1 mx-auto"></div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 mx-auto dropdown ">
         <button class="btn btn-info dropdown-toggle" id="dropdownSchedule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -58,9 +58,9 @@
     {{-- <div class="centeredDiv col-md-10" id="bikes-div" style="width: 100%">
         <h1>System Grid Test</h1>
     </div> --}}
-    @if (count($userSchedules) > 0)
+    {{-- @if (count($userSchedules) > 0) --}}
         <div class="col-md-2">
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover" id="tableClasses">
                 <thead style="font-size: 1em;">
                     <tr style="font-size: 1em;">
                         <th scope="col">Nombre</th>
@@ -153,9 +153,9 @@
                 </tbody>
             </table>
         </div>
-    @else
+    {{-- @else
         <h2 class="text-left ml-4 mt-4">No hay reservaciones en este horario</h2>
-    @endif
+    @endif --}}
 </div>
 
 
@@ -436,12 +436,18 @@
     var assistButton = null;
     var id = null;
 
-
     $(document).ready(function (){
-        // var token = $('meta[name="csrf-token"]').attr('content');
-        // console.log(token);
+
         $('#main-bikes').hide();
         $('#addOpUserButton').hide()
+
+        // If this was a call from the Admin-Schedules row, then show the Ops for that schedule
+        if (scheduleOperations){
+            schedule_id = scheduleOperations;
+            showClientsTable(scheduleOperations);
+            $('a[id="'+schedule_id+'"]').addClass('active');
+            scheduleOperations = null;
+        }
 
         // Dropdown Selected Option
         $('.dropdown-menu a').click(function(){
@@ -534,6 +540,7 @@
                     $('#userCancel-'+schedule_id).remove();
                     $('#absentButton-'+schedule_id).html('Cancelado');
                     $('.active').click();
+                    $('body').removeClass('modal-open');
                     // Swal.fire({
                     //     title: 'Cancelado con éxito',
                     //     text: result.message,
@@ -812,6 +819,7 @@
                     // $('.active-menu').trigger('click');
                     $('.modal').hide();
                     $('.active').click();
+                    $('body').removeClass('modal-open');
                     $('#registerOpUserModal').modal('hide');
                     Swal.fire({
                         title: 'Usuario Registrado',
@@ -956,58 +964,20 @@
                 $('tr:hidden').show();
                 $('.tableBodyRow').empty();
                 $.each (result, function(index, value){
-                    if(value.status == 'taken'){
-                        $('#tableBody').append(
-                            '<tr class="tableBodyRow">',
-                                '<td>'+value.user.name+' '+value.user.last_name+'</td>',
-                                '<td>'+value.user.email+'</td>',
-                                '<td>'+value.bike+'</td>',
-                                '<td>'+value.user.shoe_size+'</td>',
-                                '<td>'+value.user.phone+'</td>',
-                                '<td></td>',
-                                '<td>Asistió</td>',
-                                '<td></td>',
-                            '</tr>'
-                        );
-                    } else if (value.status == 'cancelled'){
-                        $('#tableBody').append(
-                            '<tr class="tableBodyRow">',
-                                '<td>'+value.user.name+' '+value.user.last_name+'</td>',
-                                '<td>'+value.user.email+'</td>',
-                                '<td>'+value.bike+'</td>',
-                                '<td>'+value.user.shoe_size+'</td>',
-                                '<td>'+value.user.phone+'</td>',
-                                '<td></td>',
-                                '<td>Cancelado</td>',
-                                '<td></td>',
-                            '</tr>'
-                        );
-                    } else if (value.status == 'absent'){
-                        $('#tableBody').append(
-                            '<tr class="tableBodyRow">',
-                                '<td>'+value.user.name+' '+value.user.last_name+'</td>',
-                                '<td>'+value.user.email+'</td>',
-                                '<td>'+value.bike+'</td>',
-                                '<td>'+value.user.shoe_size+'</td>',
-                                '<td>'+value.user.phone+'</td>',
-                                '<td></td>',
-                                '<td>Ausente</td>',
-                                '<td></td>',
-                            '</tr>'
-                        );
-                    } else {
-                        $('#tableBody').append(
-                            '<tr class="tableBodyRow">',
-                                '<td>'+value.user.name+' '+value.user.last_name+'</td>',
-                                '<td>'+value.user.email+'</td>',
-                                '<td>'+value.bike+'</td>',
-                                '<td>'+value.user.shoe_size+'</td>',
-                                '<td>'+value.user.phone+'</td>',
-                                '<td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td>',
-                                '<td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td>',
-                                '<td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td>',
-                            '</tr>'
-                        );
+                    if (value.status != 'cancelled'){
+                        if(value.status == 'taken'){
+                            $('#tableBody').append(
+                                '<tr class="tableBodyRow"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
+                            );
+                        } else if (value.status == 'absent'){
+                            $('#tableBody').append(
+                                '<tr class="tableBodyRow"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
+                            );
+                        } else {
+                            $('#tableBody').append(
+                                '<tr class="tableBodyRow"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
+                            );
+                        }
                     }
                 });
                 $('#main-bikes').show('fast');
@@ -1016,11 +986,65 @@
                 $('#opSearchUser').empty();
                 getOperationBikes(schedule_id);
                 getNonScheduledUsers(schedule_id);
+                switchBike();
             },
             error: function(result) {
                 console.log(result);
             }
         })
+    }
+
+    function switchBike(){
+        var bikeNumber = null;
+        $.each($('.tdBikeNumber'), function( index, value ) {
+            bikeNumber = $(value).text();
+            switch (bikeNumber) {
+                case '2':
+                    $(value).text('1')
+                    break;
+                case '10':
+                    $(value).text('2')
+                    break;
+                case '12':
+                    $(value).text('3')
+                    break;
+                case '14':
+                    $(value).text('4')
+                    break;
+                case '20':
+                    $(value).text('5')
+                    break;
+                case '22':
+                    $(value).text('6')
+                    break;
+                case '24':
+                    $(value).text('7')
+                    break;
+                case '26':
+                    $(value).text('8')
+                    break;
+                case '30':
+                    $(value).text('9')
+                    break;
+                case '32':
+                    $(value).text('10')
+                    break;
+                case '36':
+                    $(value).text('11')
+                    break;
+                case '38':
+                    $(value).text('12')
+                    break;
+                case '40':
+                $(value).text('13')
+                    break;
+                case '42':
+                    $(value).text('14')
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
     function claimClass(schedule_id,bike,user_id, button){
@@ -1041,8 +1065,11 @@
                 if (result.status == "OK") {
                     $('.modal-backdrop').remove();
                     $('.modal').hide();
+                    $('.modal-open').removeClass('.modal-open');
                     // $('.active-menu').trigger('click');
                     $('.active').click();
+                    $('body').removeClass('modal-open');
+                    $('#opSearchInput').val('');
                     // $(activeDropdownSchedule).removeClass('active');
                     // $(activeDropdownSchedule).click();
                     Swal.fire({

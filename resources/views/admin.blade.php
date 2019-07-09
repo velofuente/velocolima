@@ -52,7 +52,8 @@
                             </li>
                         </a>
                         <a href="#" id="schedules">
-                            <li  data-toggle="collapse" data-target="#products" class="collapsed">
+                            {{-- <li  data-toggle="collapse" data-target="#products" class="collapsed"> --}}
+                            <li data-target="#products">
                                 {{-- <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span></a> --}}
                                 {{-- <i class="fa fa-gift fa-lg"></i> --}}
                                 Horario
@@ -72,7 +73,8 @@
                             </ul> --}}
                         <a href="#" id="branches">
                             {{-- <a href="#"><i class="fa fa-globe fa-lg"></i> Services <span class="arrow"></span></a> --}}
-                            <li data-toggle="collapse" data-target="#service" class="collapsed">
+                            {{-- <li data-toggle="collapse" data-target="#service" class="collapsed"> --}}
+                            <li data-target="#service">
                                 {{-- <i class="fa fa-globe fa-lg"></i> --}}
                                 Sucursal
                             </li>
@@ -155,6 +157,9 @@
     <script>
         var activeDropdownSchedule = null;
         var previousSchedule = null;
+        var scheduleOperations = null;
+        var operationsSchedule = null;
+
         $(document).ready(function (){
             //Variable to get the clicked link
             var pageCalled = null;
