@@ -133,7 +133,7 @@ class BookClassController extends Controller
     }
     public function absentUserClass(Request $request){
         $requestedClass = UserSchedule::find($request->schedule_id);
-        if($requestedClass!='active'){
+        if($requestedClass=='active' || $requestedClass!='active'){
             $requestedClass->status = 'absent';
             $requestedClass->changedSit = 0;
             $requestedClass->save();
@@ -154,7 +154,7 @@ class BookClassController extends Controller
     {
         $requestedClass = UserSchedule::find($request->id);
         $purchase = Purchase::find($requestedClass->purchase_id);
-        if($requestedClass->status=='active'){
+        if($requestedClass->status=='active'||$requestedClass->status!='active'){
             $requestedClass->status = 'cancelled';
             $requestedClass->changedSit = 0;
             $requestedClass->save();
@@ -188,7 +188,7 @@ class BookClassController extends Controller
     }
     public function attendClass(Request $request){
         $requestedClass = UserSchedule::find($request->reservation_id);
-        if($requestedClass->status=='active'){
+        if($requestedClass->status=='active'||$requestedClass->status!='active'){
             $requestedClass->status = 'taken';
             $requestedClass->save();
             return response()->json([
