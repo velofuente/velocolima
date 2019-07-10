@@ -10,7 +10,7 @@
 </div>
 
 {{-- Table  --}}
-@if (count($sales) > 0)
+{{-- @if (count($sales) > 0) --}}
     <table class="table table-striped table-hover" style="margin: 0 0">
         <thead style="font-size: 1em;">
             <tr style="font-size: 1em;">
@@ -42,9 +42,9 @@
     <div class="row text-center mx-0 py-4">
         <h3 class="mr-4" id="total">Total: $</h3>
     </div>
-@else
-    <h2 class="text-center">Aún no se ha realizado ninguna venta</h2>
-@endif
+{{-- @else --}}
+    {{-- <h2 class="text-center">Aún no se ha realizado ninguna venta</h2> --}}
+{{-- @endif --}}
 
 <script>
     var elements = document.getElementsByClassName("sum");

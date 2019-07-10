@@ -132,6 +132,7 @@ class BookClassController extends Controller
         }
     }
     public function absentUserClass(Request $request){
+        // TODO: Revisar la condición if($requestedClass=='active' || $requestedClass!='active') en esta función, cancelClass y attendClass
         $requestedClass = UserSchedule::find($request->schedule_id);
         if($requestedClass=='active' || $requestedClass!='active'){
             $requestedClass->status = 'absent';

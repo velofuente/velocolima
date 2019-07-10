@@ -179,7 +179,8 @@ class AdminController extends Controller
     }
 
     public function showReports(){
-        $sales = Sale::with(['admin', 'purchase'])->whereRaw("date(created_at) = date(NOW())")->get();
+        // $sales = Sale::with(['admin', 'purchase'])->whereRaw("date(created_at) = date(NOW())")->get();
+        $sales = Sale::with(['admin', 'purchase'])->whereDate('created_at','=', date('Y-m-d'))->get();
         return view('/admin-reports', compact ('sales'));
     }
 
@@ -601,7 +602,6 @@ class AdminController extends Controller
         ]);
     }
     public function sale(Request $request){
-        log::info($request);
         try {
             $admin = $request->user();
             $product = Product::where('id', "{$request->product_id}")->first();
