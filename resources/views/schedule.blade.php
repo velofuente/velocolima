@@ -88,25 +88,30 @@
                                             {{-- Enabled Boxes --}}
                                             <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
                                                 <li class="scheduleItem" id="{{$schedule->instructor->name}}">
-                                                    <p class="scheduleItemTextInstructor">
-                                                        {{$schedule->instructor->name}}
-                                                    </p>
-                                                    <p class="scheduleItemTextHour">
-                                                        {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                    </p>
+                                                    <section class="scheduleItemContainer">
+                                                        <p class="scheduleItemTextInstructor">
+                                                            {{$schedule->instructor->name}}
+                                                        </p>
+                                                        <p class="scheduleItemTextHour">
+                                                            {{ date('g:i A', strtotime($schedule->hour)) }}
+                                                        </p>
+                                                    </section>
                                                 </li>
                                             </a>
                                         @endif
                                     @else
                                         {{-- Enabled Boxes --}}
                                         <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
-                                            <li class="scheduleItem" id="{{$schedule->instructor->name}}">
-                                                <p class="scheduleItemTextInstructor">
-                                                    {{$schedule->instructor->name}}
-                                                </p>
-                                                <p class="scheduleItemTextHour">
-                                                    {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                </p>
+                                            <li class="scheduleItemDescription" id="{{$schedule->instructor->name}}">
+                                                <section class="scheduleItemContainerDescription">
+                                                    <p class="scheduleItemTextInstructor">
+                                                        {{$schedule->instructor->name}}
+                                                    </p>
+                                                    <p class="scheduleDescription">Texto Relativamente Largo</p>
+                                                    <p class="scheduleItemTextHour">
+                                                        {{ date('g:i A', strtotime($schedule->hour)) }}
+                                                    </p>
+                                                </section>
                                             </li>
                                         </a>
                                     @endif
