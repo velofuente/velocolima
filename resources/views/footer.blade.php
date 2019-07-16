@@ -103,6 +103,11 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12 text-center" style="font-size: 13px;">
+                Sistema desarrollado por <a class="witann" href="http://witann.com/" target="blank"> Witann Technologies.</a>
+            </div>
+        </div>
     </div>
     {{-- <script>
 

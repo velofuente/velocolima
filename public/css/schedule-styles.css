@@ -97,27 +97,6 @@ ul{
     float: none;
 } */
 
-@media screen and (max-width: 700px) {
-    .redes-fijas {
-        display: none;
-    }
-    .red {
-        display: none
-    }
-    #calendario {
-          overflow: auto;
-    }
-    #topNavBar {
-        position: relative;
-    }
-    /* Agregar id="rowSchedule" a la row dentro de #calendario  */
-    #rowSchedule {
-        width: 43em;
-        overflow-x: scroll;
-        overflow-y: hidden;
-    }
-}
-
 span.number{
     display: inline;
     margin: 0px;
@@ -151,6 +130,7 @@ span.number{
     border: 1px solid #ffffff66;
     width: 98%;
     height: 100px;
+    position: relative;
     font-size: 18px;
     transition: 0.2s;
 }
@@ -197,6 +177,13 @@ span.number{
     font-size: 18px;
     transition: 0.2s;
 }
+.scheduleItem:hover{
+    /* Red Hover */
+    /* background-color: rgba(253, 13, 61, 0.673); */
+
+    /* Gradient Hover */
+    background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
+}
 .scheduleItemDescription{
     background-color: #000;
     margin-bottom: 6px;
@@ -208,15 +195,6 @@ span.number{
     font-size: 18px;
     transition: 0.2s;
 }
-
-.scheduleItem:hover{
-    /* Red Hover */
-    /* background-color: rgba(253, 13, 61, 0.673); */
-
-    /* Gradient Hover */
-    background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
-}
-
 .scheduleItemContainerDescription{
     width: 100%;
     height: 50px;
@@ -242,7 +220,8 @@ span.number{
     margin-left: 5%;
     margin-right: 5%;
     font-size: 15px !important;
-    color: #9626eb;
+    /* color: #9626eb; */
+    color: #ffffffc2;
     font-family: 'Avenir Next' !important;
     font-weight: 500 !important;
     line-height: 18px !important;
@@ -266,4 +245,40 @@ span.number{
 
 .main{
     /* margin-top: 5em; */
+}
+
+
+@media screen and (max-width: 700px) {
+    .redes-fijas {
+        display: none;
+    }
+    .red {
+        display: none
+    }
+    #calendario {
+          overflow: auto;
+    }
+    #topNavBar {
+        position: relative;
+    }
+    /* Agregar id="rowSchedule" a la row dentro de #calendario  */
+    #rowSchedule {
+        width: 43em;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+    .scheduleItem{
+        height: 110px;
+    }
+    .scheduleItemDisabled{
+        height: 110px;
+    }
+    .scheduleDescription{
+        margin-bottom: 0em;
+        font-size: 15px !important;
+        /* color: #9626eb; */
+        color: rgba(255, 255, 255, 0.824);
+        font-family: 'Avenir Next Condensed' !important;
+        font-weight: 400 !important;
+    }
 }

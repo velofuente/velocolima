@@ -1377,3 +1377,18 @@ select{
     height: 55em;
     margin: -10em 0;
 }
+.witann{
+    font-family: 'Avenir Next' !important;
+    font-weight: 250; /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
+}
+.witann:link{
+    text-decoration: none;
+    background: -webkit-linear-gradient(40deg, #E0F8D5, #C3E6DF, #ADD8E5, #93C9EA, #94C9EA);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 1s;
+}
+.witann:hover{
+    background-position: right center;
+    color: #ddd;
+}

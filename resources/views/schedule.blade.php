@@ -73,19 +73,73 @@
                                     {{-- If the Schedule Day == Actual (Real) Day of the Week then check the hour scheduled --}}
                                     @if ($schedule->day == $thisDay->format('Y-m-d'))
                                         @if ($schedule->hour < $today->format('H:i:s'))
-                                            {{-- Disabled Boxes --}}
-                                            <span class="scheduleItemLinkDisabled">
-                                                <li class="scheduleItemDisabled" id="{{$schedule->instructor->name}}">
-                                                    <p class="scheduleItemTextInstructor">
-                                                        {{$schedule->instructor->name}}
-                                                    </p>
-                                                    <p class="scheduleItemTextHourDisabled">
-                                                        {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                    </p>
-                                                </li>
-                                            </span>
+                                            @if($schedule->description == null)
+                                                {{-- Disabled Boxes || No Description--}}
+                                                <span class="scheduleItemLinkDisabled">
+                                                    {{-- <li class="scheduleItemDisabled" id="{{$schedule->instructor->name}}"> --}}
+                                                    <li class="scheduleItemDisabled" id="{{$schedule->instructor->name}}">
+                                                        <section class="scheduleItemContainer">
+                                                            <p class="scheduleItemTextInstructor">
+                                                                {{$schedule->instructor->name}}
+                                                            </p>
+                                                            <p class="scheduleItemTextHourDisabled">
+                                                                {{ date('g:i A', strtotime($schedule->hour)) }}
+                                                            </p>
+                                                        </section>
+                                                    </li>
+                                                </span>
+                                            @else
+                                                {{-- Disabled Boxes || No Description--}}
+                                                <span class="scheduleItemLinkDisabled">
+                                                        {{-- <li class="scheduleItemDisabled" id="{{$schedule->instructor->name}}"> --}}
+                                                        <li class="scheduleItemDisabled" id="{{$schedule->instructor->name}}">
+                                                            <section class="scheduleItemContainerDescription">
+                                                                <p class="scheduleItemTextInstructor">
+                                                                    {{$schedule->instructor->name}}
+                                                                </p>
+                                                                <p class="scheduleDescription">{{$schedule->description}}</p>
+                                                                <p class="scheduleItemTextHourDisabled">
+                                                                    {{ date('g:i A', strtotime($schedule->hour)) }}
+                                                                </p>
+                                                            </section>
+                                                        </li>
+                                                    </span>
+                                            @endif
                                         @else
-                                            {{-- Enabled Boxes --}}
+                                            @if($schedule->description == null)
+                                                {{-- Enabled Boxes from Today || No Description --}}
+                                                <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
+                                                    <li class="scheduleItem" id="{{$schedule->instructor->name}}">
+                                                        <section class="scheduleItemContainer">
+                                                            <p class="scheduleItemTextInstructor">
+                                                                {{$schedule->instructor->name}}
+                                                            </p>
+                                                            <p class="scheduleItemTextHour">
+                                                                {{ date('g:i A', strtotime($schedule->hour)) }}
+                                                            </p>
+                                                        </section>
+                                                    </li>
+                                                </a>
+                                            @else
+                                                {{-- Enabled Boxes from Today || With Description--}}
+                                                <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
+                                                    <li class="scheduleItem" id="{{$schedule->instructor->name}}">
+                                                        <section class="scheduleItemContainerDescription">
+                                                            <p class="scheduleItemTextInstructor">
+                                                                {{$schedule->instructor->name}}
+                                                            </p>
+                                                            <p class="scheduleDescription">{{$schedule->description}}</p>
+                                                            <p class="scheduleItemTextHour">
+                                                                {{ date('g:i A', strtotime($schedule->hour)) }}
+                                                            </p>
+                                                        </section>
+                                                    </li>
+                                                </a>
+                                            @endif
+                                        @endif
+                                    @else
+                                        @if($schedule->description == null)
+                                            {{-- Enabled Boxes day by day || No Description --}}
                                             <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
                                                 <li class="scheduleItem" id="{{$schedule->instructor->name}}">
                                                     <section class="scheduleItemContainer">
@@ -98,22 +152,23 @@
                                                     </section>
                                                 </li>
                                             </a>
+                                        @else
+                                            {{-- Enabled Boxes day by day || No Description --}}
+                                            <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
+                                                <li class="scheduleItem" id="{{$schedule->instructor->name}}">
+                                                    <section class="scheduleItemContainerDescription">
+                                                        <p class="scheduleItemTextInstructor">
+                                                            {{$schedule->instructor->name}}
+                                                        </p>
+                                                        {{-- <p class="scheduleDescription">Techno Bachata Cumbia Poder</p> --}}
+                                                        <p class="scheduleDescription">{{$schedule->description}}</p>
+                                                        <p class="scheduleItemTextHour">
+                                                            {{ date('g:i A', strtotime($schedule->hour)) }}
+                                                        </p>
+                                                    </section>
+                                                </li>
+                                            </a>
                                         @endif
-                                    @else
-                                        {{-- Enabled Boxes --}}
-                                        <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
-                                            <li class="scheduleItemDescription" id="{{$schedule->instructor->name}}">
-                                                <section class="scheduleItemContainerDescription">
-                                                    <p class="scheduleItemTextInstructor">
-                                                        {{$schedule->instructor->name}}
-                                                    </p>
-                                                    <p class="scheduleDescription">Texto Relativamente Largo</p>
-                                                    <p class="scheduleItemTextHour">
-                                                        {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                    </p>
-                                                </section>
-                                            </li>
-                                        </a>
                                     @endif
                                 @endif
                             @endforeach
