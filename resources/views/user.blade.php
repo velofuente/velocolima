@@ -296,9 +296,9 @@
                                                     <tbody>
                                                         @foreach ($previousClasses as $previousClass)
                                                             <tr>
-                                                                <td>{{date('d-M-Y', strtotime($previousClass->schedule->day))}}</td>
-                                                                <td>{{date('h:i A', strtotime($previousClass->schedule->hour))}}</td>
-                                                                <td>{{$previousClass->schedule->instructor->name}}</td>
+                                                                <td>{{date('d-M-Y', strtotime($previousClass->scheduleWithTrashed->day))}}</td>
+                                                                <td>{{date('h:i A', strtotime($previousClass->scheduleWithTrashed->hour))}}</td>
+                                                                <td>{{$previousClass->scheduleWithTrashed->instructor->name}}</td>
                                                                 <td>{{$previousClass->bike}}</td>
                                                                 @switch($previousClass->status)
                                                                     @case('cancelled')
@@ -385,7 +385,7 @@
                                                     <tbody>
                                                         @foreach ($purchaseHistory as $purchase)
                                                             <tr>
-                                                                <td>{{$purchase->product->n_classes}}</td>
+                                                                <td>{{$purchase->productWithTrashed->n_classes}}</td>
                                                                 <td>{{date('d M Y', strtotime($purchase->created_at))}}</td>
                                                                 <td>{{date('d M Y', strtotime($purchase->finalDate))}}</td>
                                                             </tr>

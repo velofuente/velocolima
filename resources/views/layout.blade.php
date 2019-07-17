@@ -22,11 +22,11 @@
                 @endguest
                 @auth
                     <div class="links authLinks">
-                        <a href="{{ url('/user') }}"><img src="/img/iconos/USUARIO.png" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Mi Cuenta"></a>
+                        <a href="{{ url('/user') }}"><img src="/img/iconos/USUARIO.png" class="userNavBar" width="35px" height="35px" alt="Ingresar" data-toggle="tooltip" data-placement="bottom" title="Mi Cuenta"></a>
                         <a class="" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
-                        <img src="/img/iconos/CIERRE.png" width="35px" height="35px" alt="Salir" data-toggle="tooltip" data-placement="bottom" title="Salir"></a>
+                        <img src="/img/iconos/CIERRE.png" class="logoutNavBar" width="35px" height="35px" alt="Salir" data-toggle="tooltip" data-placement="bottom" title="Salir"></a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
@@ -34,7 +34,7 @@
                 @endauth
                 <div class="hambBtn">
                     <button id="hambBtn" class="hamburger hamburger--slider" type="button">
-                        <img src="{{asset ('/img/iconos/CIRCULOS1.png')}}" alt="tel" width="40px" height="15px">
+                        <img src="{{asset ('/img/iconos/CIRCULOS1.png')}}" class="menuNavBar" alt="tel" width="40px" height="15px">
                     </button>
                 </div>
             </div>

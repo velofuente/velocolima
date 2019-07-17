@@ -377,6 +377,7 @@ class AdminController extends Controller
                 'day' => $request->day,
                 'hour' => $request->hour,
                 'instructor_id' => $request->instructor_id,
+                'description' => $request->description,
                 'class_id' => 1,
                 'room_id' => 1,
                 'branch_id' => $request->branch_id,
@@ -390,6 +391,13 @@ class AdminController extends Controller
         }
     }
     public function editSchedule(Request $request){
+        if(strlen($request->description) > 27){
+            log::info(strlen($request->description));
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'La longitud de la descripción debe ser menor a 27 caracteres.'
+            ]);
+        }
         $schedule = Schedule::select('*')->where('day', $request->day)->where('hour', $request->hour)->where('id', '!=', $request->schedule_id)->first();
         if($schedule){
             return response()->json([
@@ -402,6 +410,7 @@ class AdminController extends Controller
             $Schedule->day = $request->day;
             $Schedule->hour = $request->hour;
             $Schedule->instructor_id = $request->instructor_id;
+            $Schedule->description = $request->description;
             $Schedule->branch_id = $request->branch_id;
             $Schedule->save();
             DB::commit();

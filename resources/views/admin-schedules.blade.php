@@ -48,6 +48,7 @@
                 <th scope="col">Fecha</th>
                 <th scope="col">Hora</th>
                 <th scope="col">Instructor</th>
+                <th scope="col">Descripción</th>
                 <th scope="col">Límite de Reservación</th>
                 <th scope="col">Bicis Reservadas</th>
                 <th scope="col">Bicis Disponibles</th>
@@ -77,6 +78,7 @@
                 <th scope="col">Fecha</th>
                 <th scope="col">Hora</th>
                 <th scope="col">Instructor</th>
+                <th scope="col">Descripción</th>
                 <th scope="col">Límite de Reservación</th>
                 <th scope="col">Bicis Reservadas</th>
                 <th scope="col">Bicis Disponibles</th>
@@ -97,7 +99,7 @@
 @endif
 
 {{-- Modal Add Schedule --}}
-<div class="modal fade bd-example-modal-lg" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="addScheduleModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="addScheduleModalLabel" aria-hidden="true">1
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -133,6 +135,13 @@
                                     <option value="{{$branch->id}}" class="text-center" >{{$branch->name}}</option>
                                 @endforeach
                             </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mx-auto text-center mt-3">
+                            <label for="descriptionInput">Descripción:</label>
+                            <input type="text" class="form-control" name="descriptionInput" id="addDescriptionSchedule" maxlength="27">
+                            <label for="descriptionInput" class="font-weight-light" style="font-size: 14px">(máximo 27 caracteres)</label>
                         </div>
                     </div>
                     <div class="addScheduleErrors">
@@ -188,6 +197,13 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-6 mx-auto text-center mt-3">
+                            <label for="editDescription">Descripción:</label>
+                            <input type="text" class="form-control" name="editDescription" id="editDescriptionSchedule" maxlength="27">
+                            <label for="descriptionInput" class="font-weight-light" style="font-size: 14px">(máximo 27 caracteres)</label>
+                        </div>
+                    </div>
                 {{-- </form> --}}
             </div>
             <div class="modal-footer">
@@ -217,6 +233,7 @@
         var hour = null;
         var instructor = null;
         var branch = null;
+        var description = null;
 
         $('#buttonTopAddSchedule').hide();
         $('table').hide();
@@ -287,6 +304,7 @@
                     day: $('#addDaySchedule').val(),
                     hour: $('#addHourSchedule').val(),
                     instructor_id: $('#addInstructorSchedule').val(),
+                    description: $('#addDescriptionSchedule').val(),
                     branch_id: $('#addBranchSchedule').val(),
                 },
                 success: function(result){
@@ -383,6 +401,7 @@
         day = button.data('myday') // Extract info from data-* attributes
         hour = button.data('myhour');
         instructor = button.data('myinstructor');
+        description = button.data('mydescription');
         branch = button.data('mybranch');
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -390,6 +409,7 @@
         modal.find('.modal-body #editDaySchedule').val(day)
         modal.find('.modal-body #editHourSchedule').val(hour)
         modal.find('.modal-body #editInstructorSchedule').val(instructor)
+        modal.find('.modal-body #editDescriptionSchedule').val(description)
         modal.find('.modal-body #editBranchSchedule').val(branch)
     })
 
@@ -402,6 +422,7 @@
         hour = $('#editHourSchedule').val();
         instructor = $('#editInstructorSchedule').val();
         branch = $('#editBranchSchedule').val();
+        description = $('#editDescriptionSchedule').val();
 
         editSchedule(schedule_id);
     })
@@ -456,6 +477,7 @@
                 day: day,
                 hour: hour,
                 instructor_id: instructor,
+                description: description,
                 branch_id: branch,
             },
             success: function(result) {
@@ -512,7 +534,6 @@
     });
 
     function getNextClasses(){
-        $('#tableNextClasses').removeClass('table-striped table-hover');
         $.ajax({
             url: "getNextClasses",
             method: 'GET',
@@ -523,9 +544,15 @@
                 $.LoadingOverlay('hide');
                 $('#tableBodyNextClasses').empty();
                 $.each(result, function(index, value){
-                    $('#tableBodyNextClasses').append(
-                        '<tr style="font-size: 0.9em;" class="rowNextClasses" id="rowSchedule-'+value.object.id+'"><td>'+value.object.id+'</td><td>'+value.formatDay+'</td><td>'+value.formatHour+'</td><td>'+value.object.instructor.name+'</td><td>'+value.object.reservation_limit+'</td><td>'+value.reservedBikes+'</td><td>'+value.availableBikes+'</td><td>'+value.object.branch.name+'</td><td class="text-center"><button class="btn btn-primary btn-sm editSchedule text-center" id="editSchedule-'+value.object.id+'" value="'+value.object.id+'" data-myid="'+value.object.id+'" data-myday="'+value.object.day+'" data-myhour="'+value.object.hour+'" data-myinstructor="'+value.object.instructor_id+'" data-myreservation="'+value.object.reservation_limit+'" data-mybranch="'+value.object.branch_id+'" data-toggle="modal" data-target="#editScheduleModal">Editar</button></td><td class="text-center"><button class="btn btn-danger btn-sm deleteSchedule text-center" id="deleteSchedule-'+value.object.id+'" value="'+value.object.id+'">Eliminar</button></td></tr>',
-                    );
+                    if(value.object.description != null){
+                        $('#tableBodyNextClasses').append(
+                            '<tr style="font-size: 0.9em;" class="rowNextClasses" id="rowSchedule-'+value.object.id+'"><td>'+value.object.id+'</td><td>'+value.formatDay+'</td><td>'+value.formatHour+'</td><td>'+value.object.instructor.name+'</td><td>'+value.object.description+'</td><td>'+value.object.reservation_limit+'</td><td>'+value.reservedBikes+'</td><td>'+value.availableBikes+'</td><td>'+value.object.branch.name+'</td><td class="text-center"><button class="btn btn-primary btn-sm editSchedule text-center" id="editSchedule-'+value.object.id+'" value="'+value.object.id+'" data-myid="'+value.object.id+'" data-myday="'+value.object.day+'" data-myhour="'+value.object.hour+'" data-myinstructor="'+value.object.instructor_id+'"data-mydescription="'+value.object.description+'" data-myreservation="'+value.object.reservation_limit+'" data-mybranch="'+value.object.branch_id+'" data-toggle="modal" data-target="#editScheduleModal">Editar</button></td><td class="text-center"><button class="btn btn-danger btn-sm deleteSchedule text-center" id="deleteSchedule-'+value.object.id+'" value="'+value.object.id+'">Eliminar</button></td></tr>',
+                        );
+                    } else {
+                        $('#tableBodyNextClasses').append(
+                            '<tr style="font-size: 0.9em;" class="rowNextClasses" id="rowSchedule-'+value.object.id+'"><td>'+value.object.id+'</td><td>'+value.formatDay+'</td><td>'+value.formatHour+'</td><td>'+value.object.instructor.name+'</td><td><i>Sin descripción</i></td><td>'+value.object.reservation_limit+'</td><td>'+value.reservedBikes+'</td><td>'+value.availableBikes+'</td><td>'+value.object.branch.name+'</td><td class="text-center"><button class="btn btn-primary btn-sm editSchedule text-center" id="editSchedule-'+value.object.id+'" value="'+value.object.id+'" data-myid="'+value.object.id+'" data-myday="'+value.object.day+'" data-myhour="'+value.object.hour+'" data-myinstructor="'+value.object.instructor_id+'"data-mydescription="'+value.object.description+'" data-myreservation="'+value.object.reservation_limit+'" data-mybranch="'+value.object.branch_id+'" data-toggle="modal" data-target="#editScheduleModal">Editar</button></td><td class="text-center"><button class="btn btn-danger btn-sm deleteSchedule text-center" id="deleteSchedule-'+value.object.id+'" value="'+value.object.id+'">Eliminar</button></td></tr>',
+                        );
+                    }
                 });
                 $('#tableNextClasses').show();
                 $('#tablePreviousClasses').hide();
@@ -557,9 +584,15 @@
                 $.LoadingOverlay('hide');
                 $('#tableBodyPreviousClasses').empty();
                 $.each(result, function(index, value){
-                    $('#tableBodyPreviousClasses').append(
-                        '<tr style="font-size: 0.9em;" class="rowPreviousClasses"><td>'+value.object.id+'</td><td>'+value.formatDay+'</td><td>'+value.formatHour+'</td><td>'+value.object.instructor.name+'</td><td>'+value.object.reservation_limit+'</td><td>'+value.reservedBikes+'</td><td>'+value.availableBikes+'</td><td>'+value.object.branch.name+'</td></tr>'
-                    );
+                    if(value.object.description != null){
+                        $('#tableBodyPreviousClasses').append(
+                        '<tr style="font-size: 0.9em;" class="rowPreviousClasses"><td>'+value.object.id+'</td><td>'+value.formatDay+'</td><td>'+value.formatHour+'</td><td>'+value.object.instructor.name+'</td><td>'+value.object.description+'</td><td>'+value.object.reservation_limit+'</td><td>'+value.reservedBikes+'</td><td>'+value.availableBikes+'</td><td>'+value.object.branch.name+'</td></tr>'
+                        );
+                    } else {
+                        $('#tableBodyPreviousClasses').append(
+                            '<tr style="font-size: 0.9em;" class="rowPreviousClasses"><td>'+value.object.id+'</td><td>'+value.formatDay+'</td><td>'+value.formatHour+'</td><td>'+value.object.instructor.name+'</td><td><i>Sin descripción</i></td><td>'+value.object.reservation_limit+'</td><td>'+value.reservedBikes+'</td><td>'+value.availableBikes+'</td><td>'+value.object.branch.name+'</td></tr>'
+                        );
+                    }
                 });
                 $('#tableNextClasses').hide();
                 $('#buttonTopAddSchedule').hide();
