@@ -183,6 +183,7 @@ span.number{
 
     /* Gradient Hover */
     background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
+    border: 1px solid #c7c7c7;
 }
 .scheduleItemDescription{
     background-color: #000;
@@ -219,10 +220,12 @@ span.number{
     margin-bottom: 0em;
     margin-left: 5%;
     margin-right: 5%;
-    font-size: 15px !important;
-    /* color: #9626eb; */
-    color: #ffffffc2;
-    font-family: 'Avenir Next' !important;
+    font-size: 16px !important;
+    /* color: #ffffffc2; */
+    color: #ffe7fec2;
+    /* font-family: 'Avenir Next' !important; */
+    font-family: 'Avenir Next Condensed' !important;
+    text-transform: initial;
     font-weight: 500 !important;
     line-height: 18px !important;
 }
