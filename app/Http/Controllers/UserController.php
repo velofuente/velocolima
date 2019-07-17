@@ -56,7 +56,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:60'],
             'last_name' => ['required', 'string', 'max:60'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'max:100', 'confirmed'],
             'birth_date' => ['required', 'date'],
             'phone' => ['required', 'int', 'max:999999999999999'],
             // 'weight' => ['required', 'numeric', 'between:0,999.99'],
