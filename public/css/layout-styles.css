@@ -202,7 +202,6 @@ select:focus {outline:0;}
 {
 
 } */
-
 /* NavBar mobile responsive screen */
 @media screen and (max-width: 600px) {
     #nav{
@@ -230,9 +229,9 @@ select:focus {outline:0;}
         width: 80px;
         height: 40px;
     }
-    /* .redes-fijas{
+    .redes-fijas{
         display: none;
-    } */
+    }
 }
 
 .account{

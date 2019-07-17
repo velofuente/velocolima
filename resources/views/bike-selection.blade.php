@@ -20,7 +20,7 @@
                     <div class="col-md-6 col-xs-6 bnd" id="placeDate">
                         <?php setlocale(LC_TIME,'es_MX.utf8'); $dt = Carbon::now(); $inicio = strftime("%A %d de %B,", strtotime($schedules->day));?>
                         <h6 class="col-md-6 col-xs-12 ml-0 first" id="branch">ESTUDIO: <span>{{$schedules->branch->name}}</span></h6>
-                        <h6 class="col-md-6 col-xs-12 first" id="date"> FECHA: <span>{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i A', strtotime($schedules->hour))}} </span></h6>
+                        {{-- <h6 class="col-md-6 col-xs-12 first" id="date"> FECHA: <span>{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i A', strtotime($schedules->hour))}} </span></h6> --}}
                     </div>
                     <div class="col-2 col-xs-6"></div>
                     <div class="col col-xs-0" id="selectBikeLogo">
@@ -28,6 +28,10 @@
                             <img class="cropLogo" src="/img/iconos/CroppedLogo.png" alt="">
                         </h5>
                     </div>
+                </div>
+                {{-- Displays the Date of the selected schedule on another row, now this can be displayed properly on mobile screens --}}
+                <div class="row">
+                    <h6 class="col-md-6 col-xs-12 first" id="date"> FECHA: <span>{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i A', strtotime($schedules->hour))}} </span></h6>
                 </div>
             <div class="description">
                 {{-- <img class="resClass" src="/img/iconos/2.png" alt=""> --}}

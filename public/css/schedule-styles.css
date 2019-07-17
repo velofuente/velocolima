@@ -222,7 +222,7 @@ span.number{
     margin-right: 5%;
     font-size: 16px !important;
     /* color: #ffffffc2; */
-    color: #ffe7fec2;
+    color: #ffffffd2;
     /* font-family: 'Avenir Next' !important; */
     font-family: 'Avenir Next Condensed' !important;
     text-transform: initial;
@@ -251,7 +251,7 @@ span.number{
 }
 
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 768px) {
     .redes-fijas {
         display: none;
     }
@@ -280,7 +280,7 @@ span.number{
         margin-bottom: 0em;
         font-size: 15px !important;
         /* color: #9626eb; */
-        color: rgba(255, 255, 255, 0.824);
+        color: #ffffffd2;
         font-family: 'Avenir Next Condensed' !important;
         font-weight: 400 !important;
     }

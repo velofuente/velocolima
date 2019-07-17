@@ -534,7 +534,6 @@
     });
 
     function getNextClasses(){
-        $('#tableNextClasses').removeClass('table-striped table-hover');
         $.ajax({
             url: "getNextClasses",
             method: 'GET',
