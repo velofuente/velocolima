@@ -371,7 +371,8 @@
             if(splitedId.length > 1){
                 // console.log(splitedId);
                 var instructorId = splitedId[1];
-                deleteInstructor(instructorId, this);
+                getInstructorSchedule(instructorId, this);
+                // deleteInstructor(instructorId, this);
             } else {
                 $(this).prop("disabled", false)
                 console.log("Malformed ID")
@@ -466,12 +467,19 @@
                         $('.modal-backdrop').remove();
                         $('.active-menu').trigger('click');
                         $('#addInstructorModal').modal('hide');
+                        // Clear the modal inputs
+                        $('#nameInstructor').val('');
+                        $('#last_nameInstructor').val('');
+                        $('#emailInstructor').val('');
+                        $('#birth_dateInstructor').val('');
+                        $('#phoneInstructor').val('');
                         Swal.fire({
                             title: 'Instructor Añadido',
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
                         })
+                        $('#addInstructorButton').attr('disabled', false);
                     }
                     else {
                         $.LoadingOverlay("hide");
@@ -481,6 +489,7 @@
                             type: 'warning',
                             confirmButtonText: 'Aceptar'
                         })
+                        $('#addInstructorButton').attr('disabled', false);
                     }
                 },
                 error: function(result){
@@ -493,6 +502,42 @@
                         confirmButtonText: 'Aceptar'
                     })
                     $('#editInstructorButton').prop("disabled", false);
+                }
+            });
+        }
+
+        function getInstructorSchedule(instructor_id, button){
+            $.ajax({
+                url: 'getInstructorSchedule',
+                type: 'POST',
+                cache: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    instructor_id: instructor_id,
+                },
+                success: function(result){
+                    if(result.status == 'OK'){
+                        deleteInstructor(instructor_id, button);
+                    } else {
+                        $(button).prop('disabled', false);
+                        Swal.fire({
+                            title: 'Error',
+                            text: result.message,
+                            type: 'warning',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    }
+                },
+                error: function(result){
+                    $(button).prop('disabled', false);
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Ha ocurrido un error al procesar la solicitud',
+                        type: 'error',
+                        confirmButtonText: 'Aceptar'
+                    })
                 }
             });
         }
@@ -519,10 +564,12 @@
                         data: {
                             instructor_id: instructor_id,
                         },
+                        beforeSend: function(){
+                            $.LoadingOverlay('show');
+                        },
                         success: function(result) {
                             $.LoadingOverlay("hide");
                             if (result.status == "OK") {
-                                console.log(result.status);
                                 $('.modal-backdrop').remove();
                                 $('.active-menu').trigger('click');
                                 Swal.fire({
@@ -587,6 +634,7 @@
                         $('.modal-backdrop').remove();
                         $('.active-menu').trigger('click');
                         $('#editInstructorModal').modal('hide');
+                        // Clear the modal inputs
                         Swal.fire({
                             title: 'Instructor Editado',
                             text: result.message,
@@ -606,6 +654,13 @@
                 },
                 error: function(result){
                     $.LoadingOverlay("hide");
+                    Swal.fire({
+                        title: 'Error',
+                        type: 'error',
+                        text: 'Ha ocurrido un error, favor de verificar que los datos ingresados son correctos.',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    $('#editInstructorButton').prop("disabled", false);
                     // alert(result);
                 }
             });

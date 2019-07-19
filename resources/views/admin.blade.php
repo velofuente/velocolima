@@ -150,7 +150,7 @@
             </div>
         </div>
         {{-- Where info will be displayed --}}
-        <div class="col-6 mx-0 px-0 rightSpan" id="frameView">
+        <div class="col-6 mx-0 px-0 rightSpan" id="frameView" style="width: 90em;">
         </div>
     </div>
 

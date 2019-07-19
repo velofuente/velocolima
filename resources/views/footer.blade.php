@@ -50,17 +50,17 @@
                     <div class="row mx-4 justify-content-center align-items-center text-center">
                         @csrf
                         <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2 pad">
-                            <input type="text text-center" class="prospectText" name="name" id="name" placeholder="NOMBRE">
+                            <input type="text text-center" class="prospectText" name="name" id="name" placeholder="NOMBRE" required>
                         </div>
                         <input type="hidden" name="csrf" value="">
                         <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2 pad">
-                            <input type="text" class="prospectText" name="email" id="email" placeholder="EMAIL">
+                            <input type="email" class="prospectText" name="email" id="email" placeholder="EMAIL" required>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2 pad">
-                            <input type="text" class="prospectText" name="phone" id="phone" placeholder="TELEFONO">
+                            <input type="number" class="prospectText" name="phone" id="phone" placeholder="TELEFONO" required>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2 pad">
-                            <input type="text text-center" class="prospectText" name="instagram" id="instagram" placeholder="INSTAGRAM">
+                            <input type="text text-center" class="prospectText" name="instagram" id="instagram" placeholder="INSTAGRAM" required>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2 pad">
                             <button class="btn btn-outline-secondary" id="buttonFormResponse">ENVIAR</button>

@@ -32,7 +32,7 @@
                     <td>{{$user->phone}}</td>
                     <td>{{$user->gender}}</td>
                     {{-- <td>{{$user->branch->name}}</td> --}}
-                    <td><button class="btn btn-primary btn-sm editUser" id="editUser-{{ $user->id }}" value="{{$user->id}}" data-myid="{{ $user->id }}" data-myname="{{ $user->name }}" data-mylastname="{{ $user->last_name }}" data-myemail="{{$user->email}}" data-mybirthdate="{{ $user->birth_date }}" data-myphone="{{$user->phone}}" data-toggle="modal" data-target="#editUserModal">Editar</button></td>
+                    <td><button class="btn btn-primary btn-sm editUser" id="editUser-{{ $user->id }}" value="{{$user->id}}" data-myid="{{ $user->id }}" data-myname="{{ $user->name }}" data-mylastname="{{ $user->last_name }}" data-myemail="{{$user->email}}" data-mybirthdate="{{ $user->birth_date }}" data-myphone="{{$user->phone}}" data-mygender="{{$user->gender}}" data-toggle="modal" data-target="#editUserModal">Editar</button></td>
                     <td><button class="btn btn-danger btn-sm deleteUser" id="deleteUser-{{ $user->id }}" value="{{$user->id}}">Eliminar</button></td>
                 </tr>
             @endforeach
@@ -232,6 +232,22 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
+                     {{-- User's Birth Date --}}
+                     <div class="form-group row mb-3">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="birth_date" class="mr-sm-2">Fecha de nacimiento:</label>
+                            <div class="input-group">
+                                <input id="editUserBirthDate" min="1900-01-01" max="2100-12-31" placeholder="Fecha de Nacimiento" type="date" class="form-control{{ $errors->has('editUserBirthDate') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('editUserBirthDate') }}" required >
+                                @if ($errors->has('editUserBirthDate'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('editUserBirthDate') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
                     {{-- User's Birth Date --}}
                     {{-- <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -261,6 +277,18 @@
                                 </span>
                                 @endif
                             </div>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+                    {{-- User's Gender --}}
+                    <div class="form-group row mb-3">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="gender">Género: </label>
+                            <select class="form-control" name="gender" id="editUserGender" required>
+                                <option value="Hombre" class="text-center">Hombre</option>
+                                <option value="Mujer" class="text-center">Mujer</option>
+                            </select>
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
@@ -389,6 +417,7 @@
             email = button.data('myemail');
             phone = button.data('myphone');
             birth_date = button.data('mybirthdate');
+            gender = button.data('mygender');
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 
@@ -399,6 +428,7 @@
             modal.find('.modal-body #editUserEmail').val(email)
             modal.find('.modal-body #editUserPhone').val(phone)
             modal.find('.modal-body #editUserBirthDate').val(birth_date)
+            modal.find('.modal-body #editUserGender').val(gender);
         })
 
         //Edit User Button Inside Modal
@@ -412,6 +442,7 @@
             email = $('#editUserEmail').val();
             phone = $('#editUserPhone').val();
             birth_date = $('#editUserBirthDate').val();
+            gender = $('#editUserGender').val();
 
             editUser(user_id);
         })
@@ -481,7 +512,9 @@
                     name: name,
                     last_name: last_name,
                     email: email,
-                    phone: phone
+                    phone: phone,
+                    birth_date: birth_date,
+                    gender: gender,
                 },
                 success: function(result) {
                     $.LoadingOverlay("hide");

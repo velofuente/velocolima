@@ -586,11 +586,11 @@
                 $.each(result, function(index, value){
                     if(value.object.description != null){
                         $('#tableBodyPreviousClasses').append(
-                        '<tr style="font-size: 0.9em;" class="rowPreviousClasses"><td>'+value.object.id+'</td><td>'+value.formatDay+'</td><td>'+value.formatHour+'</td><td>'+value.object.instructor.name+'</td><td>'+value.object.description+'</td><td>'+value.object.reservation_limit+'</td><td>'+value.reservedBikes+'</td><td>'+value.availableBikes+'</td><td>'+value.object.branch.name+'</td></tr>'
+                        '<tr style="font-size: 0.9em;" class="rowPreviousClasses"><td>'+value.object.id+'</td><td>'+value.formatDay+'</td><td>'+value.formatHour+'</td><td>'+value.object.instructor_with_trashed.name+'</td><td>'+value.object.description+'</td><td>'+value.object.reservation_limit+'</td><td>'+value.reservedBikes+'</td><td>'+value.availableBikes+'</td><td>'+value.object.branch_with_trashed.name+'</td></tr>'
                         );
                     } else {
                         $('#tableBodyPreviousClasses').append(
-                            '<tr style="font-size: 0.9em;" class="rowPreviousClasses"><td>'+value.object.id+'</td><td>'+value.formatDay+'</td><td>'+value.formatHour+'</td><td>'+value.object.instructor.name+'</td><td><i>Sin descripción</i></td><td>'+value.object.reservation_limit+'</td><td>'+value.reservedBikes+'</td><td>'+value.availableBikes+'</td><td>'+value.object.branch.name+'</td></tr>'
+                            '<tr style="font-size: 0.9em;" class="rowPreviousClasses"><td>'+value.object.id+'</td><td>'+value.formatDay+'</td><td>'+value.formatHour+'</td><td>'+value.object.instructor_with_trashed.name+'</td><td><i>Sin descripción</i></td><td>'+value.object.reservation_limit+'</td><td>'+value.reservedBikes+'</td><td>'+value.availableBikes+'</td><td>'+value.object.branch_with_trashed.name+'</td></tr>'
                         );
                     }
                 });

@@ -5,21 +5,43 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mail\CoachInfo;
 use App\Mail\walkInRegister;
+use Illuminate\Support\Facades\Log;
 
 class MailSendingController extends Controller
 {
     public function coachInfo(Request $request)
     {
+        if( is_null($request->name) ){
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'El campo "Nombre" es requerido.'
+            ]);
+        } else if(is_null($request->email)){
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'El campo "Email" es requerido.'
+            ]);
+        } else if( is_null($request->phone) ){
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'El campo "Teléfono" es requerido.'
+            ]);
+        } else if(is_null($request->instagram)){
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'El campo "Instagram" es requerido.'
+            ]);
+        }
         try {
             \Mail::to('rueda@velocycling.mx')->send(new CoachInfo($request->name,$request->email,$request->phone,$request->instagram));
             return response()->json([
                 'status' => 'OK',
-                'message' => "Informacion enviada con éxito!",
+                'message' => "¡Informacion enviada con éxito!",
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'ERROR',
-                'message' => "Intentelo mas tarde",
+                'message' => "Inténtelo mas tarde",
             ]);
         }
     }

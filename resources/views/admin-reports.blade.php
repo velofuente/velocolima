@@ -18,6 +18,7 @@
                 <th scope="col">Fecha Compra</th>
                 <th scope="col">Hora Compra</th>
                 <th scope="col">Cliente</th>
+                <th scope="col">Correo</th>
                 <th scope="col">Producto</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Realizado por:</th>
@@ -31,10 +32,11 @@
                     <td>{{date('d-M-Y', strtotime($sale->purchase->created_at))}}</td>
                     <td>{{date('g:i:s A', strtotime($sale->purchase->created_at))}}</td>
                     <td>{{$sale->purchase->client->name}} {{$sale->purchase->client->last_name}}</td>
-                    <td>{{$sale->purchase->product->description}}</td>
-                    <td>${{$sale->purchase->product->price}}</td>
+                    <td>{{$sale->purchase->client->email}}</td>
+                    <td>{{$sale->purchase->productWithTrashed->description}}</td>
+                    <td>${{$sale->purchase->productWithTrashed->price}}</td>
                     <td>{{$sale->admin->name}} {{$sale->admin->last_name}}</td>
-                    <input type="hidden" class="sum" value="{{$sale->purchase->product->price}}">
+                    <input type="hidden" class="sum" value="{{$sale->purchase->productWithTrashed->price}}">
                 </tr>
             @endforeach
         </tbody>

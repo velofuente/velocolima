@@ -79,7 +79,12 @@
                     $.LoadingOverlay("hide");
                     if(result.status == "OK"){
                         $.LoadingOverlay("hide");
-                        console.log(result.status);
+                        // console.log(result.status);
+                        $('#name').val('');
+                        $('#email').val('');
+                        $('#phone').val('');
+                        $('#instagram').val('');
+                        $("#buttonFormResponse").attr("disabled", false);
                         Swal.fire({
                             title: 'Email Enviado',
                             text: result.message,
@@ -94,12 +99,18 @@
                             type: 'warning',
                             confirmButtonText: 'Aceptar'
                         })
-                        $("#buttonFormResponse").attr("disabled", true);
+                        $("#buttonFormResponse").attr("disabled", false);
                     }
                 },
                 error: function() {
-                    console.log(data);
-                    // alert('no jala');
+                    $.LoadingOverlay('hide');
+                    $('#buttonFormResponse').prop('disabled', false);
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Ha ocurrido un error al procesar la solicitud',
+                        type: 'error',
+                        confirmButtonText: 'Aceptar',
+                    });
                 }
             });
         }

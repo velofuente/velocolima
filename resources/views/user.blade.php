@@ -294,11 +294,12 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        {{logger($previousClasses)}}
                                                         @foreach ($previousClasses as $previousClass)
                                                             <tr>
                                                                 <td>{{date('d-M-Y', strtotime($previousClass->scheduleWithTrashed->day))}}</td>
                                                                 <td>{{date('h:i A', strtotime($previousClass->scheduleWithTrashed->hour))}}</td>
-                                                                <td>{{$previousClass->scheduleWithTrashed->instructor->name}}</td>
+                                                                <td>{{$previousClass->scheduleWithTrashed->instructorWithTrashed->name}}</td>
                                                                 <td>{{$previousClass->bike}}</td>
                                                                 @switch($previousClass->status)
                                                                     @case('cancelled')
