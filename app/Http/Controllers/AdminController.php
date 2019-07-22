@@ -43,15 +43,15 @@ class AdminController extends Controller
     }
 
     public function getNextClasses(){
-        $schedules = Schedule::with(['instructor', 'branch'])->select("*", DB::RAW("CONCAT(day, ' ', hour) fullDate"))->whereNull('deleted_at')->orderBy('fullDate')->get();
-        // $schedules = Schedule::join('instructors', 'schedules.instructor_id', '=', 'instructors.id')
-        //                     ->join('branches', 'schedules.branch_id', '=', 'branches.id')
-        //                     ->select('schedules.id AS id', 'schedules.reservation_limit AS reservation_limit', 'schedules.day AS day', 'schedules.hour AS hour', 'schedules.description AS description', 'instructors.id AS instructor_id', 'instructors.name AS instructor_name', 'branches.id AS branch_id', 'branches.name AS branch_name', DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
-        //                     ->whereNull('schedules.deleted_at')
-        //                     ->whereNull('instructors.deleted_at')
-        //                     ->whereNull('branches.deleted_at')
-        //                     ->orderBy('fullDate')
-        //                     ->get();
+        //$schedules = Schedule::with(['instructor', 'branch'])->select("*", DB::RAW("CONCAT(day, ' ', hour) fullDate"))->whereNull('deleted_at')->orderBy('fullDate')->get();
+        $schedules = Schedule::join('instructors', 'schedules.instructor_id', '=', 'instructors.id')
+                            ->join('branches', 'schedules.branch_id', '=', 'branches.id')
+                            ->select('schedules.id AS id', 'schedules.reservation_limit AS reservation_limit', 'schedules.day AS day', 'schedules.hour AS hour', 'schedules.description AS description', 'instructors.id AS instructor_id', 'instructors.name AS instructor_name', 'branches.id AS branch_id', 'branches.name AS branch_name', DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
+                            ->whereNull('schedules.deleted_at')
+                            ->whereNull('instructors.deleted_at')
+                            ->whereNull('branches.deleted_at')
+                            ->orderBy('fullDate')
+                            ->get();
         $reservedPlaces = [];
         $nextSchedules = [];
         foreach ($schedules as $schedule){
@@ -235,6 +235,7 @@ class AdminController extends Controller
     public function getOperationBikes(Request $request){
         $availableBikes = [];
         $schedule = Schedule::find($request->schedule_id);
+        log::info($schedule);
         $branch = Branch::find($schedule->branch_id);
         $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
         $unavailableBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedule->branch_id)->get()->pluck("position")->toArray());
