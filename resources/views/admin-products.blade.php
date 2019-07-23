@@ -10,7 +10,7 @@
         <thead style="font-size: 1em;">
             <tr style="font-size: 1em;">
                 <th scope="col">ID</th>
-                <th scope="col">Cantidad de Clases</th>
+                <th scope="col">Clases</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Descripción</th>
                 <th scope="col">Vigencia</th>

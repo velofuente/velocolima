@@ -652,7 +652,7 @@ class AdminController extends Controller
             'birth_date' => $request->birth_date,
             'phone' => $request->phone,
             'gender' => $request->gender,
-            'role_id' => 1,
+            'role_id' => 2,
             'branch_id' => $user->branch_id,
         ]);
         DB::commit();
