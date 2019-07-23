@@ -124,7 +124,7 @@ class AdminController extends Controller
     }
 
     public function showUsers(){
-        $users = User::where('role_id', 2)->get();
+        $users = User::where('role_id', 1)->get();
         return view('/admin-users', compact ('users'));
     }
 
@@ -206,14 +206,19 @@ class AdminController extends Controller
         //     ->sortBy('hour')
         //     ->sortBy('day');
         $schedules = Schedule::join('instructors', 'schedules.instructor_id', '=', 'instructors.id')
+                            ->join('branches','schedules.branch_id','=','branches.id')
                             ->select('schedules.id','schedules.day','schedules.hour','schedules.reservation_limit','schedules.instructor_id','schedules.class_id',
                             'schedules.room_id','schedules.branch_id','schedules.deleted_at','schedules.created_at','schedules.updated_at','schedules.description',
                             'instructors.id AS insId', 'instructors.name AS insName')
                             ->whereNull('instructors.deleted_at')
+                            ->whereNull('schedules.deleted_at')
+                            ->whereNull('branches.deleted_at')
                             ->whereBetween('schedules.day', [now()->format('Y-m-d'), now()->modify('+7 days')])
-                            ->get()
-                            ->sortBy('schedules.hour')
-                            ->sortBy('schedules.day');
+                            ->orderBy('schedules.day')
+                            ->orderBy('schedules.hour')
+                            ->get();
+                            // ->sortBy('schedules.hour')
+                            // ->sortBy('schedules.day');
         foreach ($schedules as $schedule) {
             array_push($id,$schedule->id);
         }
