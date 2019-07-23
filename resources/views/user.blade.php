@@ -431,11 +431,19 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($purchaseHistory as $purchase)
-                                                            <tr>
-                                                                <td>{{$purchase->productWithTrashed->n_classes}}</td>
-                                                                <td>{{date('d M Y', strtotime($purchase->created_at))}}</td>
-                                                                <td>{{date('d M Y', strtotime($purchase->finalDate))}}</td>
-                                                            </tr>
+                                                            @if($purchase->productWithTrashed->type != "Souvenir")
+                                                                <tr>
+                                                                    <td>{{$purchase->productWithTrashed->n_classes}}</td>
+                                                                    <td>{{date('d M Y', strtotime($purchase->created_at))}}</td>
+                                                                    <td>{{date('d M Y', strtotime($purchase->finalDate))}}</td>
+                                                                </tr>
+                                                            @else
+                                                                <tr>
+                                                                    <td>{{$purchase->productWithTrashed->description}}</td>
+                                                                    <td>{{date('d M Y', strtotime($purchase->created_at))}}</td>
+                                                                    <td>N/A</td>
+                                                                </tr>
+                                                            @endif
                                                         @endforeach
                                                     </tbody>
                                                 </table>

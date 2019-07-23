@@ -65,6 +65,14 @@
                                         Vigencia: {{$product->expiration_days}} días <br />
                                     </a>
                                 </div>
+                            @elseif ($product->price != 0 && $product->type == "Souvenir")
+                                <div class="col-4 col-xs-4 col-sm-4 col-md-4 my-3 productList">
+                                    <a href="javascript:makeSaleUser({{$product->id}})">
+                                        Producto: {{$product->description}} <br />
+                                        Precio: ${{$product->price}} <br />
+                                        Tipo: Mercancia <br />
+                                    </a>
+                                </div>
                             @endif
                         @endforeach
                         {{-- <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div> --}}
@@ -159,7 +167,7 @@ function makeSaleUser(id){
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, Comprar Clases'
+        confirmButtonText: 'Sí, Comprar Producto'
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -180,7 +188,7 @@ function makeSaleUser(id){
                         $('#reports').trigger('click');
                         $('#addSaleUserModal').modal('hide');
                         Swal.fire({
-                            title: 'Clases Compradas',
+                            title: 'Producto Comprado',
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
