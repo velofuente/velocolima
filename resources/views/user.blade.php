@@ -424,7 +424,8 @@
                                                 <table class="table table-striped table-dark" cellspacing="0">
                                                     <thead>
                                                         <tr>
-                                                            <th>Clases Compradas</th>
+                                                            <th>Clases</th>
+                                                            <th width="30%">Descripción</th>
                                                             <th>Fecha de Compra</th>
                                                             <th>Vigencia</th>
                                                         </tr>
@@ -434,13 +435,15 @@
                                                             @if($purchase->productWithTrashed->type != "Souvenir")
                                                                 <tr>
                                                                     <td>{{$purchase->productWithTrashed->n_classes}}</td>
-                                                                    <td>{{date('d M Y', strtotime($purchase->created_at))}}</td>
-                                                                    <td>{{date('d M Y', strtotime($purchase->finalDate))}}</td>
+                                                                    <td>{{$purchase->productWithTrashed->description}}</td>
+                                                                    <td>{{date('d-M-Y', strtotime($purchase->created_at))}}</td>
+                                                                    <td>{{date('d-M-Y', strtotime($purchase->finalDate))}}</td>
                                                                 </tr>
                                                             @else
                                                                 <tr>
+                                                                    <td>N/A</td>
                                                                     <td>{{$purchase->productWithTrashed->description}}</td>
-                                                                    <td>{{date('d M Y', strtotime($purchase->created_at))}}</td>
+                                                                    <td>{{date('d-M-Y', strtotime($purchase->created_at))}}</td>
                                                                     <td>N/A</td>
                                                                 </tr>
                                                             @endif

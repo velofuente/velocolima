@@ -154,6 +154,7 @@
                             @endif
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <label for="descriptionInput" class="font-weight-light text-center mx-auto" style="font-size: 14px">(máximo 20 caracteres)</label>
                     </div>
                     {{-- Product's Expiration --}}
                     <div class="form-group row mb-3" id="divClassesExpiration">
@@ -261,6 +262,7 @@
                             @endif
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <label for="descriptionInput" class="font-weight-light text-center mx-auto" style="font-size: 14px">(máximo 20 caracteres)</label>
                     </div>
                     {{-- Product'Expiration --}}
                     <div class="form-group row mb-3" id="editDivClassesExpiration">
@@ -467,8 +469,9 @@
             expiration_days = $('#editExpirationProduct').val();
             type = $('#editTypeProduct').val();
             status = $('#editStatusProduct').val();
+            var button = $(this);
 
-            editProduct(product_id);
+            editProduct(product_id, button);
         })
 
         function addProduct(){
@@ -526,7 +529,7 @@
             });
         }
 
-        function editProduct(product_id){
+        function editProduct(product_id, button){
             $.ajax({
                 url: "editProduct",
                 type: 'POST',
@@ -569,12 +572,19 @@
                             confirmButtonText: 'Aceptar'
                         })
                         $('body').removeClass('modal-open');
+                        $(button).prop('disabled', false);
                     }
                 },
                 error: function(result){
                     $.LoadingOverlay("hide");
-                    // alert(result);
+                    Swal.fire({
+                        title: 'Error',
+                        type: 'error',
+                        text: 'Ha ocurrido un error al procesar la petición.',
+                        confirmButtonText: 'Aceptar',
+                    });
                     console.log(product_id, nClasses, price, description, expiration_days, type, status);
+                    $(button).prop('disabled', false);
                 }
             });
         };
@@ -642,4 +652,59 @@
             })
         }
     })
+</script>
+
+{{-- Validate input number to only allow numbers --}}
+<script>
+    // Select all input number on Add Modal.
+    var classesNumber = document.getElementById('nclassesProduct');
+    var priceNumber = document.getElementById('priceProduct');
+    var expirationNumber = document.getElementById('expirationProduct');
+    // Select all input number on Edit Modal
+    var editClassesNumber = document.getElementById('editnclassesProduct');
+    var editPriceNumber = document.getElementById('editPriceProduct');
+    var editExpirationNumber = document.getElementById('editExpirationProduct');
+    // Lock the input only to numbers.
+    classesNumber.onkeydown = function validateNumberInput(event) {
+        if(!((event.keyCode > 95 && event.keyCode < 106)
+        || (event.keyCode > 47 && event.keyCode < 58)
+        || event.keyCode == 8 || event.keyCode == 9)) {
+            return false;
+        }
+    }
+    priceNumber.onkeydown = function validateNumberInput(event) {
+        if(!((event.keyCode > 95 && event.keyCode < 106)
+        || (event.keyCode > 47 && event.keyCode < 58)
+        || event.keyCode == 8 || event.keyCode == 9)) {
+            return false;
+        }
+    }
+    expirationNumber.onkeydown = function validateNumberInput(event) {
+        if(!((event.keyCode > 95 && event.keyCode < 106)
+        || (event.keyCode > 47 && event.keyCode < 58)
+        || event.keyCode == 8 || event.keyCode == 9)) {
+            return false;
+        }
+    }
+    editClassesNumber.onkeydown = function validateNumberInput(event) {
+        if(!((event.keyCode > 95 && event.keyCode < 106)
+        || (event.keyCode > 47 && event.keyCode < 58)
+        || event.keyCode == 8 || event.keyCode == 9)) {
+            return false;
+        }
+    }
+    editPriceNumber.onkeydown = function validateNumberInput(event) {
+        if(!((event.keyCode > 95 && event.keyCode < 106)
+        || (event.keyCode > 47 && event.keyCode < 58)
+        || event.keyCode == 8 || event.keyCode == 9)) {
+            return false;
+        }
+    }
+    editExpirationNumber.onkeydown = function validateNumberInput(event) {
+        if(!((event.keyCode > 95 && event.keyCode < 106)
+        || (event.keyCode > 47 && event.keyCode < 58)
+        || event.keyCode == 8 || event.keyCode == 9)) {
+            return false;
+        }
+    }
 </script>

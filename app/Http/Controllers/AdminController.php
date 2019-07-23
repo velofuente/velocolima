@@ -340,9 +340,12 @@ class AdminController extends Controller
     }
     public function deleteInstructor(Request $request){
         $activeClasses = Instructor::join('schedules', 'instructors.id', '=', 'schedules.instructor_id')
-                        ->select('*',DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
+                        ->join('branches', 'schedules.branch_id', '=', 'branches.id')
+                        // ->select('*',DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
+                        ->select('instructors.id AS instructor', 'schedules.deleted_at AS schedules.deleted_at', 'branches.deleted_at AS branches.deleted_at', DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
                         ->where('instructors.id', '=', $request->instructor_id)
                         ->whereNull('schedules.deleted_at')
+                        ->whereNull('branches.deleted_at')
                         ->get();
         foreach ($activeClasses as $key) {
             if (Carbon::parse($key->fullDate)->gte(now()->format('Y-m-d H:i:s')))
@@ -365,9 +368,12 @@ class AdminController extends Controller
 
     public function getInstructorSchedule(Request $request){
         $activeClasses = Instructor::join('schedules', 'instructors.id', '=', 'schedules.instructor_id')
-                                   ->select('*', DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
+                                   ->join('branches', 'schedules.branch_id', '=', 'branches.id')
+                                //    ->select('*', DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
+                                   ->select('instructors.id AS instructor', 'schedules.deleted_at AS schedules.deleted_at', 'branches.deleted_at AS branches.deleted_at', DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
                                    ->where('instructors.id', '=', $request->instructor_id)
                                    ->whereNull('schedules.deleted_at')
+                                   ->whereNull('branches.deleted_at')
                                    ->get();
         foreach($activeClasses as $key){
             if(Carbon::parse($key->fullDate)->gte(now()->format('Y-m-d H:i:s'))){
@@ -556,6 +562,12 @@ class AdminController extends Controller
         DB::commit();
     }
     public function addProduct(Request $request){
+        if( strlen($request->description) > 20 ){
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'La descripción no debe ser mayor a 20 caracteres.',
+            ]);
+        }
         DB::beginTransaction();
         Product::create([
             'n_classes' => $request->n_classes,
@@ -572,6 +584,12 @@ class AdminController extends Controller
         ]);
     }
     public function editProduct(Request $request){
+        if( strlen($request->description) > 20 ){
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'La descripción no debe ser mayor a 20 caracteres.',
+            ]);
+        }
         DB::beginTransaction();
         $Product = Product::find($request->product_id);
         $Product->n_classes = $request->n_classes;
