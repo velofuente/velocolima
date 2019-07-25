@@ -78,9 +78,23 @@ class InstructorController extends Controller
         $products = Product::all();
 
         date_default_timezone_set('America/Mexico_City');
-        $schedules = Schedule::whereBetween('day', [now()->format('Y-m-d'), now()->modify('+7 days')])
-                    ->get()
-                    ->sortBy('hour');
+        // $schedules = Schedule::whereBetween('day', [now()->format('Y-m-d'), now()->modify('+7 days')])
+        //             ->get()
+        //             ->sortBy('hour');
+
+        // TODO: Probar bien velo.test/schedule, no debería haber error al tener una clase cuyo instructor fuese eliminado
+        $schedules = Schedule::join('instructors', 'schedules.instructor_id', '=', 'instructors.id')
+                            ->join('branches', 'schedules.branch_id', '=', 'branches.id')
+                            ->select('schedules.id', 'schedules.day', 'schedules.hour', 'schedules.reservation_limit',
+                            'schedules.instructor_id', 'schedules.class_id', 'schedules.room_id','schedules.branch_id', 'schedules.deleted_at',
+                            'schedules.created_at', 'schedules.updated_at', 'schedules.description', 'instructors.id AS insId',
+                            'instructors.name AS instructor_name', 'branches.id AS braId', 'branches.name AS branch_name')
+                            ->whereNull('instructors.deleted_at')
+                            ->whereNull('branches.deleted_at')
+                            ->get()
+                            ->sortBy('hour');
+        // log::info($schedules);
+
         if(Auth::user()){
             $cards = Card::where('user_id', Auth::user()->id)->get();
             // dd($cards);

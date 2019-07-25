@@ -10,6 +10,7 @@
     </div>
 </div>
 
+
 {{-- User's Table --}}
 <table class="table table-striped table-hover table-bordered" style="margin: 0 0">
     <thead style="font-size: 1em;">
@@ -42,6 +43,7 @@
             </div>
             <div class="modal-body">
                 @csrf
+                    <h5 class="text-center mx-auto">Promociones</h5>
                     <div class="form-group row mb-3">
                         @foreach ($products as $product)
                         {{-- <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div> --}}
@@ -56,13 +58,32 @@
                                 </div>
                             @endif
                         @endforeach
+                    </div>
+                    <h5 class="text-center mx-auto">Paquetes básicos</h5>
+                    <div class="form-group row mb-3">
                         @foreach ($products as $product)
                             @if ($product->price != 0 && $product->type == "Packages")
                                 <div class="col-4 col-xs-4 col-sm-4 col-md-4 my-3 productList">
                                     <a href="javascript:makeSaleUser({{$product->id}})">
+                                        -Paquete- <br />
                                         Clases: {{$product->n_classes}} <br />
                                         Precio: ${{$product->price}} <br />
                                         Vigencia: {{$product->expiration_days}} días <br />
+                                    </a>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                    <h5 class="text-center mx-auto">Mercancía</h5>
+                    <div class="form-group row mb-3">
+                        @foreach($products as $product)
+                            @if ($product->price != 0 && $product->type == "Souvenir")
+                                <div class="col-4 col-xs-4 col-sm-4 col-md-4 my-3 productList">
+                                    <a href="javascript:makeSaleUser({{$product->id}})">
+                                        -Mercancía-
+                                        Producto: {{$product->description}} <br />
+                                        Precio: ${{$product->price}} <br />
+                                        Tipo: Mercancia <br />
                                     </a>
                                 </div>
                             @endif
@@ -159,7 +180,7 @@ function makeSaleUser(id){
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, Comprar Clases'
+        confirmButtonText: 'Sí, Comprar Producto'
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -180,11 +201,12 @@ function makeSaleUser(id){
                         $('#reports').trigger('click');
                         $('#addSaleUserModal').modal('hide');
                         Swal.fire({
-                            title: 'Clases Compradas',
+                            title: 'Producto Comprado',
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
                         })
+                        $('body').removeClass('modal-open');
                     } else {
                         $.LoadingOverlay("hide");
                         Swal.fire({
@@ -193,6 +215,7 @@ function makeSaleUser(id){
                             type: 'warning',
                             confirmButtonText: 'Aceptar'
                         });
+                        $('body').removeClass('modal-open');
                         // $(button).prop("disabled", false)
                     }
                 },
@@ -204,6 +227,7 @@ function makeSaleUser(id){
                         type: 'warning',
                         confirmButtonText: 'Aceptar'
                     });
+                    $('body').removeClass('modal-open');
                     // $(button).prop("disabled", false)
                     // alert(result);
                 }

@@ -72,6 +72,13 @@
     src: url("fonts/AvenirNextLTPro-UltLtCnlt.otf")format("opentype");
 }
 
+/* Hide spin button from all inputs type number */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 /* whole html */
 html, body {
     background-color: black;

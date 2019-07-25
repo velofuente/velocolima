@@ -103,7 +103,7 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
 
-                    <div class="form-group row mb-3">
+                    {{-- <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="password" class="mr-sm-2">Password:</label>
@@ -124,7 +124,7 @@
                                 <input id="password-confirm" placeholder="Confirmar Contraseña" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                             <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                    </div>
+                    </div> --}}
 
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>

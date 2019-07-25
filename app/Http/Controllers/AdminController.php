@@ -10,6 +10,8 @@ use App\Traits\GeneralTrait;
 use Illuminate\Support\Facades\Validator;
 use DB, Log;
 use PhpParser\Node\Stmt\Return_;
+use function GuzzleHttp\json_decode;
+
 // use App\Traits\UploadTrait;
 
 class AdminController extends Controller
@@ -41,7 +43,15 @@ class AdminController extends Controller
     }
 
     public function getNextClasses(){
-        $schedules = Schedule::with(['instructor', 'branch'])->select("*", DB::RAW("CONCAT(day, ' ', hour) fullDate"))->orderBy('fullDate')->get();
+        //$schedules = Schedule::with(['instructor', 'branch'])->select("*", DB::RAW("CONCAT(day, ' ', hour) fullDate"))->whereNull('deleted_at')->orderBy('fullDate')->get();
+        $schedules = Schedule::join('instructors', 'schedules.instructor_id', '=', 'instructors.id')
+                            ->join('branches', 'schedules.branch_id', '=', 'branches.id')
+                            ->select('schedules.id AS id', 'schedules.reservation_limit AS reservation_limit', 'schedules.day AS day', 'schedules.hour AS hour', 'schedules.description AS description', 'instructors.id AS instructor_id', 'instructors.name AS instructor_name', 'branches.id AS branch_id', 'branches.name AS branch_name', DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
+                            ->whereNull('schedules.deleted_at')
+                            ->whereNull('instructors.deleted_at')
+                            ->whereNull('branches.deleted_at')
+                            ->orderBy('fullDate')
+                            ->get();
         $reservedPlaces = [];
         $nextSchedules = [];
         foreach ($schedules as $schedule){
@@ -62,24 +72,24 @@ class AdminController extends Controller
                 $nextSchedules[] = [
                     'formatDay' => $formatDay,
                     'formatHour' => $formatHour,
+                    // 'object' => json_encode($schedule),
                     'object' => $schedule,
                     'availableBikes' => count($availableBikes),
                     'reservedBikes' => count($reservedPlaces),
                 ];
             }
         }
-        log::info($nextSchedules);
         return $nextSchedules;
     }
 
     public function getPreviousClasses(){
-        $schedules = Schedule::with(['instructor', 'branch'])->select("*", DB::RAW("CONCAT(day, ' ', hour) fullDate"))->orderBy('fullDate', 'desc')->get();
+        $schedules = Schedule::with(['instructorWithTrashed', 'branchWithTrashed'])->select("*", DB::RAW("CONCAT(day, ' ', hour) fullDate"))->orderBy('fullDate', 'desc')->get();
         $previousSchedules = [];
         foreach ($schedules as $schedule){
             if (Carbon::parse($schedule->fullDate)->lt( now()->format('Y-m-d H:i:s')) ){
 
                 $availableBikes = [];
-                $branch = Branch::find($schedule->branch_id);
+                $branch = Branch::withTrashed()->find($schedule->branch_id);
                 $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
                 $unavailableBikes = array_map('strval', Tool::select('position')->where('branch_id', $schedule->branch_id)->get()->pluck('position')->toArray());
                 $reservedPlaces = array_map('strval',UserSchedule::where("schedule_id", $schedule->id)->where('status','<>','cancelled')->get()->pluck('bike')->toArray());
@@ -114,7 +124,7 @@ class AdminController extends Controller
     }
 
     public function showUsers(){
-        $users = User::where('role_id', 2)->get();
+        $users = User::where('role_id', 1)->get();
         return view('/admin-users', compact ('users'));
     }
 
@@ -191,10 +201,24 @@ class AdminController extends Controller
         // $schedules = Schedule::where('day', now()->format('Y-m-d'))
         //     ->get()
         //     ->sortBy('hour');
-        $schedules = Schedule::whereBetween('day', [now()->format('Y-m-d'), now()->modify('+7 days')])
-            ->get()
-            ->sortBy('hour')
-            ->sortBy('day');
+        // $schedules = Schedule::whereBetween('day', [now()->format('Y-m-d'), now()->modify('+7 days')])
+        //     ->get()
+        //     ->sortBy('hour')
+        //     ->sortBy('day');
+        $schedules = Schedule::join('instructors', 'schedules.instructor_id', '=', 'instructors.id')
+                            ->join('branches','schedules.branch_id','=','branches.id')
+                            ->select('schedules.id','schedules.day','schedules.hour','schedules.reservation_limit','schedules.instructor_id','schedules.class_id',
+                            'schedules.room_id','schedules.branch_id','schedules.deleted_at','schedules.created_at','schedules.updated_at','schedules.description',
+                            'instructors.id AS insId', 'instructors.name AS insName')
+                            ->whereNull('instructors.deleted_at')
+                            ->whereNull('schedules.deleted_at')
+                            ->whereNull('branches.deleted_at')
+                            ->whereBetween('schedules.day', [now()->format('Y-m-d'), now()->modify('+7 days')])
+                            ->orderBy('schedules.day')
+                            ->orderBy('schedules.hour')
+                            ->get();
+                            // ->sortBy('schedules.hour')
+                            // ->sortBy('schedules.day');
         foreach ($schedules as $schedule) {
             array_push($id,$schedule->id);
         }
@@ -216,6 +240,7 @@ class AdminController extends Controller
     public function getOperationBikes(Request $request){
         $availableBikes = [];
         $schedule = Schedule::find($request->schedule_id);
+        log::info($schedule);
         $branch = Branch::find($schedule->branch_id);
         $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
         $unavailableBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedule->branch_id)->get()->pluck("position")->toArray());
@@ -314,6 +339,23 @@ class AdminController extends Controller
         ]);
     }
     public function deleteInstructor(Request $request){
+        $activeClasses = Instructor::join('schedules', 'instructors.id', '=', 'schedules.instructor_id')
+                        ->join('branches', 'schedules.branch_id', '=', 'branches.id')
+                        // ->select('*',DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
+                        ->select('instructors.id AS instructor', 'schedules.deleted_at AS schedules.deleted_at', 'branches.deleted_at AS branches.deleted_at', DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
+                        ->where('instructors.id', '=', $request->instructor_id)
+                        ->whereNull('schedules.deleted_at')
+                        ->whereNull('branches.deleted_at')
+                        ->get();
+        foreach ($activeClasses as $key) {
+            if (Carbon::parse($key->fullDate)->gte(now()->format('Y-m-d H:i:s')))
+            {
+                return response()->json([
+                    'status' => 'Error',
+                    'message' => 'El instructor tiene reservaciones activas',
+                ]);
+            }
+        }
         DB::beginTransaction();
         $Instructor = Instructor::find($request->instructor_id);
         $Instructor->delete();
@@ -321,6 +363,29 @@ class AdminController extends Controller
         return response()->json([
             'status' => 'OK',
             'message' => "Instructor eliminado con éxito",
+        ]);
+    }
+
+    public function getInstructorSchedule(Request $request){
+        $activeClasses = Instructor::join('schedules', 'instructors.id', '=', 'schedules.instructor_id')
+                                   ->join('branches', 'schedules.branch_id', '=', 'branches.id')
+                                //    ->select('*', DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
+                                   ->select('instructors.id AS instructor', 'schedules.deleted_at AS schedules.deleted_at', 'branches.deleted_at AS branches.deleted_at', DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
+                                   ->where('instructors.id', '=', $request->instructor_id)
+                                   ->whereNull('schedules.deleted_at')
+                                   ->whereNull('branches.deleted_at')
+                                   ->get();
+        foreach($activeClasses as $key){
+            if(Carbon::parse($key->fullDate)->gte(now()->format('Y-m-d H:i:s'))){
+                return response()->json([
+                    'status' => 'Error',
+                    'message' => 'El instructor tiene reservaciones activas.',
+                ]);
+            }
+        }
+        return response()->json([
+            'status' => 'OK',
+            'message' => 'El instructor no tiene reservaciones activas'
         ]);
     }
 
@@ -497,6 +562,12 @@ class AdminController extends Controller
         DB::commit();
     }
     public function addProduct(Request $request){
+        if( strlen($request->description) > 20 ){
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'La descripción no debe ser mayor a 20 caracteres.',
+            ]);
+        }
         DB::beginTransaction();
         Product::create([
             'n_classes' => $request->n_classes,
@@ -513,6 +584,12 @@ class AdminController extends Controller
         ]);
     }
     public function editProduct(Request $request){
+        if( strlen($request->description) > 20 ){
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'La descripción no debe ser mayor a 20 caracteres.',
+            ]);
+        }
         DB::beginTransaction();
         $Product = Product::find($request->product_id);
         $Product->n_classes = $request->n_classes;
@@ -593,6 +670,8 @@ class AdminController extends Controller
         $User->last_name = $request->last_name;
         $User->email = $request->email;
         $User->phone = $request->phone;
+        $User->birth_date = $request->birth_date;
+        $User->gender = $request->gender;
         $User->save();
         DB::commit();
         return response()->json([
@@ -640,6 +719,7 @@ class AdminController extends Controller
     public function addClient(Request $request)
     {
         log::info("entró a addclient");
+        $password = substr($request->phone, -4);
         // Available alpha caracters
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         // generate a pin based on 2 * 7 digits + a random character
@@ -654,7 +734,8 @@ class AdminController extends Controller
             'name' => $request->get('name'),
             'last_name' => $request->get('last_name'),
             'email' => $request->get('email'),
-            'password' => Hash::make($request->get('password')),
+            // 'password' => Hash::make($request->get('password')),
+            'password' => Hash::make('temporal'.$password),
             'birth_date' => $request->get('birth_date'),
             'phone' => $request->get('phone'),
             'gender' => $request->get('gender'),
@@ -665,6 +746,7 @@ class AdminController extends Controller
         ]);
         $user->save();
         DB::commit();
+        app('App\Http\Controllers\MailSendingController')->walkInRegister($user->email,$user->name, $password);
         return response()->json([
             'status' => 'OK',
             'message' => "Cliente registrado con éxito",

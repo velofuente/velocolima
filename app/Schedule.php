@@ -12,12 +12,19 @@ class Schedule extends Model
     protected $table = 'schedules';
     protected $guarded = [];
 
+    public function instructorWithTrashed(){
+        return $this->hasOne(Instructor::class, 'id','instructor_id')->withTrashed();
+    }
     public function instructor(){
         return $this->belongsTo(Instructor::class);
     }
 
     public function room(){
         return $this->belongsTo(Room::class);
+    }
+
+    public function branchWithTrashed(){
+        return $this->hasOne(Branch::class, 'id', 'branch_id')->withTrashed();
     }
 
     public function branch(){

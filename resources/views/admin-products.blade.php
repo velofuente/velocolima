@@ -10,7 +10,7 @@
         <thead style="font-size: 1em;">
             <tr style="font-size: 1em;">
                 <th scope="col">ID</th>
-                <th scope="col">Cantidad de Clases</th>
+                <th scope="col">Clases</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Descripción</th>
                 <th scope="col">Vigencia</th>
@@ -22,6 +22,7 @@
         </thead>
         <tbody>
             @foreach ($products as $product)
+            @if ($product->type!="Souvenir")
                 <tr style="font-size: 0.9em;">
                     {{-- <th scope="row">{{$product->id}}</th> --}}
                     <td>{{$product->id}}</td>
@@ -44,6 +45,32 @@
                     <td><button class="btn btn-primary btn-sm editProduct" id="editProduct-{{ $product->id }}" value="{{$product->id}}" data-myid="{{ $product->id }}" data-mynclasses="{{ $product->n_classes }}" data-myprice="{{ $product->price }}" data-mydescription="{{ $product->description }}" data-myexpiration="{{$product->expiration_days}}" data-mytype="{{ $product->type }}" data-mystatus="{{$product->status}}" data-toggle="modal" data-target="#editProductModal">Editar</button></td>
                     <td><button class="btn btn-danger btn-sm deleteProduct" id="deleteProduct-{{ $product->id }}" value="{{$product->id}}">Eliminar</button></td>
                 </tr>
+            @elseif ($product->type=="Souvenir")
+                <tr style="font-size: 0.9em;">
+                    {{-- <th scope="row">{{$product->id}}</th> --}}
+                    <td>{{$product->id}}</td>
+                    <td>N/A</td>
+                    <td>${{$product->price}}</td>
+                    <td>{{$product->description}}</td>
+                    <td>N/A</td>
+                    {{-- <td>{{$product->type}}</td> --}}
+                    @if ($product->type == 'Deals')
+                        <td>Promoción</td>
+                    @elseif ($product->type == 'Packages')
+                        <td>Paquete</td>
+                    @elseif ($product->type == 'Souvenir')
+                        <td>Mercancía</td>
+                    @endif
+                    {{-- <td>{{$product->status}}</td> --}}
+                    @if ($product->status != "1")
+                        <td>Deshabilitado</td>
+                    @else
+                        <td>Habilitado</td>
+                    @endif
+                    <td><button class="btn btn-primary btn-sm editProduct" id="editProduct-{{ $product->id }}" value="{{$product->id}}" data-myid="{{ $product->id }}" data-mynclasses="{{ $product->n_classes }}" data-myprice="{{ $product->price }}" data-mydescription="{{ $product->description }}" data-myexpiration="{{$product->expiration_days}}" data-mytype="{{ $product->type }}" data-mystatus="{{$product->status}}" data-toggle="modal" data-target="#editProductModal">Editar</button></td>
+                    <td><button class="btn btn-danger btn-sm deleteProduct" id="deleteProduct-{{ $product->id }}" value="{{$product->id}}">Eliminar</button></td>
+                </tr>
+            @endif
             @endforeach
         </tbody>
     </table>
@@ -64,8 +91,22 @@
             <div class="modal-body">
                 {{-- <form method="POST" action="{{ route('addProduct') }}" class="registration"> --}}
                     @csrf
+                      {{-- Product's Type --}}
+                      <div class="form-group row mb-3">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="typeProduct">Tipo de Producto: </label>
+                            <select class="form-control" name="typeProduct" id="typeProduct">
+                                <option value="Deals" class="text-center">Promoción</option>
+                                <option value="Packages" class="text-center">Paquete</option>
+                                <option value="Souvenir" class="text-center">Mercancía</option>
+                            </select>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+
                     {{-- Product's n_classes --}}
-                    <div class="form-group row mb-1">
+                    <div class="form-group row mb-1" id="divClassesQuantity">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="nClasses" class="mr-sm-2">Cantidad de Clases:</label>
@@ -113,9 +154,10 @@
                             @endif
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <label for="descriptionInput" class="font-weight-light text-center mx-auto" style="font-size: 14px">(máximo 20 caracteres)</label>
                     </div>
                     {{-- Product's Expiration --}}
-                    <div class="form-group row mb-3">
+                    <div class="form-group row mb-3" id="divClassesExpiration">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="name" class="mr-sm-2">Vigencia:</label>
@@ -130,18 +172,6 @@
                                     <span class="input-group-text text-secondary bg-white">días</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                    </div>
-                    {{-- Product's Type --}}
-                    <div class="form-group row mb-3">
-                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="typeProduct">Tipo de Producto: </label>
-                            <select class="form-control" name="typeProduct" id="typeProduct">
-                                <option value="Deals" class="text-center">Promoción</option>
-                                <option value="Packages" class="text-center">Paquete</option>
-                            </select>
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
@@ -184,7 +214,7 @@
                 {{-- <form method="POST" action="{{ route('addProduct') }}" class="registration"> --}}
                     @csrf
                     {{-- Product's Classes --}}
-                    <div class="form-group row mb-3">
+                    <div class="form-group row mb-3" id="editDivClassesQuantity">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="name" class="mr-sm-2">Cantidad de Clases:</label>
@@ -232,9 +262,10 @@
                             @endif
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <label for="descriptionInput" class="font-weight-light text-center mx-auto" style="font-size: 14px">(máximo 20 caracteres)</label>
                     </div>
                     {{-- Product'Expiration --}}
-                    <div class="form-group row mb-3">
+                    <div class="form-group row mb-3" id="editDivClassesExpiration">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="name" class="mr-sm-2">Vigencia:</label>
@@ -275,6 +306,7 @@
                             <select class="form-control" name="editTypeProduct" id="editTypeProduct">
                                 <option value="Deals" class="text-center">Promoción</option>
                                 <option value="Packages" class="text-center">Paquetes</option>
+                                <option value="Souvenir" class="text-center">Mercancia</option>
                             </select>
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -316,6 +348,17 @@
 
         // myid mynclasses myprice mydescription myexpiration mytype mystatus
         // product_id n_classes price description expiration_days type status
+
+        // Hide Classes input & Classes expiration if Mercancía/Souvenir is selected
+        $('#typeProduct').on('change', function(event){
+            if( $('#typeProduct').val() == 'Souvenir' ){
+                $('#divClassesQuantity').hide('fast');
+                $('#divClassesExpiration').hide('fast');
+            } else {
+                $('#divClassesQuantity').show('fast');
+                $('#divClassesExpiration').show('fast');
+            }
+        });
 
         //OnClick Add Product Button
         $('#addProductButton').on('click', function(event) {
@@ -380,14 +423,39 @@
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 
-            // Load the Inputs with the respective information
-            var modal = $(this)
-            modal.find('.modal-body #editnclassesProduct').val(nClasses)
-            modal.find('.modal-body #editPriceProduct').val(price)
-            modal.find('.modal-body #editDescriptionProduct').val(description)
-            modal.find('.modal-body #editExpirationProduct').val(expiration_days)
-            modal.find('.modal-body #editTypeProduct').val(type)
-            modal.find('.modal-body #editStatusProduct').val(status)
+            // Load the Inputs with the respective information depending on product type
+            if (type == "Souvenir" || nClasses == '' && expiration_days == ''){
+                var modal = $(this)
+                modal.find('.modal-body #editnclassesProduct').val(nClasses)
+                $('#editDivClassesQuantity').hide();
+                modal.find('.modal-body #editPriceProduct').val(price)
+                modal.find('.modal-body #editDescriptionProduct').val(description)
+                modal.find('.modal-body #editExpirationProduct').val(expiration_days)
+                $('#editDivClassesExpiration').hide();
+                modal.find('.modal-body #editTypeProduct').val(type)
+                // Modify the Select of product type to show Souvenir or Classes
+                $('#editTypeProduct > option').remove();
+                $('#editTypeProduct').append(
+                    '<option value="Souvenir" class="text-center">Mercancia</option>',
+                )
+                modal.find('.modal-body #editStatusProduct').val(status)
+            } else{
+                var modal = $(this)
+                modal.find('.modal-body #editnclassesProduct').val(nClasses)
+                $('#editDivClassesQuantity').show();
+                modal.find('.modal-body #editPriceProduct').val(price)
+                modal.find('.modal-body #editDescriptionProduct').val(description)
+                modal.find('.modal-body #editExpirationProduct').val(expiration_days)
+                $('#editDivClassesExpiration').show();
+                modal.find('.modal-body #editTypeProduct').val(type)
+                // Modify the Select of product type to show Souvenir or Classes
+                $('#editTypeProduct > option').remove();
+                $('#editTypeProduct').append(
+                    '<option value="Deals" class="text-center">Promoción</option>',
+                    '<option value="Packages" class="text-center">Paquetes</option>',
+                )
+                modal.find('.modal-body #editStatusProduct').val(status)
+            }
         })
 
         //Edit Product Button Inside Modal
@@ -401,8 +469,9 @@
             expiration_days = $('#editExpirationProduct').val();
             type = $('#editTypeProduct').val();
             status = $('#editStatusProduct').val();
+            var button = $(this);
 
-            editProduct(product_id);
+            editProduct(product_id, button);
         })
 
         function addProduct(){
@@ -440,6 +509,7 @@
                             type: 'success',
                             confirmButtonText: 'Aceptar'
                         })
+                    $('body').removeClass('modal-open');
                     }
                     else {
                         $.LoadingOverlay("hide");
@@ -449,6 +519,7 @@
                             type: 'warning',
                             confirmButtonText: 'Aceptar'
                         })
+                        $('body').removeClass('modal-open');
                     }
                 },
                 error: function(result){
@@ -458,7 +529,7 @@
             });
         }
 
-        function editProduct(product_id){
+        function editProduct(product_id, button){
             $.ajax({
                 url: "editProduct",
                 type: 'POST',
@@ -490,6 +561,7 @@
                             type: 'success',
                             confirmButtonText: 'Aceptar'
                         })
+                        $('body').removeClass('modal-open');
                     }
                     else {
                         $.LoadingOverlay("hide");
@@ -499,12 +571,20 @@
                             type: 'warning',
                             confirmButtonText: 'Aceptar'
                         })
+                        $('body').removeClass('modal-open');
+                        $(button).prop('disabled', false);
                     }
                 },
                 error: function(result){
                     $.LoadingOverlay("hide");
-                    // alert(result);
+                    Swal.fire({
+                        title: 'Error',
+                        type: 'error',
+                        text: 'Ha ocurrido un error al procesar la petición.',
+                        confirmButtonText: 'Aceptar',
+                    });
                     console.log(product_id, nClasses, price, description, expiration_days, type, status);
+                    $(button).prop('disabled', false);
                 }
             });
         };
@@ -572,4 +652,59 @@
             })
         }
     })
+</script>
+
+{{-- Validate input number to only allow numbers --}}
+<script>
+    // Select all input number on Add Modal.
+    var classesNumber = document.getElementById('nclassesProduct');
+    var priceNumber = document.getElementById('priceProduct');
+    var expirationNumber = document.getElementById('expirationProduct');
+    // Select all input number on Edit Modal
+    var editClassesNumber = document.getElementById('editnclassesProduct');
+    var editPriceNumber = document.getElementById('editPriceProduct');
+    var editExpirationNumber = document.getElementById('editExpirationProduct');
+    // Lock the input only to numbers.
+    classesNumber.onkeydown = function validateNumberInput(event) {
+        if(!((event.keyCode > 95 && event.keyCode < 106)
+        || (event.keyCode > 47 && event.keyCode < 58)
+        || event.keyCode == 8 || event.keyCode == 9)) {
+            return false;
+        }
+    }
+    priceNumber.onkeydown = function validateNumberInput(event) {
+        if(!((event.keyCode > 95 && event.keyCode < 106)
+        || (event.keyCode > 47 && event.keyCode < 58)
+        || event.keyCode == 8 || event.keyCode == 9)) {
+            return false;
+        }
+    }
+    expirationNumber.onkeydown = function validateNumberInput(event) {
+        if(!((event.keyCode > 95 && event.keyCode < 106)
+        || (event.keyCode > 47 && event.keyCode < 58)
+        || event.keyCode == 8 || event.keyCode == 9)) {
+            return false;
+        }
+    }
+    editClassesNumber.onkeydown = function validateNumberInput(event) {
+        if(!((event.keyCode > 95 && event.keyCode < 106)
+        || (event.keyCode > 47 && event.keyCode < 58)
+        || event.keyCode == 8 || event.keyCode == 9)) {
+            return false;
+        }
+    }
+    editPriceNumber.onkeydown = function validateNumberInput(event) {
+        if(!((event.keyCode > 95 && event.keyCode < 106)
+        || (event.keyCode > 47 && event.keyCode < 58)
+        || event.keyCode == 8 || event.keyCode == 9)) {
+            return false;
+        }
+    }
+    editExpirationNumber.onkeydown = function validateNumberInput(event) {
+        if(!((event.keyCode > 95 && event.keyCode < 106)
+        || (event.keyCode > 47 && event.keyCode < 58)
+        || event.keyCode == 8 || event.keyCode == 9)) {
+            return false;
+        }
+    }
 </script>

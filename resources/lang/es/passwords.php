@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'password' => 'La contraseña no cumple con los requisitos requeridos y debe coincidir con la confirmacion.',
-    'reset' => 'La contraseña a sido cambiada!',
-    'sent' => 'Te hemos enviado un correo con el link de cambio de contraseña!',
-    'token' => 'Token invalido',
+    'password' => 'La contraseña no cumple con los requisitos requeridos y debe coincidir con la confirmación.',
+    'reset' => '¡La contraseña ha sido cambiada!',
+    'sent' => 'Te hemos enviado un correo con el link de cambio de contraseña',
+    'token' => 'Token inválido',
     'user' => "Usuario no encontrado",
 
 ];
