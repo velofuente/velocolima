@@ -242,6 +242,12 @@ class OpenPayController extends Controller
             // $cardToken = $card->token_id;
             //Registramos la compra en el sistema
             $compra = Purchase::create($purchaseArray);
+            //promocion clase adicional
+            $promotion = Purchase::where('user_id', $requestUser->id)->where('status', 'pending')->latest()->first();
+            if(Carbon::now() < Carbon::parse($promotion->created_at)->addDay() && $product->n_classes >= 10){
+                $promotion->status = 'active';
+                $promotion->save;
+            }
             log::info("crea la compra");
             //Inicializamos array de cargo (OpenPay)
             $chargeData = [
@@ -354,6 +360,12 @@ class OpenPayController extends Controller
             $cardToken = $card->token_id;
             //Registramos la compra en el sistema
             $compra = Purchase::create($purchaseArray);
+            //promocion clase adicional
+            $promotion = Purchase::where('user_id', $requestUser->id)->where('status', 'pending')->latest()->first();
+            if(Carbon::now() < Carbon::parse($promotion->created_at)->addDay() && $product->n_classes >= 10){
+                $promotion->status = 'active';
+                $promotion->save;
+            }
             //Inicializamos array de cargo (OpenPay)
             $chargeData = [
                 'method' => 'card',

@@ -740,6 +740,19 @@
     <script src="{{ asset('/js/user-script.js') }}"></script>
     <script>var crfsToken = '{{ csrf_token() }}';</script>
     <script>
+        $(document).ready(function() {
+            var nClasses = '{{ $classes }}';
+            if(nClasses == 1){
+                Swal.fire({
+                    title: 'Promoción',
+                    text: 'Compra tu siguiente paquete de clases dentro de las próximas 24 horas y te regalaremos una clase adicional al paquete comprado',
+                    type: 'info',
+                    confirmButtonText: 'Aceptar',
+                  });
+            }
+        })
+    </script>
+    <script>
         // // Jquery UI DatePicker (Safari)
         if ( $('[type="date"]').prop('type') != 'date' ) {
             $('[type="date"]').datepicker({

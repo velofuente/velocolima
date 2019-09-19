@@ -113,6 +113,7 @@ class InstructorController extends Controller
         //obtiene el numero de reservaciones que se han hecho a esa clase
         $instances = UserSchedule::where('schedule_id', $schedules->id)->count();
         $instructors = Instructor::all();
+        $instructor = Instructor::find($schedules->instructor_id)->first();
         $branches = Branch::all();
         $products = Product::all();
         $selectedBike = UserSchedule::where("user_id", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->first();
@@ -130,9 +131,9 @@ class InstructorController extends Controller
                 $cards = Card::where('user_id', Auth::user()->id)->get();
                 // dd($cards);
                 // $cards = Card::all();
-                return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes","cards"));
+                return view('bike-selection', compact('instructors','instructor', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes","cards"));
             }else{
-                return view('bike-selection', compact('instructors', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes"));
+                return view('bike-selection', compact('instructors','instructor', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes"));
             }
         else
             return response()->json([

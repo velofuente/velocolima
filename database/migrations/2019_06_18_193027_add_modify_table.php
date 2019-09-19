@@ -13,14 +13,14 @@ class AddModifyTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->float('shoe_size', 3,1)->nullable()->change();
-            $table->string('share_code',8)->nullable()->change();
-            $table->unsignedInteger('role_id')->change();
-        });
-        Schema::table('user_schedules', function (Blueprint $table) {
-            $table->unsignedInteger('purchase_id')->nullable()->change();
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->float('shoe_size', 3,1)->nullable()->change();
+        //     $table->string('share_code',8)->nullable()->change();
+        //     $table->unsignedInteger('role_id')->change();
+        // });
+        // Schema::table('user_schedules', function (Blueprint $table) {
+        //     $table->unsignedInteger('purchase_id')->nullable()->change();
+        // });
     }
 
     /**

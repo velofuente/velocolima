@@ -730,11 +730,18 @@ class AdminController extends Controller
             $admin = $request->user();
             $product = Product::where('id', "{$request->product_id}")->first();
             DB::beginTransaction();
+            //promocion clase adicional
+            $promotion = Purchase::where('user_id', $request->client_id)->where('status', 'pending')->latest()->first();
+            if(Carbon::now() < Carbon::parse($promotion->created_at)->addDay() && $product->n_classes >= 10){
+                $promotion->status = 'active';
+                $promotion->save;
+            }
             $purchase = Purchase::create([
                 'product_id' => $product->id,
                 'user_id' => $request->client_id,
                 'n_classes' => $product->n_classes,
                 'expiration_days' => $product->expiration_days,
+                // 'status' => 0,
             ]);
             Sale::create([
                 'admin_id' => $admin->id,

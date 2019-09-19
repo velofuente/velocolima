@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Mail\CoachInfo;
-use App\Mail\walkInRegister;
+use App\Mail\{CoachInfo, walkInRegister, addtionalFreeClass};
 use Illuminate\Support\Facades\Log;
 
 class MailSendingController extends Controller
@@ -49,6 +48,21 @@ class MailSendingController extends Controller
     {
         try {
             \Mail::to($user_email)->send(new walkInRegister($user_name, $user_email, $user_password));
+            return response()->json([
+                'status' => 'OK',
+                'message' => "Informacion enviada con éxito!",
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'ERROR',
+                'message' => "Error". $e->getMessage()
+            ]);
+        }
+    }
+    public function addtionalFreeClass($user_email, $user_name)
+    {
+        try {
+            \Mail::to($user_email)->send(new addtionalFreeClass($user_name));
             return response()->json([
                 'status' => 'OK',
                 'message' => "Informacion enviada con éxito!",

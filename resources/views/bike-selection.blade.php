@@ -62,6 +62,8 @@
         var opId = "{{ env('OPENPAY_ID') }}";
         var opPublicKey = "{{ env('OPENPAY_PUBLIC_KEY') }}";
         var opSandbox = "{{ env('OPENPAY_SANDBOX') }}";
+        var instructor = "{{ $instructor->name }}";
+        var scheduleHour = "{{ $schedules->hour }}";
     </script>
     <script src="{{asset('js/openpay-script.js')}}"></script>
     <script src="{{asset('js/bike-selection-script.js')}}"></script>

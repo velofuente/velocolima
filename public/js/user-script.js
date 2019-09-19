@@ -158,13 +158,24 @@ function cancelClass(bookedClass_id){
         },
         success: function(result){
             $.LoadingOverlay('hide');
+            // Swal.fire({
+            //     title: 'Clase cancelada',
+            //     text: result.message,
+            //     type: 'success',
+            //     confirmButtonText: 'Aceptar'
+            // }),
+            // window.location.replace("/user");
             Swal.fire({
                 title: 'Clase cancelada',
                 text: result.message,
                 type: 'success',
+                confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Aceptar'
-            }),
-            window.location.replace("/user");
+              }).then((result) => {
+                if (result.value) {
+                  window.location.replace("/user");
+                }
+              })
         }
     })
 }

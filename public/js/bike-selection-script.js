@@ -143,7 +143,7 @@ $(document).on("click", ".bikes", function(e) {
         // $(this).removeClass('bikes');
         // $(this).addClass('selected');
         // $('#placeNum').html($(this).text());
-        reservePlace(ballId, $(this));
+        reservePlace(ballId, $(this), instructor, scheduleHour);
         // location.href='#packages';
     } else {
         $(this).removeClass('selected');
@@ -159,46 +159,83 @@ document.getElementById('branch').innerHTML = document.getElementById('branch').
 $('#profilePic').click(function(){
     document.location.href = "/instructors";
 });
-
-function reservePlace(id, elementBall){
-    $.ajax({
-        url: "/book",
-        method: 'POST',
-        data: {
-            _token: crfsToken,
-            schedule_id: $("#schedule_id").val(),
-            bike: id,
-        },
-        success: function(result){
-            if(result.status == "OK"){
-                selected = $('.selected');
-                selected.removeClass('selected');
-                selected.addClass('bikes');
-                elementBall.removeClass('bikes');
-                elementBall.addClass('selected');
-                $('#placeNum').html($(this).text());
-                Swal.fire({
-                    title: 'Lugar reservado',
-                    text: result.message,
-                    type: 'success',
-                    confirmButtonText: 'Aceptar',
-                  })
-                window.location.replace("/user");
-            } else {
-                if(typeof result.updateClass != "undefined"){
-                    if (result.updateClass == 1) {
-                        $("#ball-" + id).removeClass("bikes")
-                        $("#ball-" + id).addClass("occupied")
+//TODO: modificar la variable hours
+function reservePlace(id, elementBall, instructor, scheduleHour){
+    var today = new Date();
+    if( scheduleHour)
+    swal({
+        title: "Tu reserva ",
+        text: document.getElementById('branch').textContent  +
+        document.getElementById('date').textContent  +
+        "CON: " + instructor +
+        "BICI: " + id +
+        "Esta reservación sólo puede modificarse o cancelarse hasta " + "hours" + " horas antes de la clase" +
+        "Tips:" +
+        "-Se puntual, llega al menos 10 min antes de la clase. Si llegaras tarde avisanos para guardar tu lugar 15 minutos" +
+        "-Usa ropa comoda que transpire y calcetas deportivas",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Reservar",
+        cancelButtonText: "Cancelar",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      },
+      function(isConfirm) {
+        if (isConfirm) {
+            $.ajax({
+                url: "/book",
+                method: 'POST',
+                data: {
+                    _token: crfsToken,
+                    schedule_id: $("#schedule_id").val(),
+                    bike: id,
+                },
+                success: function(result){
+                    if(result.status == "OK"){
+                        selected = $('.selected');
+                        selected.removeClass('selected');
+                        selected.addClass('bikes');
+                        elementBall.removeClass('bikes');
+                        elementBall.addClass('selected');
+                        $('#placeNum').html($(this).text());
+                        // Swal.fire({
+                        //     title: 'Lugar reservado',
+                        //     text: result.message,
+                        //     type: 'success',
+                        //     confirmButtonText: 'Aceptar',
+                        //   })
+                        // window.location.replace("/user");
+                        Swal.fire({
+                            title: 'Lugar reservado',
+                            text: result.message,
+                            type: 'success',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            if (result.value) {
+                            window.location.replace("/user");
+                            }
+                        });
+                    } else {
+                        if(typeof result.updateClass != "undefined"){
+                            if (result.updateClass == 1) {
+                                $("#ball-" + id).removeClass("bikes")
+                                $("#ball-" + id).addClass("occupied")
+                            }
+                        }
+                        Swal.fire({
+                            title: 'Error',
+                            text: result.message,
+                            type: 'error',
+                            confirmButtonText: 'Aceptar'
+                        })
                     }
+                    // console.log(result);
                 }
-                Swal.fire({
-                    title: 'Error',
-                    text: result.message,
-                    type: 'error',
-                    confirmButtonText: 'Aceptar'
-                  })
-            }
-            // console.log(result);
+            });
+        } else {
+          swal("Cancelado", "Clase no reservada", "info");
         }
     });
 }
