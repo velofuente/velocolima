@@ -193,8 +193,8 @@ class OpenPayController extends Controller
     {
         $key = env("OPENPAY_PUBLIC_KEY", '');
         $merchantId = env("OPENPAY_ID", '');
-        // $apiUrl = "https://{$key}@sandbox-api.openpay.mx/v1/{$merchantId}/tokens/{$tokenId}";
-        $apiUrl = "https://{$key}@api.openpay.mx/v1/{$merchantId}/tokens/{$tokenId}";
+        $apiUrl = "https://{$key}@" . env("OPENPAY_GETCARDTOKEN_URL", '') . "/v1/{$merchantId}/tokens/{$tokenId}";
+        //$apiUrl = "https://{$key}@api.openpay.mx/v1/{$merchantId}/tokens/{$tokenId}";
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
