@@ -71,14 +71,29 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Grupo de Middleware para Administradores
 Route::group(['middleware' => ['auth','admin.access']], function(){
     // Admin Index
+    // Route::get('admin', 'AdminController@index')->name('admin');
     Route::get('admin', 'AdminController@index')->name('admin');
-    // Show Pages
-    Route::get('admin-instructors', 'AdminController@showInstructors')->name('admin-instructors');
-    Route::get('admin-schedules', 'AdminController@showSchedules')->name('admin-schedules');
-    Route::get('admin-products', 'AdminController@showProducts')->name('admin-products');
-    Route::get('admin-branches', 'AdminController@showBranches')->name('admin-branches');
-    Route::get('admin-users', 'AdminController@showUsers')->name('admin-users');
-    Route::get('admin-clients', 'AdminController@showClients')->name('admin-clients');
+    // Show Pages (NEW STRUCTURE)
+    Route::get('admin/instructors', 'AdminController@showInstructors')->name('admin/instructors');
+    Route::get('admin/schedules', 'AdminController@showSchedules')->name('admin/schedules');
+    Route::get('admin/branches', 'AdminController@showBranches')->name('admin/branches');
+    Route::get('admin/products', 'AdminController@showProducts')->name('admin/products');
+    Route::get('admin/users', 'AdminController@showUsers')->name('admin/users');
+    Route::get('admin/clients', 'AdminController@showClients')->name('admin/clients');
+    // Route::get('admin/operations/{$id}', 'AdminController@showOperationsGrid')->name('admin/operations');
+    Route::get('admin/operations/{selected_schedule}', 'AdminController@showOperationsGrid');
+    Route::get('admin/operations', 'AdminController@showOperationsGrid');
+
+    Route::get('/admin/sales', 'AdminController@showSales')->name('admin/sales');
+    Route::get('admin/reports', 'AdminController@showReports')->name('admin/reports');
+    // Show Pages (DEPRECATED)
+    // Route::get('admin/operations', 'AdminController@showOperationsGrid')->name('admin/operations');
+    // Route::get('admin-instructors', 'AdminController@showInstructors')->name('admin-instructors');
+    // Route::get('admin-schedules', 'AdminController@showSchedules')->name('admin-schedules');
+    // Route::get('admin-products', 'AdminController@showProducts')->name('admin-products');
+    // Route::get('admin-branches', 'AdminController@showBranches')->name('admin-branches');
+    // Route::get('admin-users', 'AdminController@showUsers')->name('admin-users');
+    // Route::get('admin-clients', 'AdminController@showClients')->name('admin-clients');
     // Route::get('admin-sales', 'AdminController@showSales')->name('admin-sales');
     Route::post('preRegister', 'BookClassController@preRegister');
     Route::post('attendClass', 'BookClassController@attendClass');

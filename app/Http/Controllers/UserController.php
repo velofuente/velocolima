@@ -23,8 +23,10 @@ class UserController extends Controller
         $purchaseHistory = Purchase::with(['product'])->select("*", DB::raw("DATE_ADD(created_at, INTERVAL expiration_days DAY) finalDate"))->where('user_id', '=', "{$requestUser->id}")->get()->sortByDesc('created_at');
         //return $purchaseHistory = DB::table('purchases')->select("*", DB::raw("DATE_ADD(created_at, INTERVAL expiration_days DAY) finalDate"))->where('user_id', '=', "{$requestUser->id}")->get();
         $cards = DB::table('cards')->where('user_id', '=', "{$requestUser->id}")->get();
-        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->first();
-        $classes = $numClases->clases;
+        //$numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->first();
+        //$classes = $numClases->clases;
+        $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->whereRaw("NOW() <= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->where('user_id', '=', "{$requestUser->id}")->groupBy("id")->get();
+        $classes = $numClases->sum("clases");
         $bookedClasses = UserSchedule::with("schedule.instructor", "schedule.room", "schedule")->where('user_id', "{$requestUser->id}")->where('status', 'active')->get();
         $previousClasses = UserSchedule::with('scheduleWithTrashed.instructorWithTrashed')->where('user_id', "{$requestUser->id}")->whereNotIn("status", ["active"])->whereRaw("created_at < NOW()")->get();
         // TODO: ARREGLAR: Se rompe cuando hay un Active en un horario que ya pasó en PreviousClasses

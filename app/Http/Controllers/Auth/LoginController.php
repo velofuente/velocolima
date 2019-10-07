@@ -56,6 +56,7 @@ class LoginController extends Controller
             if($user->role_id == 1){
                 log::info($user->role_id);
                 return redirect("/admin");
+                // return redirect("/admin");
             }
             else
                 return redirect("/user");

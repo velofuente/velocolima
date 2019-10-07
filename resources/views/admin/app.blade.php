@@ -31,6 +31,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/admin-styles.css')}}">
     {{-- <link rel="stylesheet" href="{{asset('css/admin-bike-grid.css')}}"> --}}
     <link rel="stylesheet" href="{{asset('css/style-bike.css')}}">
+
+    @yield('extra_styles')
 </head>
 <body>
 
@@ -150,7 +152,8 @@
             </div>
         </div>
         {{-- Where info will be displayed --}}
-        <div class="col-6 mx-0 px-0 rightSpan" id="frameView" style="width: 90em;">
+        <div class="col-6 mx-0 px-0 rightSpan" style="width: 90em;">
+            @yield('content')
         </div>
     </div>
 
@@ -159,6 +162,22 @@
         var previousSchedule = null;
         var scheduleOperations = null;
         var operationsSchedule = null;
+
+        // Clickable Rows on Tables
+        $('#tableNextClasses').on('click', 'tr', function(event){
+            var id = $(this).attr('id');
+            var fullId = id.split('-');
+            if (fullId.length > 1){
+                var splittedId = fullId[1];
+                scheduleOperations = splittedId;
+                operationsSchedule = scheduleOperations;
+            }
+            // console.log('/admin/operations/'+operationsSchedule);
+            if(!$(event.target).hasClass('text-center')) {
+                // $('#frameView').load('admin-operations');
+                window.location.replace('/admin/operations/'+operationsSchedule);
+            }
+        });
 
         $(document).ready(function (){
             //Variable to get the clicked link
@@ -177,28 +196,30 @@
 
             //Function to display view depending on the clicked link
             function callPage(page){
-                $.ajax({
-                    url: 'admin-'+page,
-                    type: 'GET',
-                    cache: false,
-                    beforeSend: function(){
-                        $.LoadingOverlay("show");
-                    },
-                    success: function(result) {
-                        $.LoadingOverlay("hide");
-                        $('#frameView').html(result);
-                    },
-                    error: function(result){
-                        $.LoadingOverlay("hide");
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Ocurrió un Error en la petición',
-                            type: 'warning',
-                            confirmButtonText: 'Aceptar'
-                        })
-                        // console.log(result);
-                    }
-                });
+                window.location.replace('/admin/'+page)
+                // $.ajax({
+                //     url: '/admin/'+page,
+                //     type: 'GET',
+                //     cache: false,
+                //     beforeSend: function(){
+                //         $.LoadingOverlay("show");
+                //     },
+                //     success: function(result) {
+                //         $.LoadingOverlay("hide");
+                //         window.location.replace(result)
+                //         // $('#frameView').html(result);
+                //     },
+                //     error: function(result){
+                //         $.LoadingOverlay("hide");
+                //         Swal.fire({
+                //             title: 'Error',
+                //             text: 'Ocurrió un Error en la petición',
+                //             type: 'warning',
+                //             confirmButtonText: 'Aceptar'
+                //         })
+                //         // console.log(result);
+                //     }
+                // });
             }
 
             // Jquery UI DatePicker (Safari)
@@ -230,5 +251,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
+
+    @yield('extra_scripts')
 </body>
 </html>

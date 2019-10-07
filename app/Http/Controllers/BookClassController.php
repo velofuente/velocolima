@@ -30,9 +30,17 @@ class BookClassController extends Controller
         //obtiene la compra con la fecha de caducidad mas proxima del usuario con clases disponibles
         $compra = Purchase::where('user_id', $requestUser->id)
         ->where('n_classes', "<>", 0)
-        ->whereRaw("created_at < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
+        //->whereRaw("created_at < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
         //->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
+        //->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
+        ->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
         ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
+        if(!$compra){
+            return response()->json([
+                'status' => 'ERROR',
+                'message' => "No tienes clases compradas. Compra clases para poder registrarte",
+            ]);
+        }
         DB::beginTransaction();
         if(!$bookedClass){
             //obtiene el numero total de clases
@@ -155,11 +163,17 @@ class BookClassController extends Controller
     {
         $requestedClass = UserSchedule::find($request->id);
         $purchase = Purchase::find($requestedClass->purchase_id);
+        if($requestedClass->status == 'cancelled'){
+            return response()->json([
+                'status' => 'OK',
+                'message' => 'Clase cancelada con éxito',
+            ]);
+        }
         if($requestedClass->status=='active'||$requestedClass->status!='active'){
             $requestedClass->status = 'cancelled';
             $requestedClass->changedSit = 0;
             $requestedClass->save();
-            $purchase->n_classes += 1;
+            $purchase->n_classes ++;
             $purchase->save();
             return response()->json([
                 'status' => 'OK',

@@ -1,3 +1,9 @@
+@extends('admin.app')
+
+@section('extra_styles')
+@stop
+
+@section('content')
 {{-- Table with the Info --}}
 <div class="row text-center mx-0 py-4">
     <h3>Sucursales</h3>
@@ -241,7 +247,9 @@
         </div>
     </div>
 </div>
+@stop
 
+@section('extra_scripts')
 {{-- Add, Delete & Edit Schedule Scripts --}}
 <script type="text/javascript">
     var crfsToken = '{{ csrf_token() }}';
@@ -352,7 +360,7 @@
             instructorBikes.push($(this).text());
         })
         $.ajax({
-            url: "addBranch",
+            url: "/addBranch",
             method: 'POST',
             beforeSend: function(){
                 $.LoadingOverlay('show');
@@ -373,7 +381,7 @@
                 if(result.status == "OK"){
                     $.LoadingOverlay('hide');
                     $('.modal-backdrop').remove();
-                    $('.active-menu').trigger('click');
+                    // $('.active-menu').trigger('click');
                     $('#addBranchModal').modal('hide');
                     Swal.fire({
                         title: 'Sucursal creada con éxito',
@@ -381,6 +389,7 @@
                         type: 'success',
                         confirmButtonText: 'Aceptar'
                     })
+                    window.location.replace("/admin/branches");
                 } else {
                     $.LoadingOverlay('hide');
                     Swal.fire({
@@ -389,6 +398,7 @@
                         type: 'error',
                         confirmButtonText: 'Aceptar'
                     })
+                    $('#addBranchButton').attr('disabled', false);
                 }
             }
         });
@@ -406,7 +416,7 @@
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    url: 'deleteBranch',
+                    url: '/deleteBranch',
                     type: 'POST',
                     cache: false,
                     headers: {
@@ -419,13 +429,14 @@
                         $.LoadingOverlay("hide");
                         if (result.status == "OK") {
                             $('.modal-backdrop').remove();
-                            $('.active-menu').trigger('click');
+                            // $('.active-menu').trigger('click');
                             Swal.fire({
                                 title: 'Sucursal Eliminado',
                                 text: result.message,
                                 type: 'success',
                                 confirmButtonText: 'Aceptar'
                             })
+                            window.location.replace("/admin/branches");
                         } else {
                             $.LoadingOverlay("hide");
                             Swal.fire({
@@ -456,3 +467,4 @@
     }
 // })
 </script>
+@stop

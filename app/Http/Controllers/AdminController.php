@@ -26,11 +26,13 @@ class AdminController extends Controller
         // $products = Product::all();
         // $branches = Branch::all();
         // return view('/admin', compact ('instructors', 'schedules', 'products', 'branches'));
-        return view('/admin');
+        // return view('/admin');
+        return view('/admin/app');
     }
     public function showInstructors(){
         $instructors = Instructor::all();
-        return view('/admin-instructors', compact ('instructors'));
+        // return view('/admin-instructors', compact ('instructors'));
+        return view('/admin/instructors', compact ('instructors'));
     }
 
     public function showSchedules(){
@@ -39,7 +41,8 @@ class AdminController extends Controller
         $schedules = Schedule::orderBy('day')->orderBy('hour')->get();
         $instructors = Instructor::all();
         $branches = Branch::all();
-        return view('/admin-schedules', compact ('schedules','instructors','branches'));
+        // return view('/admin-schedules', compact ('schedules','instructors','branches'));
+        return view('/admin/schedules', compact ('schedules','instructors','branches'));
     }
 
     public function getNextClasses(){
@@ -115,17 +118,19 @@ class AdminController extends Controller
 
     public function showProducts(){
         $products = Product::all();
-        return view('/admin-products', compact ('products'));
+        return view('/admin/products', compact ('products'));
     }
 
     public function showBranches(){
         $branches = Branch::all();
-        return view('/admin-branches', compact ('branches'));
+        // return view('/admin-branches', compact ('branches'));
+        return view('/admin/branches', compact ('branches'));
     }
 
     public function showUsers(){
         $users = User::where('role_id', 1)->get();
-        return view('/admin-users', compact ('users'));
+        // return view('/admin-users', compact ('users'));
+        return view('/admin/users', compact ('users'));
     }
 
     public function showClients(){
@@ -142,14 +147,16 @@ class AdminController extends Controller
         }
         log::info($clients);
         // return  $temp;
-        return view('/admin-clients', compact ('clients'));
+        // return view('/admin-clients', compact ('clients'));
+        return view('/admin/clients', compact ('clients'));
     }
 
     public function showSales(){
         $products = Product::where('status',1)->get();
         // $users = User::where('role_id', 3)->get();
         $data = DB::table('users')->where('role_id', 3)->orderBy('id', 'asc')->paginate(5);
-        return view('/admin-sales', compact ('products', 'data'));
+        // return view('/admin-sales', compact ('products', 'data'));
+        return view('/admin/sales', compact ('products', 'data'));
     }
 
     function fetch_data(Request $request)
@@ -191,10 +198,12 @@ class AdminController extends Controller
     public function showReports(){
         // $sales = Sale::with(['admin', 'purchase'])->whereRaw("date(created_at) = date(NOW())")->get();
         $sales = Sale::with(['admin', 'purchase'])->whereDate('created_at','=', date('Y-m-d'))->get();
-        return view('/admin-reports', compact ('sales'));
+        // return view('/admin-reports', compact ('sales'));
+        return view('/admin/reports', compact ('sales'));
     }
 
-    public function showOperationsGrid(){
+    public function showOperationsGrid($selected_schedule = null){
+        // return 1;
         $users = User::all();
         date_default_timezone_set('America/Mexico_City');
         $id = [];
@@ -209,7 +218,7 @@ class AdminController extends Controller
                             ->join('branches','schedules.branch_id','=','branches.id')
                             ->select('schedules.id','schedules.day','schedules.hour','schedules.reservation_limit','schedules.instructor_id','schedules.class_id',
                             'schedules.room_id','schedules.branch_id','schedules.deleted_at','schedules.created_at','schedules.updated_at','schedules.description',
-                            'instructors.id AS insId', 'instructors.name AS insName')
+                            'instructors.id AS insId', 'instructors.name AS insName', DB::raw('CONCAT(schedules.day, " ", schedules.hour) AS limit_day'))
                             ->whereNull('instructors.deleted_at')
                             ->whereNull('schedules.deleted_at')
                             ->whereNull('branches.deleted_at')
@@ -222,8 +231,20 @@ class AdminController extends Controller
         foreach ($schedules as $schedule) {
             array_push($id,$schedule->id);
         }
+        $selected_schedule = isset($selected_schedule) ? $selected_schedule : null;
         $userSchedules = UserSchedule::whereIn('schedule_id', $id)->get();
-        return view('/admin-operations', compact ('schedules', 'userSchedules', 'users'));
+        // return view('/admin-operations', compact ('schedules', 'userSchedules', 'users'));
+
+        if(isset($selected_schedule)){
+            if(in_array($selected_schedule, $id) == true){
+                // return view("/admin/operations", compact ('schedules', 'userSchedules', 'users', 'selected_schedule'));
+                return view("admin/operations", compact('schedules', 'userSchedules', 'users', 'selected_schedule'));
+            } else {
+                return redirect('/admin/operations');
+            }
+        } else {
+            return view('/admin/operations', compact ('schedules', 'userSchedules', 'users'));
+        }
     }
 
     public function showClientsTable(Request $request){
@@ -496,6 +517,13 @@ class AdminController extends Controller
         ]);
     }
     public function addBranch(Request $request){
+        log::info($request->instructorBikes);
+        if (!isset($request->instructorBikes)) {
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'Debe asignarse un lugar para el instructor.',
+            ]);
+        }
         DB::beginTransaction();
         $branch = Branch::create([
             'name' => $request->name,
@@ -542,24 +570,29 @@ class AdminController extends Controller
         ]);
     }
     public function configGridBikes($disabledBikes, $instructorBikes, $branch){
-        log::info($instructorBikes);
-        log::info($disabledBikes);
-        DB::beginTransaction();
-        foreach ($instructorBikes as $bike) {
-            Tool::create([
-                'type' => 'instructor',
-                'position' => $bike,
-                'branch_id' => $branch->id,
+        if (count($instructorBikes) ==0) {
+            return response()->json([
+                'status' => 'Error',
+                'message' => 'Debe asignarse un lugar para el instructor.',
             ]);
+        }else{
+            DB::beginTransaction();
+            foreach ($instructorBikes as $bike) {
+                Tool::create([
+                    'type' => 'instructor',
+                    'position' => $bike,
+                    'branch_id' => $branch->id,
+                ]);
+            }
+            foreach ($disabledBikes as $bike) {
+                Tool::create([
+                    'type' => 'disabled',
+                    'position' => $bike,
+                    'branch_id' => $branch->id,
+                ]);
+            }
+            DB::commit();
         }
-        foreach ($disabledBikes as $bike) {
-            Tool::create([
-                'type' => 'disabled',
-                'position' => $bike,
-                'branch_id' => $branch->id,
-            ]);
-        }
-        DB::commit();
     }
     public function addProduct(Request $request){
         if( strlen($request->description) > 20 ){
@@ -616,6 +649,9 @@ class AdminController extends Controller
         ]);
     }
     public function addUser(Request $request){
+        log::info("========== addUser ==========");
+        log::info($request->all());
+
         $password = substr($request->phone, -4);
         DB::beginTransaction();
         $user = $request->user();
@@ -652,7 +688,7 @@ class AdminController extends Controller
             'birth_date' => $request->birth_date,
             'phone' => $request->phone,
             'gender' => $request->gender,
-            'role_id' => 2,
+            'role_id' => 1,
             'branch_id' => $user->branch_id,
         ]);
         DB::commit();
