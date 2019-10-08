@@ -137,6 +137,7 @@ class AdminController extends Controller
         //$numClases = User::join('purchases','purchases.user_id','=','users.id')->select(DB::raw('SUM(n_classes) as clases'))->get();
         // $numClases = User::select(DB::raw())->where('role_id', 3)->get();
         //$temp = [];
+        $products = Product::where('status',1)->get();
         $clients = User::where('role_id',3)->orderBy('id')->get();//paginate(5);
         foreach ($clients as $client){
             $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$client->id}")->first();
@@ -148,14 +149,20 @@ class AdminController extends Controller
         log::info($clients);
         // return  $temp;
         // return view('/admin-clients', compact ('clients'));
-        return view('/admin/clients', compact ('clients'));
+        return view('/admin/clients', compact ('clients','products'));
     }
 
     public function showSales(){
         $products = Product::where('status',1)->get();
         // $users = User::where('role_id', 3)->get();
         $data = DB::table('users')->where('role_id', 3)->orderBy('id', 'asc')->paginate(5);
-        // return view('/admin-sales', compact ('products', 'data'));
+        foreach ($data as $client){
+            $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$client->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
+            $bookedClasses = UserSchedule::with("schedule.instructor", "schedule.room", "schedule")->where('user_id', "{$client->id}")->where('status', 'active')->count();
+            $client->availableClasses = $numClases;
+            $client->bookedClasses = $bookedClasses;
+            //array_push($temp,$numClases->clases);
+        }
         return view('/admin/sales', compact ('products', 'data'));
     }
 
@@ -533,6 +540,7 @@ class AdminController extends Controller
             'phone' => $request->phone,
             'reserv_lim_x' => $request->reserv_lim_x,
             'reserv_lim_y' => $request->reserv_lim_y,
+            'cancelation_period' => $request->cancelation_period,
         ]);
         DB::commit();
         $this->configGridBikes($request->disabledBikes, $request->instructorBikes, $branch);
@@ -552,6 +560,7 @@ class AdminController extends Controller
         $Branch->phone = $request->phone;
         $Branch->reserv_lim_x = $request->reserv_lim_x;
         $Branch->reserv_lim_y = $request->reserv_lim_y;
+        $Branch->cancelation_period = $request->cancelation_period;
         $Branch->save();
         DB::commit();
         return response()->json([
@@ -726,15 +735,21 @@ class AdminController extends Controller
         ]);
     }
     public function sale(Request $request){
+        log::info($request);
         try {
             $admin = $request->user();
+            log::info($admin);
             $product = Product::where('id', "{$request->product_id}")->first();
+            log::info($product);
             DB::beginTransaction();
             //promocion clase adicional
             $promotion = Purchase::where('user_id', $request->client_id)->where('status', 'pending')->latest()->first();
-            if(Carbon::now() < Carbon::parse($promotion->created_at)->addDay() && $product->n_classes >= 10){
-                $promotion->status = 'active';
-                $promotion->save;
+            log::info($promotion);
+            if($promotion != null){
+                if(Carbon::now() < Carbon::parse($promotion->created_at)->addDay() && $product->n_classes >= 10){
+                    $promotion->status = 'active';
+                    $promotion->save;
+                }
             }
             $purchase = Purchase::create([
                 'product_id' => $product->id,

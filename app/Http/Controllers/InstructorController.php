@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\{Instructor,Branch,Schedule,Product, User,UserSchedule, Card, Tool};
 use Response, Auth, Log;
+use Carbon\Carbon;
 
 class InstructorController extends Controller
 {
@@ -110,6 +111,7 @@ class InstructorController extends Controller
         if(!$request->user()){
             return redirect('login');
         }
+        $scheduleHourBeforeCancelation = Carbon::parse($schedules->hour)->subHours($schedules->branch->cancelation_period)->format('H:i:s');
         //obtiene el numero de reservaciones que se han hecho a esa clase
         $instances = UserSchedule::where('schedule_id', $schedules->id)->count();
         $instructors = Instructor::all();
@@ -131,9 +133,9 @@ class InstructorController extends Controller
                 $cards = Card::where('user_id', Auth::user()->id)->get();
                 // dd($cards);
                 // $cards = Card::all();
-                return view('bike-selection', compact('instructors','instructor', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes","cards"));
+                return view('bike-selection', compact('instructors','instructor', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes","cards", "scheduleHourBeforeCancelation"));
             }else{
-                return view('bike-selection', compact('instructors','instructor', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes"));
+                return view('bike-selection', compact('instructors','instructor', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes", "scheduleHourBeforeCancelation"));
             }
         else
             return response()->json([

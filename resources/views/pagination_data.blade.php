@@ -4,7 +4,11 @@
         <td>{{ $row->name }}</td>
         <td>{{ $row->last_name }}</td>
         <td>{{ $row->email }}</td>
+        <td>{{ $row->birth_date }}</td>
         <td>{{ $row->phone }}</td>
+        <td>{{ $row->shoe_size }}</td>
+        <td>{{ ($row->availableClasses->clases) ? $row->availableClasses->clases : 'N/D' }}</td>
+        <td>{{ ($row->bookedClasses) ? $row->bookedClasses : 'N/D' }}</td>
         <td><button class="btn btn-success btn-sm salesUser" id="salesUser-{{ $row->id }}" value="{{$row->id}}" data-toggle="modal" data-target="#addSaleUserModal">Venta</button></td>
     </tr>
 @endforeach

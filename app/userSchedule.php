@@ -18,4 +18,7 @@ class UserSchedule extends Model
     public function user(){
         return $this->hasOne(User::class, "id", "user_id");
     }
+    public function purchase(){
+        return $this->hasOne(Purchase::class, "id", "purchase_id");
+    }
 }

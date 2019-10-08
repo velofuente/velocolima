@@ -15,6 +15,7 @@
                 <th scope="col">Municipio</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Teléfono</th>
+                <th scope="col">Periodo de Cancelación</th>
                 <th scope="col" colspan="2" class="text-center">Acción</th>
             </tr>
         </thead>
@@ -28,7 +29,8 @@
                     <td>{{$branch->municipality}}</td>
                     <td>{{$branch->state}}</td>
                     <td>{{$branch->phone}}</td>
-                    <td><button class="btn btn-primary btn-sm editBranch" id="editBranch-{{ $branch->id }}" value="{{$branch->id}}" data-myid="{{ $branch->id }}" data-myname="{{ $branch->name }}" data-myaddress="{{ $branch->address }}" data-mymunicipality="{{ $branch->municipality }}" data-mystate="{{$branch->state}}" data-myphone="{{ $branch->phone }}" data-myx="{{ $branch->reserv_lim_x}}" data-myy="{{ $branch->reserv_lim_y}}" data-toggle="modal" data-target="#editBranchModal">Editar</button></td>
+                    <td>{{$branch->cancelation_period}}</td>
+                    <td><button class="btn btn-primary btn-sm editBranch" id="editBranch-{{ $branch->id }}" value="{{$branch->id}}" data-myid="{{ $branch->id }}" data-myname="{{ $branch->name }}" data-myaddress="{{ $branch->address }}" data-mymunicipality="{{ $branch->municipality }}" data-mystate="{{$branch->state}}" data-myphone="{{ $branch->phone }}" data-myx="{{ $branch->reserv_lim_x}}" data-myy="{{ $branch->reserv_lim_y}}" data-mycancelation="{{ $branch->cancelation_period }}" data-toggle="modal" data-target="#editBranchModal">Editar</button></td>
                     <td><button class="btn btn-danger btn-sm deleteBranch" id="deleteBranch-{{ $branch->id }}" value="{{$branch->id}}">Eliminar</button></td>
                 </tr>
             @endforeach
@@ -98,6 +100,15 @@
                             @if ($errors->has('addBranchPhone'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('addBranchPhone') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="col-3 col-xs-3 col-sm-3 col-md-3">
+                            <label for="cancelation" class="mr-sm-2">Periodo de cancelación:</label>
+                            <input id="addBranchCancelationPeriod" type="number" placeholder="Horas" class="form-control{{ $errors->has('addBranchCancelationPeriod') ? ' is-invalid' : '' }}" name="name" value="{{ old('addBranchCancelationPeriod') }}" required autofocus >
+                            @if ($errors->has('addBranchCancelationPeriod'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('addBranchCancelationPeriod') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -204,6 +215,15 @@
                             @endif
                         </div>
                         <div class="col-3 col-xs-3 col-sm-3 col-md-3">
+                            <label for="cancelation" class="mr-sm-2">Periodo de cancelación:</label>
+                            <input id="editBranchCancelationPeriod" type="number" placeholder="Horas" class="form-control{{ $errors->has('editBranchCancelationPeriod') ? ' is-invalid' : '' }}" name="name" value="{{ old('editBranchCancelationPeriod') }}" required autofocus >
+                            @if ($errors->has('editBranchCancelationPeriod'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('editBranchCancelationPeriod') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="col-3 col-xs-3 col-sm-3 col-md-3">
                             <label for="rows" class="mr-sm-2">Filas:</label>
                             <input class="form-control" maxlength="2" placeholder="Filas" type="number" name="x" id="x">
                         </div>
@@ -257,6 +277,7 @@
     var municipality = null;
     var state = null;
     var phone = null;
+    var cancelation_period  = null;
     var reserv_lim_x = null;
     var reserv_lim_y = null;
 
@@ -269,6 +290,7 @@
         municipality =  $('#addBranchMunicipality').val();
         state =  $('#addBranchState').val();
         phone =  $('#addBranchPhone').val();
+        cancelation_period =  $('#addBranchCancelationPeriod').val();
         reserv_lim_x =  $('#x').val();
         reserv_lim_y =  $('#y').val();
         addBranch();
@@ -305,6 +327,7 @@
         municipality = button.data('mymunicipality');
         state = button.data('mystate');
         phone = button.data('myphone');
+        cancelation_period = button.data('mycancelation');
         reserv_lim_x = button.data('myx');
         reserv_lim_y = button.data('myy');
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -315,6 +338,7 @@
         modal.find('.modal-body #editBranchMunicipality').val(municipality);
         modal.find('.modal-body #editBranchState').val(state);
         modal.find('.modal-body #editBranchPhone').val(phone);
+        modal.find('.modal-body #editBranchCancelationPeriod').val(cancelation_period);
         modal.find('.modal-body #x').val(reserv_lim_x);
         modal.find('.modal-body #y').val(reserv_lim_y);
     });
@@ -364,6 +388,7 @@
                 municipality: municipality,
                 state: state,
                 phone: phone,
+                cancelation_period: cancelation_period,
                 reserv_lim_x: reserv_lim_x,
                 reserv_lim_y: reserv_lim_y,
                 disabledBikes: disabledBikes,

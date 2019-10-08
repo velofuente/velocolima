@@ -22,7 +22,7 @@
         </thead>
         <tbody id="table-clients">
             @foreach ($clients as $client)
-                <tr style="font-size: 0.9em;">
+                <tr style="font-size: 0.9em;" class="clientRow" id="{{$client->id}}">
                     <td>{{$client->id}}</td>
                     <td>{{$client->name}}</td>
                     <td>{{$client->last_name}}</td>

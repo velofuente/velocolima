@@ -64,6 +64,8 @@
         var opSandbox = "{{ env('OPENPAY_SANDBOX') }}";
         var instructor = "{{ $instructor->name }}";
         var scheduleHour = "{{ $schedules->hour }}";
+        var cancelation_period = "{{ $schedules->branch->cancelation_period }}";
+        var scheduleHourBeforeCancelation = "{{ $scheduleHourBeforeCancelation }}";
     </script>
     <script src="{{asset('js/openpay-script.js')}}"></script>
     <script src="{{asset('js/bike-selection-script.js')}}"></script>

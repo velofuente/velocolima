@@ -76,10 +76,21 @@
                     {{-- the Value of each Row contains its respective schedule_id --}}
                     @foreach ($userSchedules as $userSchedule)
                         {{-- @if ($userSchedule->status != 'cancelled') --}}
-                            <tr style="font-size: 0.9em;" class="tableBodyRow">
+                            @if ($userSchedule->purchase->product->description == 'Clase gratis por ser nuevo cliente')
+                                <tr style="font-size: 0.9em;background-color: #73e340;" class="tableBodyRow">
+                            @else
+                                <tr style="font-size: 0.9em;" class="tableBodyRow">
+                            @endif
                                 <input type="hidden" value="{{$userSchedule->schedule_id}}" id="hiddenUsers">
-                                <td>{{$userSchedule->user->name}} {{$userSchedule->user->last_name}}</td>
-                                <td>{{$userSchedule->user->email}}</td>
+                                @if (substr($userSchedule->user->birth_date, 5) ==  date('m-d'))
+                                    <td>cumpleaños</td>
+                                    {{-- <td style="background-color:deepskyblue"><img src="/img/iconos/cake.png">{{$userSchedule->user->name}} {{$userSchedule->user->last_name}}</td> --}}
+                                @else
+                                    <td style="background-color:firebrick">No cumpleaños</td>
+                                    {{-- <td style="background-color:firebrick">{{$userSchedule->user->name}} {{$userSchedule->user->last_name}}</td> --}}
+                                @endif
+                               <td>email</td>
+                               {{-- <td>{{$userSchedule->user->email}}</td> --}}
                                 {{-- <td>{{$userSchedule->bike}}</td> --}}
                                 @switch($userSchedule->bike)
                                     @case(2)

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use App\{UserSchedule, UserWaitList, User, Purchase, Tool, Schedule, Product};
+use App\{UserSchedule, UserWaitList, User, Purchase, Tool, Schedule, Product, Branch};
 use Illuminate\Support\Facades\Hash;
 use SebastianBergmann\Environment\Console;
 
@@ -18,8 +18,6 @@ class BookClassController extends Controller
         $requestUser = $request->user();
         //obtiene el cupo de la clase
         $availability = Schedule::select('reservation_limit')->where('id', $request->schedule_id)->first();
-        //Obtiene la hora de la clase
-        $ClasshourLimit = Schedule::select('hour')->where('id', $request->schedule_id)->first();
         //obtiene el numero de reservaciones que se han hecho a esa clase
         $instances = UserSchedule::where('schedule_id', $request->schedule_id)->where('status', "active")->count();
         //obtiene y revisa si el usuario ya tiene esta clase reservada
@@ -80,42 +78,6 @@ class BookClassController extends Controller
                             'updateClass' => 1
                         ]);
                     }
-                    // TODO: Hour thing
-                    if(Carbon::now()->format('H-i-s') > Carbon::parse($ClasshourLimit->hour)->subHours(2)->format('H-i-s')){
-                        //obtiene el id de la bici,id del horario, id de la compra
-                        UserSchedule::create([
-                            'user_id' => $requestUser->id,
-                            'schedule_id' => $request->schedule_id,
-                            'purchase_id' => $compra->id,
-                            //'tool_schedule_id' => $request->tool_schedule_id,
-                            'bike' => $request->bike,
-                            'status' => 'active',
-                            'changedSit' => 0,
-                        ]);
-                        //Resta una clase a la compra del usuario y actualiza ese campo en la base de datos
-                        $compra->n_classes -= 1;
-                        $compra->save();
-                        if($classes == 1){
-                            $promocion = Product::where('description', 'Clase adicional')->first();
-                            Purchase::create([
-                                'product_id' => $promocion->id,
-                                'user_id' => $requestUser->id,
-                                'n_classes' => $promocion->n_classes,
-                                'expiration_days' => $promocion->expiration_days,
-                                'status' => 'pending',
-                            ]);
-                            app('App\Http\Controllers\MailSendingController')->addtionalFreeClass($requestUser->email,$requestUser->name);
-                        }
-                        DB::commit();
-                        return response()->json([
-                            'status' => 'OK',
-                            'message' => "Lugar reservado con éxito.
-                            Esta reservación no es cancelable, debido a que se está realizando antes de n horas del inicio de la clase.
-                            Tips:
-                                -Se puntual, llega al menos 10 min antes de la clase. Si llegaras tarde avisanos para guardar tu lugar 15 minutos
-                                -Usa ropa comoda que transpire y calcetas deportivas",
-                        ]);
-                    }
                     //obtiene el id de la bici,id del horario, id de la compra
                     UserSchedule::create([
                         'user_id' => $requestUser->id,
@@ -143,11 +105,7 @@ class BookClassController extends Controller
                     DB::commit();
                     return response()->json([
                         'status' => 'OK',
-                        'message' => "Lugar reservado con éxito.
-                        Esta reservación sólo puede modificarse o cancelarse hasta n horas antes de la clase
-                        Tips:
-                                -Se puntual, llega al menos 10 min antes de la clase. Si llegaras tarde avisanos para guardar tu lugar 15 minutos
-                                -Usa ropa comoda que transpire y calcetas deportivas",
+                        'message' => "Lugar reservado con éxito.",
                     ]);
                 } else{
                     return response()->json([
@@ -219,6 +177,10 @@ class BookClassController extends Controller
     public function cancelClass(Request $request)
     {
         $requestedClass = UserSchedule::find($request->id);
+        //obtiene el periodo de cancelacion de la ubicación
+        $schedule = Schedule::find($requestedClass->shcedule_id);
+        $branch = Branch::find($schedule->branch_id);
+        $cancelationPeriod = $branch->cancelation_period;
         $ClasshourLimit = Schedule::select('hour')->where('id', $requestedClass->schedule_id)->first();
         $purchase = Purchase::find($requestedClass->purchase_id);
         if($requestedClass->status == 'cancelled'){
@@ -229,7 +191,7 @@ class BookClassController extends Controller
         }
         if($requestedClass->status=='active'||$requestedClass->status!='active'){
             if($ClasshourLimit != null){
-                if(Carbon::now()->format('H-i-s') > Carbon::parse($ClasshourLimit->hour)->subHours(2)->format('H-i-s')){
+                if(Carbon::now()->format('H-i-s') > Carbon::parse($ClasshourLimit->hour)->subHours($cancelationPeriod)->format('H-i-s')){
                     $requestedClass->status = 'cancelled';
                     $requestedClass->changedSit = 0;
                     $requestedClass->save();
