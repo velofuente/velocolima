@@ -262,6 +262,7 @@ class AdminController extends Controller
         }
         // $clients = User::whereIn('id',$id)->get();
         $clients = UserSchedule::with('user')->where('schedule_id', $request->schedule_id)->whereIn('user_id', $id)->get();
+        log::info($clients);
         return $clients;
     }
 
@@ -329,6 +330,18 @@ class AdminController extends Controller
         }*/
         log::info($nonScheduledUsers);
         return $nonScheduledUsers;
+    }
+
+    public function getUserInfo(Request $request){
+        $userInfo = [];
+        // nombre del cliente, clases disponibles, historial de compras, si el historial es largo debe de tener scrolling y como se compró (mostrador o web)
+        $booking = UserSchedule::find($request->userSchedule_id);
+        $name = $booking->user->name + " " + $booking->user->last_name;
+        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$$booking->user->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
+        $availableClasses = $numClases->clases;
+        $purchaseHistory = Purchase::where('user_id', '=', "{$$booking->user->id}")->get();
+        array_push($userInfo, $name, $availableClasses, $purchaseHistory);
+        log::info($userInfo);
     }
 
     public function addInstructor(Request $request){

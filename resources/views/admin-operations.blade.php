@@ -77,20 +77,17 @@
                     @foreach ($userSchedules as $userSchedule)
                         {{-- @if ($userSchedule->status != 'cancelled') --}}
                             @if ($userSchedule->purchase->product->description == 'Clase gratis por ser nuevo cliente')
-                                <tr style="font-size: 0.9em;background-color: #73e340;" class="tableBodyRow">
+                                <tr style="font-size: 0.9em;background-color: #73e340;" class="tableBodyRow" id="{{$userSchedule->schedule_id}}">
                             @else
-                                <tr style="font-size: 0.9em;" class="tableBodyRow">
+                                <tr style="font-size: 0.9em;" class="tableBodyRow" id="{{$userSchedule->schedule_id}}">
                             @endif
                                 <input type="hidden" value="{{$userSchedule->schedule_id}}" id="hiddenUsers">
                                 @if (substr($userSchedule->user->birth_date, 5) ==  date('m-d'))
-                                    <td>cumpleaños</td>
-                                    {{-- <td style="background-color:deepskyblue"><img src="/img/iconos/cake.png">{{$userSchedule->user->name}} {{$userSchedule->user->last_name}}</td> --}}
+                                    <td><img src="/img/iconos/cake.png" height="25" width="25">{{$userSchedule->user->name}} {{$userSchedule->user->last_name}}</td>
                                 @else
-                                    <td style="background-color:firebrick">No cumpleaños</td>
-                                    {{-- <td style="background-color:firebrick">{{$userSchedule->user->name}} {{$userSchedule->user->last_name}}</td> --}}
+                                    <td>{{$userSchedule->user->name}} {{$userSchedule->user->last_name}}</td>
                                 @endif
-                               <td>email</td>
-                               {{-- <td>{{$userSchedule->user->email}}</td> --}}
+                               <td>{{$userSchedule->user->email}}</td>
                                 {{-- <td>{{$userSchedule->bike}}</td> --}}
                                 @switch($userSchedule->bike)
                                     @case(2)
@@ -497,6 +494,13 @@
             }
         });
 
+        //getuserinfo click
+        $(document).on('click', '.tableBodyRow', function(event) {
+            console.log("click a row")
+            var schedule_id = this.id;
+            getUserInfo(schedule_id);
+        });
+
         // $('.userAbsent').on('click', function(event){
         $(document).on('click', '.userAbsent', function(event){
             event.preventDefault();
@@ -584,6 +588,38 @@
         }
 
     });
+
+    function getUserInfo(userSchedule_id){
+        console.log("entró a getuserinfo");
+        $.ajax({
+            url: "getUserInfo",
+            method: 'POST',
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                userSchedule_id: userSchedule_id,
+            },
+            success: function(result){
+                Swal.fire({
+                title: 'User info',
+                text: result,
+                type: 'success',
+                confirmButtonText: 'Aceptar'
+                });
+            },
+            error: function(result){
+                $(button).prop('disabled', false);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Ha ocurrido un error al procesar la solicitud',
+                    type: 'warning',
+                    confirmButtonText: 'Aceptar'
+                })
+            }
+        });
+    }
 
     // Search Registered User
     function searchUsers() {
@@ -972,22 +1008,46 @@
                 schedule_id: schedule_id,
             },
             success: function(result) {
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                today = mm + "-" + dd;
+                console.log(today);
                 $('tr:hidden').show();
                 $('.tableBodyRow').empty();
                 $.each (result, function(index, value){
+                    console.log(value);
                     if (value.status != 'cancelled'){
                         if(value.status == 'taken'){
-                            $('#tableBody').append(
-                                '<tr class="tableBodyRow"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
-                            );
+                            if(value.user.birth_date.substr(5) == today){
+                                $('#tableBody').append(
+                                    '<tr class="tableBodyRow" id="'value.schedule_id'"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
+                                );
+                            }else{
+                                $('#tableBody').append(
+                                    '<tr class="tableBodyRow" id="'value.schedule_id'"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
+                                );
+                            }
                         } else if (value.status == 'absent'){
-                            $('#tableBody').append(
-                                '<tr class="tableBodyRow"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
-                            );
+                            if(value.user.birth_date.substr(5) == today){
+                                $('#tableBody').append(
+                                    '<tr class="tableBodyRow" id="'value.schedule_id'"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
+                                );
+                            }else{
+                                $('#tableBody').append(
+                                    '<tr class="tableBodyRow" id="'value.schedule_id'"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
+                                );
+                            }
                         } else {
-                            $('#tableBody').append(
-                                '<tr class="tableBodyRow"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
-                            );
+                            if(value.user.birth_date.substr(5) == today){
+                                $('#tableBody').append(
+                                    '<tr class="tableBodyRow" id="'value.schedule_id'"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
+                                );
+                            }else{
+                                $('#tableBody').append(
+                                    '<tr class="tableBodyRow" id="'value.schedule_id'"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
+                                );
+                            }
                         }
                     }
                 });
