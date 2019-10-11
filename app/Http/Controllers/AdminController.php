@@ -333,15 +333,22 @@ class AdminController extends Controller
     }
 
     public function getUserInfo(Request $request){
+        log::info("control f wey");
         $userInfo = [];
         // nombre del cliente, clases disponibles, historial de compras, si el historial es largo debe de tener scrolling y como se compró (mostrador o web)
-        $booking = UserSchedule::find($request->userSchedule_id);
-        $name = $booking->user->name + " " + $booking->user->last_name;
-        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$$booking->user->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
+        $booking = UserSchedule::where("id",$request->userSchedule_id)->first();
+        $name = $booking->user->name . " " . $booking->user->last_name;
+        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$booking->user->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
         $availableClasses = $numClases->clases;
-        $purchaseHistory = Purchase::where('user_id', '=', "{$$booking->user->id}")->get();
+        $purchaseHistory = Purchase::join('products','purchases.product_id','=',"products.id")
+                            ->selectRaw('purchases.created_at AS saleDate,products.description AS product,products.n_classes AS purchasedClasses,DATE_ADD(purchases.created_at, INTERVAL purchases.expiration_days DAY) AS expiration,products.price AS price,purchases.card_id AS saleType')
+                            ->where('user_id', '=', "{$booking->user->id}")
+                            ->orderBy('purchases.created_at')
+                            ->get()
+                            ->toArray();
+        log::info($purchaseHistory);
         array_push($userInfo, $name, $availableClasses, $purchaseHistory);
-        log::info($userInfo);
+        return $userInfo;
     }
 
     public function addInstructor(Request $request){
