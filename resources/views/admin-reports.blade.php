@@ -47,27 +47,27 @@
 {{-- @else --}}
     {{-- <h2 class="text-center">Aún no se ha realizado ninguna venta</h2> --}}
 {{-- @endif --}}
-<script>
+{{-- <script>
     $(document).ready(function (){
-        // // Dropdown Selected Option
-        // $('.dropdown-menu a').click(function(){
-        //     $('#selectedSchedule').text($(this).text());
+        // Dropdown Selected Option
+        $('.dropdown-menu a').click(function(){
+            $('#selectedSchedule').text($(this).text());
 
-        //     // Active Schedule Dropdown
-        //     $(activeDropdownSchedule).removeClass('active');
-        //     $(this).addClass('active');
-        //     activeDropdownSchedule = this;
+            // Active Schedule Dropdown
+            $(activeDropdownSchedule).removeClass('active');
+            $(this).addClass('active');
+            activeDropdownSchedule = this;
 
-        //     previousSchedule = this;
-        // });
+            previousSchedule = this;
+        });
 
-        // $('.scheduleList').on('click', function(event){
-        //     $('#tableBody').empty();
-        //     event.preventDefault();
-        //     schedule_id = $(this).attr('id');
-        //     // showClients(schedule_id);
-        //     showClientsTable(schedule_id);
-        // });
+        $('.scheduleList').on('click', function(event){
+            $('#tableBody').empty();
+            event.preventDefault();
+            schedule_id = $(this).attr('id');
+            // showClients(schedule_id);
+            showClientsTable(schedule_id);
+        });
     });
     getReports(range){
         $.ajax({
@@ -105,7 +105,7 @@
             }
         });
     }
-</script>
+</script> --}}
 <script>
     var elements = document.getElementsByClassName("sum");
     var sum = 0;
