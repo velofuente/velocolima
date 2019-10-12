@@ -3,8 +3,8 @@
     <h3 class="mr-4">Reportes</h3>
         <select class="dropdown" id="selectReport">
             <option value="hoy" selected="selected">Hoy</option>
-            {{-- <option value="semana">Esta semana</option>
-            <option value="mes">Este mes</option> --}}
+            <option value="semana">Esta semana</option>
+            <option value="mes">Este mes</option>
         </select>
     {{-- <button class="btn btn-success btn-sm mx-4 justify-content-right" id="Imprimir">Imprimir</button> --}}
 </div>
@@ -24,7 +24,7 @@
                 <th scope="col">Realizado por:</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="tableBody">
             @foreach ($sales as $sale)
                 <tr style="font-size: 0.9em;">
                     {{-- <th scope="row">{{$product->id}}</th> --}}
@@ -47,7 +47,65 @@
 {{-- @else --}}
     {{-- <h2 class="text-center">Aún no se ha realizado ninguna venta</h2> --}}
 {{-- @endif --}}
+<script>
+    $(document).ready(function (){
+        // // Dropdown Selected Option
+        // $('.dropdown-menu a').click(function(){
+        //     $('#selectedSchedule').text($(this).text());
 
+        //     // Active Schedule Dropdown
+        //     $(activeDropdownSchedule).removeClass('active');
+        //     $(this).addClass('active');
+        //     activeDropdownSchedule = this;
+
+        //     previousSchedule = this;
+        // });
+
+        // $('.scheduleList').on('click', function(event){
+        //     $('#tableBody').empty();
+        //     event.preventDefault();
+        //     schedule_id = $(this).attr('id');
+        //     // showClients(schedule_id);
+        //     showClientsTable(schedule_id);
+        // });
+    });
+    getReports(range){
+        $.ajax({
+            url: 'getReports',
+            type: 'POST',
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                range: range,
+            },
+            success: function(result) {
+                console.log(result);
+                $('.tableBody').empty();
+                $.each (result, function(index, value){
+                    console.log(value);
+                    $('#tableBody').append(
+                        "<tr style='font-size: 0.9em;''>"+
+                            "<td>{{$sale->id}}</td>"+
+                            "<td>{{date('d-M-Y', strtotime($sale->purchase->created_at))}}</td>"
+                            "<td>{{date('g:i:s A', strtotime($sale->purchase->created_at))}}</td>"+
+                            "<td>{{$sale->purchase->client->name}} {{$sale->purchase->client->last_name}}</td>"+
+                            "<td>{{$sale->purchase->client->email}}</td>"+
+                            "<td>{{$sale->purchase->productWithTrashed->description}}</td>"+
+                            "<td>${{$sale->purchase->productWithTrashed->price}}</td>"+
+                            "<td>{{$sale->admin->name}} {{$sale->admin->last_name}}</td>"+
+                            "<input type='hidden' class='sum' value='{{$sale->purchase->productWithTrashed->price}}'>"+
+                        "</tr>"
+                    );
+                });
+            },
+            error: function(result) {
+                console.log(result);
+            }
+        });
+    }
+</script>
 <script>
     var elements = document.getElementsByClassName("sum");
     var sum = 0;

@@ -333,7 +333,6 @@ class AdminController extends Controller
     }
 
     public function getUserInfo(Request $request){
-        log::info("control f wey");
         $userInfo = [];
         // nombre del cliente, clases disponibles, historial de compras, si el historial es largo debe de tener scrolling y como se compró (mostrador o web)
         $booking = UserSchedule::where("id",$request->userSchedule_id)->first();
@@ -349,6 +348,25 @@ class AdminController extends Controller
         log::info($purchaseHistory);
         array_push($userInfo, $name, $availableClasses, $purchaseHistory);
         return $userInfo;
+    }
+
+    public function getReports(Request $request){
+        switch ($request->range) {
+            case 'Hoy':
+            $sales = Sale::with(['admin', 'purchase'])->whereDate('created_at','=', date('Y-m-d'))->get();
+            return $sales;
+                break;
+            case 'Esta semana':
+                $sales = Sale::with(['admin', 'purchase'])->whereDate('created_at','=>', date('Y-m-d')->subDays(7))->get();
+            return $sales;
+                break;
+            case 'Este mes':
+                $sales = Sale::with(['admin', 'purchase'])->whereDate('created_at','=>', date('Y-m-d')->startOfMonth())->get();
+            return $sales;
+                break;
+            default:
+                break;
+        }
     }
 
     public function addInstructor(Request $request){
