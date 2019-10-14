@@ -42,10 +42,12 @@ Route::get('/branches', 'BranchesController@index');
 Route::post('sendMail', 'MailSendingController@coachInfo');
 Route::post('charge', 'PurchaseController@store');
 Route::post('login', 'Auth\LoginController@login')->name('login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::post('logoutB', 'Auth\LoginController@logout')->name('logoutB');
 Route::post('register', 'UserController@store');
 Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
 
+//siento qe va hacer un midd podría preguntarle a paul si le movió a algo de eso porque funcionaba perfectamente antes
+// de echo le pregunte  me dijo que no le mv nada el mmmm entonces fue wil?
 // Route::get('/addCard', 'OpenPayController@addCustomerCard');
 // Route::get('/', 'HomeController@index');
 // Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
@@ -102,7 +104,7 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
     // Live Search Routes
     Route::get('/admin-sales', 'AdminController@showSales')->name('admin-sales');
     Route::get('/admin-sales/fetch_data', 'AdminController@fetch_data');
-    Route::post('getUserInfo', 'AdminController@getUserInfo')->name('getUserInfo');
+    Route::post('/admin/getUserInfo', 'AdminController@getUserInfo')->name('admin/getUserInfo');
     Route::post('getReports', 'AdminController@getReports')->name('getReports');
     // End Live Search Routes
     Route::get('admin-reports', 'AdminController@showReports')->name('admin-reports');

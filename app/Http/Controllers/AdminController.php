@@ -333,6 +333,7 @@ class AdminController extends Controller
     }
 
     public function getUserInfo(Request $request){
+        log::info("entro al getUserInfo");
         $userInfo = [];
         // nombre del cliente, clases disponibles, historial de compras, si el historial es largo debe de tener scrolling y como se compró (mostrador o web)
         $booking = UserSchedule::where("id",$request->userSchedule_id)->first();

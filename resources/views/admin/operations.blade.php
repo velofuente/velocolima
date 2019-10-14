@@ -501,6 +501,14 @@
             }
         });
 
+        //getuserinfo click
+        $(document).on('click', '.tableBodyRow', function(event) {
+            console.log("click a row");
+            var schedule_id = this.id;
+            console.log(schedule_id);
+            getUserInfo(schedule_id);
+        });
+
         // $('.userAbsent').on('click', function(event){
         $(document).on('click', '.userAbsent', function(event){
             event.preventDefault();
@@ -588,6 +596,75 @@
         }
 
     });
+
+    function getUserInfo(userSchedule_id){
+        console.log("entró a getuserinfo");
+        console.log(userSchedule_id);
+        $.ajax({
+            url: "getUserInfo",
+            method: 'POST',
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                userSchedule_id: userSchedule_id,
+            },
+            success: function(result){
+                var purchases_table = "";
+                purchases_table += "<table class='table'>"+
+                "<thead>"+
+                    "<tr>"+
+                        "<th>Fecha de compra</th>"+
+                        "<th>Producto</th>"+
+                        "<th>Horas compradas</th>"+
+                        "<th>Vigencia</th>"+
+                        "<th>Importe</th>"+
+                        "<th>Tipo de compra</th>"+
+                    "</tr>"+
+                "</thead>"+
+                "<tbody>"
+                result[2].forEach(function(element) {
+                    var saleType = "";
+                    saleType += (element.saleType == null ? 'Mostrador' : 'Online');
+                    purchases_table += "<tr>"+
+                        "<td>"+element.saleDate+"</td>"+
+                        "<td>"+element.product+"</td>"+
+                        "<td>"+element.purchasedClasses+"</td>"+
+                        "<td>"+element.expiration+"</td>"+
+                        "<td>"+element.price+"</td>"+
+                        "<td>"+saleType+"</td>"+
+                    "</tr>"
+                    //     "<li><ul>" +
+                    //     "<li>"+element.product_id+"</li>"+
+                    //     "<li>Venta: "+typeSale+"</li>"+
+                    //     "<li>Clases restantes: "+element.n_classes+"</li>"+
+                    //     "<li>Exipra en "+element.expiration_days+" dias</li>"+
+                    //     "<li>Realizada el:"+element.created_at+"</li>"+
+                    // "</ul></li>"
+                });
+                purchases_table +="</tbody></table>";
+                saleType = "";
+                Swal.fire({
+                title: result[0],
+                html: "<h6>Clases disponibles: " + result[1] + "</h6>"  +
+                purchases_table,
+                type: 'info',
+                confirmButtonText: 'Aceptar',
+                width: '150%',
+                });
+            },
+            error: function(result){
+                console.log(result);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Ha ocurrido un error al procesar la solicitud',
+                    type: 'warning',
+                    confirmButtonText: 'Aceptar'
+                })
+            }
+        });
+    }
 
     // Search Registered User
     function searchUsers() {
@@ -976,22 +1053,47 @@
                 schedule_id: schedule_id,
             },
             success: function(result) {
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                today = mm + "-" + dd;
+                console.log(today);
                 $('tr:hidden').show();
                 $('.tableBodyRow').empty();
+                console.log(result);
                 $.each (result, function(index, value){
+                    console.log(value);
                     if (value.status != 'cancelled'){
                         if(value.status == 'taken'){
-                            $('#tableBody').append(
-                                '<tr class="tableBodyRow"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
-                            );
+                            if(value.user.birth_date.substr(5) == today){
+                                $('#tableBody').append(
+                                    '<tr class="tableBodyRow" id="'+value.id+'"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
+                                );
+                            }else{
+                                $('#tableBody').append(
+                                    '<tr class="tableBodyRow" id="'+value.id+'"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
+                                );
+                            }
                         } else if (value.status == 'absent'){
-                            $('#tableBody').append(
-                                '<tr class="tableBodyRow"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
-                            );
+                            if(value.user.birth_date.substr(5) == today){
+                                $('#tableBody').append(
+                                    '<tr class="tableBodyRow" id="'+value.id+'"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
+                                );
+                            }else{
+                                $('#tableBody').append(
+                                    '<tr class="tableBodyRow" id="'+value.id+'"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
+                                );
+                            }
                         } else {
-                            $('#tableBody').append(
-                                '<tr class="tableBodyRow"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
-                            );
+                            if(value.user.birth_date.substr(5) == today){
+                                $('#tableBody').append(
+                                    '<tr class="tableBodyRow" id="'+value.id+'"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
+                                );
+                            }else{
+                                $('#tableBody').append(
+                                    '<tr class="tableBodyRow" id="'+value.id+'"><td>'+value.user.name+' '+value.user.last_name+'</td><td>'+value.user.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.user.shoe_size+'</td><td>'+value.user.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
+                                );
+                            }
                         }
                     }
                 });
