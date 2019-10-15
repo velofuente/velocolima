@@ -41,7 +41,7 @@ Route::get('/schedule', 'InstructorController@schedule');
 Route::get('/branches', 'BranchesController@index');
 Route::post('sendMail', 'MailSendingController@coachInfo');
 Route::post('charge', 'PurchaseController@store');
-Route::post('login', 'Auth\LoginController@login')->name('login');
+//Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('logoutB', 'Auth\LoginController@logout')->name('logoutB');
 Route::post('register', 'UserController@store');
 Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
@@ -105,7 +105,7 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
     Route::get('/admin-sales', 'AdminController@showSales')->name('admin-sales');
     Route::get('/admin-sales/fetch_data', 'AdminController@fetch_data');
     Route::post('/admin/getUserInfo', 'AdminController@getUserInfo')->name('admin/getUserInfo');
-    Route::post('getReports', 'AdminController@getReports')->name('getReports');
+    Route::post('/admin/getReports', 'AdminController@getReports')->name('/admin/getReports');
     // End Live Search Routes
     Route::get('admin-reports', 'AdminController@showReports')->name('admin-reports');
     Route::get('admin-operations', 'AdminController@showOperationsGrid')->name('admin-operations');

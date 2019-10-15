@@ -7,7 +7,7 @@
 {{-- Table with the Info --}}
 <div class="row text-center mx-0 py-4">
     <h3 class="mr-4">Reportes</h3>
-        <select class="dropdown" id="selectReport">
+        <select id="selectReport">
             <option value="hoy" selected="selected">Hoy</option>
             <option value="semana">Esta semana</option>
             <option value="mes">Este mes</option>
@@ -30,7 +30,7 @@
                 <th scope="col">Realizado por:</th>
             </tr>
         </thead>
-        <tbody class="tableBody">
+        <tbody id="tableBody">
             @foreach ($sales as $sale)
                 <tr style="font-size: 0.9em;">
                     {{-- <th scope="row">{{$product->id}}</th> --}}
@@ -50,35 +50,23 @@
     <div class="row text-center mx-0 py-4">
         <h3 class="mr-4" id="total">Total: $</h3>
     </div>
-{{-- @else --}}
-    {{-- <h2 class="text-center">Aún no se ha realizado ninguna venta</h2> --}}
-{{-- @endif --}}
+{{-- @else
+    <h2 class="text-center">Aún no se ha realizado ninguna venta</h2>
+@endif --}}
 @stop
 
 @section('extra_scripts')
-{{-- <script>
+<script>
     $(document).ready(function (){
-        // Dropdown Selected Option
-        $('.dropdown-menu a').click(function(){
-            $('#selectedSchedule').text($(this).text());
 
-            // Active Schedule Dropdown
-            $(activeDropdownSchedule).removeClass('active');
-            $(this).addClass('active');
-            activeDropdownSchedule = this;
-
-            previousSchedule = this;
+        $('#selectReport').change(function() {
+            getReports($(this).val());
         });
 
-        $('.scheduleList').on('click', function(event){
-            $('#tableBody').empty();
-            event.preventDefault();
-            schedule_id = $(this).attr('id');
-            // showClients(schedule_id);
-            showClientsTable(schedule_id);
-        });
     });
-    getReports(range){
+</script>
+<script>
+    function getReports(range){
         $.ajax({
             url: 'getReports',
             type: 'POST',
@@ -91,36 +79,40 @@
             },
             success: function(result) {
                 console.log(result);
-                $('.tableBody').empty();
+                $('#tableBody').empty();
                 $.each (result, function(index, value){
                     console.log(value);
                     $('#tableBody').append(
                         "<tr style='font-size: 0.9em;''>"+
-                            "<td>{{$sale->id}}</td>"+
-                            "<td>{{date('d-M-Y', strtotime($sale->purchase->created_at))}}</td>"
-                            "<td>{{date('g:i:s A', strtotime($sale->purchase->created_at))}}</td>"+
-                            "<td>{{$sale->purchase->client->name}} {{$sale->purchase->client->last_name}}</td>"+
-                            "<td>{{$sale->purchase->client->email}}</td>"+
-                            "<td>{{$sale->purchase->productWithTrashed->description}}</td>"+
-                            "<td>${{$sale->purchase->productWithTrashed->price}}</td>"+
-                            "<td>{{$sale->admin->name}} {{$sale->admin->last_name}}</td>"+
-                            "<input type='hidden' class='sum' value='{{$sale->purchase->productWithTrashed->price}}'>"+
+                            "<td>"+value.id+"</td>"+
+                            "<td>"+value.date+"</td>"+
+                            "<td>"+value.date+"</td>"+
+                            "<td>"+value.name+" "+value.last_name+"</td>"+
+                            "<td>"+value.email+"</td>"+
+                            "<td>"+value.product+"</td>"+
+                            "<td>$"+value.price+"</td>"+
+                            "<td>"+value.admin+"</td>"+
+                            "<input type='hidden' class='sum' value='"+value.price+"'>"+
                         "</tr>"
                     );
                 });
+                sum();
             },
             error: function(result) {
+                console.log("error");
                 console.log(result);
             }
         });
     }
-</script> --}}
+</script>
 <script>
-    var elements = document.getElementsByClassName("sum");
-    var sum = 0;
-    for(var i=0; i<elements.length; i++) {
-        sum += parseInt(elements[i].value);
+    function sum(){
+        var elements = document.getElementsByClassName("sum");
+        var sum = 0;
+        for(var i=0; i<elements.length; i++) {
+            sum += parseInt(elements[i].value);
+        }
+        document.getElementById("total").innerHTML = "$"+sum;
     }
-    document.getElementById("total").innerHTML += sum;
 </script>
 @stop

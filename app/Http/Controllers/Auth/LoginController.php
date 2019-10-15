@@ -13,7 +13,8 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest', ['only' => 'showLoginForm']);
+        // $this->middleware('guest', ['only' => 'showLoginForm']);
+        $this->middleware('guest', ['only' => 'showLoginForm'])->except('logout');
     }
 
     /**
