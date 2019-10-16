@@ -352,20 +352,43 @@ class AdminController extends Controller
     }
 
     public function getReports(Request $request){
+        log::info("control f");
         switch ($request->range) {
-            case 'Hoy':
-            $sales = Sale::with(['admin', 'purchase'])->whereDate('created_at','=', date('Y-m-d'))->get();
-            return $sales;
+            case 'hoy':
+                log::info("hoy");
+                //$sales = Sale::with(['admin', 'purchase'])->whereDate('created_at','=', date('Y-m-d'))->get();
+                $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
+                            join('products','purchases.product_id','=','products.id')->
+                            join('users','purchases.user_id','=','users.id')->
+                            selectRaw('sales.id AS id, sales.created_at AS date, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
+                            whereDate('sales.created_at','=', date('Y-m-d'))->get();
+                log::info($sales);
+                return $sales;
                 break;
-            case 'Esta semana':
-                $sales = Sale::with(['admin', 'purchase'])->whereDate('created_at','=>', date('Y-m-d')->subDays(7))->get();
-            return $sales;
+            case 'semana':
+                log::info("semana");
+                //$sales = Sale::with(['admin', 'purchase'])->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+                $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
+                            join('products','purchases.product_id','=','products.id')->
+                            join('users','purchases.user_id','=','users.id')->
+                            selectRaw('sales.id AS id, sales.created_at AS date, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
+                            whereBetween('sales.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+                log::info($sales);
+                return $sales;
                 break;
-            case 'Este mes':
-                $sales = Sale::with(['admin', 'purchase'])->whereDate('created_at','=>', date('Y-m-d')->startOfMonth())->get();
-            return $sales;
+            case 'mes':
+                log::info("mes");
+                //$sales = Sale::with(['admin', 'purchase'])->whereMonth('created_at', '=', date('m'))->get();
+                $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
+                            join('products','purchases.product_id','=','products.id')->
+                            join('users','purchases.user_id','=','users.id')->
+                            selectRaw('sales.id AS id, sales.created_at AS date, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
+                            whereMonth('sales.created_at', '=', date('m'))->get();
+                log::info($sales);
+                return $sales;
                 break;
             default:
+                log::info("default");
                 break;
         }
     }
