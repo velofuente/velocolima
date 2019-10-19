@@ -177,8 +177,10 @@ class BookClassController extends Controller
     public function cancelClass(Request $request)
     {
         $requestedClass = UserSchedule::find($request->id);
+        log::info($requestedClass);
         //obtiene el periodo de cancelacion de la ubicación
-        $schedule = Schedule::find($requestedClass->shcedule_id);
+        $schedule = Schedule::find($requestedClass->schedule_id);
+        log::info($schedule);
         $branch = Branch::find($schedule->branch_id);
         $cancelationPeriod = $branch->cancelation_period;
         $ClasshourLimit = Schedule::select('hour')->where('id', $requestedClass->schedule_id)->first();
