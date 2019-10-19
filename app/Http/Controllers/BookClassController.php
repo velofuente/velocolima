@@ -39,7 +39,7 @@ class BookClassController extends Controller
         if(!$compra){
             return response()->json([
                 'status' => 'ERROR',
-                'message' => "No tienes clases compradas. Compra clases para poder registrarte",
+                'message' => "No tienes clases compradas. Compra clases para poder registrarte.",
             ]);
         }
         //Obitene el numero total de clases del cliente
@@ -116,7 +116,7 @@ class BookClassController extends Controller
             } else {
                 return response()->json([
                     'status' => 'ERROR',
-                    'message' => "No tienes clases compradas. Compra clases para poder registrarte",
+                    'message' => "No tienes clases compradas. Compra clases para poder registrarte.",
                 ]);
             }
         } else{
@@ -144,12 +144,12 @@ class BookClassController extends Controller
                 DB::commit();
                 return response()->json([
                     'status' => 'OK',
-                    'message' => "Lugar cambiado con éxito",
+                    'message' => "Lugar cambiado con éxito.",
                 ]);
             } else{
                 return response()->json([
                     'status' => 'ERROR',
-                    'message' => "Solo puedes cambiar de lugar una vez",
+                    'message' => "Solo puedes cambiar de lugar una vez.",
                 ]);
             }
         }
@@ -163,7 +163,7 @@ class BookClassController extends Controller
             $requestedClass->save();
             return response()->json([
                 'status' => 'OK',
-                'message' => 'El usuario no asistió a la clase',
+                'message' => 'El usuario no asistió a la clase.',
             ]);
         }else{
             log::info($requestedClass);
@@ -188,7 +188,7 @@ class BookClassController extends Controller
         if($requestedClass->status == 'cancelled'){
             return response()->json([
                 'status' => 'OK',
-                'message' => 'Clase cancelada con éxito',
+                'message' => 'Clase cancelada con éxito.',
             ]);
         }
         if($requestedClass->status=='active'||$requestedClass->status!='active'){
@@ -199,7 +199,7 @@ class BookClassController extends Controller
                     $requestedClass->save();
                     return response()->json([
                         'status' => 'OK',
-                        'message' => "Clase cancelada con éxito, esta clase no es reembolsable",
+                        'message' => "Clase cancelada con éxito, esta clase no es reembolsable.",
                     ]);
                 }
             }
@@ -210,7 +210,7 @@ class BookClassController extends Controller
             $purchase->save();
             return response()->json([
                 'status' => 'OK',
-                'message' => "Clase cancelada con éxito, se te reembolsará esta clase",
+                'message' => "Clase cancelada con éxito, se te reembolsará esta clase.",
             ]);
         }else{
             return response()->json([
@@ -231,7 +231,7 @@ class BookClassController extends Controller
         ]);
         return response()->json([
             'status' => 'OK',
-            'message' => "Has sido agregado a la lista de espera de esta clase",
+            'message' => "Has sido agregado a la lista de espera de esta clase.",
         ]);
     }
     public function attendClass(Request $request){
@@ -241,7 +241,7 @@ class BookClassController extends Controller
             $requestedClass->save();
             return response()->json([
                 'status' => 'OK',
-                'message' => "Asistencia registrada con éxito",
+                'message' => "Asistencia registrada con éxito.",
             ]);
         }else{
             return response()->json([
@@ -288,7 +288,7 @@ class BookClassController extends Controller
             DB::commit();
             return response()->json([
                 'status' => 'OK',
-                'message' => "Lugar reservado con éxito",
+                'message' => "Lugar reservado con éxito.",
             ]);
         } else {
             return response()->json([
@@ -342,7 +342,7 @@ class BookClassController extends Controller
         app('App\Http\Controllers\MailSendingController')->walkInRegister($user->email,$user->name, $password);
         return response()->json([
             'status' => 'OK',
-            'message' => "Usuario agregado con éxito",
+            'message' => "Usuario agregado con éxito.",
         ]);
     }
 }

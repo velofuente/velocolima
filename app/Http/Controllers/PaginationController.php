@@ -12,7 +12,7 @@ class PaginationController extends Controller
     {
         $data = DB::table('users')->orderBy('id', 'asc')->paginate(5);
         $products = Product::all();
-        return view('admin-sales', compact('data','products'));
+        return view('admin/sales', compact('data','products'));
     }
 
     function fetch_data(Request $request)
