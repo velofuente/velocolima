@@ -40,9 +40,9 @@ class BirthdayEmail extends Command
      */
     public function handle()
     {
-        $user = User::find(2);
-        //$birthdayUsers = User::where('birth_date','=', Carbon::today()->format('Y-m-d'))->get();
-        //foreach($birthdayUsers as $user){
+        //$user = User::find(2);
+        $birthdayUsers = User::where('birth_date','=', Carbon::today()->format('Y-m-d'))->get();
+        foreach($birthdayUsers as $user){
             DB::beginTransaction();
             $product = Product::where('description', "Cumpleaños")->first();
             $purchase = Purchase::create([
