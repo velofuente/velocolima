@@ -54,6 +54,6 @@ class BirthdayEmail extends Command
                 ]);
             app('App\Http\Controllers\MailSendingController')->birthdayEmail($user->email, $user->name);
             DB::commit();
-        //}
+        }
     }
 }
