@@ -316,7 +316,7 @@
     // Fetch Data from Query
     function fetch_data(page, sort_type, sort_by, query){
         $.ajax({
-            url:"/admin-sales/fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query,
+            url:"/admin/sales/fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query,
             success:function(data){
                 $('tbody').html('');
                 $('tbody').html(data);
