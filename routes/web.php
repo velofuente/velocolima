@@ -33,7 +33,7 @@ Route::get('/legales', function () {
     return view('legales');
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::resource('instructors', 'InstructorController');
 Route::get('/schedule', 'InstructorController@schedule');
@@ -42,7 +42,7 @@ Route::get('/branches', 'BranchesController@index');
 Route::post('sendMail', 'MailSendingController@coachInfo');
 Route::post('charge', 'PurchaseController@store');
 //Route::post('login', 'Auth\LoginController@login')->name('login');
-Route::post('logoutB', 'Auth\LoginController@logout')->name('logoutB');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('register', 'UserController@store');
 Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
 
