@@ -180,6 +180,13 @@ class AdminController extends Controller
                         // ->orWhere('last_name', 'like', '%'.$query.'%')
                         ->orderBy($sort_by, $sort_type)
                         ->paginate(5);
+            foreach ($data as $client){
+                $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$client->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
+                $bookedClasses = UserSchedule::with("schedule.instructor", "schedule.room", "schedule")->where('user_id', "{$client->id}")->where('status', 'active')->count();
+                $client->availableClasses = $numClases;
+                $client->bookedClasses = $bookedClasses;
+                //array_push($temp,$numClases->clases);
+            }
             return view('pagination_data', compact('data'))->render();
         }
     }
