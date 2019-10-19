@@ -391,7 +391,7 @@ function makeSaleUser(id){
             $.ajax({
                 url: '/sale',
                 type: 'POST',
-          p      cache: false,
+                cache: false,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
