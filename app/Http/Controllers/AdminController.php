@@ -246,7 +246,7 @@ class AdminController extends Controller
             array_push($id,$schedule->id);
         }
         $selected_schedule = isset($selected_schedule) ? $selected_schedule : null;
-        $userSchedules = UserSchedule::whereIn('schedule_id', $id)->get();
+        $userSchedules = UserSchedule::whereIn('schedule_id', $id)->where('status','<>','cancelled')->get();
         // return view('/admin-operations', compact ('schedules', 'userSchedules', 'users'));
 
         if(isset($selected_schedule)){
@@ -263,12 +263,19 @@ class AdminController extends Controller
 
     public function showClientsTable(Request $request){
         $id = [];
-        $instances = UserSchedule::where('schedule_id', $request->schedule_id)->get();
+        $instances = UserSchedule::where('schedule_id', $request->schedule_id)->where('status','<>','cancelled')->get();
         foreach($instances as $instance){
             array_push($id, $instance->user_id);
         }
         // $clients = User::whereIn('id',$id)->get();
-        $clients = UserSchedule::with('user')->where('schedule_id', $request->schedule_id)->whereIn('user_id', $id)->get();
+        // $clients = UserSchedule::with('user')->where('schedule_id', $request->schedule_id)->whereIn('user_id', $id)->get();
+        $clients = UserSchedule::join('users','user_schedules.user_id','users.id')->
+                                join('purchases','user_schedules.purchase_id','purchases.id')->
+                                join('products','purchases.product_id','products.id')->
+                                selectRaw('user_schedules.id AS id, user_schedules.status AS status, user_schedules.bike AS bike, users.name AS name, users.last_name AS last_name, users.birth_date AS birth_date, users.email AS email, users.shoe_size AS shoe_size, users.phone AS phone, products.type AS type')->
+                                where('user_schedules.schedule_id', $request->schedule_id)->
+                                where('user_schedules.status','<>','cancelled')->
+                                whereIn('user_schedules.user_id', $id)->get();
         log::info($clients);
         return $clients;
     }
@@ -343,13 +350,37 @@ class AdminController extends Controller
         log::info("entro al getUserInfo");
         $userInfo = [];
         // nombre del cliente, clases disponibles, historial de compras, si el historial es largo debe de tener scrolling y como se compró (mostrador o web)
-        $booking = UserSchedule::where("id",$request->userSchedule_id)->first();
+        $booking = UserSchedule::where("id",$request->userSchedule_id)->where('status','<>','cancelled')->first();
         $name = $booking->user->name . " " . $booking->user->last_name;
         $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$booking->user->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
         $availableClasses = $numClases->clases;
+        $lastClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$booking->user->id}")->whereRaw("NOW() >= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
+        $expiredClasses = ($lastClases->clases) ? $lastClases->clases : 0;
         $purchaseHistory = Purchase::join('products','purchases.product_id','=',"products.id")
                             ->selectRaw('purchases.created_at AS saleDate,products.description AS product,products.n_classes AS purchasedClasses,DATE_ADD(purchases.created_at, INTERVAL purchases.expiration_days DAY) AS expiration,products.price AS price,purchases.card_id AS saleType')
                             ->where('user_id', '=', "{$booking->user->id}")
+                            ->orderBy('purchases.created_at')
+                            ->get()
+                            ->toArray();
+        log::info($purchaseHistory);
+        array_push($userInfo, $name, $availableClasses, $expiredClasses,$purchaseHistory);
+        return $userInfo;
+    }
+
+    public function getUserInfoReports(Request $request){
+        log::info("entro al getUserInfoReports");
+        $userInfo = [];
+        // nombre del cliente, clases disponibles, historial de compras, si el historial es largo debe de tener scrolling y como se compró (mostrador o web)
+        $user = User::find($request->user_id);
+        log::info($user);
+        $name = $user->name . " " . $user->last_name;
+        log::info($name);
+        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$user->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
+        $availableClasses = $numClases->clases;
+        log::info($availableClasses);
+        $purchaseHistory = Purchase::join('products','purchases.product_id','=',"products.id")
+                            ->selectRaw('purchases.created_at AS saleDate,products.description AS product,products.n_classes AS purchasedClasses,DATE_ADD(purchases.created_at, INTERVAL purchases.expiration_days DAY) AS expiration,products.price AS price,purchases.card_id AS saleType')
+                            ->where('user_id', '=', "{$user->id}")
                             ->orderBy('purchases.created_at')
                             ->get()
                             ->toArray();
@@ -360,44 +391,51 @@ class AdminController extends Controller
 
     public function getReports(Request $request){
         log::info("control f");
-        switch ($request->range) {
-            case 'hoy':
-                log::info("hoy");
-                //$sales = Sale::with(['admin', 'purchase'])->whereDate('created_at','=', date('Y-m-d'))->get();
-                $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
-                            join('products','purchases.product_id','=','products.id')->
-                            join('users','purchases.user_id','=','users.id')->
-                            selectRaw('sales.id AS id, sales.created_at AS date, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
-                            whereDate('sales.created_at','=', date('Y-m-d'))->get();
-                log::info($sales);
-                return $sales;
-                break;
-            case 'semana':
-                log::info("semana");
-                //$sales = Sale::with(['admin', 'purchase'])->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-                $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
-                            join('products','purchases.product_id','=','products.id')->
-                            join('users','purchases.user_id','=','users.id')->
-                            selectRaw('sales.id AS id, sales.created_at AS date, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
-                            whereBetween('sales.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-                log::info($sales);
-                return $sales;
-                break;
-            case 'mes':
-                log::info("mes");
-                //$sales = Sale::with(['admin', 'purchase'])->whereMonth('created_at', '=', date('m'))->get();
-                $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
-                            join('products','purchases.product_id','=','products.id')->
-                            join('users','purchases.user_id','=','users.id')->
-                            selectRaw('sales.id AS id, sales.created_at AS date, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
-                            whereMonth('sales.created_at', '=', date('m'))->get();
-                log::info($sales);
-                return $sales;
-                break;
-            default:
-                log::info("default");
-                break;
-        }
+        log::info($request);
+        $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
+                    join('products','purchases.product_id','=','products.id')->
+                    join('users','purchases.user_id','=','users.id')->
+                    selectRaw('sales.id AS id, sales.created_at AS date, users.id AS user_id, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
+                    whereBetween('sales.created_at', [$request->fromDate, $request->toDate])->get();
+        // switch ($request->range) {
+        //     case 'hoy':
+        //         log::info("hoy");
+        //         //$sales = Sale::with(['admin', 'purchase'])->whereDate('created_at','=', date('Y-m-d'))->get();
+        //         $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
+        //                     join('products','purchases.product_id','=','products.id')->
+        //                     join('users','purchases.user_id','=','users.id')->
+        //                     selectRaw('sales.id AS id, sales.created_at AS date, users.id AS user_id, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
+        //                     whereDate('sales.created_at','=', date('Y-m-d'))->get();
+        //         log::info($sales);
+        //         return $sales;
+        //         break;
+        //     case 'semana':
+        //         log::info("semana");
+        //         //$sales = Sale::with(['admin', 'purchase'])->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        //         $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
+        //                     join('products','purchases.product_id','=','products.id')->
+        //                     join('users','purchases.user_id','=','users.id')->
+        //                     selectRaw('sales.id AS id, sales.created_at AS date, users.id AS user_id, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
+        //                     whereBetween('sales.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        //         log::info($sales);
+        //         return $sales;
+        //         break;
+        //     case 'mes':
+        //         log::info("mes");
+        //         //$sales = Sale::with(['admin', 'purchase'])->whereMonth('created_at', '=', date('m'))->get();
+        //         $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
+        //                     join('products','purchases.product_id','=','products.id')->
+        //                     join('users','purchases.user_id','=','users.id')->
+        //                     selectRaw('sales.id AS id, sales.created_at AS date, users.id AS user_id, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
+        //                     whereMonth('sales.created_at', '=', date('m'))->get();
+        //         log::info($sales);
+        //         return $sales;
+        //         break;
+        //     default:
+        //         log::info("default");
+        //         break;
+        // }
+        return $sales;
     }
 
     public function addInstructor(Request $request){

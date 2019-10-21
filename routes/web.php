@@ -105,6 +105,7 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
     Route::get('/admin/sales', 'AdminController@showSales')->name('admin/sales');
     Route::get('/admin/sales/fetch_data', 'AdminController@fetch_data');
     Route::post('/admin/getUserInfo', 'AdminController@getUserInfo')->name('admin/getUserInfo');
+    Route::post('/admin/getUserInfoReports', 'AdminController@getUserInfoReports')->name('admin/getUserInfoReports');
     Route::post('/admin/getReports', 'AdminController@getReports')->name('/admin/getReports');
     // End Live Search Routes
     Route::get('admin-reports', 'AdminController@showReports')->name('admin-reports');
