@@ -61,6 +61,7 @@
                             <p class="available_classes mb-0">{{$classes}}</p>
                         @endif
                         <span class="classes_message">Clases disponibles en tu cuenta</span>
+                        <a href="{{ url('/schedule') }}" class="btn gradient_button mx-auto" id="bookClass" role="button">Reservar</a>
                         <a href="{{ url('/schedule#packages') }}" class="btn gradient_button mx-auto" id="buyPackages" role="button">Comprar Clases</a>
                     </div>
                     {{-- Change User Data & Password --}}

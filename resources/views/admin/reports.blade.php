@@ -7,12 +7,34 @@
 {{-- Table with the Info --}}
 <div class="row text-center mx-0 py-4">
     <h3 class="mr-4">Reportes</h3>
-        <select id="selectReport">
+        {{-- <select id="selectReport">
             <option value="hoy" selected="selected">Hoy</option>
             <option value="semana">Esta semana</option>
             <option value="mes">Este mes</option>
-        </select>
-    {{-- <button class="btn btn-success btn-sm mx-4 justify-content-right" id="Imprimir">Imprimir</button> --}}
+        </select> --}}
+        <div>
+            <label for="fromDate" class="mr-sm-2">De:</label>
+            <div class="input-group">
+                <input id="fromDate" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('fromDate') ? ' is-invalid' : '' }}" name="fromDate" value="{{ old('fromDate') }}" required >
+                @if ($errors->has('fromDate'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('fromDate') }}</strong>
+                </span>
+                @endif
+            </div>
+        </div>
+        <div>
+            <label for="toDate" class="mr-sm-2">Al:</label>
+            <div class="input-group">
+                <input id="toDate" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('toDate') ? ' is-invalid' : '' }}" name="toDate" value="{{ old('toDate') }}" required >
+                @if ($errors->has('toDate'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('toDate') }}</strong>
+                </span>
+                @endif
+            </div>
+        </div>
+    <button class="btn btn-success btn-sm mx-4 justify-content-right" id="searchButton">Buscar</button>
 </div>
 
 {{-- Table  --}}
@@ -57,16 +79,52 @@
 
 @section('extra_scripts')
 <script>
+    var user_id = null;
+    var fromDate = null;
+    var toDate = null;
     $(document).ready(function (){
 
-        $('#selectReport').change(function() {
-            getReports($(this).val());
+        if ( $('[type="date"]').prop('type') != 'date' ) {
+            $('[type="date"]').attr('placeholder', 'yyyy-mm-dd')
+            // Use datepicker on the date inputs
+            $("input[type=date]").datepicker({
+                dateFormat: 'yy/mm/dd',
+                dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+                dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+                dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+                monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                currentText: "Hoy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1920:2019',
+                onSelect: function(dateText, inst) {
+                    $(inst).val(dateText); // Write the value in the input
+                }
+            });
+        }
+
+        // $('#selectReport').change(function() {
+        //     getReports($(this).val());
+        // });
+
+        $('#searchButton').on('click', function(){
+            getReports();
         });
 
+        //getuserinfo click
+        $(document).on('click', '.userRow', function(event) {
+            console.log("clicked a row");
+            var user_id = this.id;
+            console.log(user_id);
+            getUserInfoReports(user_id);
+        });
     });
 </script>
 <script>
-    function getReports(range){
+    function getReports(){
+        fromDate = $('#fromDate').val();
+        toDate = $('#toDate').val();
         $.ajax({
             url: 'getReports',
             type: 'POST',
@@ -75,7 +133,8 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                range: range,
+                fromDate: fromDate,
+                toDate: toDate,
             },
             success: function(result) {
                 console.log(result);
@@ -83,7 +142,7 @@
                 $.each (result, function(index, value){
                     console.log(value);
                     $('#tableBody').append(
-                        "<tr style='font-size: 0.9em;''>"+
+                        "<tr class='userRow' id='"+value.user_id+"' style='font-size: 0.9em;''>"+
                             "<td>"+value.id+"</td>"+
                             "<td>"+value.date+"</td>"+
                             "<td>"+value.date+"</td>"+
@@ -101,6 +160,76 @@
             error: function(result) {
                 console.log("error");
                 console.log(result);
+            }
+        });
+    }
+</script>
+<script>
+    function getUserInfoReports(user_id){
+        console.log("entró a getuserinfoReports");
+        console.log(user_id);
+        $.ajax({
+            url: "getUserInfoReports",
+            method: 'POST',
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                user_id: user_id,
+            },
+            success: function(result){
+                var purchases_table = "";
+                purchases_table += "<table class='table'>"+
+                "<thead>"+
+                    "<tr>"+
+                        "<th>Fecha de compra</th>"+
+                        "<th>Producto</th>"+
+                        "<th>Horas compradas</th>"+
+                        "<th>Vigencia</th>"+
+                        "<th>Importe</th>"+
+                        "<th>Tipo de compra</th>"+
+                    "</tr>"+
+                "</thead>"+
+                "<tbody>"
+                result[2].forEach(function(element) {
+                    var saleType = "";
+                    saleType += (element.saleType == null ? 'Mostrador' : 'Online');
+                    purchases_table += "<tr>"+
+                        "<td>"+element.saleDate+"</td>"+
+                        "<td>"+element.product+"</td>"+
+                        "<td>"+element.purchasedClasses+"</td>"+
+                        "<td>"+element.expiration+"</td>"+
+                        "<td>"+element.price+"</td>"+
+                        "<td>"+saleType+"</td>"+
+                    "</tr>"
+                    //     "<li><ul>" +
+                    //     "<li>"+element.product_id+"</li>"+
+                    //     "<li>Venta: "+typeSale+"</li>"+
+                    //     "<li>Clases restantes: "+element.n_classes+"</li>"+
+                    //     "<li>Exipra en "+element.expiration_days+" dias</li>"+
+                    //     "<li>Realizada el:"+element.created_at+"</li>"+
+                    // "</ul></li>"
+                });
+                purchases_table +="</tbody></table>";
+                saleType = "";
+                Swal.fire({
+                title: result[0],
+                html: "<h6>Clases disponibles: " + result[1] + "</h6>"  +
+                purchases_table,
+                type: 'info',
+                confirmButtonText: 'Aceptar',
+                width: '150%',
+                });
+            },
+            error: function(result){
+                console.log(result);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Ha ocurrido un error al procesar la solicitud',
+                    type: 'warning',
+                    confirmButtonText: 'Aceptar'
+                })
             }
         });
     }

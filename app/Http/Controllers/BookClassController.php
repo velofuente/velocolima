@@ -48,8 +48,9 @@ class BookClassController extends Controller
         DB::beginTransaction();
         if(!$bookedClass){
             //obtiene el numero total de clases
-            $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->first();
-            $classes = $numClases->clases;
+            $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->whereRaw("NOW() <= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->where('user_id', '=', "{$requestUser->id}")->groupBy("id")->get();
+            $classes = $numClases->sum("clases");
+            log::info($classes);
             //valida si el usuario tiene clases disponibles
             if($classes>0){
                 //Valida si hay lugar disponible
@@ -91,6 +92,10 @@ class BookClassController extends Controller
                     //Resta una clase a la compra del usuario y actualiza ese campo en la base de datos
                     $compra->n_classes -= 1;
                     $compra->save();
+                    //obtiene el numero total de clases
+                    $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->whereRaw("NOW() <= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->where('user_id', '=', "{$requestUser->id}")->groupBy("id")->get();
+                    $classes = $numClases->sum("clases");
+                    log::info($classes);
                     if($classes == 1){
                         $promocion = Product::where('description', 'Clase adicional')->first();
                         Purchase::create([
