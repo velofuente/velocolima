@@ -246,7 +246,7 @@ class AdminController extends Controller
             array_push($id,$schedule->id);
         }
         $selected_schedule = isset($selected_schedule) ? $selected_schedule : null;
-        $userSchedules = UserSchedule::whereIn('schedule_id', $id)->get();
+        $userSchedules = UserSchedule::whereIn('schedule_id', $id)->where('status','<>','cancelled')->get();
         // return view('/admin-operations', compact ('schedules', 'userSchedules', 'users'));
 
         if(isset($selected_schedule)){
@@ -263,7 +263,7 @@ class AdminController extends Controller
 
     public function showClientsTable(Request $request){
         $id = [];
-        $instances = UserSchedule::where('schedule_id', $request->schedule_id)->get();
+        $instances = UserSchedule::where('schedule_id', $request->schedule_id)->where('status','<>','cancelled')->get();
         foreach($instances as $instance){
             array_push($id, $instance->user_id);
         }
@@ -274,8 +274,8 @@ class AdminController extends Controller
                                 join('products','purchases.product_id','products.id')->
                                 selectRaw('user_schedules.id AS id, user_schedules.status AS status, user_schedules.bike AS bike, users.name AS name, users.last_name AS last_name, users.birth_date AS birth_date, users.email AS email, users.shoe_size AS shoe_size, users.phone AS phone, products.type AS type')->
                                 where('user_schedules.schedule_id', $request->schedule_id)->
-                                whereIn('user_schedules.user_id', $id)
-                                ->get();
+                                where('user_schedules.status','<>','cancelled')->
+                                whereIn('user_schedules.user_id', $id)->get();
         log::info($clients);
         return $clients;
     }
@@ -350,10 +350,12 @@ class AdminController extends Controller
         log::info("entro al getUserInfo");
         $userInfo = [];
         // nombre del cliente, clases disponibles, historial de compras, si el historial es largo debe de tener scrolling y como se compró (mostrador o web)
-        $booking = UserSchedule::where("id",$request->userSchedule_id)->first();
+        $booking = UserSchedule::where("id",$request->userSchedule_id)->where('status','<>','cancelled')->first();
         $name = $booking->user->name . " " . $booking->user->last_name;
         $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$booking->user->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
         $availableClasses = $numClases->clases;
+        $lastClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$booking->user->id}")->whereRaw("NOW() >= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
+        $expiredClasses = ($lastClases->clases) ? $lastClases->clases : 0;
         $purchaseHistory = Purchase::join('products','purchases.product_id','=',"products.id")
                             ->selectRaw('purchases.created_at AS saleDate,products.description AS product,products.n_classes AS purchasedClasses,DATE_ADD(purchases.created_at, INTERVAL purchases.expiration_days DAY) AS expiration,products.price AS price,purchases.card_id AS saleType')
                             ->where('user_id', '=', "{$booking->user->id}")
@@ -361,7 +363,7 @@ class AdminController extends Controller
                             ->get()
                             ->toArray();
         log::info($purchaseHistory);
-        array_push($userInfo, $name, $availableClasses, $purchaseHistory);
+        array_push($userInfo, $name, $availableClasses, $expiredClasses,$purchaseHistory);
         return $userInfo;
     }
 

@@ -624,7 +624,7 @@
                     "</tr>"+
                 "</thead>"+
                 "<tbody>"
-                result[2].forEach(function(element) {
+                result[3].forEach(function(element) {
                     var saleType = "";
                     saleType += (element.saleType == null ? 'Mostrador' : 'Online');
                     purchases_table += "<tr>"+
@@ -648,6 +648,7 @@
                 Swal.fire({
                 title: result[0],
                 html: "<h6>Clases disponibles: " + result[1] + "</h6>"  +
+                "<h6>Clases expiradas: " + result[2] + "</h6>"  +
                 purchases_table,
                 type: 'info',
                 confirmButtonText: 'Aceptar',
