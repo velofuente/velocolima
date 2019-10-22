@@ -7,7 +7,7 @@
 {{-- Table with the Info --}}
 <div class="row text-center mx-0 py-4">
     <h3>Usuarios</h3>
-    <button class="btn btn-success btn-sm mx-4 justify-content-right" data-toggle="modal" data-target="#addUserModal">Añadir Usuario</button>
+    <button class="btn btn-success btn-sm mx-4 justify-content-right" data-toggle="modal" data-target="#addUserModal">Añadir usuario</button>
 </div>
 
 {{-- Table  --}}
@@ -45,7 +45,7 @@
         </tbody>
     </table>
 @else
-    <h2 class="text-center">No hay Usuarios Agregados</h2>
+    <h2 class="text-center">No hay usuarios agregados</h2>
 @endif
 
 {{-- Modal Add User --}}
@@ -53,7 +53,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addUserModalLabel">Añadir Usuario</h5>
+                <h5 class="modal-title" id="addUserModalLabel">Añadir usuario</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -175,7 +175,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" id="addUserButton">Añadir Usuario</button>
+                <button type="button" class="btn btn-success" id="addUserButton">Añadir usuario</button>
             </div>
         </div>
     </div>
@@ -186,7 +186,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Editar Información</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Editar información</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -302,7 +302,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" id="editUserButton">Editar Usuario</button>
+                <button type="button" class="btn btn-success" id="editUserButton">Editar usuario</button>
             </div>
         </div>
     </div>
@@ -530,7 +530,7 @@
                         // $('.active-menu').trigger('click');
                         $('#editUserModal').modal('hide');
                         Swal.fire({
-                            title: 'Usuario Editado',
+                            title: 'Usuario editado',
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
@@ -558,12 +558,12 @@
             // user_id = $('#deleteUserButton').val();
             Swal.fire({
                 title: '¿Estás seguro?',
-                text: "No se podrán revertir los cambios!",
+                text: "¡No se podrán revertir los cambios!",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, Eliminar Usuario'
+                confirmButtonText: 'Sí, eliminar usuario'
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
@@ -583,7 +583,7 @@
                                 $('.modal-backdrop').remove();
                                 // $('.active-menu').trigger('click');
                                 Swal.fire({
-                                    title: 'Usuario Eliminado',
+                                    title: 'Usuario eliminado',
                                     text: result.message,
                                     type: 'success',
                                     confirmButtonText: 'Aceptar'

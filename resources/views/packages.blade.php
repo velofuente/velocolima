@@ -104,7 +104,7 @@
                 <div class="modal-body">
                     <div class="row">
                     <div class="col-5">
-                        <p id="oName">Ingresa a tu Cuenta</p>
+                        <p id="oName">Ingresa a tu cuenta</p>
                     </div>
                     <div class="col-7">
                         <a id="btnLog" href="{{ route('login') }}" class="button">Acceder</a>
@@ -148,7 +148,7 @@
                                         </select>
                                     </div>
                                     <div class="">
-                                        <button type="button" class="button" id="use-new-card-button">Usar Nueva Tarjeta</button>
+                                        <button type="button" class="button" id="use-new-card-button">Usar nueva tarjeta</button>
                                     </div>
                                     <div class="">
                                         <input type="checkbox" name="conditions" id="conditions" required>

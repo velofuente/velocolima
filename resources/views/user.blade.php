@@ -54,7 +54,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-4 mb-3 text-center">
                     <div class="text-center" id="clases">
-                        <span class="text-center text_my_classes">Mis Clases</span>
+                        <span class="text-center text_my_classes">Mis clases</span>
                         @if ($classes == null)
                             <p class="available_classes mb-0">0</p>
                         @else
@@ -62,11 +62,11 @@
                         @endif
                         <span class="classes_message">Clases disponibles en tu cuenta</span>
                         <a href="{{ url('/schedule') }}" class="btn gradient_button mx-auto" id="bookClass" role="button">Reservar</a>
-                        <a href="{{ url('/schedule#packages') }}" class="btn gradient_button mx-auto" id="buyPackages" role="button">Comprar Clases</a>
+                        <a href="{{ url('/schedule#packages') }}" class="btn gradient_button mx-auto" id="buyPackages" role="button">Comprar clases</a>
                     </div>
                     {{-- Change User Data & Password --}}
                     <div id="userGeneralData" class="pt-4 pb-3 bb-3 border-bottom border-danger">
-                        <h5 class="text-center mx-auto pt-2 myclss">Mis Datos</h5>
+                        <h5 class="text-center mx-auto pt-2 myclss">Mis datos</h5>
                         <button type="button" class="btn bg-white text-dark text-center mb-3 mt-2 w-75 d-block mx-auto" data-toggle="collapse" data-target="#userData">+ Datos del usuario</button>
                         <div id="userData" class="collapse">
                             <form action="{{ url("/updateData") }}" method="post">
@@ -80,7 +80,7 @@
                                     <input type="number" step=".1" class="form-control pl-3 input_custom mb-1 w-75 d-block mx-auto bg-white" name="shoe_size" value="{{ Auth::user()->shoe_size }}">
                                     {{-- {{dd(Auth::user())}} --}}
                                 </div>
-                                <button type="submit" class="btn d-block mx-auto mb-4 gradient_button" role="button">Guardar Datos</button>
+                                <button type="submit" class="btn d-block mx-auto mb-4 gradient_button" role="button">Guardar datos</button>
                             </form>
                         </div>
                         <button type="button" class="btn mb-3 bg-white text-dark text-center w-75 d-block mx-auto" data-toggle="collapse" data-target="#userPassword">+ Cambiar contraseña</button>
@@ -103,7 +103,7 @@
                     </div>
                     {{-- My Classes & Buy Packages --}}
                     <div id="Payments" class="pt-4 pb-3 bb-2 border-bottom border-danger">
-                        <h5 class="text-center mx-auto pt-2 myclss">Formas de Pago</h5>
+                        <h5 class="text-center mx-auto pt-2 myclss">Formas de pago</h5>
 
                         {{-- Print Card --}}
                         <div class="text-center text-uppercase">
@@ -175,10 +175,10 @@
                                 <div class="col-md-12">
                                     <nav>
                                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                            <a class="nav-item nav-link active" id="nav-bookedClasses-tab" data-toggle="tab" href="#nav-bookedClasses" role="tab" aria-controls="nav-bookedClasses" aria-selected="true">Próximas Clases</a>
-                                            <a class="nav-item nav-link" id="nav-previousClasses-tab" data-toggle="tab" href="#nav-previousClasses" role="tab" aria-controls="nav-previousClasses" aria-selected="false">Clases Pasadas</a>
-                                            <a class="nav-item nav-link" id="nav-waitlist-tab" data-toggle="tab" href="#nav-waitlist" role="tab" aria-controls="nav-waitlist" aria-selected="false">Lista de Espera</a>
-                                            <a class="nav-item nav-link" id="nav-history-tab" data-toggle="tab" href="#nav-history" role="tab" aria-controls="nav-history" aria-selected="false">Historial de Compras</a>
+                                            <a class="nav-item nav-link active" id="nav-bookedClasses-tab" data-toggle="tab" href="#nav-bookedClasses" role="tab" aria-controls="nav-bookedClasses" aria-selected="true">Próximas clases</a>
+                                            <a class="nav-item nav-link" id="nav-previousClasses-tab" data-toggle="tab" href="#nav-previousClasses" role="tab" aria-controls="nav-previousClasses" aria-selected="false">Clases pasadas</a>
+                                            <a class="nav-item nav-link" id="nav-waitlist-tab" data-toggle="tab" href="#nav-waitlist" role="tab" aria-controls="nav-waitlist" aria-selected="false">Lista de espera</a>
+                                            <a class="nav-item nav-link" id="nav-history-tab" data-toggle="tab" href="#nav-history" role="tab" aria-controls="nav-history" aria-selected="false">Historial de compras</a>
                                         </div>
                                     </nav>
                                     <div class="tab-content" id="nav-tabContent">
@@ -427,7 +427,7 @@
                                                         <tr>
                                                             <th>Clases</th>
                                                             <th width="30%">Descripción</th>
-                                                            <th>Fecha de Compra</th>
+                                                            <th>Fecha de compra</th>
                                                             <th>Vigencia</th>
                                                         </tr>
                                                     </thead>
@@ -605,7 +605,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content ">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Agregar Tarjeta</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">Agregar tarjeta</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -660,7 +660,7 @@
                     {{-- End Form Add Card --}}
                     <div class="modal-footer">
                         <button type="button" class="closeBtn" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="button addCardButton" id="add-card-button">Agregar Tarjeta</button>
+                        <button type="button" class="button addCardButton" id="add-card-button">Agregar tarjeta</button>
                     </div>
                     </div>
                 </div>

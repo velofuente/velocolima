@@ -12,9 +12,12 @@
             <option value="semana">Esta semana</option>
             <option value="mes">Este mes</option>
         </select> --}}
-        <div>
-            <label for="fromDate" class="mr-sm-2">De:</label>
+    <button class="btn btn-success btn-sm mx-4 justify-content-right" id="searchButton">Buscar</button>
+</div>
+    <div class="form-group row text-center ml-1">
+        <div class="col-xs-3">
             <div class="input-group">
+                <label for="fromDate" class="mr-sm-2">De:</label>
                 <input id="fromDate" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('fromDate') ? ' is-invalid' : '' }}" name="fromDate" value="{{ old('fromDate') }}" required >
                 @if ($errors->has('fromDate'))
                 <span class="invalid-feedback" role="alert">
@@ -23,9 +26,9 @@
                 @endif
             </div>
         </div>
-        <div>
-            <label for="toDate" class="mr-sm-2">Al:</label>
+        <div class="col-xs-3 ml-1">
             <div class="input-group">
+                <label for="toDate" class="mr-sm-2">Al:</label>
                 <input id="toDate" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('toDate') ? ' is-invalid' : '' }}" name="toDate" value="{{ old('toDate') }}" required >
                 @if ($errors->has('toDate'))
                 <span class="invalid-feedback" role="alert">
@@ -34,8 +37,7 @@
                 @endif
             </div>
         </div>
-    <button class="btn btn-success btn-sm mx-4 justify-content-right" id="searchButton">Buscar</button>
-</div>
+    </div>
 
 {{-- Table  --}}
 {{-- @if (count($sales) > 0) --}}
@@ -43,8 +45,8 @@
         <thead style="font-size: 1em;">
             <tr style="font-size: 1em;">
                 <th scope="col">ID</th>
-                <th scope="col">Fecha Compra</th>
-                <th scope="col">Hora Compra</th>
+                <th scope="col">Fecha compra</th>
+                <th scope="col">Hora compra</th>
                 <th scope="col">Cliente</th>
                 <th scope="col">Correo</th>
                 <th scope="col">Producto</th>
@@ -226,7 +228,7 @@
                 console.log(result);
                 Swal.fire({
                     title: 'Error',
-                    text: 'Ha ocurrido un error al procesar la solicitud',
+                    text: 'Ha ocurrido un error al procesar la solicitud.',
                     type: 'warning',
                     confirmButtonText: 'Aceptar'
                 })

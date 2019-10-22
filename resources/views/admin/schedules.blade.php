@@ -8,9 +8,9 @@
 {{-- Table with the Info --}}
 <div class="row text-center mx-0 py-4">
     <h3>Horarios</h3>
-    <button class="btn btn-success btn-sm mx-4 justify-content-right" id="buttonNextClasses">Clases Próximas</button>
-    <button class="btn btn-success btn-sm mx-4 justify-content-right" id="buttonPreviousClasses">Clases Pasadas</button>
-    <button class="btn btn-success btn-sm mx-4 justify-content-right" id="buttonTopAddSchedule" data-toggle="modal" data-target="#addScheduleModal">Añadir Horario</button>
+    <button class="btn btn-success btn-sm mx-4 justify-content-right" id="buttonNextClasses">Clases próximas</button>
+    <button class="btn btn-success btn-sm mx-4 justify-content-right" id="buttonPreviousClasses">Clases pasadas</button>
+    <button class="btn btn-success btn-sm mx-4 justify-content-right" id="buttonTopAddSchedule" data-toggle="modal" data-target="#addScheduleModal">Añadir horario</button>
 </div>
 
 {{-- Table Next Clases --}}
@@ -23,9 +23,9 @@
                 <th scope="col">Hora</th>
                 <th scope="col">Instructor</th>
                 <th scope="col">Descripción</th>
-                <th scope="col">Límite de Reservación</th>
-                <th scope="col">Bicis Reservadas</th>
-                <th scope="col">Bicis Disponibles</th>
+                <th scope="col">Límite de reservación</th>
+                <th scope="col">Bicis reservadas</th>
+                <th scope="col">Bicis disponibles</th>
                 <th scope="col">Sucursal</th>
                 <th colspan="2" class="text-center">Acción</th>
             </tr>
@@ -40,7 +40,7 @@
         </tbody>
     </table>
 @else
-    <h2 class="text-center">No hay Horarios Agendados</h2>
+    <h2 class="text-center">No hay horarios agendados</h2>
 @endif
 
 {{-- Table Previous Clases --}}
@@ -53,9 +53,9 @@
                 <th scope="col">Hora</th>
                 <th scope="col">Instructor</th>
                 <th scope="col">Descripción</th>
-                <th scope="col">Límite de Reservación</th>
-                <th scope="col">Bicis Reservadas</th>
-                <th scope="col">Bicis Disponibles</th>
+                <th scope="col">Límite de reservación</th>
+                <th scope="col">Bicis reservadas</th>
+                <th scope="col">Bicis disponibles</th>
                 <th scope="col">Sucursal</th>
             </tr>
         </thead>
@@ -69,7 +69,7 @@
         </tbody>
     </table>
 @else
-    <h2 class="text-center">No hay Horarios Agendados</h2>
+    <h2 class="text-center">No hay horarios agendados</h2>
 @endif
 
 {{-- Modal Add Schedule --}}
@@ -77,7 +77,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addScheduleModalLabel">Añadir Horario</h5>
+                <h5 class="modal-title" id="addScheduleModalLabel">Añadir horario</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -126,7 +126,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" id="addScheduleButton">Añadir Horario</button>
+                <button type="button" class="btn btn-success" id="addScheduleButton">Añadir horario</button>
             </div>
         </div>
     </div>
@@ -137,7 +137,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editScheduleModalLabel">Editar Horario</h5>
+                <h5 class="modal-title" id="editScheduleModalLabel">Editar horario</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -182,7 +182,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" id="editScheduleButton">Editar Horario</button>
+                <button type="button" class="btn btn-success" id="editScheduleButton">Editar horario</button>
             </div>
         </div>
     </div>
@@ -317,7 +317,7 @@
                     $('#addScheduleButton').prop('disabled', false);
                     Swal.fire({
                         title: 'Error',
-                        text: 'Ocurrió un error al procesar la solicitud',
+                        text: 'Ocurrió un error al procesar la solicitud.',
                         type: 'error',
                         confirmButtonText: 'Aceptar'
                     })
@@ -485,7 +485,7 @@
                 // alert(result);
                 Swal.fire({
                     title: 'Error',
-                    text: 'No se pudo procesar su solicitud',
+                    text: 'No se pudo procesar su solicitud.',
                     type: 'warning',
                     confirmButtonText: 'Aceptar'
                 })
@@ -539,7 +539,7 @@
                 $.LoadingOverlay('hide'),
                 Swal.fire({
                     title: 'Error',
-                    text: 'Ha ocuriddo un error al procesar la solicitud',
+                    text: 'Ha ocuriddo un error al procesar la solicitud.',
                     // text: result.message,
                     type: 'error',
                     confirmButtonText: 'Aceptar'
@@ -581,7 +581,7 @@
     function deleteSchedule(schedule_id, button){
         Swal.fire({
             title: '¿Estás seguro?',
-            text: "No se podrán revertir los cambios!",
+            text: "¡No se podrán revertir los cambios!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -607,7 +607,7 @@
                             // $('.active-menu').trigger('click');
                             $('#buttonNextClasses').click();
                             Swal.fire({
-                                title: 'Horario Eliminado',
+                                title: 'Horario eliminado',
                                 text: result.message,
                                 type: 'success',
                                 confirmButtonText: 'Aceptar'

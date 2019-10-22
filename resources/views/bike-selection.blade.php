@@ -35,7 +35,7 @@
                 </div>
             <div class="description">
                 {{-- <img class="resClass" src="/img/iconos/2.png" alt=""> --}}
-                <span class="text-center text_gradient_bike_selection"> Reserva tu Clase </span>
+                <span class="text-center text_gradient_bike_selection"> Reserva tu clase </span>
             </div>
             {{-- <img id="profilePic" src="{{ asset('img/instructors/' . $schedules->instructor->name . '-Head.png') }}" alt=""> --}}
             <img id="profilePic" src="{{ asset('img/instructors/Instructor-Head.png') }}" alt="">

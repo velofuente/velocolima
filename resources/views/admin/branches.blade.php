@@ -21,7 +21,7 @@
                 <th scope="col">Municipio</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Teléfono</th>
-                <th scope="col">Periodo de Cancelación</th>
+                <th scope="col">Periodo de cancelación</th>
                 <th scope="col" colspan="2" class="text-center">Acción</th>
             </tr>
         </thead>
@@ -43,7 +43,7 @@
         </tbody>
     </table>
 @else
-    <h2 class="text-center">No hay Sucursales Agendados</h2>
+    <h2 class="text-center">No hay sucursales agendados</h2>
 @endif
 
 {{-- Modal Add Schedule --}}
@@ -51,7 +51,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addBranchModalLabel">Añadir Sucursal</h5>
+                <h5 class="modal-title" id="addBranchModalLabel">Añadir sucursal</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -130,15 +130,15 @@
                     {{-- Show Status of Bike-Grid --}}
                     <div class="row my-4 mx-auto justify-content-center">
                         <div class="col text-center">
-                            <p>Asiento Libre</p>
+                            <p>Asiento libre</p>
                             <span class="mx-auto common showBallFree">1</span>
                         </div>
                         <div class="col text-center">
-                            <p>Asiento Instructor</p>
+                            <p>Asiento instructor</p>
                             <span class="mx-auto showBallInstructor">1</span>
                         </div>
                         <div class="col text-center">
-                            <p>Asiento Deshabilitado</p>
+                            <p>Asiento deshabilitado</p>
                             <span class="showBallDisabled">1</span>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" id="addBranchButton">Añadir Sucursal</button>
+                <button type="button" class="btn btn-success" id="addBranchButton">Añadir sucursal</button>
             </div>
         </div>
     </div>
@@ -162,7 +162,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editBranchModalLabel">Editar Sucursal</h5>
+                <h5 class="modal-title" id="editBranchModalLabel">Editar sucursal</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -241,15 +241,15 @@
                     {{-- Show Status of Bike-Grid --}}
                     <div class="row my-4 mx-auto justify-content-center">
                         <div class="col text-center">
-                            <p>Asiento Libre</p>
+                            <p>Asiento libre</p>
                             <span class="mx-auto common showBallFree">1</span>
                         </div>
                         <div class="col text-center">
-                            <p>Asiento Instructor</p>
+                            <p>Asiento instructor</p>
                             <span class="mx-auto showBallInstructor">1</span>
                         </div>
                         <div class="col text-center">
-                            <p>Asiento Deshabilitado</p>
+                            <p>Asiento deshabilitado</p>
                             <span class="showBallDisabled">1</span>
                         </div>
                     </div>
@@ -262,7 +262,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" id="editBranchButton">Editar Sucursal</button>
+                <button type="button" class="btn btn-success" id="editBranchButton">Editar sucursal</button>
             </div>
         </div>
     </div>
@@ -432,7 +432,7 @@
     function deleteBranch(branch_id, button){
         Swal.fire({
             title: '¿Estás seguro?',
-            text: "No se podrán revertir los cambios!",
+            text: "¡No se podrán revertir los cambios!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -456,7 +456,7 @@
                             $('.modal-backdrop').remove();
                             // $('.active-menu').trigger('click');
                             Swal.fire({
-                                title: 'Sucursal Eliminado',
+                                title: 'Sucursal eliminada',
                                 text: result.message,
                                 type: 'success',
                                 confirmButtonText: 'Aceptar'

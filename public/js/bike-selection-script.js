@@ -163,53 +163,55 @@ $('#profilePic').click(function(){
 function reservePlace(id, elementBall, instructor){
     console.log(instructor);
     console.log(id);
-    bike = 0;
+    bike = null;
     switch(id) {
-        case 2:
-            bike += 1;
+        case "2":
+            bike = 1;
           break;
-        case 10:
-            bike += 2;
+        case "10":
+            bike = 2;
           break;
-        case 12:
-            bike += 3;
+        case "12":
+            bike = 3;
           break;
-        case 14:
-            bike += 4;
+        case "14":
+            bike = 4;
           break;
-        case 20:
-            bike += 5
+        case "20":
+            bike = 5
           break;
-        case 22:
-            bike += 6;
+        case "22":
+            bike = 6;
           break;
-        case 24:
-            bike += 7;
+        case "24":
+            bike = 7;
           break;
-        case 26:
-            bike += 8;
+        case "26":
+            bike = 8;
           break;
-        case 30:
-            bike += 9;
+        case "30":
+            bike = 9;
           break;
-        case 32:
-            bike += 10;
+        case "32":
+            bike = 10;
           break;
-        case 36:
-            bike += 11;
+        case "36":
+            bike = 11;
           break;
-        case 38:
-            bike += 12;
+        case "38":
+            bike = 12;
           break;
-        case 40:
-            bike += 13;
+        case "40":
+            bike = 13;
           break;
-        case 42:
-            bike += 14;
+        case "42":
+            bike = 14;
           break;
         default:
-            bike += 14;
+            bike = 14;
     }
+    console.log("bici numero");
+    console.log(bike);
     var today = new Date();
     var hh = today.getHours();
     var mm = today.getMinutes();
@@ -220,6 +222,7 @@ function reservePlace(id, elementBall, instructor){
     console.log(scheduleHourBeforeCancelation);
     if(today<scheduleHourBeforeCancelation){
         console.log("a tiempo");
+        console.log(bike);
             Swal.fire({
                 title: "Tu reserva ",
                 html: "<h6>" + document.getElementById('branch').textContent + "</h6>"  +
@@ -228,8 +231,8 @@ function reservePlace(id, elementBall, instructor){
                     "<h6>Esta reservación sólo puede modificarse o cancelarse hasta " + cancelation_period + " horas antes de la clase.</h6>" +
                     "<h6>Tips: </h6>" +
                     "<ul>" +
-                    "<li>Se puntual, llega al menos 10 min antes de la clase.</li>" +
-                    "<li>Si llegarás tarde avísanos para guardar tu lugar 15 minutos.</li>" +
+                    "<li>Sé puntual, llega al menos 10 min antes de la clase.</li>" +
+                    "<li>Si llegarás tarde, avísanos para guardar tu lugar 15 minutos.</li>" +
                     "<li>Usa ropa cómoda que transpire y calcetas deportivas.</li>" +
                     "</ul>",
                 type: "warning",
@@ -293,7 +296,7 @@ function reservePlace(id, elementBall, instructor){
                         }
                     });
                 } else {
-                  swal("Cancelado", "Clase no reservada", "info");
+                  swal("Cancelado", "Clase no reservada.", "info");
                 }
             });
         }else{
@@ -302,12 +305,12 @@ function reservePlace(id, elementBall, instructor){
                         title: "Tu reserva ",
                         html: "<h6>" + document.getElementById('branch').textContent + "</h6>"  +
                         "<h6>CON: " + instructor + " </h6>" +
-                        "<h6>BICI: " + id + " </h6>" +
+                        "<h6>BICI: " + bike + " </h6>" +
                         "<h6>Esta reservación no es cancelable, debido a que se está realizando antes de " + cancelation_period + " horas del inicio de la clase.</h6>" +
                         "<h6>Tips: </h6>" +
                         "<ul>" +
-                        "<li>Se puntual, llega al menos 10 min antes de la clase.</li>" +
-                        "<li>Si llegaras tarde avísanos para guardar tu lugar 15 minutos.</li>" +
+                        "<li>Sé puntual, llega al menos 10 min antes de la clase.</li>" +
+                        "<li>Si llegarás tarde, avísanos para guardar tu lugar 15 minutos.</li>" +
                         "<li>Usa ropa cómoda que transpire y calcetas deportivas.</li>" +
                         "</ul>",
                         type: "warning",
@@ -371,7 +374,7 @@ function reservePlace(id, elementBall, instructor){
                                 }
                             });
                         } else {
-                          swal("Cancelado", "Clase no reservada", "info");
+                          swal("Cancelado", "Clase no reservada.", "info");
                         }
                     });
     }

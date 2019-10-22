@@ -97,15 +97,24 @@ class BookClassController extends Controller
                     $classes = $numClases->sum("clases");
                     log::info($classes);
                     if($classes == 1){
-                        $promocion = Product::where('description', 'Clase adicional')->first();
-                        Purchase::create([
-                            'product_id' => $promocion->id,
-                            'user_id' => $requestUser->id,
-                            'n_classes' => $promocion->n_classes,
-                            'expiration_days' => $promocion->expiration_days,
-                            'status' => 'pending',
-                        ]);
-                        app('App\Http\Controllers\MailSendingController')->addtionalFreeClass($requestUser->email,$requestUser->name);
+                        $lastClassPurchase = Purchase::where('user_id', $requestUser->id)
+                        ->where('n_classes', "<>", 0)
+                        //->whereRaw("created_at < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
+                        //->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
+                        //->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
+                        ->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
+                        ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
+                        if($lastClassPurchase->product->description != "Clase gratis por ser nuevo cliente"){
+                            $promocion = Product::where('description', 'Clase adicional')->first();
+                            Purchase::create([
+                                'product_id' => $promocion->id,
+                                'user_id' => $requestUser->id,
+                                'n_classes' => $promocion->n_classes,
+                                'expiration_days' => $promocion->expiration_days,
+                                'status' => 'pending',
+                            ]);
+                            app('App\Http\Controllers\MailSendingController')->addtionalFreeClass($requestUser->email,$requestUser->name);
+                        }
                     }
                     DB::commit();
                     return response()->json([

@@ -103,7 +103,7 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
-                                <label for="password-confirm" class="mr-sm-2">Confirmar Contraseña:</label>
+                                <label for="password-confirm" class="mr-sm-2">Confirmar contraseña:</label>
                                 <input id="password-confirm" placeholder="Confirmar Contraseña" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
@@ -112,7 +112,7 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
-                                <label for="birth_date" class="mr-sm-2">Fecha de Nacimiento:</label>
+                                <label for="birth_date" class="mr-sm-2">Fecha de nacimiento:</label>
                                 <div class="input-group">
                                     {{-- <input id="birth_date" min="1900-01-01" max="2100-12-31" type="date" fecha="active" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required > --}}
                                     <input id="birth_date" min="1900-01-01" max="2100-12-31" style="z-index: 0" type="text" fecha="active" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required >
@@ -170,10 +170,10 @@
                         <div class="form-group row mb-3">
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                             <div class="col-8 col-xs-8 col-sm-8 col-md-6 mx-auto">
-                                    <label for="shoe_size" class="mr-sm-2">Talla de Calzado:</label>
+                                    <label for="shoe_size" class="mr-sm-2">Talla de calzado:</label>
                                 <div class="input-group">
                                     <select class="form-control" id="shoe_size" name="shoe_size" placeholder="Talla de Calzado" value="{{ old('shoe_size') }}" required>
-                                        <option disabled selected hidden>Talla de Calzado</option>
+                                        <option disabled selected hidden>Talla de calzado</option>
                                         <option>23</option>
                                         <option>23.5</option>
                                         <option>24</option>
@@ -207,7 +207,7 @@
                                 {{-- <input type="checkbox" id="termsCondition" class="form-control{{ $errors->has('termsCondition') ? ' is-invalid' : '' }}" name="termsCondition" value="{{ old('termsCondition') }}" required> He leído y acepto los <a href="{{url("/who-are-we")}}">Términos y Condiciones de Uso</a> --}}
 
                                 <input type="checkbox" name="conditions" id="conditions" required oninvalid="this.setCustomValidity('Debes marcar esta casilla para continuar')" oninput="this.setCustomValidity('')"  />
-                                <label for="conditions" class="conditions" style="font-size: 15px;">He leído y acepto los <a href="#">Términos y Condiciones</label>
+                                <label for="conditions" class="conditions" style="font-size: 15px;">He leído y acepto los <a href="#">Términos y condiciones</label>
                             </div>
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                         </div>

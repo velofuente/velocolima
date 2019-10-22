@@ -7,7 +7,7 @@
 {{-- Table with the Info --}}
 <div class="row text-center mx-0 py-4">
     <h3>Clientes</h3>
-    <button class="btn btn-success btn-sm mx-4 justify-content-right" data-toggle="modal" data-target="#registerClientModal">Añadir Cliente</button>
+    <button class="btn btn-success btn-sm mx-4 justify-content-right" data-toggle="modal" data-target="#registerClientModal">Añadir cliente</button>
 </div>
 
 {{-- Table  --}}
@@ -21,9 +21,9 @@
                 <th scope="col">Correo</th>
                 <th scope="col">Fecha de nacimiento</th>
                 <th scope="col">Teléfono</th>
-                <th scope="col">Talla de Calzado</th>
+                <th scope="col">Talla de calzado</th>
                 <th scope="col">Clases disponibles</th>
-                <th scope="col">Clases Reservadas</th>
+                <th scope="col">Clases reservadas</th>
             </tr>
         </thead>
         <tbody id="table-clients">
@@ -43,7 +43,7 @@
         </tbody>
     </table>
 @else
-    <h2 class="text-center">No hay Clientes Agregados</h2>
+    <h2 class="text-center">No hay clientes agregados</h2>
 @endif
 {{-- /Table  --}}
 {{-- Modal Register New Client --}}
@@ -51,7 +51,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="registerClientModalLabel">Registrar Nuevo Cliente</h5>
+                <h5 class="modal-title" id="registerClientModalLabel">Registrar nuevo Cliente</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -135,7 +135,7 @@
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="birth_date" class="mr-sm-2">Fecha de Nacimiento:</label>
+                            <label for="birth_date" class="mr-sm-2">Fecha de nacimiento:</label>
                             <div class="input-group">
                                 <input id="RegBirthDate" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required >
                                 @if ($errors->has('birth_date'))
@@ -187,10 +187,10 @@
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                                <label for="shoe_size" class="mr-sm-2">Talla de Calzado:</label>
+                                <label for="shoe_size" class="mr-sm-2">Talla de calzado:</label>
                             <div class="input-group">
                                 <select class="form-control" id="RegShoeSize" name="shoe_size" placeholder="Talla de Calzado" value="{{ old('shoe_size') }}" required>
-                                    <option disabled selected hidden>Talla de Calzado</option>
+                                    <option disabled selected hidden>Talla de calzado</option>
                                     <option value="23">23</option>
                                     <option value="23.5">23.5</option>
                                     <option value="24">24</option>
@@ -221,7 +221,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 {{-- <button type="button" class="btn btn-success" id="addInstructorButton">Añadir Instructor</button> --}}
-                <button type="button" class="btn btn-primary" id="registerClientButton">Registrar Usuario</button>
+                <button type="button" class="btn btn-primary" id="registerClientButton">Registrar usuario</button>
             </div>
         </div>
     </div>
