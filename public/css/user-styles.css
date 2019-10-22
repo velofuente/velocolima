@@ -234,6 +234,10 @@ body{
     color: #333;
 }
 
+td,th {
+    text-align: center;
+}
+
 /* @media screen and (max-width: 600px){
     /* .registerContainer{
         margin-top: 6.5em;
