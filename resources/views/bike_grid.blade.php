@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Reservar Bici
+    Reservar bici
 @endsection
 
 @section('extraStyles')

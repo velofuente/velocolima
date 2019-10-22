@@ -17,7 +17,7 @@
                 <th scope="col">Apellido</th>
                 <th scope="col">Email</th>
                 <th scope="col">Teléfono</th>
-                <th scope="col">Fecha de Nacimiento</th>
+                <th scope="col">Fecha de nacimiento</th>
                 {{-- <th scope="col">Información</th> --}}
                 {{-- <th scope="col">Estatus</th> --}}
                 <th scope="col" colspan="2" class="text-center">Acción</th>
@@ -42,7 +42,7 @@
         </tbody>
     </table>
 @else
-    <h2 class="text-center">No hay Instructores Agregados</h2>
+    <h2 class="text-center">No hay instructores agregados</h2>
 @endif
 
 {{-- Modal Add Instructor --}}
@@ -50,7 +50,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addInstructorModalLabel">Añadir Instructor</h5>
+                <h5 class="modal-title" id="addInstructorModalLabel">Añadir instructor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -108,7 +108,7 @@
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="name" class="mr-sm-2">Fecha de Nacimiento:</label>
+                            <label for="name" class="mr-sm-2">Fecha de nacimiento:</label>
                             <div class="input-group">
                                 <input id="birth_dateInstructor" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required >
                                 @if ($errors->has('birth_date'))
@@ -178,7 +178,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" id="addInstructorButton">Añadir Instructor</button>
+                <button type="button" class="btn btn-success" id="addInstructorButton">Añadir instructor</button>
             </div>
         </div>
     </div>
@@ -189,7 +189,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Editar Información</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Editar información</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -243,7 +243,7 @@
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="name" class="mr-sm-2">Fecha de Nacimiento:</label>
+                            <label for="name" class="mr-sm-2">Fecha de nacimiento:</label>
                             <div class="input-group">
                                 <input id="editBirthDateInstructor" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required>
                                 @if ($errors->has('birth_date'))
@@ -294,7 +294,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" id="editInstructorButton">Editar Instructor</button>
+                <button type="button" class="btn btn-success" id="editInstructorButton">Editar instructor</button>
             </div>
         </div>
     </div>
@@ -543,7 +543,7 @@
                     $(button).prop('disabled', false);
                     Swal.fire({
                         title: 'Error',
-                        text: 'Ha ocurrido un error al procesar la solicitud',
+                        text: 'Ha ocurrido un error al procesar la solicitud.',
                         type: 'error',
                         confirmButtonText: 'Aceptar'
                     })
@@ -555,7 +555,7 @@
             // instructor_id = $('#deleteInstructorButton').val();
             Swal.fire({
                 title: '¿Estás seguro?',
-                text: "No se podrán revertir los cambios!",
+                text: "¡No se podrán revertir los cambios!",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

@@ -81,7 +81,7 @@
         </tbody>
     </table>
 @else
-    <h2 class="text-center">No hay Productos Agregados</h2>
+    <h2 class="text-center">No hay productos agregados</h2>
 @endif
 
 {{-- Modal Add Product --}}
@@ -89,7 +89,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addProductModalLabel">Añadir Producto</h5>
+                <h5 class="modal-title" id="addProductModalLabel">Añadir producto</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -101,7 +101,7 @@
                       <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="typeProduct">Tipo de Producto: </label>
+                            <label for="typeProduct">Tipo de producto: </label>
                             <select class="form-control" name="typeProduct" id="typeProduct">
                                 <option value="Deals" class="text-center">Promoción</option>
                                 <option value="Packages" class="text-center">Paquete</option>
@@ -115,7 +115,7 @@
                     <div class="form-group row mb-1" id="divClassesQuantity">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="nClasses" class="mr-sm-2">Cantidad de Clases:</label>
+                            <label for="nClasses" class="mr-sm-2">Cantidad de clases:</label>
                             <input id="nclassesProduct" type="number" placeholder="Cantidad de Clases" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus >
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback" role="alert">
@@ -200,7 +200,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" id="addProductButton">Añadir Producto</button>
+                <button type="button" class="btn btn-success" id="addProductButton">Añadir producto</button>
             </div>
         </div>
     </div>
@@ -211,7 +211,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Editar Producto</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Editar producto</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -223,7 +223,7 @@
                     <div class="form-group row mb-3" id="editDivClassesQuantity">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="name" class="mr-sm-2">Cantidad de Clases:</label>
+                            <label for="name" class="mr-sm-2">Cantidad de clases:</label>
                             <input id="editnclassesProduct" data-mytitle="" type="text" placeholder="Cantidad de Clases" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus >
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback" role="alert">
@@ -308,7 +308,7 @@
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="editTypeProduct">Tipo de Producto: </label>
+                            <label for="editTypeProduct">Tipo de producto: </label>
                             <select class="form-control" name="editTypeProduct" id="editTypeProduct">
                                 <option value="Deals" class="text-center">Promoción</option>
                                 <option value="Packages" class="text-center">Paquetes</option>
@@ -335,7 +335,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" id="editProductButton">Editar Producto</button>
+                <button type="button" class="btn btn-success" id="editProductButton">Editar producto</button>
             </div>
         </div>
     </div>
@@ -512,7 +512,7 @@
                         // $('.active-menu').trigger('click');
                         $('#addProductModal').modal('hide');
                         Swal.fire({
-                            title: 'Producto Añadido',
+                            title: 'Producto añadido',
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
@@ -603,7 +603,7 @@
             // product_id = $('#deleteProductButton').val();
             Swal.fire({
                 title: '¿Estás seguro?',
-                text: "No se podrán revertir los cambios!",
+                text: "¡No se podrán revertir los cambios!",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

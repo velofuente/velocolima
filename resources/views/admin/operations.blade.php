@@ -22,7 +22,7 @@
     <div class="col-xs-0 col-sm-0 col-md-1 col-lg-1 mx-auto"></div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 mx-auto dropdown ">
         <button class="btn btn-info dropdown-toggle" id="dropdownSchedule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span id="selectedSchedule">Seleccionar Horario</span>
+            <span id="selectedSchedule">Seleccionar horario</span>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownSchedule">
         @if (count($schedules) > 0)
@@ -50,7 +50,7 @@
                 {{-- @endif --}}
             @endforeach
         @else
-              <h5 class="text-center mx-2">No hay Horarios Creados<h5>
+              <h5 class="text-center mx-2">No hay horarios creados<h5>
         @endif
         </div>
     </div>
@@ -72,7 +72,7 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Email</th>
                         <th scope="col">Asiento</th>
-                        <th scope="col">Talla de Calzado</th>
+                        <th scope="col">Talla de calzado</th>
                         <th scope="col">Teléfono</th>
                         {{-- <th scope="col">ScheduleID</th> --}}
                         <th scope="col" colspan="3" class="text-center">Acción</th>
@@ -170,7 +170,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addOpUserModalLabel">Buscar Usuario</h5>
+                <h5 class="modal-title" id="addOpUserModalLabel">Buscar usuario</h5>
                 {{-- Search Bar Div--}}
                 <div class="mx-auto">
                     <input id="opSearchInput" type="text" onkeyup="searchUsers()" placeholder="Nombre(s)" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus >
@@ -181,7 +181,7 @@
                     @endif
                 </div>
                 <div class="row mx-auto">
-                    <h5 class="col-8">Seleccionar Lugar</h5>
+                    <h5 class="col-8">Seleccionar lugar</h5>
                     <select class="col-4" name="bikesSelect" id="bikesSelect"></select>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -194,7 +194,7 @@
                         <tr style="font-size: 1em;">
                             <th scope="col">Nombre</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Talla de Calzado</th>
+                            <th scope="col">Talla de calzado</th>
                             {{-- <th scope="col">ScheduleID</th> --}}
                             <th scope="col">Acción</th>
                         </tr>
@@ -209,7 +209,7 @@
                                 <td>{{$user->id}}</td>
                                 <td>
                                     <select class="form-control" id="bikesSelect" name="bikesSelect" placeholder="bikesSelect" value="{{ old('bikesSelect') }}" required>
-                                        <option disabled selected hidden>Lugares Disponibles</option>
+                                        <option disabled selected hidden>Lugares disponibles</option>
                                     </select>
                                 </td>
                                 <td><button class="btn btn-success btn-sm "  id="clientAssist-{{ $user->id }}" value="{{$user->id}}" data-id="{{$user->id}}">Asistencia</button></td>
@@ -232,7 +232,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="registerOpUserModalLabel">Registrar Nuevo Usuario</h5>
+                <h5 class="modal-title" id="registerOpUserModalLabel">Registrar nuevo usuario</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -293,7 +293,7 @@
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="birth_date" class="mr-sm-2">Fecha de Nacimiento:</label>
+                            <label for="birth_date" class="mr-sm-2">Fecha de nacimiento:</label>
                             <div class="input-group">
                                 <input id="opRegBirthDate" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required >
                                 @if ($errors->has('birth_date'))
@@ -345,10 +345,10 @@
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                                <label for="shoe_size" class="mr-sm-2">Talla de Calzado:</label>
+                                <label for="shoe_size" class="mr-sm-2">Talla de calzado:</label>
                             <div class="input-group">
                                 <select class="form-control" id="opRegShoeSize" name="shoe_size" placeholder="Talla de Calzado" value="{{ old('shoe_size') }}" required>
-                                    <option disabled selected hidden>Talla de Calzado</option>
+                                    <option disabled selected hidden>Talla de calzado</option>
                                     <option value="23">23</option>
                                     <option value="23.5">23.5</option>
                                     <option value="24">24</option>
@@ -382,7 +382,7 @@
                                 <label for="shoe_size" class="mr-sm-2">Selecciona lugar:</label>
                             <div class="input-group">
                                 <select class="form-control" id="opRegBike" name="opRegBike" placeholder="opRegBike" value="{{ old('opRegBike') }}" required>
-                                    <option disabled selected hidden>Lugares Disponibles</option>
+                                    <option disabled selected hidden>Lugares disponibles</option>
                                     {{-- @foreach ($userSchedules as $userSchedule)
                                         @if($userSchedule->schedule_id == El Id del schedule del primer Dropdown)
                                         @endif
@@ -416,7 +416,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 {{-- <button type="button" class="btn btn-success" id="addInstructorButton">Añadir Instructor</button> --}}
-                <button type="button" class="btn btn-primary" id="registerUserOpButton">Registrar Usuario</button>
+                <button type="button" class="btn btn-primary" id="registerUserOpButton">Registrar usuario</button>
             </div>
         </div>
     </div>
@@ -659,7 +659,7 @@
                 console.log(result);
                 Swal.fire({
                     title: 'Error',
-                    text: 'Ha ocurrido un error al procesar la solicitud',
+                    text: 'Ha ocurrido un error al procesar la solicitud.',
                     type: 'warning',
                     confirmButtonText: 'Aceptar'
                 })

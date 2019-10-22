@@ -125,7 +125,7 @@
                         <a href="#" id="sales">
                             <li>
                                 {{-- <i class="fa fa-user fa-lg"></i> --}}
-                                Ventas/Clientes
+                                Ventas
                             </li>
                         </a>
                         <a href="#" id="reports">

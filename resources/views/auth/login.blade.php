@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Velo | Iniciar Sesión
+    Velo | Iniciar sesión
 @endsection
 
 @section('extraStyles')
@@ -14,7 +14,7 @@
         <div class="login row justify-content-center">
             <div class="col-md-8">
                 <div>
-                    <div class="mx-auto" id="loginTitle">Entrar o Registrar</div>
+                    <div class="mx-auto" id="loginTitle">Entrar o registrar</div>
                     <div class="mx-auto" id="welcomeMessage">Bienvenido a <img src="{{asset('img/iconos/CroppedLogo.png')}}" id="welcomeLogo"></div>
 
                     <div class="card-body">
