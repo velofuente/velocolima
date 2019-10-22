@@ -40,7 +40,9 @@ class BirthdayEmail extends Command
      */
     public function handle()
     {
-        $user = User::where('email','pjimenez0@ucol.mx');
+        // $user = User::where('email','pjimenez0@ucol.mx');
+        $name = 'Pablo';
+        $email = 'pjimenez0@ucol.mx';
         // $birthdayUsers = User::where('birth_date','=', Carbon::today()->format('Y-m-d'))->get();
         // foreach($birthdayUsers as $user){
         //     DB::beginTransaction();
@@ -52,7 +54,7 @@ class BirthdayEmail extends Command
         //         'expiration_days' => $product->expiration_days,
         //         // 'status' => 0,
         //         ]);
-            app('App\Http\Controllers\MailSendingController')->birthdayEmail($user->email, $user->name);
+            app('App\Http\Controllers\MailSendingController')->birthdayEmail($email, $name);
         //     DB::commit();
         // }
     }
