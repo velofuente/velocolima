@@ -40,7 +40,7 @@ class BirthdayEmail extends Command
      */
     public function handle()
     {
-        $user = User::find(2);
+        $user = User::where('email','pjimenez0@ucol.mx');
         // $birthdayUsers = User::where('birth_date','=', Carbon::today()->format('Y-m-d'))->get();
         // foreach($birthdayUsers as $user){
         //     DB::beginTransaction();
