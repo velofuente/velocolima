@@ -268,16 +268,16 @@ class BookClassController extends Controller
     public function claimClass(Request $request){
         //Validaa si el lugar está disponible
         $alreadyReserved = UserSchedule::where("bike", $request->bike)->where("schedule_id", $request->schedule_id)->first();
-        //obtiene la compra con la fecha de caducidad mas proxima del usuario con clases disponibles
-        $compra = Purchase::where('user_id', $request->user_id)
-        ->where('n_classes', "<>", 0)
-        ->whereRaw("created_at < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
-        ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
         //obtiene el numero total de clases
-        $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$request->user_id}")->first();
-        $classes = $numClases->clases;
+        $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->whereRaw("NOW() <= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->where('user_id', '=', "{$request->user_id}")->groupBy("id")->get();
+        $classes = $numClases->sum("clases");
+        //obtiene la compra con la fecha de caducidad mas proxima del usuario con clases disponibles
         //valida si el usuario tiene clases disponibles
         if($classes>0){
+            $compra = Purchase::where('user_id', $request->user_id)
+            ->where('n_classes', "<>", 0)
+            ->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
+            ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
             if($alreadyReserved && $alreadyReserved->status!='cancelled'){
                 DB::commit();
                 return response()->json([

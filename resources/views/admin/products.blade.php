@@ -28,7 +28,7 @@
         </thead>
         <tbody>
             @foreach ($products as $product)
-            @if ($product->type!="Souvenir")
+            @if ($product->type!="Souvenir" && $product->type!="Free")
                 <tr style="font-size: 0.9em;">
                     {{-- <th scope="row">{{$product->id}}</th> --}}
                     <td>{{$product->id}}</td>
@@ -106,6 +106,7 @@
                                 <option value="Deals" class="text-center">Promoción</option>
                                 <option value="Packages" class="text-center">Paquete</option>
                                 <option value="Souvenir" class="text-center">Mercancía</option>
+                                <option value="Free" class="text-center">Clase Gratis</option>
                             </select>
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -313,6 +314,7 @@
                                 <option value="Deals" class="text-center">Promoción</option>
                                 <option value="Packages" class="text-center">Paquetes</option>
                                 <option value="Souvenir" class="text-center">Mercancia</option>
+                                <option value="Free" class="text-center">Clase gratis</option>
                             </select>
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>

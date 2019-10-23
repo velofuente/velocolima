@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->float('price',6,2);
             $table->string('description');
             $table->integer('expiration_days');
-            // Classes, Deal , etc
+            // Classes, Deal , Free
             $table->string('type');
             // 0 - NA || 1 - Available
             $table->boolean('status');

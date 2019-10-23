@@ -1067,7 +1067,7 @@
                     if (value.status != 'cancelled'){
                         if(value.status == 'taken'){
                             if(value.birth_date.substr(5) == today){
-                                if(value.type == 'Deals'){
+                                if(value.type == 'Free'){
                                     $('#tableBody').append(
                                     '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
                                     );
@@ -1077,7 +1077,7 @@
                                     );
                                 }
                             }else{
-                                if(value.type == 'Deals'){
+                                if(value.type == 'Free'){
                                     $('#tableBody').append(
                                         '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
                                     );
@@ -1089,7 +1089,7 @@
                             }
                         } else if (value.status == 'absent'){
                             if(value.birth_date.substr(5) == today){
-                                if(value.type == 'Deals'){
+                                if(value.type == 'Free'){
                                     $('#tableBody').append(
                                         '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
                                     );
@@ -1099,7 +1099,7 @@
                                     );
                                 }
                             }else{
-                                if(value.type == 'Deals'){
+                                if(value.type == 'Free'){
                                     $('#tableBody').append(
                                         '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
                                     );
@@ -1111,7 +1111,7 @@
                             }
                         } else {
                             if(value.birth_date.substr(5) == today){
-                                if(value.type == 'Deals'){
+                                if(value.type == 'Free'){
                                     $('#tableBody').append(
                                         '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
                                     );
@@ -1121,7 +1121,7 @@
                                     );
                                 }
                             }else{
-                                if(value.type == 'Deals'){
+                                if(value.type == 'Free'){
                                     $('#tableBody').append(
                                         '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
                                     );
