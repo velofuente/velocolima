@@ -368,6 +368,7 @@ class AdminController extends Controller
     }
 
     public function getUserInfoReports(Request $request){
+        //prueba
         log::info("entro al getUserInfoReports");
         $userInfo = [];
         // nombre del cliente, clases disponibles, historial de compras, si el historial es largo debe de tener scrolling y como se compró (mostrador o web)
@@ -377,7 +378,8 @@ class AdminController extends Controller
         log::info($name);
         $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$user->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
         $availableClasses = $numClases->clases;
-        log::info($availableClasses);
+        $lastClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$user->id}")->whereRaw("NOW() >= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
+        $expiredClasses = ($lastClases->clases) ? $lastClases->clases : 0;
         $purchaseHistory = Purchase::join('products','purchases.product_id','=',"products.id")
                             ->selectRaw('purchases.created_at AS saleDate,products.description AS product,products.n_classes AS purchasedClasses,DATE_ADD(purchases.created_at, INTERVAL purchases.expiration_days DAY) AS expiration,products.price AS price,purchases.card_id AS saleType')
                             ->where('user_id', '=', "{$user->id}")
@@ -385,7 +387,7 @@ class AdminController extends Controller
                             ->get()
                             ->toArray();
         log::info($purchaseHistory);
-        array_push($userInfo, $name, $availableClasses, $purchaseHistory);
+        array_push($userInfo, $name, $availableClasses, $expiredClasses, $purchaseHistory);
         return $userInfo;
     }
 
