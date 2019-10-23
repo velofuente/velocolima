@@ -202,7 +202,7 @@
                         "<td>"+element.product+"</td>"+
                         "<td>"+element.purchasedClasses+"</td>"+
                         "<td>"+element.expiration+"</td>"+
-                        "<td>"+element.price+"</td>"+
+                        "<td>$"+element.price+"</td>"+
                         "<td>"+saleType+"</td>"+
                     "</tr>"
                     //     "<li><ul>" +
