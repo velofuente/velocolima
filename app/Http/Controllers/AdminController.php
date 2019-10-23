@@ -368,6 +368,7 @@ class AdminController extends Controller
     }
 
     public function getUserInfoReports(Request $request){
+        //prueba
         log::info("entro al getUserInfoReports");
         $userInfo = [];
         // nombre del cliente, clases disponibles, historial de compras, si el historial es largo debe de tener scrolling y como se compró (mostrador o web)
