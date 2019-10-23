@@ -29,6 +29,6 @@ class BirthdayEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.birthday-free-class');
+        return $this->subject('¡Feliz cumpleaños!')->view('emails.birthday-free-class');
     }
 }
