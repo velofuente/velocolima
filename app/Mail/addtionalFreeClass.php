@@ -29,6 +29,6 @@ class addtionalFreeClass extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.addtional-free-class');
+        return $this->subject('¡No te quedes sin horas disponibles en Vèlo!')->view('emails.addtional-free-class');
     }
 }

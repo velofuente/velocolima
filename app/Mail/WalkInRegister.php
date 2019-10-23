@@ -31,6 +31,6 @@ class walkInRegister extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.walkIn-register');
+        return $this->subject('¡Completa tu registro!')->view('emails.walkIn-register');
     }
 }
