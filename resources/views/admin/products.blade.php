@@ -28,7 +28,7 @@
         </thead>
         <tbody>
             @foreach ($products as $product)
-            @if ($product->type!="Souvenir" && $product->type!="Free")
+            @if ($product->type!="Souvenir")
                 <tr style="font-size: 0.9em;">
                     {{-- <th scope="row">{{$product->id}}</th> --}}
                     <td>{{$product->id}}</td>
@@ -39,6 +39,8 @@
                     {{-- <td>{{$product->type}}</td> --}}
                     @if ($product->type == 'Deals')
                         <td>Promoción</td>
+                    @elseif ($product->type == 'Free')
+                        <td>Clase gratis</td>
                     @else
                         <td>Paquete</td>
                     @endif
