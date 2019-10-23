@@ -21,7 +21,6 @@
                 <th scope="col">Descripción</th>
                 <th scope="col">Vigencia</th>
                 <th scope="col">Tipo</th>
-                {{-- <th scope="col">Información</th> --}}
                 <th scope="col">Estatus</th>
                 <th scope="col" colspan="2" class="text-center">Acción</th>
             </tr>
@@ -465,6 +464,7 @@
                 $('#editTypeProduct').append(
                     '<option value="Deals" class="text-center">Promoción</option>',
                     '<option value="Packages" class="text-center">Paquetes</option>',
+                    '<option value="Free" class="text-center">Clase gratis</option>',
                 )
                 modal.find('.modal-body #editStatusProduct').val(status)
             }
