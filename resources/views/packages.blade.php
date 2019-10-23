@@ -24,7 +24,10 @@
 
         @foreach ($products as $product)
         {{-- Products == Deals --}}
-            @if ($product != $products{0} && $product->type == "Deals" && $product->type != "Souvenir" && $product->type != "Free" && $product->status == 1)
+            @if ($product != $products{0} && $product->type == "Deals" && $product->status == 1)
+                @php
+                    dd($product);
+                @endphp
                 {{-- {{dd($product)}} --}}
                 {{-- <div class="content-normal pickClass" style=" margin-left: 10px; min-width: 190px !important; min-height: 280px !important;" id="prod-{{$product->id}}"> --}}
                 <div class="content-normal pickClass mx-2" id="prod-{{$product->id}}">

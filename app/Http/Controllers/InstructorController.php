@@ -77,6 +77,7 @@ class InstructorController extends Controller
         $instructors = Instructor::all();
         $branches = Branch::all();
         $products = Product::all();
+        log::info($products);
 
         date_default_timezone_set('America/Mexico_City');
         // $schedules = Schedule::whereBetween('day', [now()->format('Y-m-d'), now()->modify('+7 days')])
