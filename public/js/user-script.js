@@ -132,6 +132,7 @@ $(document).ready(function() {
 
     $(document).on("click", ".cancelClass", function(e) {
         e.preventDefault();
+        var classHour = $(this).val();
         var rawId = this.id;
         var explodedId = rawId.split("-");
         if (explodedId.length > 1) {
@@ -141,43 +142,94 @@ $(document).ready(function() {
             return;
         }
         console.log(bookedClass_id);
-        cancelClass(bookedClass_id);
+        cancelClass(bookedClass_id, classHour);
     });
 });
 
-function cancelClass(bookedClass_id){
-    $.ajax({
-        url: "cancelClass",
-        method: 'POST',
-        data: {
-            _token: csrfToken,
-            id: bookedClass_id
-        },
-        beforeSend: function(){
-            $.LoadingOverlay("show");
-        },
-        success: function(result){
-            $.LoadingOverlay('hide');
-            // Swal.fire({
-            //     title: 'Clase cancelada',
-            //     text: result.message,
-            //     type: 'success',
-            //     confirmButtonText: 'Aceptar'
-            // }),
-            // window.location.replace("/user");
+function cancelClass(bookedClass_id, classHour){
+    var today = new Date();
+    var hh = today.getHours();
+    var mm = today.getMinutes();
+    var ss = today.getSeconds()
+    today = hh + ":" + mm + ":" + ss;
+    if(today>classHour){
+        console.log("tarde");
             Swal.fire({
-                title: 'Clase cancelada',
-                text: result.message,
-                type: 'success',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Aceptar'
+                title: "Cancelar Clase",
+                html: "<h6>Esta clase no es reembolsable debido a que se reservó fuera del periodo de cancelación.</h6>"+
+                "<h6>¿Estás segur@ que quieres cancelar esta clase?</h6>",
+                type: "warning",
+                showCancelButton: true,
+                // confirmButtonClass: "btn-danger",
+                confirmButtonText: "Entiendo y aún la quiero cancelar",
+                cancelButtonText: "No deseo cancelarla",
+                // closeOnConfirm: false,
+                // closeOnCancel: false
               }).then((result) => {
                 if (result.value) {
-                  window.location.replace("/user");
+                    $.ajax({
+                        url: "cancelClass",
+                        method: 'POST',
+                        data: {
+                            _token: csrfToken,
+                            id: bookedClass_id
+                        },
+                        beforeSend: function(){
+                            $.LoadingOverlay("show");
+                        },
+                        success: function(result){
+                            $.LoadingOverlay('hide');
+                            // Swal.fire({
+                            //     title: 'Clase cancelada',
+                            //     text: result.message,
+                            //     type: 'success',
+                            //     confirmButtonText: 'Aceptar'
+                            // }),
+                            // window.location.replace("/user");
+                            Swal.fire({
+                                title: 'Clase cancelada',
+                                text: result.message,
+                                type: 'success',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Aceptar'
+                              }).then((result) => {
+                                if (result.value) {
+                                  window.location.replace("/user");
+                                }
+                              })
+                        }
+                    });
+                } else {
+                  swal("Cancelado", "Clase no cancelada.", "info");
                 }
-              })
+            });
+        }else{
+            $.ajax({
+                url: "cancelClass",
+                method: 'POST',
+                data: {
+                    _token: csrfToken,
+                    id: bookedClass_id
+                },
+                beforeSend: function(){
+                    $.LoadingOverlay("show");
+                },
+                success: function(result){
+                    $.LoadingOverlay('hide');
+                    Swal.fire({
+                        title: 'Clase cancelada',
+                        text: result.message,
+                        type: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Aceptar'
+                      }).then((result) => {
+                        if (result.value) {
+                          window.location.replace("/user");
+                        }
+                      })
+                }
+            });
         }
-    })
 }
 
 function deleteUserCard(id){
