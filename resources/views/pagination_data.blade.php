@@ -19,10 +19,10 @@
 </tr>
 <script>
     var user_id = null;
-    var pagination_lastPage = "{{ $data->lastPage() }}";
-    var pagination_nextPage = "{{ $data->nextPageUrl() }}";
-    var pagination_prevPage = "{{ $data->previousPageUrl() }}";
-    var pagination_firstPage = "{{ $data->url(1) }}";
+    // var pagination_lastPage = "{{ $data->lastPage() }}";
+    // var pagination_nextPage = "{{ $data->nextPageUrl() }}";
+    // var pagination_prevPage = "{{ $data->previousPageUrl() }}";
+    // var pagination_firstPage = "{{ $data->url(1) }}";
     $(document).ready(function (){
         //getuserinfo click
         $(document).on('click', '.userRow', function(event) {
