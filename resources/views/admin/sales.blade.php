@@ -302,13 +302,7 @@
         var button = $(this).attr('id');
         if(button == 'previousButton'){
             if(pagination_prevPage){
-                $.ajax({
-                    url:pagination_prevPage,
-                    success:function(data){
-                        console.log("Cambio de página");
-                        console.log(pagination_prevPage);
-                    }
-                });
+                location.href = pagination_prevPage;
             }else{
                 Swal.fire({
                     title: 'Info',
@@ -319,13 +313,7 @@
             }
         }else if(button == 'nextButton'){
             if(pagination_nextPage){
-                $.ajax({
-                    url:pagination_nextPage,
-                    success:function(data){
-                        console.log("Cambio de página");
-                        console.log(pagination_nextPage);
-                    }
-                });
+                location.href = pagination_nextPage;
             }else{
                 Swal.fire({
                     title: 'Info',
