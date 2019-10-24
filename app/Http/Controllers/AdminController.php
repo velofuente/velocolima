@@ -155,7 +155,7 @@ class AdminController extends Controller
     public function showSales(){
         $products = Product::where('status',1)->get();
         // $users = User::where('role_id', 3)->get();
-        $data = DB::table('users')->where('role_id', 3)->orderBy('id', 'asc')->paginate(5);
+        $data = DB::table('users')->where('role_id', 3)->orderBy('id', 'asc')->paginate(10);
         log::info($data);
         foreach ($data as $client){
             $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$client->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
@@ -180,7 +180,7 @@ class AdminController extends Controller
                         ->orWhere('last_name', 'like', '%'.$query.'%')
                         // ->orWhere('last_name', 'like', '%'.$query.'%')
                         ->orderBy($sort_by, $sort_type)
-                        ->paginate(5);
+                        ->paginate(10);
             foreach ($data as $client){
                 $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$client->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
                 $bookedClasses = UserSchedule::with("schedule.instructor", "schedule.room", "schedule")->where('user_id', "{$client->id}")->where('status', 'active')->count();
@@ -205,7 +205,7 @@ class AdminController extends Controller
                         ->orWhere('last_name', 'like', '%'.$query.'%')
                         // ->orWhere('last_name', 'like', '%'.$query.'%')
                         ->orderBy($sort_by, $sort_type)
-                        ->paginate(5);
+                        ->paginate(10);
             return view('pagination_data', compact('data'))->render();
         }
     }
