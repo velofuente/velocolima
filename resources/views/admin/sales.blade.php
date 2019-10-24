@@ -300,27 +300,36 @@
     //pagination
     $('.page-item').on('click', function(){
         var button = $(this).attr('id');
+        var searchinput = $('#searchUser').val();
         if(button == 'previousButton'){
-            if(pagination_prevPage){
-                    location.href = pagination_prevPage;
+            if(searchinput){
+                location.href = pagination_firstPage;
             }else{
-                Swal.fire({
-                    title: 'Info',
-                    text: "No existen más resultados.",
-                    type: 'info',
-                    confirmButtonText: 'Ok'
-                });
+                if(pagination_prevPage){
+                        location.href = pagination_prevPage;
+                }else{
+                    Swal.fire({
+                        title: 'Info',
+                        text: "No existen más resultados.",
+                        type: 'info',
+                        confirmButtonText: 'Ok'
+                    });
+                }
             }
         }else if(button == 'nextButton'){
-            if(pagination_nextPage){
-                location.href = pagination_nextPage;
+            if(searchinput){
+                location.href = pagination_firstPage;
             }else{
-                Swal.fire({
-                    title: 'Info',
-                    text: "No existen más resultados.",
-                    type: 'info',
-                    confirmButtonText: 'Ok'
-                });
+                if(pagination_nextPage){
+                    location.href = pagination_nextPage;
+                }else{
+                    Swal.fire({
+                        title: 'Info',
+                        text: "No existen más resultados.",
+                        type: 'info',
+                        confirmButtonText: 'Ok'
+                    });
+                }
             }
         }else{
             console.log('boton no funcional');
