@@ -12,11 +12,11 @@
         <td><button class="btn btn-success btn-sm salesUser" id="salesUser-{{ $row->id }}" value="{{$row->id}}" data-toggle="modal" data-target="#addSaleUserModal">Venta</button></td>
     </tr>
 @endforeach
-{{-- <tr>
-    <td colspan="6" align="center">
+<tr>
+    <td colspan="6">
         {!! $data->links() !!}
     </td>
-</tr> --}}
+</tr>
 <script>
     var user_id = null;
     var pagination_lastPage = "{{ $data->lastPage() }}";
