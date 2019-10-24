@@ -45,11 +45,11 @@
 <input type="hidden" name="hidden_sort_type" id="hidden_sort_type" value="asc" />
 <div>
     <ul class="pagination">
-        <li class="page-item"><a class="page-link text-body" href="#">Previous</a></li>
+        <li class="page-item" id="previousButton"><a style="cursor: pointer;" class="page-link text-body">Anterior</a></li>
         {{-- <li class="page-item"><a class="page-link text-body" href="#">1</a></li>
         <li class="page-item active"><a class="page-link text-body" href="#">2</a></li>
         <li class="page-item"><a class="page-link text-body" href="#">3</a></li> --}}
-        <li class="page-item"><a class="page-link text-body" href="#">Next</a></li>
+        <li class="page-item" id="nextButton"><a style="cursor: pointer;" class="page-link text-body">Siguiente</a></li>
     </ul>
 </div>
 
@@ -296,6 +296,46 @@
         $('#id_icon').html('');
         $('#users_name_icon').html('');
     }
+
+    //pagination
+    $('.page-item').on('click', function(){
+        var button = $(this).attr('id');
+        if(button == 'previousButton'){
+            if(pagination_prevPage){
+                $.ajax({
+                    url:pagination_prevPage,
+                    success:function(data){
+                        console.log("Cambio de página");
+                    }
+                });
+            }else{
+                Swal.fire({
+                    title: 'Info',
+                    text: "No existen más resultados.",
+                    type: 'info',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        }else if(button == 'nextButton'){
+            if(pagination_nextPage){
+                $.ajax({
+                    url:pagination_nextPage,
+                    success:function(data){
+                        console.log("Cambio de página");
+                    }
+                });
+            }else{
+                Swal.fire({
+                    title: 'Info',
+                    text: "No existen más resultados.",
+                    type: 'info',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        }else{
+            console.log('boton no funcional');
+        }
+    });
 
     // On Click Register New User to Schedule
     $('#registerClientButton').on('click', function(){
