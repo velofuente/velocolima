@@ -306,6 +306,7 @@
                     url:pagination_prevPage,
                     success:function(data){
                         console.log("Cambio de página");
+                        console.log(pagination_prevPage);
                     }
                 });
             }else{
@@ -322,6 +323,7 @@
                     url:pagination_nextPage,
                     success:function(data){
                         console.log("Cambio de página");
+                        console.log(pagination_nextPage);
                     }
                 });
             }else{
