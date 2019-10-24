@@ -43,15 +43,6 @@
 <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
 <input type="hidden" name="hidden_column_name" id="hidden_column_name" value="id" />
 <input type="hidden" name="hidden_sort_type" id="hidden_sort_type" value="asc" />
-<div>
-    <ul class="pagination">
-        <li class="page-item" id="previousButton"><a style="cursor: pointer;" class="page-link text-body">Anterior</a></li>
-        {{-- <li class="page-item"><a class="page-link text-body" href="#">1</a></li>
-        <li class="page-item active"><a class="page-link text-body" href="#">2</a></li>
-        <li class="page-item"><a class="page-link text-body" href="#">3</a></li> --}}
-        <li class="page-item" id="nextButton"><a style="cursor: pointer;" class="page-link text-body">Siguiente</a></li>
-    </ul>
-</div>
 
 {{-- Packages Modal --}}
 <div class="modal fade" id="addSaleUserModal" tabindex="-1" role="dialog" aria-labelledby="addSaleUserModalLabel" aria-hidden="true">
