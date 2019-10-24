@@ -86,11 +86,10 @@
     var toDate = null;
     $(document).ready(function (){
 
+        // // Jquery UI DatePicker (Safari)
         if ( $('[type="date"]').prop('type') != 'date' ) {
-            $('[type="date"]').attr('placeholder', 'yyyy-mm-dd')
-            // Use datepicker on the date inputs
-            $("input[type=date]").datepicker({
-                dateFormat: 'yy/mm/dd',
+            $('[type="date"]').datepicker({
+                // showButtonPanel: true,
                 dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
                 dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
                 dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
@@ -100,6 +99,7 @@
                 changeMonth: true,
                 changeYear: true,
                 yearRange: '1920:2019',
+                dateFormat: 'yy-mm-dd',
                 onSelect: function(dateText, inst) {
                     $(inst).val(dateText); // Write the value in the input
                 }

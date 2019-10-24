@@ -213,7 +213,7 @@ class BookClassController extends Controller
                     $requestedClass->save();
                     return response()->json([
                         'status' => 'OK',
-                        'message' => "Clase cancelada con éxito, esta clase no es reembolsable.",
+                        'message' => "Clase cancelada con éxito.",
                     ]);
                 }
             }

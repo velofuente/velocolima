@@ -258,7 +258,7 @@
                                                                                 @if($bookedClass->status == 'active')
                                                                                     <td>Activo</td>
                                                                                 @endif
-                                                                                <td><button type="button" id="cancelClass-{{$bookedClass->id}}" class="btn btn-danger cancelClass">Cancelar</button></td>
+                                                                                <td><button type="button" id="cancelClass-{{$bookedClass->id}}" class="btn btn-danger cancelClass" value="$bookedClass->schedule->hour">Cancelar</button></td>
                                                                             </tr>
                                                                         @endif
                                                                     {{-- @endif --}}
