@@ -156,8 +156,7 @@ function cancelClass(bookedClass_id, classHour){
         console.log("tarde");
             Swal.fire({
                 title: "Cancelar Clase",
-                html: "<h6>Esta clase no es reembolsable debido a que se reservó fuera del periodo de cancelación.</h6>"+
-                "<h6>¿Estás segur@ que quieres cancelar esta clase?</h6>",
+                html: "<h6>Esta clase no es reembolsable debido a que se reservó fuera del periodo de cancelación.</h6>",
                 type: "warning",
                 showCancelButton: true,
                 cancelButtonText: "Lo he pensado mejor y no la cancelaré",
