@@ -88,15 +88,15 @@
                     <div class="row">
                         <div class="col">
                             <label for="day">Día: </label>
-                            <input class="form-control" min="1900-01-01" max="2100-12-31" type="date" name="day" id="addDaySchedule">
+                            <input class="form-control inputAdd" min="1900-01-01" max="2100-12-31" type="date" name="day" id="addDaySchedule">
                         </div>
                         <div class="col">
                             <label for="hour">Hora:</label>
-                            <input class="form-control" type="time" name="hour" id="addHourSchedule">
+                            <input class="form-control inputAdd" type="time" name="hour" id="addHourSchedule">
                         </div>
                         <div class="col">
                             <label for="instructorInput">Instructor:</label>
-                            <select class="form-control" name="instructorInput" id="addInstructorSchedule">
+                            <select class="form-control inputAdd" name="instructorInput" id="addInstructorSchedule">
                                 @foreach ($instructors as $instructor)
                                     <option value="{{$instructor->id}}" class="text-center">{{$instructor->name}}</option>
                                 @endforeach
@@ -104,7 +104,7 @@
                         </div>
                         <div class="col">
                             <label for="branchInput">Sucursal: </label>
-                            <select class="form-control" name="branchInput" id="addBranchSchedule">
+                            <select class="form-control inputAdd" name="branchInput" id="addBranchSchedule">
                                 @foreach ($branches as $branch)
                                     <option value="{{$branch->id}}" class="text-center" >{{$branch->name}}</option>
                                 @endforeach
@@ -114,7 +114,7 @@
                     <div class="row">
                         <div class="col-6 mx-auto text-center mt-3">
                             <label for="descriptionInput">Descripción:</label>
-                            <input type="text" class="form-control" name="descriptionInput" id="addDescriptionSchedule" maxlength="27">
+                            <input type="text" class="form-control inputAdd" name="descriptionInput" id="addDescriptionSchedule" maxlength="27">
                             <label for="descriptionInput" class="font-weight-light" style="font-size: 14px">(máximo 27 caracteres)</label>
                         </div>
                     </div>
@@ -289,6 +289,9 @@
                         $('#addScheduleModal').modal('hide');
                         $('#addScheduleButton').prop('disabled', false);
                         $('#buttonNextClasses').click();
+                        $('input[type="text"], textarea').val('');
+                        $('input[type="date"], textarea').val('mm/dd/yyyy');
+                        $('input[type="time"], textarea').val('--:-- --');
                         Swal.fire({
                             title: 'Horario creado con éxito',
                             text: result.message,

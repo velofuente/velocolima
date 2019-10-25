@@ -160,11 +160,11 @@ function cancelClass(bookedClass_id, classHour){
                 "<h6>¿Estás segur@ que quieres cancelar esta clase?</h6>",
                 type: "warning",
                 showCancelButton: true,
-                // confirmButtonClass: "btn-danger",
+                cancelButtonText: "Lo he pensado mejor y no la cancelaré",
                 confirmButtonText: "Entiendo y aún la quiero cancelar",
-                cancelButtonText: "No deseo cancelarla",
-                // closeOnConfirm: false,
-                // closeOnCancel: false
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#4bb543',
+                reverseButtons: true
               }).then((result) => {
                 if (result.value) {
                     $.ajax({
