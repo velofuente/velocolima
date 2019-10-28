@@ -64,6 +64,7 @@
         var opSandbox = "{{ env('OPENPAY_SANDBOX') }}";
         var instructor = "{{ $instructor->name }}";
         var scheduleHour = "{{ $schedules->hour }}";
+        var scheduleDay = "{{ $schedules->day }}";
         var cancelation_period = "{{ $schedules->branch->cancelation_period }}";
         var scheduleHourBeforeCancelation = "{{ $scheduleHourBeforeCancelation }}";
     </script>
