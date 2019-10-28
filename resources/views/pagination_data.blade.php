@@ -1,14 +1,14 @@
 @foreach($data as $row)
-    <tr class='userRow' id='{{$row->id}}'>
-        <td>{{ $row->id}}</td>
-        <td>{{ $row->name }}</td>
-        <td>{{ $row->last_name }}</td>
-        <td>{{ $row->email }}</td>
-        <td>{{ $row->birth_date }}</td>
-        <td>{{ $row->phone }}</td>
-        <td>{{ $row->shoe_size }}</td>
-        <td>{{ ($row->availableClasses->clases) ? $row->availableClasses->clases : 'N/D' }}</td>
-        <td>{{ ($row->bookedClasses) ? $row->bookedClasses : 'N/D' }}</td>
+    <tr>
+        <td class='userRow' id='{{$row->id}}'>{{ $row->id}}</td>
+        <td class='userRow' id='{{$row->id}}'>{{ $row->name }}</td>
+        <td class='userRow' id='{{$row->id}}'>{{ $row->last_name }}</td>
+        <td class='userRow' id='{{$row->id}}'>{{ $row->email }}</td>
+        <td class='userRow' id='{{$row->id}}'>{{ $row->birth_date }}</td>
+        <td class='userRow' id='{{$row->id}}'>{{ $row->phone }}</td>
+        <td class='userRow' id='{{$row->id}}'>{{ $row->shoe_size }}</td>
+        <td class='userRow' id='{{$row->id}}'>{{ ($row->availableClasses->clases) ? $row->availableClasses->clases : 'N/D' }}</td>
+        <td class='userRow' id='{{$row->id}}'>{{ ($row->bookedClasses) ? $row->bookedClasses : 'N/D' }}</td>
         <td><button class="btn btn-success btn-sm salesUser" id="salesUser-{{ $row->id }}" value="{{$row->id}}" data-toggle="modal" data-target="#addSaleUserModal">Venta</button></td>
     </tr>
 @endforeach
