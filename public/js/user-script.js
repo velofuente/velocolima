@@ -161,7 +161,7 @@ function cancelClass(bookedClass_id, classHour){
     var month = today.getMonth();
     var year = today.getFullYear();
     today = hh + ":" + mm + ":" + ss;
-    var todayDay = year + "-" + month + "-" + day;
+    var todayDay = year + "-" + (month >= 10 ? month : "0"+month) + "-" + (day >= 10 ? day : "0"+day);
     if(todayDay==classDay){
         if(today>classHour){
             console.log("tarde");
