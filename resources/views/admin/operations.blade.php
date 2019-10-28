@@ -34,7 +34,7 @@
                         <a class="dropdown-item scheduleList" href="#" id="{{$schedule->id}}">
 
                             {{-- <span class="col-4 text-center">{{ date('l', strtotime($schedule->day)) }}</span> --}}
-                            <span class="col-4">{{strftime("%a", strtotime($schedule->day))}}</span>
+                            <span class="col-4">{{ iconv('ISO-8859-1','UTF-8', strftime("%a", strtotime($schedule->day)))}}</span>
                             <span class="col-4">{{date('g:i A', strtotime($schedule->hour))}} </span>
                             <span class="col-4">{{$schedule->instructor->name}}</span>
                             {{-- <img width="60%" height="60%" src="{{ asset('img/instructors/' . $schedule->instructor->name . '-Head.png') }}" alt=""> --}}
