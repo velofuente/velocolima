@@ -25,12 +25,12 @@
     // var pagination_firstPage = "{{ $data->url(1) }}";
     $(document).ready(function (){
         //getuserinfo click
-        $(document).on('click', '.userRow', function(event) {
-                console.log("clicked a row");
-                var user_id = this.id;
-                console.log(user_id);
-                getUserInfoReports(user_id);
-            });
+        $('.userRow').on('click', function(event) {
+            console.log("clicked a row");
+            var user_id = this.id;
+            console.log(user_id);
+            getUserInfoReports(user_id);
+        });
     });
 </script>
 <script>
