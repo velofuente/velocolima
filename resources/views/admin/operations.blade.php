@@ -647,8 +647,8 @@
                 saleType = "";
                 Swal.fire({
                 title: result[0],
-                html: "<h6>Clases disponibles: " + result[1] + "</h6>"  +
-                "<h6>Clases expiradas: " + result[2] + "</h6>"  +
+                html: "<h6>Clases disponibles: " + (result[1] == null ? 0 : result[1]) + "</h6>"  +
+                "<h6>Clases expiradas: " + (result[2] == null ? 0 : result[2]) + "</h6>"  +
                 purchases_table,
                 type: 'info',
                 confirmButtonText: 'Aceptar',

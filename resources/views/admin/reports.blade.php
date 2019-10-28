@@ -42,8 +42,7 @@
         <thead style="font-size: 1em;">
             <tr style="font-size: 1em;">
                 <th scope="col">ID</th>
-                <th scope="col">Fecha compra</th>
-                <th scope="col">Hora compra</th>
+                <th scope="col">Fecha y hora de compra</th>
                 <th scope="col">Cliente</th>
                 <th scope="col">Correo</th>
                 <th scope="col">Producto</th>
@@ -56,8 +55,8 @@
                 <tr style="font-size: 0.9em;">
                     {{-- <th scope="row">{{$product->id}}</th> --}}
                     <td>{{$sale->id}}</td>
-                    <td>{{date('d-M-Y', strtotime($sale->purchase->created_at))}}</td>
-                    <td>{{date('g:i:s A', strtotime($sale->purchase->created_at))}}</td>
+                    <td>{{$sale->purchase->created_at}}</td>
+                    {{-- <td>{{date('g:i:s A', strtotime($sale->purchase->created_at))}}</td> --}}
                     <td>{{$sale->purchase->client->name}} {{$sale->purchase->client->last_name}}</td>
                     <td>{{$sale->purchase->client->email}}</td>
                     <td>{{$sale->purchase->productWithTrashed->description}}</td>
@@ -83,25 +82,6 @@
     var toDate = null;
     $(document).ready(function (){
 
-        // // Jquery UI DatePicker (Safari)
-        // if ( $('[type="date"]').prop('type') != 'date' ) {
-        //     $('[type="date"]').datepicker({
-        //         // showButtonPanel: true,
-        //         dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
-        //         dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
-        //         dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
-        //         monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-        //         monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-        //         currentText: "Hoy",
-        //         changeMonth: true,
-        //         changeYear: true,
-        //         yearRange: '1920:2019',
-        //         dateFormat: 'yy-mm-dd',
-        //         onSelect: function(dateText, inst) {
-        //             $(inst).val(dateText); // Write the value in the input
-        //         }
-        //     });
-        // }
         $('#fromDate, #toDate').datepicker({
             // showButtonPanel: true,
             dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
@@ -160,7 +140,7 @@
                         "<tr class='userRow' id='"+value.user_id+"' style='font-size: 0.9em;''>"+
                             "<td>"+value.id+"</td>"+
                             "<td>"+value.date+"</td>"+
-                            "<td>"+value.date+"</td>"+
+                            // "<td>"+value.date+"</td>"+
                             "<td>"+value.name+" "+value.last_name+"</td>"+
                             "<td>"+value.email+"</td>"+
                             "<td>"+value.product+"</td>"+
@@ -230,8 +210,8 @@
                 saleType = "";
                 Swal.fire({
                 title: result[0],
-                html: "<h6>Clases disponibles: " + result[1] + "</h6>"  +
-                "<h6>Clases expiradas: " + result[2] + "</h6>"  +
+                html: "<h6>Clases disponibles: " + (result[1] == null ? 0 : result[1]) + "</h6>"  +
+                "<h6>Clases expiradas: " + (result[2] == null ? 0 : result[2]) + "</h6>"  +
                 purchases_table,
                 type: 'info',
                 confirmButtonText: 'Aceptar',
