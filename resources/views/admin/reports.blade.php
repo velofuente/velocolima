@@ -7,37 +7,34 @@
 {{-- Table with the Info --}}
 <div class="row text-center mx-0 py-4">
     <h3 class="mr-4">Reportes</h3>
-        {{-- <select id="selectReport">
-            <option value="hoy" selected="selected">Hoy</option>
-            <option value="semana">Esta semana</option>
-            <option value="mes">Este mes</option>
-        </select> --}}
-    <button class="btn btn-success btn-sm mx-4 justify-content-right" id="searchButton">Buscar</button>
 </div>
-    <div class="form-group row text-center ml-1">
-        <div class="col-xs-3">
-            <div class="input-group">
-                <label for="fromDate" class="mr-sm-2">De:</label>
-                <input id="fromDate" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('fromDate') ? ' is-invalid' : '' }}" name="fromDate" value="{{ old('fromDate') }}" required >
-                @if ($errors->has('fromDate'))
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('fromDate') }}</strong>
-                </span>
-                @endif
-            </div>
-        </div>
-        <div class="col-xs-3 ml-1">
-            <div class="input-group">
-                <label for="toDate" class="mr-sm-2">Al:</label>
-                <input id="toDate" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('toDate') ? ' is-invalid' : '' }}" name="toDate" value="{{ old('toDate') }}" required >
-                @if ($errors->has('toDate'))
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('toDate') }}</strong>
-                </span>
-                @endif
-            </div>
+<div class="form-group row text-center ml-1">
+    <div class="col-xs-3">
+        <div class="input-group">
+            <label for="fromDate" class="mr-sm-2">De:</label>
+            {{-- <input id="fromDate" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('fromDate') ? ' is-invalid' : '' }}" name="fromDate" value="{{ old('fromDate') }}" required > --}}
+            <input id="fromDate"  type="text" class="form-control{{ $errors->has('fromDate') ? ' is-invalid' : '' }}" name="fromDate" value="{{ old('fromDate') }}" placeholder="mm/dd/yyyy" required >
+            @if ($errors->has('fromDate'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('fromDate') }}</strong>
+            </span>
+            @endif
         </div>
     </div>
+    <div class="col-xs-3 ml-1">
+        <div class="input-group">
+            <label for="toDate" class="mr-sm-2">Al:</label>
+            {{-- <input id="toDate" min="1900-01-01" max="2100-12-31" type="date" class="form-control{{ $errors->has('toDate') ? ' is-invalid' : '' }}" name="toDate" value="{{ old('toDate') }}" required > --}}
+            <input id="toDate"  type="text" class="form-control{{ $errors->has('toDate') ? ' is-invalid' : '' }}" name="toDate" value="{{ old('Date') }}" placeholder="mm/dd/yyyy" required >
+            @if ($errors->has('toDate'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('toDate') }}</strong>
+            </span>
+            @endif
+        </div>
+    </div>
+    <button class="btn btn-success btn-sm mx-4 justify-content-right" id="searchButton">Buscar</button>
+</div>
 
 {{-- Table  --}}
 {{-- @if (count($sales) > 0) --}}
@@ -87,24 +84,40 @@
     $(document).ready(function (){
 
         // // Jquery UI DatePicker (Safari)
-        if ( $('[type="date"]').prop('type') != 'date' ) {
-            $('[type="date"]').datepicker({
-                // showButtonPanel: true,
-                dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
-                dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
-                dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
-                monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-                monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-                currentText: "Hoy",
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '1920:2019',
-                dateFormat: 'yy-mm-dd',
-                onSelect: function(dateText, inst) {
-                    $(inst).val(dateText); // Write the value in the input
-                }
-            });
-        }
+        // if ( $('[type="date"]').prop('type') != 'date' ) {
+        //     $('[type="date"]').datepicker({
+        //         // showButtonPanel: true,
+        //         dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+        //         dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+        //         dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+        //         monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        //         monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+        //         currentText: "Hoy",
+        //         changeMonth: true,
+        //         changeYear: true,
+        //         yearRange: '1920:2019',
+        //         dateFormat: 'yy-mm-dd',
+        //         onSelect: function(dateText, inst) {
+        //             $(inst).val(dateText); // Write the value in the input
+        //         }
+        //     });
+        // }
+        $('#fromDate, #toDate').datepicker({
+            // showButtonPanel: true,
+            dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+            dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+            dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+            monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+            monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+            currentText: "Hoy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '1920:2019',
+            dateFormat: 'yy-mm-dd',
+            onSelect: function(dateText, inst) {
+                $(inst).val(dateText); // Write the value in the input
+            }
+        });
 
         // $('#selectReport').change(function() {
         //     getReports($(this).val());
