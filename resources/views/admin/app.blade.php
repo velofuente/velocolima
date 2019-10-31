@@ -37,6 +37,9 @@
 <body>
 
     <div class="mx-0 px-0">
+        <div class="font-img" style="width: 100%;margin: 0px auto;margin-left: 400px;position: fixed;height: 100%;opacity: 0.2;">
+                <img src="/img/iconos/LOGO.png" style="width: 70%;margin: 0px auto;"> 
+            </div>
         {{-- SideBar Partial Display Version --}}
         <div class="col-6 mx-0 px-0 leftSpan" style="z-index: 1000">
             <div class="nav-side-menu">
@@ -153,6 +156,7 @@
         </div>
         {{-- Where info will be displayed --}}
         <div class="col-6 mx-0 px-0 rightSpan" style="width: 90em;">
+        
             @yield('content')
         </div>
     </div>

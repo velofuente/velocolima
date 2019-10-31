@@ -82,7 +82,8 @@ class MailSendingController extends Controller
                 'status' => 'OK',
                 'message' => "Informacion enviada con éxito!",
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+            log::info($e->getMessage());
             return response()->json([
                 'status' => 'ERROR',
                 'message' => "Error". $e->getMessage()
