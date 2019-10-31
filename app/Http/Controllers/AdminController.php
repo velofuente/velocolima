@@ -173,13 +173,36 @@ class AdminController extends Controller
         {
             $sort_by = $request->get('sortby');
             $sort_type = $request->get('sorttype');
-                $query = $request->get('query');
-                $query = str_replace(" ", "%", $query);
+            $queryN = $request->get('query');
+            $queryN = explode(" ", $queryN);
             $data = DB::table('users')
-                        ->where('name', 'like', '%'.$query.'%')
-                        ->orWhere('last_name', 'like', '%'.$query.'%')
+                    ->where(function($query) use ($queryN) {
+                            //verificar si viene por correo
+                            $query->where(function($query) use ($queryN){
+                                $query->where('name', 'like', '%'.$queryN[0].'%')->orWhere('email', 'like', '%'.$queryN[0].'%');
+                            });
+                            /*
+                            if(false === strpos($queryN[0], "@")){
+                                $query->where('name', 'like', '%'.$queryN[0].'%');
+                            }else{
+                                $query->orWhere('email', 'like', '%'.$queryN[0].'%');
+                            }*/
+                            if(count($queryN) >= 2){
+                                if(count($queryN) == 3){
+                                    $query->where(function($query) use ($queryN) {
+                                        $query->where('last_name', 'like', '%'.$queryN[1].' '.$queryN[2].'%');
+                                    });
+                                }else{
+                                    $query->where(function($query) use ($queryN) {
+                                        $query->where('last_name', 'like', '%'.$queryN[1].'%');
+                                    });
+                                }
+                            }
+                        })
+                       /* ->where('name', 'like', '%'.$query.'%')
+                        ->orWhere('last_name', 'like', '%'.$query.'%')*/
                         // ->orWhere('last_name', 'like', '%'.$query.'%')
-                        ->orderBy($sort_by, $sort_type)
+                        ->orderBy('last_name', 'asc')
                         ->paginate(10);
             foreach ($data as $client){
                 $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$client->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
