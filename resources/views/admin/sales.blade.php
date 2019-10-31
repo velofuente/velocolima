@@ -354,6 +354,8 @@
 
     // Fetch Data from Query
     function fetch_data(page, sort_type, sort_by, query){
+        console.log(sort_by);
+        console.log(query);
         $.ajax({
             url:"/admin/sales/fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query,
             success:function(data){

@@ -17,6 +17,10 @@ use App\Http\Controllers\BookClassController;
 |
 */
 
+Route::get('/emailTest', function () {
+    return view('emails.birthday-free-class');
+});
+
 Route::get('prueba', function () {
     return view('prueba');
 });
