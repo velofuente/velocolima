@@ -7,10 +7,11 @@
 </head>
 <body >
     <center>
-        <table width="50%" border="0" cellpadding="0" cellspacing="0" bgcolor="#7d7c7a">
+        <table width="70%" border="0" cellpadding="0" cellspacing="0" bgcolor="black">
             <tr>
                 <td align="center" valign="top">
-                    <img src="{{URL::asset('/img/birth_balloon.png')}}" height="200" width="400">
+                    <br><br>
+                    <img src="{{env('APP_URL')}}/img/birth_balloon.png" height="200" width="400">
                 </td>
             </tr>
             <tr>
@@ -23,7 +24,8 @@
             </tr>
             <tr>
                 <td align="center" valign="bottom">
-                    <img src="{{URL::asset('/img/iconos/LOGO.png')}}" height="150" width="300"> 
+                    <img src="{{env('APP_URL')}}/img/iconos/LOGO.png" height="150" width="300"> 
+                    <br><br><br><br>
                 </td>
             </tr>
         </table>
