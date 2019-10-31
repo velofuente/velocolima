@@ -16,7 +16,7 @@
             </tr>
             <tr>
                 <td align="center" valign="top">
-                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:white;font-size:19px;font-weight:bold;margin-top:0;text-align:center">¡Feliz cumpleaños !</h1>
+                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:white;font-size:19px;font-weight:bold;margin-top:0;text-align:center">¡Feliz cumpleaños {{ $name }}!</h1>
                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:white;font-size:16px;line-height:1.5em;margin-top:0;text-align:center">Queremos festejar contigo, por eso te regalamos una clase gratis.</p>
                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:white;font-size:16px;line-height:1.5em;margin-top:0;text-align:center">Podrás hacerla válida antes de que transcurran 48 horas.</p>
                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:white;font-size:16px;line-height:1.5em;margin-top:0;text-align:center">Saludos de parte del equipo de Vèlo.</p>

@@ -140,6 +140,7 @@ $(document).ready(function() {
             var bookedClass_id = explodedId[1];
         } else {
             console.log("Malformed ID")
+        }
         if (explodedDate.length > 1) {
             var classHour = explodedDate[0];
             var classDay = explodedDate[1];
@@ -152,7 +153,7 @@ $(document).ready(function() {
     });
 });
 
-function cancelClass(bookedClass_id, classHour){
+function cancelClass(bookedClass_id, classHour, classDay){
     var today = new Date();
     var hh = today.getHours();
     var mm = today.getMinutes();
