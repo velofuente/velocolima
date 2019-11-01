@@ -162,10 +162,26 @@ function cancelClass(bookedClass_id, classHour, classDay){
     var month = today.getMonth();
     var year = today.getFullYear();
     today = hh + ":" + mm + ":" + ss;
-    var todayDay = year + "-" + (month >= 10 ? month : "0"+month) + "-" + (day >= 10 ? day : "0"+day);
+    var monthnumber = new Array();
+        monthnumber[0] = 1;
+        monthnumber[1] = 2;
+        monthnumber[2] = 3;
+        monthnumber[3] = 4;
+        monthnumber[4] = 5;
+        monthnumber[5] = 6;
+        monthnumber[6] = 7;
+        monthnumber[7] = 8;
+        monthnumber[8] = 9;
+        monthnumber[9] = 10;
+        monthnumber[10] = 11;
+        monthnumber[11] = 12;
+
+    var todayDay = year + "-" + (monthnumber[month] >= 10 ? monthnumber[month] : "0"+monthnumber[month]) + "-" + (day >= 10 ? day : "0"+day);
     if(todayDay==classDay){
-        if(today>classHour){
-            console.log("tarde");
+        dt1 = parseInt(new Date(todayDay+" "+today).getTime()/1000);
+        dt2 = parseInt(new Date(classDay+" "+classHour).getTime()/1000);
+        var timeDiff = (dt2 - dt1)/3600;  // will give difference in hrs
+        if(timeDiff<=2){
                 Swal.fire({
                     title: "Cancelar Clase",
                     html: "<h6>Esta clase no es reembolsable debido a que se reservó fuera del periodo de cancelación.</h6>",
@@ -327,3 +343,12 @@ function deleteUserCard(id){
         }
     })
 }
+
+function diff_hours(dt2, dt1) 
+ {
+
+  var diff =(dt2.getTime() - dt1.getTime()) / 1000;
+  diff /= (60 * 60);
+  return Math.abs(Math.round(diff));
+  
+ }
