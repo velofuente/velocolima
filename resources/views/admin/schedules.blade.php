@@ -92,7 +92,7 @@
                         </div>
                         <div class="col">
                             <label for="hour">Hora:</label>
-                            <input class="form-control inputAdd" type="time" name="hour" id="addHourSchedule">
+                            <input class="form-control inputAdd" type="text" name="hour" id="addHourSchedule" placeholder="--:--">
                         </div>
                         <div class="col">
                             <label for="instructorInput">Instructor:</label>

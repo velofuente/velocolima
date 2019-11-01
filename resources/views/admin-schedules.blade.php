@@ -271,7 +271,7 @@
         }
 
         if ( $('[type="time"]').prop('type') != 'time' ) {
-            $('[type="time"]').attr('placeholder', '23:00')
+            $('[type="time"]').attr('placeholder', '--:--')
         }
 
         $('#addScheduleButton').on('click', function(event) {
