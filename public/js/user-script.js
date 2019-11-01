@@ -183,8 +183,8 @@ function cancelClass(bookedClass_id, classHour, classDay){
         var timeDiff = (dt2 - dt1)/3600;  // will give difference in hrs
         if(timeDiff<=2){
                 Swal.fire({
-                    title: "Cancelar Clase",
-                    html: "<h6>Esta clase no es reembolsable debido a que se reservó fuera del periodo de cancelación.</h6>",
+                    title: "Cancelación de clase",
+                    html: "<h6>Esta clase no es reembolsable debido a que está fuera del periodo de cancelación.</h6>",
                     type: "warning",
                     showCancelButton: true,
                     cancelButtonText: "Lo he pensado mejor y no la cancelaré",

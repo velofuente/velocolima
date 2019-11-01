@@ -40,22 +40,24 @@ class BirthdayEmail extends Command
      */
     public function handle()
     {
-        // $user = User::where('email','pjimenez0@ucol.mx');
-        $name = 'Pablo';
-        $email = 'antonio_alcaraz@ucol.mx';
-        // $birthdayUsers = User::where('birth_date','=', Carbon::today()->format('Y-m-d'))->get();
-        // foreach($birthdayUsers as $user){
-        //     DB::beginTransaction();
-        //     $product = Product::where('description', "Cumpleaños")->first();
-        //     $purchase = Purchase::create([
-        //         'product_id' => $product->id,
-        //         'user_id' => $user->id,
-        //         'n_classes' => $product->n_classes,
-        //         'expiration_days' => $product->expiration_days,
-        //         // 'status' => 0,
-        //         ]);
+        /*$user = User::where('email','pjimenez0@ucol.mx');
+        $name = $user->name;
+        $email = $user->email;*/
+        $birthdayUsers = User::where('birth_date','=', Carbon::today()->format('Y-m-d'))->get();
+        foreach($birthdayUsers as $user){
+            DB::beginTransaction();
+            $name = $user->name;
+            $email = $user->email;
+            $product = Product::where('id', 11)->first();
+            $purchase = Purchase::create([
+                'product_id' => $product->id,
+                'user_id' => $user->id,
+                'n_classes' => $product->n_classes,
+                'expiration_days' => $product->expiration_days,
+                'status' => 0,
+            ]);
             app('App\Http\Controllers\MailSendingController')->birthdayEmail($email, $name);
-        //     DB::commit();
-        // }
+            DB::commit();
+        }
     }
 }
