@@ -197,9 +197,11 @@ class BookClassController extends Controller
         log::info($schedule);
         $branch = Branch::find($schedule->branch_id);
         $cancelationPeriod = $branch->cancelation_period;
-        $ClasshourLimit = Schedule::select('hour')->where('id', $requestedClass->schedule_id)->first();
+        //verificar el horario que agrego el admin para las clases  cancelables
+        $ClasshourLimit = Schedule::select('day', 'hour')->where('id', $requestedClass->schedule_id)->first();
         $purchase = Purchase::find($requestedClass->purchase_id);
         if($requestedClass->status == 'cancelled'){
+            log::info("B445");
             return response()->json([
                 'status' => 'OK',
                 'message' => 'Clase cancelada con éxito.',
@@ -207,7 +209,11 @@ class BookClassController extends Controller
         }
         if($requestedClass->status=='active'||$requestedClass->status!='active'){
             if($ClasshourLimit != null){
-                if(Carbon::now()->format('H-i-s') > Carbon::parse($ClasshourLimit->hour)->subHours($cancelationPeriod)->format('H-i-s')){
+                $date = Carbon::parse($ClasshourLimit->day.' '.$ClasshourLimit->hour);
+                $now = Carbon::now();
+                $hours = $now->diffInHours($date);
+                //verificar si la clase aún esta disponible antes de las n horas si es asi cancelarla y regresarle la clase
+                if($hours <= $cancelationPeriod){
                     $requestedClass->status = 'cancelled';
                     $requestedClass->changedSit = 0;
                     $requestedClass->save();
@@ -222,6 +228,7 @@ class BookClassController extends Controller
             $requestedClass->save();
             $purchase->n_classes ++;
             $purchase->save();
+            log::info("B446");
             return response()->json([
                 'status' => 'OK',
                 'message' => "Clase cancelada con éxito, se te reembolsará esta clase.",
