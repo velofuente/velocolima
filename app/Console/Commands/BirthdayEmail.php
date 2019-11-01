@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\{User,Purchase,Product};
 use Carbon\Carbon;
-use DB;
+use DB, Log;
 
 class BirthdayEmail extends Command
 {
@@ -43,7 +43,7 @@ class BirthdayEmail extends Command
         /*$user = User::where('email','pjimenez0@ucol.mx');
         $name = $user->name;
         $email = $user->email;*/
-        $birthdayUsers = User::where('birth_date','=', Carbon::today()->format('Y-m-d'))->get();
+        $birthdayUsers = User::where('birth_date','like', '%'.Carbon::today()->format('m-d').'%')->get();
         foreach($birthdayUsers as $user){
             DB::beginTransaction();
             $name = $user->name;
