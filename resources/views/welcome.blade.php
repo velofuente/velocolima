@@ -16,6 +16,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+@if(!Auth::check())
 <script>
   $(document).ready(function() {
     Swal.fire({
@@ -35,4 +36,5 @@
     });
   })
 </script>
+@endif
 @endsection
