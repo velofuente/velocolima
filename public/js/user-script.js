@@ -161,7 +161,7 @@ function cancelClass(bookedClass_id, classHour, classDay){
     var day = today.getDate();
     var month = today.getMonth();
     var year = today.getFullYear();
-    today = hh + ":" + mm + ":" + ss;
+    today = (hh > 10 ) ? hh : '0'+hh + ":" + mm + ":" + ss;
     var monthnumber = new Array();
         monthnumber[0] = 1;
         monthnumber[1] = 2;
@@ -178,8 +178,8 @@ function cancelClass(bookedClass_id, classHour, classDay){
 
     var todayDay = year + "-" + (monthnumber[month] >= 10 ? monthnumber[month] : "0"+monthnumber[month]) + "-" + (day >= 10 ? day : "0"+day);
     if(todayDay==classDay){
-        dt1 = parseInt(new Date(todayDay+" "+today).getTime()/1000);
-        dt2 = parseInt(new Date(classDay+" "+classHour).getTime()/1000);
+        dt1 = parseInt(new Date(todayDay+"T"+today).getTime()/1000);
+        dt2 = parseInt(new Date(classDay+"T"+classHour).getTime()/1000);
         var timeDiff = (dt2 - dt1)/3600;  // will give difference in hrs
         if(timeDiff<=2){
                 Swal.fire({
