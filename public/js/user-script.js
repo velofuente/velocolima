@@ -161,7 +161,10 @@ function cancelClass(bookedClass_id, classHour, classDay){
     var day = today.getDate();
     var month = today.getMonth();
     var year = today.getFullYear();
-    today = (hh > 10 ) ? hh : '0'+hh + ":" + mm + ":" + ss;
+    hh = (hh >= 10 ) ? hh : '0'+hh;
+    mm =  (mm >= 10 ) ? mm : '0'+mm;
+    ss =  (ss >= 10 ) ? ss : '0'+ss;
+    today = hh + ":" + mm + ":" + ss;
     var monthnumber = new Array();
         monthnumber[0] = 1;
         monthnumber[1] = 2;
