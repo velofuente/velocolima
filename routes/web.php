@@ -5,7 +5,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PurchaseController;
 use Monolog\Handler\RotatingFileHandler;
 use App\Http\Controllers\BookClassController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,6 +25,9 @@ Route::get('prueba', function () {
 });
 
 Route::get('/', function () {
+    if(Auth::check()){
+        return redirect('/user');
+    }
     return view('welcome');
 });
 
