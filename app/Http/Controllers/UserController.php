@@ -120,7 +120,7 @@ class UserController extends Controller
             'role_id' => 3,
         ]);
         $user->save();
-        $product = DB::table('products')->where('type', 'Deals')->first();
+        $product = DB::table('products')->where('id', 1)->first();
         $deal = new Purchase([
             'product_id' => $product->id,
             'user_id' => $user->id,

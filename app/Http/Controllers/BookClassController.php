@@ -213,7 +213,7 @@ class BookClassController extends Controller
                 $now = Carbon::now();
                 $hours = $now->diffInHours($date);
                 //verificar si la clase aún esta disponible antes de las n horas si es asi cancelarla y regresarle la clase
-                if($hours <= $cancelationPeriod){
+                if($hours < $cancelationPeriod){
                     $requestedClass->status = 'cancelled';
                     $requestedClass->changedSit = 0;
                     $requestedClass->save();
@@ -365,5 +365,27 @@ class BookClassController extends Controller
             'status' => 'OK',
             'message' => "Usuario agregado con éxito.",
         ]);
+    }
+    public function checkCancelLimit(Request $request){
+
+        try {
+            $requestedClass = UserSchedule::find($request->id);
+            //obtiene el periodo de cancelacion de la ubicación
+            $schedule = Schedule::find($requestedClass->schedule_id);
+            $branch = Branch::find($schedule->branch_id);
+            $cancelationPeriod = $branch->cancelation_period;
+
+            return response()->json([
+                'status' => 'OK',
+                'hour' => $cancelationPeriod,
+            ]);
+        } catch (Exception $e) {
+            log::error("BookClassController@checkCancelLimit ".'line-'.$e->getLine().'  message'.$e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'hour' =>2,
+            ]);
+        }
+        
     }
 }

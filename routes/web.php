@@ -156,6 +156,7 @@ Route::group(['middleware' => ['auth','user.access']], function(){
     Route::post('updateData', 'UserController@updateData');
     Route::post('book', 'BookClassController@book');
     Route::post('cancelClass', 'BookClassController@cancelClass');
+    Route::post('checkCancelLimit', 'BookClassController@checkCancelLimit');
     Route::post('claimClass', 'BookClassController@claimClass');
     //OPENPAY
     //Route::get('user', 'UserController@getAuthenticatedUser');
