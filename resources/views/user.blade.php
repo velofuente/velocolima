@@ -738,7 +738,7 @@
 @endsection
 
 @section('extraScripts')
-    <script src="{{ asset('/js/user-script.js') }}"></script>
+    <script src="{{ asset('/js/user-script.js') }}?{{ time() }}"></script>
     <script>var crfsToken = '{{ csrf_token() }}';</script>
     <script>
         $(document).ready(function() {
