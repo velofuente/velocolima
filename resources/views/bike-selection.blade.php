@@ -69,5 +69,5 @@
         var scheduleHourBeforeCancelation = "{{ $scheduleHourBeforeCancelation }}";
     </script>
     <script src="{{asset('js/openpay-script.js')}}"></script>
-    <script src="{{asset('js/bike-selection-script.js')}}"></script>
+    <script src="{{asset('js/bike-selection-script.js')}}?{{ time() }}"></script>
 @endsection

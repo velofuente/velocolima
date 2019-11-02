@@ -186,7 +186,18 @@ function cancelClass(bookedClass_id, classHour, classDay){
         var timeDiff = (dt2 - dt1)/3600;  // will give difference in hrs
         //verificar desde el servidor la hora limite
         checkCancelLimit(timeDiff, bookedClass_id);
-        }else{
+    }else{
+        Swal.fire({
+            title: "Cancelación de clase",
+            html: "<h6>Esta clase es reembolsable. ¿Deseas cancelarla?.</h6>",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "Lo he pensado mejor y no la cancelaré",
+            confirmButtonText: "Entiendo y aún la quiero cancelar",
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#4bb543',
+            reverseButtons: true
+        }).then((result) => {
             $.ajax({
                 url: "cancelClass",
                 method: 'POST',
@@ -212,7 +223,8 @@ function cancelClass(bookedClass_id, classHour, classDay){
                     })
                 }
             });
-        }
+        });
+    }
 }
 
 function deleteUserCard(id){

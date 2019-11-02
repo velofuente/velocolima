@@ -219,14 +219,35 @@ function reservePlace(id, elementBall, instructor){
     var day = today.getDate();
     var month = today.getMonth();
     var year = today.getFullYear();
+    hh = (hh >= 10 ) ? hh : '0'+hh;
+    mm =  (mm >= 10 ) ? mm : '0'+mm;
+    ss =  (ss >= 10 ) ? ss : '0'+ss;
     today = hh + ":" + mm + ":" + ss;
-    var todayDay = year + "-" + (month >= 10 ? month : "0"+month) + "-" + (day >= 10 ? day : "0"+day);
+    var monthnumber = new Array();
+        monthnumber[0] = 1;
+        monthnumber[1] = 2;
+        monthnumber[2] = 3;
+        monthnumber[3] = 4;
+        monthnumber[4] = 5;
+        monthnumber[5] = 6;
+        monthnumber[6] = 7;
+        monthnumber[7] = 8;
+        monthnumber[8] = 9;
+        monthnumber[9] = 10;
+        monthnumber[10] = 11;
+        monthnumber[11] = 12;
+    var todayDay = year + "-" + (monthnumber[month] >= 10 ? monthnumber[month] : "0"+monthnumber[month]) + "-" + (day >= 10 ? day : "0"+day);
     console.log(today);
     console.log(todayDay);
     console.log(scheduleHour);
     console.log(scheduleHourBeforeCancelation);
+
     if(todayDay==scheduleDay){
-        if(today<scheduleHourBeforeCancelation){
+        console.log(scheduleHourBeforeCancelation);
+        dt1 = parseInt(new Date(todayDay+"T"+today).getTime()/1000);
+        dt2 = parseInt(new Date(scheduleHourBeforeCancelation).getTime()/1000);
+        var timeDiff = (dt2 - dt1)/3600;  // will give difference in hrs
+        if(timeDiff<cancelation_period){
             console.log("a tiempo");
             console.log(bike);
                 Swal.fire({
@@ -234,6 +255,7 @@ function reservePlace(id, elementBall, instructor){
                     html: "<h6>" + document.getElementById('branch').textContent + "</h6>"  +
                         "<h6>CON: " + instructor + " </h6>" +
                         "<h6>BICI: " + bike + " </h6>" +
+                        "<h6>Clase no reembolsable</h6>" +
                         "<h6>Esta reservación sólo puede modificarse o cancelarse hasta " + cancelation_period + " horas antes de la clase.</h6>" +
                         "<h6>Tips: </h6>" +
                         "<ul>" +
@@ -312,6 +334,7 @@ function reservePlace(id, elementBall, instructor){
                             html: "<h6>" + document.getElementById('branch').textContent + "</h6>"  +
                             "<h6>CON: " + instructor + " </h6>" +
                             "<h6>BICI: " + bike + " </h6>" +
+                            "<h6>Clase reembolsable</h6>" +
                             "<h6>Esta reservación no es cancelable, debido a que se está realizando antes de " + cancelation_period + " horas del inicio de la clase.</h6>" +
                             "<h6>Tips: </h6>" +
                             "<ul>" +
@@ -392,6 +415,7 @@ function reservePlace(id, elementBall, instructor){
                     html: "<h6>" + document.getElementById('branch').textContent + "</h6>"  +
                         "<h6>CON: " + instructor + " </h6>" +
                         "<h6>BICI: " + bike + " </h6>" +
+                        "<h6>Clase reembolsable</h6>" +
                         "<h6>Esta reservación sólo puede modificarse o cancelarse hasta " + cancelation_period + " horas antes de la clase.</h6>" +
                         "<h6>Tips: </h6>" +
                         "<ul>" +
