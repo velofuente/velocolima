@@ -255,7 +255,6 @@ function reservePlace(id, elementBall, instructor){
                     html: "<h6>" + document.getElementById('branch').textContent + "</h6>"  +
                         "<h6>CON: " + instructor + " </h6>" +
                         "<h6>BICI: " + bike + " </h6>" +
-                        "<h6>Clase no reembolsable</h6>" +
                         "<h6>Esta reservación sólo puede modificarse o cancelarse hasta " + cancelation_period + " horas antes de la clase.</h6>" +
                         "<h6>Tips: </h6>" +
                         "<ul>" +
@@ -334,7 +333,7 @@ function reservePlace(id, elementBall, instructor){
                             html: "<h6>" + document.getElementById('branch').textContent + "</h6>"  +
                             "<h6>CON: " + instructor + " </h6>" +
                             "<h6>BICI: " + bike + " </h6>" +
-                            "<h6>Clase reembolsable</h6>" +
+                            "<h6>Clase no reembolsable</h6>" +
                             "<h6>Esta reservación no es cancelable, debido a que se está realizando antes de " + cancelation_period + " horas del inicio de la clase.</h6>" +
                             "<h6>Tips: </h6>" +
                             "<ul>" +
@@ -415,7 +414,6 @@ function reservePlace(id, elementBall, instructor){
                     html: "<h6>" + document.getElementById('branch').textContent + "</h6>"  +
                         "<h6>CON: " + instructor + " </h6>" +
                         "<h6>BICI: " + bike + " </h6>" +
-                        "<h6>Clase reembolsable</h6>" +
                         "<h6>Esta reservación sólo puede modificarse o cancelarse hasta " + cancelation_period + " horas antes de la clase.</h6>" +
                         "<h6>Tips: </h6>" +
                         "<ul>" +
