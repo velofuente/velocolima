@@ -24,7 +24,7 @@
             </tr>
             <tr>
                 <td align="center" valign="bottom">
-                    <img src="{{env('APP_URL')}}/img/iconos/LOGO.png" height="150" width="300"> 
+                    <img src="{{env('APP_URL')}}/img/iconos/logo_p.png" height="150" width="300"> 
                     <br><br><br><br>
                 </td>
             </tr>
