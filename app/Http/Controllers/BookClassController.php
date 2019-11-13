@@ -94,7 +94,9 @@ class BookClassController extends Controller
                     //obtiene el numero total de clases
                     $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->whereRaw("NOW() <= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->where('user_id', '=', "{$requestUser->id}")->groupBy("id")->get();
                     $classes = $numClases->sum("clases");
+                    log::info("B234");
                     if($classes == 1){
+                        log::info("B234");
                         $lastClassPurchase = Purchase::where('user_id', $requestUser->id)
                         ->where('n_classes', "<>", 0)
                         //->whereRaw("created_at < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
@@ -104,6 +106,7 @@ class BookClassController extends Controller
                         ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
                         //verificar si el producto es diferente a clase 
                         if($lastClassPurchase->product->id != 1){
+                            log::info("ENVIANDO UN MENSAJE");
                             //$promocion = Product::where('description', 'Clase adicional')->first();
                             /*Purchase::create([
                                 'product_id' => $promocion->id,
@@ -115,7 +118,6 @@ class BookClassController extends Controller
                             app('App\Http\Controllers\MailSendingController')->addtionalFreeClass($requestUser->email,$requestUser->name);
                         }
                     }
-                    return "";
                     DB::commit();
                     return response()->json([
                         'status' => 'OK',
