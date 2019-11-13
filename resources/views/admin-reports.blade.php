@@ -22,6 +22,7 @@
                 <th scope="col">Producto</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Realizado por:</th>
+                <th scope="col">Tipo de compra</th>
             </tr>
         </thead>
         <tbody class="tableBody">

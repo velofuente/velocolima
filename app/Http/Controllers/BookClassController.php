@@ -50,7 +50,6 @@ class BookClassController extends Controller
             //obtiene el numero total de clases
             $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->whereRaw("NOW() <= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->where('user_id', '=', "{$requestUser->id}")->groupBy("id")->get();
             $classes = $numClases->sum("clases");
-            log::info($classes);
             //valida si el usuario tiene clases disponibles
             if($classes>0){
                 //Valida si hay lugar disponible
@@ -95,7 +94,6 @@ class BookClassController extends Controller
                     //obtiene el numero total de clases
                     $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->whereRaw("NOW() <= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->where('user_id', '=', "{$requestUser->id}")->groupBy("id")->get();
                     $classes = $numClases->sum("clases");
-                    log::info($classes);
                     if($classes == 1){
                         $lastClassPurchase = Purchase::where('user_id', $requestUser->id)
                         ->where('n_classes', "<>", 0)
@@ -104,18 +102,20 @@ class BookClassController extends Controller
                         //->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
                         ->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
                         ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
-                        if($lastClassPurchase->product->description != "Clase gratis por ser nuevo cliente"){
-                            $promocion = Product::where('description', 'Clase adicional')->first();
-                            Purchase::create([
+                        //verificar si el producto es diferente a clase 
+                        if($lastClassPurchase->product->id != 1){
+                            //$promocion = Product::where('description', 'Clase adicional')->first();
+                            /*Purchase::create([
                                 'product_id' => $promocion->id,
                                 'user_id' => $requestUser->id,
                                 'n_classes' => $promocion->n_classes,
                                 'expiration_days' => $promocion->expiration_days,
                                 'status' => 'pending',
-                            ]);
+                            ]);*/
                             app('App\Http\Controllers\MailSendingController')->addtionalFreeClass($requestUser->email,$requestUser->name);
                         }
                     }
+                    return "";
                     DB::commit();
                     return response()->json([
                         'status' => 'OK',
@@ -201,7 +201,6 @@ class BookClassController extends Controller
         $ClasshourLimit = Schedule::select('day', 'hour')->where('id', $requestedClass->schedule_id)->first();
         $purchase = Purchase::find($requestedClass->purchase_id);
         if($requestedClass->status == 'cancelled'){
-            log::info("B445");
             return response()->json([
                 'status' => 'OK',
                 'message' => 'Clase cancelada con éxito.',
@@ -228,7 +227,6 @@ class BookClassController extends Controller
             $requestedClass->save();
             $purchase->n_classes ++;
             $purchase->save();
-            log::info("B446");
             return response()->json([
                 'status' => 'OK',
                 'message' => "Clase cancelada con éxito, se te reembolsará esta clase.",

@@ -27,8 +27,11 @@
                         <a href="/instructors/{{$instructor->id}}" class="h4" style="text-decoration: none">
                             <div class="card border-0 mx-auto my-3">
                                 {{-- Image Name: Instructor's Name + "-Head" + ".png" --}}
-                                {{-- <img src="img/instructors/{{$instructor->name}}-Head.png" class="card-img-top" alt="{{$instructor->name}}"> --}}
-                                <img src="img/instructors/Instructor-Head.png" class="card-img-top" alt="{{$instructor->name}}">
+                                @if($instructor->profile_image)
+                                    <img src="{{$instructor->profile_image}}" class="card-img-top" alt="{{$instructor->name}}">
+                                @else
+                                    <img src="img/instructors/Instructor-Head.png" class="card-img-top" alt="{{$instructor->name}}">
+                                @endif
                                 <div class="card-body">
                                     <p class="card-text text-center" id="instructorName">
                                         {{$instructor->name}}
