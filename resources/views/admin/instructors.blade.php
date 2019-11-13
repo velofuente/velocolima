@@ -160,19 +160,19 @@
                     </div>
 
                     {{-- Image Input --}}
-                    {{-- <div class="form-group row my-4">
+                     <div class="form-group row my-4">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="headImage">Foto de perfil</label><input class="mb-2" type="file" name="pic" accept="image/png, image/jpeg">
-                            <label for="headImage">Foto de cuerpo completo</label><input type="file" name="pic" accept="image/png, image/jpeg">
-                            @if ($errors->has('image'))
+                            <label for="headImage">Imagen de perfil</label><input class="mb-2" type="file" id="profileImageAdd" name="profileImageAdd" accept="image/png, image/jpeg">
+                            <label for="headImage">Imagen de cuerpo completo</label><input type="file" id="fullBodyPhotoAdd" name="fullBodyPhotoAdd" accept="image/png, image/jpeg">
+                            @if ($errors->has('profileImage'))
                                 <span class="invalid-feedback" style="display: block !important" role="alert">
-                                    <strong>{{ $errors->first('image') }}</strong>
+                                    <strong>{{ $errors->first('profileImage') }}</strong>
                                 </span>
                             @endif
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                    </div> --}}
+                    </div>
 
                 {{-- </form> --}}
             </div>
@@ -195,7 +195,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                {{-- <form method="POST" action="{{ route('addInstructor') }}" class="registration"> --}}
+                {{-- <form method="POST" action="{{ route('addInstructor') }}" class="registration" enctype="multipart/form-data"> --}}
                     @csrf
                     {{-- Instructor's Name --}}
                     <div class="form-group row mb-3">
@@ -285,6 +285,33 @@
                             @if ($errors->has('bioInstructor'))
                                 <span class="invalid-feedback" style="display: block !important" role="alert">
                                     <strong>{{ $errors->first('bioInstructor') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+                    {{-- PHOTOS --}}
+                    <div class="form-group row mb-3">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="name" class="mr-sm-2">Imagen de perfil:</label>
+                            <input id="profileImage" placeholder="Perfil" type="file" class="form-control{{ $errors->has('profileImage') ? ' is-invalid' : '' }}" name="profileImage" value="{{ old('profileImage') }}" accept="image/png, image/jpeg>
+                            @if ($errors->has('profileImage'))
+                                <span class="invalid-feedback" style="display: block !important" role="alert">
+                                    <strong>{{ $errors->first('profileImage') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+                    <div class="form-group row mb-3">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="name" class="mr-sm-2">Imagen cuerpo completo:</label>
+                            <input id="fullBodyPhoto" placeholder="Cuerpo completo" type="file" class="form-control{{ $errors->has('fullBodyPhoto') ? ' is-invalid' : '' }}" name="fullBodyPhoto" value="{{ old('fullBodyPhoto') }}" accept="image/png, image/jpeg>
+                            @if ($errors->has('fullBodyPhoto'))
+                                <span class="invalid-feedback" style="display: block !important" role="alert">
+                                    <strong>{{ $errors->first('fullBodyPhoto') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -443,17 +470,32 @@
             birth_date = $('#editBirthDateInstructor').val();
             phone = $('#editPhoneInstructor').val();
             bio = $('#editBioInstructor').val();
+            profileImage = $('#profileImage')[0].files[0];
+            fullBodyPhoto = $('#fullBodyPhoto')[0].files[0];
 
             editInstructor(instructor_id);
         })
 
         function addInstructor(){
-            name = $('#nameInstructor').val()
+            /*name = $('#nameInstructor').val()
             last_name = $('#last_nameInstructor').val()
             email = $('#emailInstructor').val()
             birth_date = $('#birth_dateInstructor').val()
             phone = $('#phoneInstructor').val()
-            bio = $('#bioInstructor').val()
+            bio = $('#bioInstructor').val()*/
+            let formData = new FormData();
+            formData.append("name", $('#nameInstructor').val());
+            formData.append("last_name", $('#last_nameInstructor').val());
+            formData.append("email", $('#emailInstructor').val());
+            formData.append("birth_date", $('#birth_dateInstructor').val());
+            formData.append("phone", $('#phoneInstructor').val());
+            formData.append("bio", $('#bioInstructor').val());
+            if($('#profileImageAdd').val() != ""){
+                formData.append("profileImageAdd", $('#profileImageAdd')[0].files[0]);
+            }
+            if($('#fullBodyPhotoAdd').val() != ""){
+                formData.append("fullBodyPhotoAdd", $('#fullBodyPhotoAdd')[0].files[0]);
+            }
             $.ajax({
                 url: '/addInstructor',
                 type: 'POST',
@@ -461,14 +503,9 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                data: {
-                    name: name,
-                    last_name: last_name,
-                    email: email,
-                    birth_date: birth_date,
-                    phone: phone,
-                    bio: bio,
-                },
+                contentType: false,
+                processData: false,
+                data: formData,
                 success: function(result) {
                     $.LoadingOverlay("hide");
                     if(result.status == "OK"){
@@ -618,25 +655,34 @@
         }
 
         function editInstructor(instructor_id){
+            let formData = new FormData();
+            formData.append("instructor_id", instructor_id);
+            formData.append("name", name);
+            formData.append("last_name", last_name);
+            formData.append("email", email);
+            formData.append("birth_date", birth_date);
+            formData.append("phone", phone);
+            formData.append("bio", bio);
+            if($('#profileImage').val() != ""){
+                formData.append("profileImage", profileImage);
+            }
+            if($('#fullBodyPhoto').val() != ""){
+                formData.append("fullBodyPhoto", fullBodyPhoto);
+            }
             $.ajax({
                 url: "/editInstructor",
                 type: 'POST',
                 cache: false,
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
                 beforeSend: function(){
                     $.LoadingOverlay("show");
                 },
-                data: {
-                    instructor_id: instructor_id,
-                    name: name,
-                    last_name: last_name,
-                    email: email,
-                    birth_date: birth_date,
-                    phone: phone,
-                    bio: bio,
-                },
+                data: formData,
+                cache:false,
+                contentType: false,
+                processData: false,
                 success: function(result) {
                     $.LoadingOverlay("hide");
                     if(result.status == "OK"){

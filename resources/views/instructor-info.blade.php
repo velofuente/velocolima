@@ -16,7 +16,11 @@
             <!-- Image -->
             <div id="instructorImage" class="col-md-5">
                 {{-- <img src="/img/instructors/{{$instructor->name}}-body.png" class="img-fluid" alt="Instructor image"> --}}
-                <img src="/img/instructors/Instructor-Body.png" class="img-fluid instructorBodyImage" alt="Instructor image">
+                @if($instructor->full_body_image)
+                    <img src="{{$instructor->full_body_image}}" class="card-img-top" alt="{{$instructor->name}}">
+                @else
+                    <img src="/img/instructors/Instructor-Body.png" class="img-fluid instructorBodyImage" alt="Instructor image">
+                @endif
             </div>
             <!-- Name, Description and Phrase -->
             <div class="info col-md-7">

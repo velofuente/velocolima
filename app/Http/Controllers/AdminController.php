@@ -8,6 +8,7 @@ use App\{Instructor, Schedule, Branch, Product, Tool, User, Purchase, Sale, User
 use Carbon\Carbon;
 use App\Traits\GeneralTrait;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use DB, Log;
 use PhpParser\Node\Stmt\Return_;
 use function GuzzleHttp\json_decode;
@@ -234,6 +235,7 @@ class AdminController extends Controller
     }
 
     public function showReports(){
+        log::info("asdasdas");
         // $sales = Sale::with(['admin', 'purchase'])->whereRaw("date(created_at) = date(NOW())")->get();
         $sales = Sale::with(['admin', 'purchase'])->whereDate('created_at','=', date('Y-m-d'))->get();
         // return view('/admin-reports', compact ('sales'));
@@ -296,7 +298,8 @@ class AdminController extends Controller
         $clients = UserSchedule::join('users','user_schedules.user_id','users.id')->
                                 join('purchases','user_schedules.purchase_id','purchases.id')->
                                 join('products','purchases.product_id','products.id')->
-                                selectRaw('user_schedules.id AS id, user_schedules.status AS status, user_schedules.bike AS bike, users.name AS name, users.last_name AS last_name, users.birth_date AS birth_date, users.email AS email, users.shoe_size AS shoe_size, users.phone AS phone, products.type AS type')->
+                                join('schedules','schedules.id','user_schedules.schedule_id')->
+                                selectRaw('schedules.day as daySchedule, user_schedules.id AS id, user_schedules.status AS status, user_schedules.bike AS bike, users.name AS name, users.last_name AS last_name, users.birth_date AS birth_date, users.email AS email, users.shoe_size AS shoe_size, users.phone AS phone, products.type AS type')->
                                 where('user_schedules.schedule_id', $request->schedule_id)->
                                 where('user_schedules.status','<>','cancelled')->
                                 whereIn('user_schedules.user_id', $id)->get();
@@ -416,13 +419,20 @@ class AdminController extends Controller
     }
 
     public function getReports(Request $request){
-        log::info("control f");
-        log::info($request);
-        $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
-                    join('products','purchases.product_id','=','products.id')->
-                    join('users','purchases.user_id','=','users.id')->
-                    selectRaw('sales.id AS id, sales.created_at AS date, users.id AS user_id, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
-                    whereBetween('sales.created_at', [$request->fromDate, $request->toDate])->get();
+        if($request->fromDate == $request->toDate){
+            $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
+            join('products','purchases.product_id','=','products.id')->
+            join('users','purchases.user_id','=','users.id')->
+            selectRaw('purchases.card_id AS saleType, sales.id AS id, sales.created_at AS date, users.id AS user_id, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
+            where('sales.created_at', 'like','%'.$request->fromDate.'%')->get();
+        }else{
+            $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
+            join('products','purchases.product_id','=','products.id')->
+            join('users','purchases.user_id','=','users.id')->
+            selectRaw('purchases.card_id AS saleType, sales.id AS id, sales.created_at AS date, users.id AS user_id, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
+            whereBetween('sales.created_at', [$request->fromDate, $request->toDate])->get();
+        };
+       
         // switch ($request->range) {
         //     case 'hoy':
         //         log::info("hoy");
@@ -466,7 +476,7 @@ class AdminController extends Controller
 
     public function addInstructor(Request $request){
         DB::beginTransaction();
-        Instructor::create([
+        $instructor  = Instructor::create([
             'name' => $request->name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -474,6 +484,19 @@ class AdminController extends Controller
             'phone' => $request->phone,
             'bio' => $request->bio,
         ]);
+        log::info($instructor);
+        //actulizando la foto de perfil del instructor
+        if($request->profileImageAdd){
+            $images = $request->profileImageAdd;
+            $imagePath = Storage::disk('public')->put('/coaches/'.$instructor->id, $images);
+            $instructor->profile_image = '/storage/'.$imagePath;
+        }
+        if ($request->fullBodyPhotoAdd) {
+            $imagesB = $request->fullBodyPhotoAdd;
+            $imagePath = Storage::disk('public')->put('/coaches/'.$instructor->id, $imagesB);
+            $instructor->full_body_image = '/storage/'.$imagePath;
+        }
+        $instructor->save();
         // $pathHead = $request->head->storeAs('public/img/instructors', '{$request->name}-Head.png');
         // $pathBody = $request->body->storeAs('public/img/instructors', '{$request->name}-Body.png');
         // log::info($pathHead, $pathBody);
@@ -485,6 +508,7 @@ class AdminController extends Controller
     }
     public function editInstructor(Request $request){
         DB::beginTransaction();
+        log::info($request->all());
         $Instructor = Instructor::find($request->instructor_id);
         $Instructor->name = $request->name;
         $Instructor->last_name = $request->last_name;
@@ -492,6 +516,18 @@ class AdminController extends Controller
         $Instructor->birth_date = $request->birth_date;
         $Instructor->phone = $request->phone;
         $Instructor->bio = $request->bio;
+        //actulizando la foto de perfil del instructor
+        if($request->profileImage){
+            $images = $request->profileImage;
+            $imagePath = Storage::disk('public')->put('/coaches/'.$Instructor->id, $images);
+            $Instructor->profile_image = '/storage/'.$imagePath;
+        }
+        if ($request->fullBodyPhoto) {
+            $imagesB = $request->fullBodyPhoto;
+            $imagePath = Storage::disk('public')->put('/coaches/'.$Instructor->id, $imagesB);
+            $Instructor->full_body_image = '/storage/'.$imagePath;
+        }
+        //Guardando la información 
         $Instructor->save();
         DB::commit();
         return response()->json([

@@ -48,9 +48,13 @@
                 <th scope="col">Producto</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Realizado por:</th>
+                <th scope="col">Tipo de compra</th>
             </tr>
         </thead>
         <tbody id="tableBody">
+            @php
+                $total = 0;
+            @endphp
             @foreach ($sales as $sale)
                 <tr style="font-size: 0.9em;">
                     {{-- <th scope="row">{{$product->id}}</th> --}}
@@ -62,13 +66,21 @@
                     <td>{{$sale->purchase->productWithTrashed->description}}</td>
                     <td>${{$sale->purchase->productWithTrashed->price}}</td>
                     <td>{{$sale->admin->name}} {{$sale->admin->last_name}}</td>
+                    @if($sale->purchase->card_id)
+                        <td>Online</td>
+                    @else
+                        <td>Mostrador</td>
+                    @endif
                     <input type="hidden" class="sum" value="{{$sale->purchase->productWithTrashed->price}}">
                 </tr>
+                @php
+                    $total += $sale->purchase->productWithTrashed->price;
+                @endphp
             @endforeach
         </tbody>
     </table>
     <div class="row text-center mx-0 py-4">
-        <h3 class="mr-4" id="total">Total: $</h3>
+        <h3 class="mr-4" id="total">Total: ${{$total}}</h3>
     </div>
 {{-- @else
     <h2 class="text-center">Aún no se ha realizado ninguna venta</h2>
@@ -136,6 +148,10 @@
                 $('#tableBody').empty();
                 $.each (result, function(index, value){
                     console.log(value);
+                    var saleText  = "Mostrador";
+                    if(value.saleType){
+                        saleText  = "Online";
+                    }
                     $('#tableBody').append(
                         "<tr class='userRow' id='"+value.user_id+"' style='font-size: 0.9em;''>"+
                             "<td>"+value.id+"</td>"+
@@ -146,6 +162,7 @@
                             "<td>"+value.product+"</td>"+
                             "<td>$"+value.price+"</td>"+
                             "<td>"+value.admin+"</td>"+
+                            "<td>"+saleText+"</td>"+
                             "<input type='hidden' class='sum' value='"+value.price+"'>"+
                         "</tr>"
                     );
@@ -237,7 +254,7 @@
         for(var i=0; i<elements.length; i++) {
             sum += parseInt(elements[i].value);
         }
-        document.getElementById("total").innerHTML = "$"+sum;
+        document.getElementById("total").innerHTML = "Total: $"+sum;
     }
 </script>
 @stop
