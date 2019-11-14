@@ -247,15 +247,16 @@ function reservePlace(id, elementBall, instructor){
         dt1 = parseInt(new Date(todayDay+"T"+today).getTime()/1000);
         dt2 = parseInt(new Date(scheduleHourBeforeCancelation).getTime()/1000);
         var timeDiff = (dt2 - dt1)/3600;  // will give difference in hrs
-        if(timeDiff<cancelation_period){
-            console.log("a tiempo");
-            console.log(bike);
+        console.log(timeDiff);
+        console.log(cancelation_period);
+        if(timeDiff< parseInt(cancelation_period)){
+            //este if es cuando la clase aun la puedes reservar el mismo dia antes de que empieze la clase
                 Swal.fire({
                     title: "Tu reserva ",
                     html: "<h6>" + document.getElementById('branch').textContent + "</h6>"  +
                         "<h6>CON: " + instructor + " </h6>" +
                         "<h6>BICI: " + bike + " </h6>" +
-                        "<h6>Esta reservación sólo puede modificarse o cancelarse hasta " + cancelation_period + " horas antes de la clase.</h6>" +
+                        "<h6>Clase no reembolsable, esta reservación sólo puede modificarse o cancelarse hasta " + cancelation_period + " horas antes de la clase.</h6>" +
                         "<h6>Tips: </h6>" +
                         "<ul>" +
                         "<li>Sé puntual, llega al menos 10 min antes de la clase.</li>" +
