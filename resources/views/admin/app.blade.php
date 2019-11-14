@@ -139,14 +139,11 @@
                         </a>
                         <br style="cursor: none;">
                         <br style="cursor: none;">
-                        <a class=""
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-admin').submit();">
+                        <a class="" id="logout-button">
                             <form id="logout-admin" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
                             <li>
-                                {{-- <i class="fa fa-user fa-lg"></i> --}}
                                 Cerrar Sesión
                             </li>
                         </a>
@@ -197,7 +194,9 @@
                 //Call the function to display the desired page
                 callPage(pageCalled);
             });
-
+            $("#logout-button").on('click',function(){
+                $("#logout-admin").submit()
+            });
             //Function to display view depending on the clicked link
             function callPage(page){
                 window.location.replace('/admin/'+page)
