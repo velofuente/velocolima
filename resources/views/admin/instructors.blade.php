@@ -163,8 +163,8 @@
                      <div class="form-group row my-4">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="headImage">Imagen de perfil</label><input class="mb-2" type="file" id="profileImageAdd" name="profileImageAdd" accept="image/png, image/jpeg">
-                            <label for="headImage">Imagen de cuerpo completo</label><input type="file" id="fullBodyPhotoAdd" name="fullBodyPhotoAdd" accept="image/png, image/jpeg">
+                            <label for="headImage">Imagen de perfil</label><input class="mb-2" type="file" id="profileImageAdd" name="profileImageAdd" accept="image/png, image/jpeg, image/jpg">
+                            <label for="headImage">Imagen de cuerpo completo</label><input type="file" id="fullBodyPhotoAdd" name="fullBodyPhotoAdd" accept="image/png, image/jpeg, image/jpg">
                             @if ($errors->has('profileImage'))
                                 <span class="invalid-feedback" style="display: block !important" role="alert">
                                     <strong>{{ $errors->first('profileImage') }}</strong>
@@ -295,7 +295,7 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="name" class="mr-sm-2">Imagen de perfil:</label>
-                            <input id="profileImage" placeholder="Perfil" type="file" class="form-control{{ $errors->has('profileImage') ? ' is-invalid' : '' }}" name="profileImage" value="{{ old('profileImage') }}" accept="image/png, image/jpeg>
+                            <input id="profileImage" placeholder="Perfil" type="file" class="form-control{{ $errors->has('profileImage') ? ' is-invalid' : '' }}" name="profileImage" value="{{ old('profileImage') }}" accept="image/png, image/jpeg, image/jpg">
                             @if ($errors->has('profileImage'))
                                 <span class="invalid-feedback" style="display: block !important" role="alert">
                                     <strong>{{ $errors->first('profileImage') }}</strong>
@@ -308,7 +308,7 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="name" class="mr-sm-2">Imagen cuerpo completo:</label>
-                            <input id="fullBodyPhoto" placeholder="Cuerpo completo" type="file" class="form-control{{ $errors->has('fullBodyPhoto') ? ' is-invalid' : '' }}" name="fullBodyPhoto" value="{{ old('fullBodyPhoto') }}" accept="image/png, image/jpeg>
+                            <input id="fullBodyPhoto" placeholder="Cuerpo completo" type="file" class="form-control{{ $errors->has('fullBodyPhoto') ? ' is-invalid' : '' }}" name="fullBodyPhoto" value="{{ old('fullBodyPhoto') }}" accept="image/png, image/jpeg, image/jpg">
                             @if ($errors->has('fullBodyPhoto'))
                                 <span class="invalid-feedback" style="display: block !important" role="alert">
                                     <strong>{{ $errors->first('fullBodyPhoto') }}</strong>
