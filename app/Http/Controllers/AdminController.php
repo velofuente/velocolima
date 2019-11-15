@@ -921,7 +921,7 @@ class AdminController extends Controller
             //verificar si compro un paquete de mas o igual a 10 clases
             if(intval($product->n_classes) >= 10){
                 //promocion clase adicional verificar si tiene 1 clase
-                $lastClassPurchase = Purchase::where('user_id', $requestUser->id)
+                $lastClassPurchase = Purchase::where('user_id', $request->client_id)
                 ->where('n_classes', "<>", 0)
                 ->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
                 ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
@@ -930,7 +930,7 @@ class AdminController extends Controller
                         $promocion = Product::find(12);
                         Purchase::create([
                             'product_id' => $promocion->id,
-                            'user_id' => $requestUser->id,
+                            'user_id' => $request->client_id,
                             'n_classes' => $promocion->n_classes,
                             'expiration_days' => $promocion->expiration_days,
                             'status' => 'active',
