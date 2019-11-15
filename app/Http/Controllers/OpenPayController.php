@@ -335,10 +335,8 @@ class OpenPayController extends Controller
 
         //$card = Card::select('id','token_id')->where('user_id', "{$requestUser->id}")->where('selected', 1)->first();
         $card = Card::select('id', 'token_id')->where('id',$request->card_id)->where('user_id', $requestUser->id)->first();
-        log::info($card);
         //TODO: Validar producto
         $product = Product::where('id', '=', "{$request->product_id}")->first();
-        log::info($product);
         //TODO: validar si el usuario tiene un customer, si no tiene lo debe de crear
         //Validar si usuario tiene cuenta con OpenPay
         if ($requestUser->customer_id == null){
@@ -349,7 +347,6 @@ class OpenPayController extends Controller
             $openpay = self::openPay();
             $customer = $openpay->customers->get($requestUser->customer_id);
         }
-        log::info("N45");
         try{
             DB::beginTransaction();
             //Inicializamos array para compra (MI DB)
