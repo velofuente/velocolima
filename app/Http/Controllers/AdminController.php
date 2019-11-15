@@ -907,17 +907,35 @@ class AdminController extends Controller
         log::info($request);
         try {
             $admin = $request->user();
-            log::info($admin);
             $product = Product::where('id', "{$request->product_id}")->first();
-            log::info($product);
             DB::beginTransaction();
             //promocion clase adicional
-            $promotion = Purchase::where('user_id', $request->client_id)->where('status', 'pending')->latest()->first();
+            /*$promotion = Purchase::where('user_id', $request->client_id)->where('status', 'pending')->latest()->first();
             log::info($promotion);
             if($promotion != null){
                 if(Carbon::now() < Carbon::parse($promotion->created_at)->addDay() && $product->n_classes >= 10){
                     $promotion->status = 'active';
                     $promotion->save;
+                }
+            }*/
+            //verificar si compro un paquete de mas o igual a 10 clases
+            if(intval($product->n_classes) >= 10){
+                //promocion clase adicional verificar si tiene 1 clase
+                $lastClassPurchase = Purchase::where('user_id', $requestUser->id)
+                ->where('n_classes', "<>", 0)
+                ->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
+                ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
+                if($lastClassPurchase){
+                    if($lastClassPurchase->product->id != 1 ||  $lastClassPurchase->product->id != 11){
+                        $promocion = Product::find(12);
+                        Purchase::create([
+                            'product_id' => $promocion->id,
+                            'user_id' => $requestUser->id,
+                            'n_classes' => $promocion->n_classes,
+                            'expiration_days' => $promocion->expiration_days,
+                            'status' => 'active',
+                        ]);
+                    }
                 }
             }
             $purchase = Purchase::create([
