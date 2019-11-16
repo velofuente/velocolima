@@ -189,11 +189,11 @@ function cancelClass(bookedClass_id, classHour, classDay){
     }else{
         Swal.fire({
             title: "Cancelación de clase",
-            html: "<h6>Esta clase es reembolsable. ¿Deseas cancelarla?.</h6>",
+            html: "<h6>Se te reintegrará esta clase a tu saldo.</h6>",
             type: "warning",
             showCancelButton: true,
             cancelButtonText: "Lo he pensado mejor y no la cancelaré",
-            confirmButtonText: "Entiendo y aún la quiero cancelar",
+            confirmButtonText: "Ok, cancelar clase",
             confirmButtonColor: '#d33',
             cancelButtonColor: '#4bb543',
             reverseButtons: true
