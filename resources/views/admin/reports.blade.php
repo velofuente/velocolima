@@ -68,7 +68,7 @@
                     @if($sale->sales)
                         <td>{{$sale->sales->admin->name}} {{$sale->sales->admin->last_name}}</td>
                     @else
-                        <td>N/P</td>
+                        <td>N/A</td>
                     @endif
                    
                     @if($sale->card_id)
@@ -153,7 +153,7 @@
                 $('#tableBody').empty();
                 $.each (result, function(index, value){
                     console.log(value);
-                    var admin ="N/P"; 
+                    var admin ="N/A"; 
                     var saleText  = "Mostrador";
                     if(value.card_id){
                         saleText  = "Online";
