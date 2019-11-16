@@ -18,4 +18,8 @@ class Purchase extends Model
     public function client(){
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function sales(){
+        return $this->hasOne(Sale::class, 'purchase_id', 'id');
+    }
 }

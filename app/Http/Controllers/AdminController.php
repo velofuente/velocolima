@@ -235,9 +235,12 @@ class AdminController extends Controller
     }
 
     public function showReports(){
-        log::info("asdasdas");
+        //obtener lista de productos gratis
+        $products = Product::select('id')->where('type', 'Free')->pluck('id');
         // $sales = Sale::with(['admin', 'purchase'])->whereRaw("date(created_at) = date(NOW())")->get();
-        $sales = Sale::with(['admin', 'purchase'])->whereDate('created_at','=', date('Y-m-d'))->get();
+        $sales = Purchase::with(['productWithTrashed','client', 'sales.admin'])->where('created_at','like', '%'.date('Y-m-d').'%')
+        ->whereNotIn('product_id',$products)->get();
+
         // return view('/admin-reports', compact ('sales'));
         return view('/admin/reports', compact ('sales'));
     }
@@ -419,20 +422,32 @@ class AdminController extends Controller
     }
 
     public function getReports(Request $request){
+        //obtener lista de productos gratis
+        $products = Product::select('id')->where('type', 'Free')->pluck('id');
         if($request->fromDate == $request->toDate){
-            $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
+            /*$sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
             join('products','purchases.product_id','=','products.id')->
             join('users','purchases.user_id','=','users.id')->
             selectRaw('purchases.card_id AS saleType, sales.id AS id, sales.created_at AS date, users.id AS user_id, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
-            where('sales.created_at', 'like','%'.$request->fromDate.'%')->get();
+            where('sales.created_at', 'like','%'.$request->fromDate.'%')->get();*/
+
+            $sales = Purchase::with(['productWithTrashed','client', 'sales.admin'])->where('created_at','like', '%'.$request->fromDate.'%')
+            ->whereNotIn('product_id',$products)->get();
         }else{
-            $sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
+            /*$sales = Sale::join('purchases','sales.purchase_id','=','purchases.id')->
             join('products','purchases.product_id','=','products.id')->
             join('users','purchases.user_id','=','users.id')->
             selectRaw('purchases.card_id AS saleType, sales.id AS id, sales.created_at AS date, users.id AS user_id, users.name AS name,users.last_name AS last_name, users.email AS email, products.description AS product, products.price AS price, (SELECT name from users where id=sales.admin_id) AS admin')->
-            whereBetween('sales.created_at', [$request->fromDate, $request->toDate])->get();
+            whereBetween('sales.created_at', [$request->fromDate, $request->toDate])->get();*/
+
+           $sales = Purchase::with(['productWithTrashed','client', 'sales.admin'])->whereBetween('created_at', [$request->fromDate, $request->toDate])
+            ->whereNotIn('product_id',$products)->get();
         };
-       
+        
+        // $sales = Sale::with(['admin', 'purchase'])->whereRaw("date(created_at) = date(NOW())")->get();
+        /*$sales = Purchase::with(['productWithTrashed','client', 'sales.admin'])->where('created_at','like', '%'.date('Y-m-d').'%')
+        ->whereNotIn('product_id',$products)->get();*/
+
         // switch ($request->range) {
         //     case 'hoy':
         //         log::info("hoy");

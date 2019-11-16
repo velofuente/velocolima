@@ -59,22 +59,27 @@
                 <tr style="font-size: 0.9em;">
                     {{-- <th scope="row">{{$product->id}}</th> --}}
                     <td>{{$sale->id}}</td>
-                    <td>{{$sale->purchase->created_at}}</td>
+                    <td>{{$sale->created_at}}</td>
                     {{-- <td>{{date('g:i:s A', strtotime($sale->purchase->created_at))}}</td> --}}
-                    <td>{{$sale->purchase->client->name}} {{$sale->purchase->client->last_name}}</td>
-                    <td>{{$sale->purchase->client->email}}</td>
-                    <td>{{$sale->purchase->productWithTrashed->description}}</td>
-                    <td>${{$sale->purchase->productWithTrashed->price}}</td>
-                    <td>{{$sale->admin->name}} {{$sale->admin->last_name}}</td>
-                    @if($sale->purchase->card_id)
+                    <td>{{$sale->client->name}} {{$sale->client->last_name}}</td>
+                    <td>{{$sale->client->email}}</td>
+                    <td>{{$sale->productWithTrashed->description}}</td>
+                    <td>${{$sale->productWithTrashed->price}}</td>
+                    @if($sale->sales)
+                        <td>{{$sale->sales->admin->name}} {{$sale->sales->admin->last_name}}</td>
+                    @else
+                        <td>N/P</td>
+                    @endif
+                   
+                    @if($sale->card_id)
                         <td>Online</td>
                     @else
                         <td>Mostrador</td>
                     @endif
-                    <input type="hidden" class="sum" value="{{$sale->purchase->productWithTrashed->price}}">
+                    <input type="hidden" class="sum" value="{{$sale->productWithTrashed->price}}">
                 </tr>
                 @php
-                    $total += $sale->purchase->productWithTrashed->price;
+                    $total += $sale->productWithTrashed->price;
                 @endphp
             @endforeach
         </tbody>
@@ -148,22 +153,28 @@
                 $('#tableBody').empty();
                 $.each (result, function(index, value){
                     console.log(value);
+                    var admin ="N/P"; 
                     var saleText  = "Mostrador";
-                    if(value.saleType){
+                    if(value.card_id){
                         saleText  = "Online";
+                    }
+                    
+                    //verificar si fue administrador
+                    if(value.sales){
+                        admin = value.sales.admin.name+" "+value.sales.admin.last_name
                     }
                     $('#tableBody').append(
                         "<tr class='userRow' id='"+value.user_id+"' style='font-size: 0.9em;''>"+
                             "<td>"+value.id+"</td>"+
-                            "<td>"+value.date+"</td>"+
+                            "<td>"+value.created_at+"</td>"+
                             // "<td>"+value.date+"</td>"+
-                            "<td>"+value.name+" "+value.last_name+"</td>"+
-                            "<td>"+value.email+"</td>"+
-                            "<td>"+value.product+"</td>"+
-                            "<td>$"+value.price+"</td>"+
-                            "<td>"+value.admin+"</td>"+
+                            "<td>"+value.client.name+" "+value.client.last_name+"</td>"+
+                            "<td>"+value.client.email+"</td>"+
+                            "<td>"+value.product_with_trashed.description+"</td>"+
+                            "<td>$"+value.product_with_trashed.price+"</td>"+
+                            "<td>"+admin+"</td>"+
                             "<td>"+saleText+"</td>"+
-                            "<input type='hidden' class='sum' value='"+value.price+"'>"+
+                            "<input type='hidden' class='sum' value='"+value.product_with_trashed.price+"'>"+
                         "</tr>"
                     );
                 });
