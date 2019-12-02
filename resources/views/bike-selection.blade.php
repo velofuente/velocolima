@@ -37,13 +37,14 @@
                 {{-- <img class="resClass" src="/img/iconos/2.png" alt=""> --}}
                 <span class="text-center text_gradient_bike_selection"> Reserva tu clase </span>
             </div>
-            {{$instructor}}
+            {{Log::info($instructor)}}
             @if(strlen($instructor->profile_image) > 0)
                 <img  id="profilePic" src="{{$instructor->profile_image}}" class="card-img-top" alt="{{$instructor->name}}">
             @else
                 <img id="profilePic" src="{{ asset('img/instructors/Instructor-Head.png') }}" alt="">
             @endif
-        </div>
+	</div>
+	<br/>
         <div class="row" id="main-bikes">
             <div class="centeredDiv" id="bikes-div" style="width: 100%">
             </div>
