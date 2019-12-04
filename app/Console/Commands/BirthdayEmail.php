@@ -48,7 +48,8 @@ class BirthdayEmail extends Command
             DB::beginTransaction();
             $name = $user->name;
             $email = $user->email;
-            $product = Product::where('id', 11)->first();
+            // ID del producto "Cumpleaños" en Pruebas  es id = 11, en Prod. es id = 12
+            $product = Product::where('id', 12)->first();
             $purchase = Purchase::create([
                 'product_id' => $product->id,
                 'user_id' => $user->id,

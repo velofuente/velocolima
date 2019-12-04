@@ -746,7 +746,7 @@
             if(nClasses == 1){
                 Swal.fire({
                     title: 'Promoción',
-                    text: 'Compra tu siguiente paquete de clases dentro de las próximas 24 horas y te regalaremos una clase adicional al paquete comprado',
+                    text: 'Compra tu siguiente paquete de 10 (Diez) clases dentro de las próximas 24 horas y te regalaremos una clase adicional al paquete comprado',
                     type: 'info',
                     confirmButtonText: 'Aceptar',
                   });

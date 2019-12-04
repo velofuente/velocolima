@@ -941,8 +941,10 @@ class AdminController extends Controller
                 ->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
                 ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
                 if($lastClassPurchase){
-                    if($lastClassPurchase->product->id != 1 ||  $lastClassPurchase->product->id != 11){
-                        $promocion = Product::find(12);
+                    // Verificar que la última clase adquirida no haya sido la clase gratis de registro o la gratis de cumpleaños
+                    if($lastClassPurchase->product->id != 1 ||  $lastClassPurchase->product->id != 12){
+                        // En Pruebas la clase cumpleaños es id = 11, y la de regalo es id = 12
+                        $promocion = Product::find(13);
                         Purchase::create([
                             'product_id' => $promocion->id,
                             'user_id' => $request->client_id,
