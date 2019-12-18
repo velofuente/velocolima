@@ -91,8 +91,6 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
     // Route::get('admin/operations/{$id}', 'AdminController@showOperationsGrid')->name('admin/operations');
     Route::get('admin/operations/{selected_schedule}', 'AdminController@showOperationsGrid');
     Route::get('admin/operations', 'AdminController@showOperationsGrid');
-
-    Route::get('/admin/sales', 'AdminController@showSales')->name('admin/sales');
     Route::get('admin/reports', 'AdminController@showReports')->name('admin/reports');
     // Show Pages (DEPRECATED)
     // Route::get('admin/operations', 'AdminController@showOperationsGrid')->name('admin/operations');

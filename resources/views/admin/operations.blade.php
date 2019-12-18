@@ -32,9 +32,9 @@
 
                         {{-- <a class="dropdown-item" href="javascript:showClients({{$schedule->id}})" id="{{$schedule->id}}"> --}}
                         <a class="dropdown-item scheduleList" href="#" id="{{$schedule->id}}">
-
                             {{-- <span class="col-4 text-center">{{ date('l', strtotime($schedule->day)) }}</span> --}}
-                            <span class="col-4">{{ iconv('ISO-8859-1','UTF-8', strftime("%a", strtotime($schedule->day)))}}</span>
+                            {{-- <span class="col-4">{{ iconv('ISO-8859-1','UTF-8', strftime("%a", strtotime($schedule->day)))}}</span> --}}
+                            <span class="col-4">{{ strftime("%a", strtotime($schedule->day))}}</span>
                             <span class="col-4">{{date('g:i A', strtotime($schedule->hour))}} </span>
                             <span class="col-4">{{$schedule->instructor->name}}</span>
                             {{-- <img width="60%" height="60%" src="{{ asset('img/instructors/' . $schedule->instructor->name . '-Head.png') }}" alt=""> --}}
@@ -163,7 +163,6 @@
         <h2 class="text-left ml-4 mt-4">No hay reservaciones en este horario</h2>
     @endif --}}
 </div>
-
 
 {{-- Modal Search Registered User --}}
 <div class="modal" id="addOpUserModal" tabindex="-1" role="dialog" aria-labelledby="addOpUserModalLabel" aria-hidden="true">

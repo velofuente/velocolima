@@ -10,8 +10,6 @@ use App\Traits\GeneralTrait;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use DB, Log;
-use PhpParser\Node\Stmt\Return_;
-use function GuzzleHttp\json_decode;
 
 // use App\Traits\UploadTrait;
 
@@ -980,7 +978,40 @@ class AdminController extends Controller
     }
     public function addClient(Request $request)
     {
-        log::info("entró a addclient");
+        //Definir mensajes personalizados
+        $messages = [
+            'name.required' => "Debes especificar al menos un nombre",
+            'last_name.required' => "Debes especificar al menos un apellido",
+            'email.required' => "Debes ingresar un email",
+            'email.max' => "El tamaño máximo para un correo es 240 caracteres",
+            'email.email' => "El correo ingresado no es válido",
+            'email.unique' => "El correo ingresado ya está registrado",
+            'birth_date.required' => "Debes ingresar una fecha de cumpleaños",
+            'phone.required' => "Debes ingresar un teléfono",
+            'phone.min' => "La longitud del teléfono debe ser mayor a 9 dígitos",
+            'phone.max' => "La longitud del teléfono debe ser menor a 15 dígitos",
+            'gender.required' => "Debes seleccionar un género",
+            'shoe_size.required' => "Debes seleccionar una talla de calzado",
+        ];
+        //Definir reglas de validación
+        $rules = [
+            'name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email|max:245|unique:users',
+            'birth_date' => 'required',
+            'phone' => 'required|min:10|max:15|unique:users',
+            'gender' => 'required|in:Hombre,Mujer',
+            'shoe_size' => 'required',
+        ];
+        //Validar datos de entrada
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->getMessageBag()->first()
+            ]);
+        }
+        //Generar contraseña temporal
         $password = substr($request->phone, -4);
         // Available alpha caracters
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -992,12 +1023,12 @@ class AdminController extends Controller
         // shuffle the result
         $share_code = str_shuffle($pin);
         DB::beginTransaction();
+        //Guardar el usuario
         $user = new User([
             'name' => $request->get('name'),
             'last_name' => $request->get('last_name'),
             'email' => $request->get('email'),
-            // 'password' => Hash::make($request->get('password')),
-            'password' => Hash::make('temporal'.$password),
+            'password' => Hash::make('temporal'.$password), //Generar Contraseña usando temporal y los últimos 4 dígitos del teléfono
             'birth_date' => $request->get('birth_date'),
             'phone' => $request->get('phone'),
             'gender' => $request->get('gender'),
