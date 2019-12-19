@@ -232,7 +232,8 @@ class AdminController extends Controller
         }
     }
 
-    public function showReports(){
+    public function showReports()
+    {
         //obtener lista de productos gratis
         $products = Product::select('id')->where('type', 'Free')->pluck('id');
         // $sales = Sale::with(['admin', 'purchase'])->whereRaw("date(created_at) = date(NOW())")->get();

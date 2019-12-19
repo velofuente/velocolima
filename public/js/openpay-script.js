@@ -60,7 +60,6 @@ var sucess_callbak = function(response) {
     if(checkbox.checked)
     {
         //alert('Checked');
-        makeCharge();
         saveCard();
     }
     else {
@@ -177,6 +176,10 @@ function saveCard(){
         },
         success: function(result){
             console.log(result);
+        },
+        complete: function() {
+            console.log("Complete Add Card");
+            makeCharge();
         }
     });
     // console.log('token_id: ', token_id);

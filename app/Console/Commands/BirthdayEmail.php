@@ -43,7 +43,7 @@ class BirthdayEmail extends Command
         /*$user = User::where('email','pjimenez0@ucol.mx');
         $name = $user->name;
         $email = $user->email;*/
-        $birthdayUsers = User::where('birth_date','like', '%'.Carbon::today()->format('m-d').'%')->get();
+        $birthdayUsers = User::whereRaw("DATE_FORMAT(birth_date, '%m-%d') = " . Carbon::today()->format('m-d'))->get();
         foreach($birthdayUsers as $user){
             DB::beginTransaction();
             $name = $user->name;
