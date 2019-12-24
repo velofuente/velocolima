@@ -164,6 +164,62 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <label for="descriptionInput" class="font-weight-light text-center mx-auto" style="font-size: 14px">(máximo 20 caracteres)</label>
                     </div>
+                    {{-- Product's Day Availables --}}
+                    <div class="form-group row mb-3" id="divClassAvailableDays">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="availableDays" class="mr-sm-2">Días disponibles:</label>
+                            <div class="input-group">
+                                <select class="form-control" name="availableDays" id="availableDays" multiple>
+                                    <option value="0" {{--in_array(0, $availableDays) ? "selected" : ""--}}>Domingo</option>
+                                    <option value="1" {{--in_array(1, $availableDays) ? "selected" : ""--}}>Lunes</option>
+                                    <option value="2" {{--in_array(2, $availableDays) ? "selected" : ""--}}>Martes</option>
+                                    <option value="3" {{--in_array(3, $availableDays) ? "selected" : ""--}}>Miércoles</option>
+                                    <option value="4" {{--in_array(4, $availableDays) ? "selected" : ""--}}>Jueves</option>
+                                    <option value="5" {{--in_array(5, $availableDays) ? "selected" : ""--}}>Viernes</option>
+                                    <option value="6" {{--in_array(6, $availableDays) ? "selected" : ""--}}>Sábado</option>
+                                </select>
+                                @if ($errors->has('availableDays'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('availableDays') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+                    {{-- Product's schedules --}}
+                    <div class="form-group row mb-3" id="divClassSchedule">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="schedule" class="mr-sm-2">Horario:</label>
+                            <div class="input-group">
+                                <select class="form-control" name="beginAt" id="beginAt">
+                                    @php
+                                        for($i=0; $i<24; $i++) {
+                                            $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
+                                            printf("<option value='{$i}'>{$hours}:00</option>");
+                                        }
+                                    @endphp
+                                </select>
+
+                                <select class="form-control" name="endAt" id="endAt">
+                                    @php
+                                        for($i=0; $i<24; $i++) {
+                                            $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
+                                            printf("<option value='{$i}'>{$hours}:00</option>");
+                                        }
+                                    @endphp
+                                </select>
+                                @if ($errors->has('schedule'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('schedule') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
                     {{-- Product's Expiration --}}
                     <div class="form-group row mb-3" id="divClassesExpiration">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -272,6 +328,62 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <label for="descriptionInput" class="font-weight-light text-center mx-auto" style="font-size: 14px">(máximo 20 caracteres)</label>
                     </div>
+                    {{-- Product's Day Availables --}}
+                    <div class="form-group row mb-3" id="editDivClassAvailableDays">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="editAvailableDays" class="mr-sm-2">Días disponibles:</label>
+                            <div class="input-group">
+                                <select class="form-control" name="editAvailableDays" id="editAvailableDays" multiple>
+                                    <option value="0" {{--in_array(0, $availableDays) ? "selected" : ""--}}>Domingo</option>
+                                    <option value="1" {{--in_array(1, $availableDays) ? "selected" : ""--}}>Lunes</option>
+                                    <option value="2" {{--in_array(2, $availableDays) ? "selected" : ""--}}>Martes</option>
+                                    <option value="3" {{--in_array(3, $availableDays) ? "selected" : ""--}}>Miércoles</option>
+                                    <option value="4" {{--in_array(4, $availableDays) ? "selected" : ""--}}>Jueves</option>
+                                    <option value="5" {{--in_array(5, $availableDays) ? "selected" : ""--}}>Viernes</option>
+                                    <option value="6" {{--in_array(6, $availableDays) ? "selected" : ""--}}>Sábado</option>
+                                </select>
+                                @if ($errors->has('availableDays'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('availableDays') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+                    {{-- Product's schedules --}}
+                    <div class="form-group row mb-3" id="editDivClassSchedule">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="schedule" class="mr-sm-2">Horario:</label>
+                            <div class="input-group">
+                                <select class="form-control" name="editBeginAt" id="editBeginAt">
+                                    @php
+                                        for($i=0; $i<24; $i++) {
+                                            $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
+                                            printf("<option value='{$i}'>{$hours}:00</option>");
+                                        }
+                                    @endphp
+                                </select>
+
+                                <select class="form-control" name="editEndAt" id="editEndAt">
+                                    @php
+                                        for($i=0; $i<24; $i++) {
+                                            $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
+                                            printf("<option value='{$i}'>{$hours}:00</option>");
+                                        }
+                                    @endphp
+                                </select>
+                                @if ($errors->has('schedule'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('schedule') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
                     {{-- Product'Expiration --}}
                     <div class="form-group row mb-3" id="editDivClassesExpiration">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -365,9 +477,16 @@
             if( $('#typeProduct').val() == 'Souvenir' ){
                 $('#divClassesQuantity').hide('fast');
                 $('#divClassesExpiration').hide('fast');
+                $('#divClassAvailableDays').hide('fast');
+                $('#divClassSchedule').hide('fast');
+            } else if ($('#typeProduct').val() == 'Free') {
+                $('#divClassAvailableDays').hide('fast');
+                $('#divClassSchedule').hide('fast');
             } else {
                 $('#divClassesQuantity').show('fast');
                 $('#divClassesExpiration').show('fast');
+                $('#divClassAvailableDays').show('fast');
+                $('#divClassSchedule').show('fast');
             }
         });
 
@@ -443,6 +562,8 @@
                 modal.find('.modal-body #editDescriptionProduct').val(description)
                 modal.find('.modal-body #editExpirationProduct').val(expiration_days)
                 $('#editDivClassesExpiration').hide();
+                $('#editDivClassAvailableDays').hide();
+                $('#editDivClassSchedule').hide();
                 modal.find('.modal-body #editTypeProduct').val(type)
                 // Modify the Select of product type to show Souvenir or Classes
                 $('#editTypeProduct > option').remove();
@@ -450,10 +571,15 @@
                     '<option value="Souvenir" class="text-center">Mercancia</option>',
                 )
                 modal.find('.modal-body #editStatusProduct').val(status)
-            } else{
+            } else if(type == "Free") {
+                $('#editDivClassAvailableDays').hide();
+                $('#editDivClassSchedule').hide();
+            } else {
                 var modal = $(this)
                 modal.find('.modal-body #editnclassesProduct').val(nClasses)
                 $('#editDivClassesQuantity').show();
+                $('#editDivClassAvailableDays').show();
+                $('#editDivClassSchedule').show();
                 modal.find('.modal-body #editPriceProduct').val(price)
                 modal.find('.modal-body #editDescriptionProduct').val(description)
                 modal.find('.modal-body #editExpirationProduct').val(expiration_days)
@@ -481,6 +607,9 @@
             expiration_days = $('#editExpirationProduct').val();
             type = $('#editTypeProduct').val();
             status = $('#editStatusProduct').val();
+            available_days = $('#editAvailableDays').val();
+            begin_at = $('#editBeginAt').val();
+            end_at = $('#editEndAt').val();
             var button = $(this);
 
             editProduct(product_id, button);
@@ -492,6 +621,9 @@
             description = $('#Description').val()
             expiration_days = $('#expirationProduct').val()
             type = $('#typeProduct').val()
+            available_days = $('#availableDays').val();
+            beginAt = $('#beginAt').val();
+            endAt = $('#endAt').val();
             status = 1
 
             $.ajax({
@@ -508,6 +640,9 @@
                     expiration_days: expiration_days,
                     type: type,
                     status: status,
+                    available_days: available_days,
+                    begin_at: beginAt,
+                    end_at: endAt,
                 },
                 success: function(result) {
                     $.LoadingOverlay("hide");
@@ -561,6 +696,9 @@
                     expiration_days: expiration_days,
                     type: type,
                     status: status,
+                    available_days: available_days,
+                    begin_at: begin_at,
+                    end_at: end_at,
                 },
                 success: function(result) {
                     $.LoadingOverlay("hide");

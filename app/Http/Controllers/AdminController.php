@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use DB, Log;
+use Carbon\Carbon;
+use App\ProductSchedule;
+use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\{Instructor, Schedule, Branch, Product, Tool, User, Purchase, Sale, UserSchedule};
-use Carbon\Carbon;
-use App\Traits\GeneralTrait;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
-use DB, Log;
+use Illuminate\Support\Facades\Validator;
+use App\{Instructor, Schedule, Branch, Product, Tool, User, Purchase, Sale, UserSchedule};
 
 // use App\Traits\UploadTrait;
 
@@ -794,7 +795,7 @@ class AdminController extends Controller
             ]);
         }
         DB::beginTransaction();
-        Product::create([
+        $product = Product::create([
             'n_classes' => $request->n_classes,
             'price' => $request->price,
             'description' => $request->description,
@@ -802,6 +803,13 @@ class AdminController extends Controller
             'type' => $request->type,
             'status' => $request->status,
         ]);
+        if ($request->available_days) {
+            ProductSchedule::create([
+                'product_id' => $product->id,
+                'available_days' => implode(',', $request->available_days),
+                'schedules' => "{$request->begin_at} - {$request->end_at}",
+            ]);
+        }
         DB::commit();
         return response()->json([
             'status' => 'OK',
@@ -824,6 +832,18 @@ class AdminController extends Controller
         $Product->type = $request->type;
         $Product->status = $request->status;
         $Product->save();
+        $productSchedule = ProductSchedule::where('product_id', $Product->id)->first();
+        if ($productSchedule && $request->available_days) {
+            $productSchedule->available_days = implode(',', $request->available_days);
+            $productSchedule->schedules = "{$request->begin_at} - {$request->end_at}";
+            $productSchedule->save();
+        } elseif ($request->available_days) {
+            ProductSchedule::create([
+                'product_id' => $Product->id,
+                'available_days' => implode(',', $request->available_days),
+                'schedules' => "{$request->begin_at} - {$request->end_at}",
+            ]);
+        }
         DB::commit();
         return response()->json([
             'status' => 'OK',
@@ -833,6 +853,7 @@ class AdminController extends Controller
     public function deleteProduct(Request $request){
         DB::beginTransaction();
         $Product = Product::find($request->product_id);
+        $productSchedule = ProductSchedule::where('product_id', $Product->id)->delete();
         $Product->delete();
         DB::commit();
         return response()->json([
