@@ -51,6 +51,7 @@ $('#pay-selected-card-button').on('click', function(event) {
 
 var sucess_callbak = function(response) {
     token_id = response.data.id;
+    conditions = document.getElementsByClassName('buy-customer-conditions')[0].checked;
     $('#token_id').val(token_id);
     // product_id = $('#product_id').val();
     // console.log(product_id);
@@ -178,7 +179,6 @@ function saveCard(){
             console.log(result);
         },
         complete: function() {
-            console.log("Complete Add Card");
             makeCharge();
         }
     });
@@ -198,7 +198,8 @@ function makeCharge(){
             _token: crfsToken,
             token_id: token_id,
             device_session_id: device_session_id,
-            product_id: product_id
+            product_id: product_id,
+            conditions: conditions ? 1 : 0,
         },
         beforeSend: function(){
             $.LoadingOverlay("show");

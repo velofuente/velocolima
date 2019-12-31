@@ -231,7 +231,7 @@
                                     <button type="button" class="button">Aplicar código</button> --}}
 
                                     <div class="">
-                                        <input type="checkbox" name="conditions" id="conditions" required>
+                                        <input type="checkbox" name="conditions" class="buy-customer-conditions" id="conditions" required>
                                         <label for="conditions" class="conditions">Acepto <a href="/legales" target="_blank">términos y condiciones</a></label>
                                     </div>
 

@@ -207,6 +207,24 @@ class OpenPayController extends Controller
 
     public function makeChargeCustomer(Request $request)
     {
+        $rules = [
+            'conditions' => [
+                'required',
+                'boolean',
+                'in' => Rule::in([true]),
+            ]
+        ];
+        $messages = [
+            'conditions.in' => 'Para continuar, debe aceptar los terminos y condiciones.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return [
+                "status" => "error",
+                "message" => $validator->messages()->first(),
+            ];
+        }
+
         $openpay = self::openPay();
         $requestUser = $request->user();
 
