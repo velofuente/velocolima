@@ -183,7 +183,7 @@ class UserController extends Controller
         $rules = [
             'name' => ['required', 'string', 'max:60'],
             'last_name' => ['required', 'string', 'max:60'],
-            'birth_date' => ['required', 'date'],
+            // 'birth_date' => ['required', 'date'],
             'phone' => ['required', 'int', 'max:999999999999999'],
             'shoe_size' => ['required'/*,'min:18','max:35'*/],
         ];
@@ -201,7 +201,7 @@ class UserController extends Controller
         $user = $request->user();
         $user->name = $request->name;
         $user->last_name = $request->last_name;
-        $user->birth_date = $request->birth_date;
+        // $user->birth_date = $request->birth_date;
         $user->phone = $request->phone;
         $user->shoe_size = $request->shoe_size;
         $user->save();

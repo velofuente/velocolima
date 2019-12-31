@@ -211,6 +211,7 @@ function makeCharge(){
                 // alert(result.message);
                 window.location.replace("/user");
             } else {
+                $("#pay-selected-card-button").prop( "disabled", false);
                 $.LoadingOverlay("hide");
                 //swal error
                 Swal.fire({
@@ -221,7 +222,11 @@ function makeCharge(){
                 })
             }
         },
+        error: function (result) {
+            $("#pay-selected-card-button").prop( "disabled", false);
+        },
         failure: function (result) {
+            $("#pay-selected-card-button").prop( "disabled", false);
             //swal error de comunicación
             alert("Ocurrió un error en el pago, por favor intente de nuevo");
         }
@@ -255,6 +260,8 @@ function makeChargeSavedCard(){
                 // alert(result.message);
                 window.location.replace("/user");
             } else {
+                $("#pay-selected-card-button").prop( "disabled", false);
+                $.LoadingOverlay("hide");
                 //swal error
                 Swal.fire({
                     title: 'Error',
@@ -264,7 +271,11 @@ function makeChargeSavedCard(){
                 });
             }
         },
+        error: function (result) {
+            $("#pay-selected-card-button").prop( "disabled", false);
+        },
         failure: function (result) {
+            $("#pay-selected-card-button").prop( "disabled", false);
             //swal error de comunicación
             alert("Ocurrió un error en el pago, por favor intente de nuevo");
         }
