@@ -511,9 +511,9 @@ select:focus {outline:0;}
     /* width: 188px; */
     /* width: 188px; */
     width: 160px;
-    height: 260px;
+    height: 275px;
     min-width: 160px;
-    min-height: 260px;
+    min-height: 275px;
     display: inline-block;
     vertical-align: top;
     margin-right: .8%;
@@ -555,9 +555,9 @@ select:focus {outline:0;}
     /* width: 188px; */
     /* width: 188px; */
     width: 160px;
-    height: 260px;
+    height: 275px;
     min-width: 160px;
-    min-height: 260px;
+    min-height: 275px;
     display: inline-block;
     vertical-align: top;
     margin-right: .8%;

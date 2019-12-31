@@ -271,7 +271,7 @@
         gender = $('#RegGender').val()
         shoe_size = $('#RegShoeSize').val()
         $.ajax({
-            url: 'addClient',
+            url: '/addClient',
             type: 'POST',
             cache: false,
             headers: {

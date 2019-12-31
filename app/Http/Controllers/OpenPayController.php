@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Exception;
-use Openpay, Log, Config, Auth, DB, Session;
-use Carbon\Carbon;
 use App\{Purchase, Card, Product};
+use App\Http\Controllers\CardController;
+use Openpay, Log, Config, Auth, DB, Session;
 
 class OpenPayController extends Controller
 {
@@ -19,12 +19,10 @@ class OpenPayController extends Controller
     {
         DB::beginTransaction();
         //TODO: Implementar validador
-        // log::info($request->all());
         //Obtener usuario de la petición
         $requestUser = $request->user();
-        // dd($requestUser);
         $cardCount = Card::where('user_id', $requestUser->id)->count();
-        if($cardCount > 3){
+        if ($cardCount > 3) {
             $message = "No puedes agregar más de 3 tarjetas a tu perfil";
             return [
                 "status" => "error",
@@ -32,7 +30,7 @@ class OpenPayController extends Controller
             ];
         }
         //Validar si el usuario ya existe en OpenPay
-        if ($requestUser->customer_id == null){
+        if ($requestUser->customer_id == null) {
             $openPayCustomer = $this->addCustomer($requestUser);
             $requestUser->customer_id = $openPayCustomer->id;
             $requestUser->save();
@@ -43,37 +41,37 @@ class OpenPayController extends Controller
         //Obtener el usuaro de OpenPay
         $cardData = $this->getCardToken($request->token_id);
         if (!isset($cardData->card)) {
-            $message = "No se encontró la tarjeta ingrasada, pruebe de nuevo ";
+            $message = "No se encontró la tarjeta ingrasada, pruebe de nuevo.";
             return [
                 "status" => 'error',
                 "message" => $message,
             ];
-        }
-        else{
+        } else {
             //TODO: Validar si existe la tarjeta en mi base de datos con los datos obtenidos de getCardToken
-            log::info('existCard');
-            $existsCard = DB::table('cards')->where(
-                'card_number', '=', "{$cardData->card->card_number}"
-                )->get();
+            $existsCard = DB::table('cards')
+                ->where('card_number', '=', "{$cardData->card->card_number}")
+                ->get();
+
             if (!isset($existsCard)) {
                 $message = "La tarjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
                 return [
                     "status" => "error",
                     "message" => $message,
                 ];
-            }
-            else{
+            } else {
                 //TODO: Validar si existe la tarjeta en mi base de datos con los datos obtenidos de getCardToken
-                $existsCard = DB::table('cards')->where(
-                    'card_number', '=', "{$cardData->card->card_number}"
-                    )->get();
+                $existsCard = DB::table('cards')
+                                ->where('card_number', '=', "{$cardData->card->card_number}")
+                                ->get();
                 if (!isset($existsCard)) {
                     return "La tarjeta que deseas ingresar ya existe favor de revisar los datos de la tarjeta o ingresar una nueva.";
                 }
                 else{
                     $userCards = Card::where('user_id' , $requestUser->id)->get();
-                    If(count($userCards)>0){
-                        Card::where('user_id' , $requestUser->id)->where('selected', 1)->update(['selected' => 0]);
+                    if (count($userCards) > 0) {
+                        Card::where('user_id' , $requestUser->id)
+                            ->where('selected', 1)
+                            ->update(['selected' => 0]);
                     }
                     // Session::flash('alertButton', "Aceptar");
                     $cardDataRequest = [
@@ -82,7 +80,7 @@ class OpenPayController extends Controller
                     ];
                     try{
                         $card = $openPayCustomer->cards->add($cardDataRequest);
-                        app('App\Http\Controllers\CardController')->store($cardData,$requestUser->id);
+                        (new CardController)->store($cardData,$requestUser->id);
                         DB::commit();
                         Session::flash('alertTitle', "Tarjeta guardada");
                         Session::flash('alertMessage', "Tu tarjeta fue guardada exitosamente");
@@ -136,7 +134,8 @@ class OpenPayController extends Controller
                         $message = "Tarjeta no válida. Contacta a tu banco.";
                     }catch(\Exception $e){
                         $message = "No se pudo agregar la tarjeta, inténtalo nuevamente.";
-                    } return [
+                    }
+                    return [
                         "status" => "error",
                         "message" => $message
                     ];
@@ -166,13 +165,13 @@ class OpenPayController extends Controller
         //Intentamos crear el usuario en OpenPay
         try {
             return $openpay->customers->add($customerData);
-
         } catch(Exception $e) {
             //Retornamos error
             //TODO: Investigar si se puede cachar el tipo de error
-            return "No se pudo agregar el cliente: ".$e->getMessage();
+            return "No se pudo agregar el cliente - Message: {$e->getMessage()}";
         }
     }
+
     public function getCustomer(Request $request)
     {
         $openpay = self::openPay();
@@ -203,9 +202,9 @@ class OpenPayController extends Controller
         curl_close($curl);
         return $card;
     }
+
     public function makeChargeCustomer(Request $request)
     {
-        log::info("entro");
         $openpay = self::openPay();
         $requestUser = $request->user();
 
@@ -224,8 +223,8 @@ class OpenPayController extends Controller
             $openpay = self::openPay();
             $customer = $openpay->customers->get($requestUser->customer_id);
         }
-        try{
-            log::info("entro al try");
+
+        try {
             DB::beginTransaction();
             //Inicializamos array para compra (MI DB)
             $purchaseArray = [
@@ -235,10 +234,14 @@ class OpenPayController extends Controller
                 'n_classes' => $product->n_classes,
                 'expiration_days' => $product->expiration_days,
             ];
-            log::info("purchasearray creado");
             //Obtenemos el token de la tarjeta
             $cardToken = $request->token_id;
-            log::info("obtuvo token id");
+            $card = Card::where('token_id', $cardToken)->where('user_id', $requestUser->id)->first();
+            if ($card) {
+                $purchaseArray = array_merge($purchaseArray, ["card_id" => $card->id]);
+            } else if($cardToken) {
+                $purchaseArray = array_merge($purchaseArray, ["card_token" => $cardToken]);
+            }
             // $purchaseArray["card_id"] = $card->id;
             // $cardToken = $card->token_id;
             //Registramos la compra en el sistema
@@ -251,15 +254,16 @@ class OpenPayController extends Controller
                 }
             }*/
             //verificar si compro un paquete de mas o igual a 10 clases
-            if(intval($product->n_classes) >= 10){
+            if (intval($product->n_classes) >= 10) {
                 //promocion clase adicional verificar si tiene 1 clase
                 $lastClassPurchase = Purchase::where('user_id', $requestUser->id)
-                ->where('n_classes', "<>", 0)
-                ->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
-                ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
-                if($lastClassPurchase){
+                    ->where('n_classes', "<>", 0)
+                    ->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
+                    ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')
+                    ->first();
+                if ($lastClassPurchase) {
                     // Verificar que la última clase adquirida no haya sido la clase gratis de registro o la gratis de cumpleaños
-                    if($lastClassPurchase->product->id != 1 ||  $lastClassPurchase->product->id != 12){
+                    if ($lastClassPurchase->product->id != 1 ||  $lastClassPurchase->product->id != 12) {
                         // En Pruebas la clase cumpleaños es id = 11, y la de regalo es id = 12
                         $promocion = Product::find(13);
                         Purchase::create([
@@ -273,7 +277,7 @@ class OpenPayController extends Controller
                 }
             }
             $compra = Purchase::create($purchaseArray);
-            log::info("crea la compra");
+
             //Inicializamos array de cargo (OpenPay)
             $chargeData = [
                 'method' => 'card',
@@ -283,8 +287,7 @@ class OpenPayController extends Controller
                 'order_id' => 'ORDEN-'.$compra->id."-".time(),
                 'device_session_id' => $request->device_session_id
             ];
-            log::info("crea el charge data");
-            $charge = $customer->charges->create($chargeData);
+            $customer->charges->create($chargeData);
             DB::commit();
             Session::flash('alertTitle', "Compra realizada");
             Session::flash('alertMessage', "Tu compra fue procesada exitosamente");
@@ -419,8 +422,8 @@ class OpenPayController extends Controller
                 'order_id' => 'ORDEN-'.$compra->id."-".time(),
                 'device_session_id' => $request->device_session_id
             ];
-            log::info("crea el charge data");
-            $charge = $customer->charges->create($chargeData);
+
+            $customer->charges->create($chargeData);
             DB::commit();
             Session::flash('alertTitle', "Compra realizada");
             Session::flash('alertMessage', "Tu compra fue procesada exitosamente");

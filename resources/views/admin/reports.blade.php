@@ -70,8 +70,8 @@
                     @else
                         <td>N/A</td>
                     @endif
-                   
-                    @if($sale->card_id)
+
+                    @if($sale->card_id || $sale->card_toke)
                         <td>Online</td>
                     @else
                         <td>Mostrador</td>

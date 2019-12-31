@@ -29,6 +29,7 @@ class CardController extends Controller
         ]);
         $card->save();
     }
+
     public function deleteUserCard(Request $request){
         DB::beginTransaction();
         $card = Card::find($request->card_id);

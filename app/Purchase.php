@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     protected $fillable = [
-        'product_id', 'card_id', 'user_id', 'n_classes', 'expiration_days', 'status',
+        'product_id', 'card_id', 'user_id', 'n_classes', 'expiration_days', 'status', 'card_token'
     ];
     public function productWithTrashed(){
         return $this->belongsTo(Product::class, 'product_id', 'id')->withTrashed();
