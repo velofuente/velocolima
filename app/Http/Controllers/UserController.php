@@ -80,8 +80,10 @@ class UserController extends Controller
             // 'height' => ['required', 'int', 'max:250'],
             'gender' => ['required', 'string', 'max:6', 'in:Hombre,Mujer'],
             'shoe_size' => ['required', 'numeric', 'between:0,32.5'],
+            'conditions' => ['required'],
         ];
         $messages = [
+            'conditions.required' => "Para continuar, debes aceptar los términos y condiciones.",
             "required" => "Este campo es requerido",
             "numeric" => "Este campo solo acepta numeros",
             "int" => "Este campo solo acepta numeros",

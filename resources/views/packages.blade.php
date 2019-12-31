@@ -151,7 +151,7 @@
                                         <button type="button" class="button" id="use-new-card-button">Usar nueva tarjeta</button>
                                     </div>
                                     <div class="">
-                                        <input type="checkbox" name="conditions" id="conditions" required>
+                                        <input type="checkbox" class="buy-conditions" name="conditions" id="conditions" required>
                                         <label for="conditions" class="conditions">Acepto <a href="/legales" target="_blank">términos y condiciones</a></label>
                                     </div>
 

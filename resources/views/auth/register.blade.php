@@ -207,7 +207,7 @@
                                 {{-- <input type="checkbox" id="termsCondition" class="form-control{{ $errors->has('termsCondition') ? ' is-invalid' : '' }}" name="termsCondition" value="{{ old('termsCondition') }}" required> He leído y acepto los <a href="{{url("/who-are-we")}}">Términos y Condiciones de Uso</a> --}}
 
                                 <input type="checkbox" name="conditions" id="conditions" required oninvalid="this.setCustomValidity('Debes marcar esta casilla para continuar')" oninput="this.setCustomValidity('')"  />
-                                <label for="conditions" class="conditions" style="font-size: 15px;">He leído y acepto los <a href="#">Términos y condiciones</label>
+                                <label for="conditions" class="conditions" style="font-size: 15px;">He leído y acepto los <a href="/legales" target="_blank">Términos y condiciones</label>
                             </div>
                             <div class="col-2 col-xs-2 col-sm-2 col-md-3"></div>
                         </div>

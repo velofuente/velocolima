@@ -93,9 +93,20 @@ var passwordValidityChecks = [
     }
 ]
 
+var legalValidate = [
+    {
+        isInvalid: function(input){
+            return input.checked 
+        },
+        invalidityMessage: 'Para continuar debe aceptar los términos y condiciones.',
+        element: document.querySelector('#conditions')
+    }
+];
+
 var nameInput = document.getElementById('name');
 var lastNameInput = document.getElementById('last_name');
 var passwordInput = document.getElementById('password');
+var legalInput = document.getElementById('conditions');
 
 nameInput.CustomValidation = new CustomValidation();
 nameInput.CustomValidation.validityChecks = nameValidityChecks;
@@ -105,6 +116,9 @@ lastNameInput.CustomValidation.validityChecks = lastNameValidityChecks;
 
 passwordInput.CustomValidation = new CustomValidation();
 passwordInput.CustomValidation.validityChecks = passwordValidityChecks;
+
+legalInput.CustomValidation = new CustomValidation();
+legalInput.CustomValidation.validityChecks = legalValidate;
 
 var inputs = document.querySelectorAll('input:not([type="submit"])');
 for (var i = 0; i < inputs.length; i++){

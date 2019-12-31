@@ -44,7 +44,7 @@ $('#pay-selected-card-button').on('click', function(event) {
     event.preventDefault();
     $("#pay-selected-card-button").prop( "disabled", true);
     // OpenPay.token.extractFormAndCreate('payment-form-unsaved-card', sucess_callback, error_callback);
-    console.log('El id del SELECT es: ' + $('#selectSavedCard').val());
+    conditions = document.getElementsByClassName("buy-conditions")[0].checked;
     card_id = $('#selectSavedCard').val();
     makeChargeSavedCard();
 });
@@ -234,9 +234,7 @@ function makeCharge(){
 
 //Make Charge: Saved Card
 function makeChargeSavedCard(){
-    console.log("entro");
     tokenBearer = $('#tokenBearer').val();
-    console.log(card_id);
     $.ajax({
         url: "makeChargeCard",
         method: 'POST',
@@ -244,7 +242,8 @@ function makeChargeSavedCard(){
             _token: crfsToken,
             card_id: card_id,
             device_session_id: device_session_id,
-            product_id: product_id
+            product_id: product_id,
+            conditions: (conditions) ? 1 : 0,
         },
         beforeSend: function(){
             $.LoadingOverlay("show");
@@ -256,14 +255,13 @@ function makeChargeSavedCard(){
                 // alert(result.message);
                 window.location.replace("/user");
             } else {
-                $.LoadingOverlay("hide");
                 //swal error
                 Swal.fire({
                     title: 'Error',
                     text: result.message,
                     type: 'error',
                     confirmButtonText: 'Aceptar'
-                })
+                });
             }
         },
         failure: function (result) {

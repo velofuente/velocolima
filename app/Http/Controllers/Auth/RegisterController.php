@@ -63,6 +63,7 @@ class RegisterController extends Controller
             'height' => ['required', 'int', 'max:250'],
             'shoe_size' => ['required', 'numeric', 'between: 10.0, 34.5'],
             'gender' => ['required', 'string', 'max:6'],
+            'conditions' => ['required'],
         ]);
     }
 

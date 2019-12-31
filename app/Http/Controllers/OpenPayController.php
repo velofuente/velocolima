@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use PHPUnit\Framework\Exception;
 use App\{Purchase, Card, Product};
 use App\Http\Controllers\CardController;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 use Openpay, Log, Config, Auth, DB, Session;
 
 class OpenPayController extends Controller
@@ -356,6 +358,23 @@ class OpenPayController extends Controller
     }
     public function makeChargeCard(Request $request)
     {
+        $rules = [
+            'conditions' => [
+                'required',
+                'boolean',
+                'in' => Rule::in([true]),
+            ]
+        ];
+        $messages = [
+            'conditions.in' => 'Para continuar, debe aceptar los terminos y condiciones.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return [
+                "status" => "error",
+                "message" => $validator->messages()->first(),
+            ];
+        }
         $requestUser = $request->user();
 
         //$card = Card::select('id','token_id')->where('user_id', "{$requestUser->id}")->where('selected', 1)->first();
