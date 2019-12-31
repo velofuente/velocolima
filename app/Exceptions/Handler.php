@@ -49,6 +49,22 @@ class Handler extends ExceptionHandler
         // if($exception instanceof \Illuminate\Auth\AuthenticationException){
         //     return redirect('/login')->with('flash', 'Por favor inicia sesion');
         // }
+        //Validar página no encontrada
+        if ($this->isHttpException($exception)) {
+            switch ($exception->getStatusCode()) {
+                case "404": // No encontrado
+                case 404:
+                    return redirect()->to('login');
+                    break;
+                default:
+                    break;
+            }
+        }
+        //Validar si tiene sesión expirada
+        if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
+            return redirect()->to('login');
+        }
+
         return parent::render($request, $exception);
     }
 }

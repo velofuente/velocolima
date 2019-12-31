@@ -1000,7 +1000,7 @@ class AdminController extends Controller
             'last_name' => 'required',
             'email' => 'required|email|max:245|unique:users',
             'birth_date' => 'required',
-            'phone' => 'required|min:10|max:15|unique:users',
+            'phone' => 'required|min:10|max:10|unique:users',
             'gender' => 'required|in:Hombre,Mujer',
             'shoe_size' => 'required',
         ];

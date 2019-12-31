@@ -58,7 +58,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:7', 'max:100', 'confirmed'],
             'birth_date' => ['required', 'date'],
-            'phone' => ['required', 'int', 'max:999999999999999'],
+            'phone' => ['required', 'int', 'max:10', 'min:10'],
             'weight' => ['required', 'numeric', 'between:0,999.99'],
             'height' => ['required', 'int', 'max:250'],
             'shoe_size' => ['required', 'numeric', 'between: 10.0, 34.5'],
