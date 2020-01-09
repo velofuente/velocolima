@@ -94,9 +94,9 @@ class BookClassController extends Controller
                     //obtiene el numero total de clases
                     $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->whereRaw("NOW() <= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->where('user_id', '=', "{$requestUser->id}")->groupBy("id")->get();
                     $classes = $numClases->sum("clases");
-                    log::info("B234");
+                    // log::info("B234");
                     if($classes == 1){
-                        log::info("B234");
+                        // log::info("B234");
                         $lastClassPurchase = Purchase::where('user_id', $requestUser->id)
                         ->where('n_classes', "<>", 0)
                         //->whereRaw("created_at < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
@@ -106,7 +106,7 @@ class BookClassController extends Controller
                         ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
                         //verificar si el producto es diferente a clase 
                         if($lastClassPurchase->product->id != 1){
-                            log::info("ENVIANDO UN MENSAJE");
+                            // log::info("ENVIANDO UN MENSAJE");
                             //$promocion = Product::where('description', 'Clase adicional')->first();
                             /*Purchase::create([
                                 'product_id' => $promocion->id,
@@ -182,7 +182,7 @@ class BookClassController extends Controller
                 'message' => 'El usuario no asistió a la clase.',
             ]);
         }else{
-            log::info($requestedClass);
+            //log::info($requestedClass);
             return response()->json([
                 'status' => 'ERROR',
                 'message' => 'Ocurrió un error al procesar la solicitud. Intenta refrescando la página.',
@@ -193,10 +193,10 @@ class BookClassController extends Controller
     public function cancelClass(Request $request)
     {
         $requestedClass = UserSchedule::find($request->id);
-        log::info($requestedClass);
+        // log::info($requestedClass);
         //obtiene el periodo de cancelacion de la ubicación
         $schedule = Schedule::find($requestedClass->schedule_id);
-        log::info($schedule);
+        // log::info($schedule);
         $branch = Branch::find($schedule->branch_id);
         $cancelationPeriod = $branch->cancelation_period;
         //verificar el horario que agrego el admin para las clases  cancelables
@@ -380,7 +380,7 @@ class BookClassController extends Controller
                 'hour' => $cancelationPeriod,
             ]);
         } catch (Exception $e) {
-            log::error("BookClassController@checkCancelLimit ".'line-'.$e->getLine().'  message'.$e->getMessage());
+            Log::error("BookClassController@checkCancelLimit ".'line-'.$e->getLine().'  message'.$e->getMessage());
             return response()->json([
                 'status' => 'error',
                 'hour' =>2,

@@ -77,7 +77,7 @@ class InstructorController extends Controller
         $instructors = Instructor::all();
         $branches = Branch::all();
         $products = Product::all();
-        log::info($products);
+        // log::info($products);
 
         date_default_timezone_set('America/Mexico_City');
         // $schedules = Schedule::whereBetween('day', [now()->format('Y-m-d'), now()->modify('+7 days')])
@@ -112,7 +112,7 @@ class InstructorController extends Controller
         if(!$request->user()){
             return redirect('login');
         }
-        log::info($schedules);
+        // log::info($schedules);
         $scheduleHourBeforeCancelation = $schedules->day.'T'.$schedules->hour;//Carbon::parse($schedules->hour)->subHours($schedules->branch->cancelation_period)->format('H:i:s');
         //obtiene el numero de reservaciones que se han hecho a esa clase
         $instances = UserSchedule::where('schedule_id', $schedules->id)->count();

@@ -55,7 +55,7 @@ class LoginController extends Controller
             // dd($value);
             $user = User::where('email', $request->email)->first();
             if($user->role_id == 1){
-                log::info($user->role_id);
+                // log::info($user->role_id);
                 return redirect("/admin");
                 // return redirect("/admin");
             }

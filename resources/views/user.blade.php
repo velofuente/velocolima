@@ -295,7 +295,6 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {{logger($previousClasses)}}
                                                         @foreach ($previousClasses as $previousClass)
                                                             <tr>
                                                                 <td>{{date('d-M-Y', strtotime($previousClass->scheduleWithTrashed->day))}}</td>

@@ -37,7 +37,6 @@
                 {{-- <img class="resClass" src="/img/iconos/2.png" alt=""> --}}
                 <span class="text-center text_gradient_bike_selection"> Reserva tu clase </span>
             </div>
-            {{Log::info($instructor)}}
             @if(strlen($instructor->profile_image) > 0)
                 <img  id="profilePic" src="{{$instructor->profile_image}}" class="card-img-top" alt="{{$instructor->name}}">
             @else

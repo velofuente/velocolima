@@ -12,4 +12,9 @@ class Product extends Model
     protected $fillable = [
         'n_classes', 'price', 'description', 'expiration_days', 'type', 'status', 'cancelation_range'
     ];
+
+    public function productSchedule()
+    {
+        return $this->hasOne('App\ProductSchedule', 'product_id');
+    }
 }

@@ -135,7 +135,7 @@ class UserController extends Controller
         Session::flash('alertType', "success");
         // Session::flash('alertButton', "Aceptar");
         Auth::login($user);
-        Log::info("Entra pre Mail Send");
+        // Log::info("Entra pre Mail Send");
         // Mail::send([], [], function ($message) use ($request){
         //     $message->to($request->email)
         //       ->subject("Welcome")
@@ -144,7 +144,7 @@ class UserController extends Controller
         //       // or:
         //       ->setBody('<h1>Hi, welcome user!</h1>', 'text/html'); // for HTML rich messages
         //   });
-          Log::info("Entra pos Mail Send");
+        //   Log::info("Entra pos Mail Send");
         return redirect()->route('home')->with('success','Data Added');
     }
 

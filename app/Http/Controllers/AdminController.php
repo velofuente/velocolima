@@ -117,7 +117,7 @@ class AdminController extends Controller
     }
 
     public function showProducts(){
-        $products = Product::all();
+        $products = Product::with('productSchedule')->get();
         return view('/admin/products', compact ('products'));
     }
 
@@ -807,7 +807,7 @@ class AdminController extends Controller
             ProductSchedule::create([
                 'product_id' => $product->id,
                 'available_days' => implode(',', $request->available_days),
-                'schedules' => "{$request->begin_at} - {$request->end_at}",
+                'schedules' => "{$request->begin_at}-{$request->end_at}",
             ]);
         }
         DB::commit();
@@ -816,6 +816,7 @@ class AdminController extends Controller
             'message' => "Producto agregado con éxito",
         ]);
     }
+
     public function editProduct(Request $request){
         if( strlen($request->description) > 20 ){
             return response()->json([
@@ -835,13 +836,13 @@ class AdminController extends Controller
         $productSchedule = ProductSchedule::where('product_id', $Product->id)->first();
         if ($productSchedule && $request->available_days) {
             $productSchedule->available_days = implode(',', $request->available_days);
-            $productSchedule->schedules = "{$request->begin_at} - {$request->end_at}";
+            $productSchedule->schedules = "{$request->begin_at}-{$request->end_at}";
             $productSchedule->save();
         } elseif ($request->available_days) {
             ProductSchedule::create([
                 'product_id' => $Product->id,
                 'available_days' => implode(',', $request->available_days),
-                'schedules' => "{$request->begin_at} - {$request->end_at}",
+                'schedules' => "{$request->begin_at}-{$request->end_at}",
             ]);
         }
         DB::commit();
@@ -861,6 +862,7 @@ class AdminController extends Controller
             'message' => "Producto eliminado con éxito",
         ]);
     }
+
     public function addUser(Request $request){
         log::info("========== addUser ==========");
         log::info($request->all());

@@ -83,7 +83,7 @@ class MailSendingController extends Controller
                 'message' => "Informacion enviada con éxito!",
             ]);
         } catch (Exception $e) {
-            log::info($e->getMessage());
+            Log::info("MailSendigController@birthdayEmail | Message: {$e->getMessage()} - Line: {$e->getLine()}");
             return response()->json([
                 'status' => 'ERROR',
                 'message' => "Error". $e->getMessage()

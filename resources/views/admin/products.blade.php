@@ -1,6 +1,8 @@
 @extends('admin.app')
 
 @section('extra_styles')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet"/>
 @stop
 
 @section('content')
@@ -21,6 +23,8 @@
                 <th scope="col">Descripción</th>
                 <th scope="col">Vigencia</th>
                 <th scope="col">Tipo</th>
+                <th scope="col">Días</th>
+                <th scope="col">Horario</th>
                 <th scope="col">Estatus</th>
                 <th scope="col" colspan="2" class="text-center">Acción</th>
             </tr>
@@ -43,13 +47,67 @@
                     @else
                         <td>Paquete</td>
                     @endif
+                    @if($product->productSchedule)
+                        <td>
+                            @php
+                                $days = explode(',', $product->productSchedule->available_days);
+                                $daysText= [];
+                                foreach ($days as $day) {
+                                    switch ($day) {
+                                        case 1:
+                                            $daysText[] = "Lunes";
+                                            break;
+                                        case 2:
+                                            $daysText[] = "Martes";
+                                            break;
+                                        case 3:
+                                            $daysText[] = "Miércoles";
+                                            break;
+                                        case 4:
+                                            $daysText[] = "Jueves";
+                                            break;
+                                        case 5:
+                                            $daysText[] = "Viernes";
+                                            break;
+                                        case 6:
+                                            $daysText[] = "Sábado";
+                                            break;
+                                        case 0:
+                                            $daysText[] = "Domingo";
+                                            break;
+                                    }
+                                }
+                                $daysText = implode(',', $daysText);
+                                printf($daysText);
+                                $daysText = $product->productSchedule->available_days;
+                            @endphp
+                        </td>
+                    @else
+                        <td>N/A</td>
+                    @endif
+                    @if($product->productSchedule)
+                        <td>
+                            @php
+                                $schedules = explode(';', $product->productSchedule->schedules);
+                                foreach ($schedules as $schedule) {
+                                    $time = explode('-', $schedule);
+                                    $time[0] = str_pad($time[0], 2, '0', STR_PAD_LEFT) . ":00";
+                                    $time[1] = str_pad($time[1], 2, '0', STR_PAD_LEFT) . ":00";
+                                    printf(implode(' - ', $time) . "\n");
+                                }
+                                $dataSchedules = $product->productSchedule->schedules;
+                            @endphp
+                        </td>
+                    @else
+                        <td>N/A</td>
+                    @endif
                     {{-- <td>{{$product->status}}</td> --}}
                     @if ($product->status != "1")
                         <td>Deshabilitado</td>
                     @else
                         <td>Habilitado</td>
                     @endif
-                    <td><button class="btn btn-primary btn-sm editProduct" id="editProduct-{{ $product->id }}" value="{{$product->id}}" data-myid="{{ $product->id }}" data-mynclasses="{{ $product->n_classes }}" data-myprice="{{ $product->price }}" data-mydescription="{{ $product->description }}" data-myexpiration="{{$product->expiration_days}}" data-mytype="{{ $product->type }}" data-mystatus="{{$product->status}}" data-toggle="modal" data-target="#editProductModal">Editar</button></td>
+                    <td><button class="btn btn-primary btn-sm editProduct" id="editProduct-{{ $product->id }}" value="{{$product->id}}" data-id="{{ $product->id }}" data-toggle="modal" data-target="#editProductModal">Editar</button></td>
                     <td><button class="btn btn-danger btn-sm deleteProduct" id="deleteProduct-{{ $product->id }}" value="{{$product->id}}">Eliminar</button></td>
                 </tr>
             @elseif ($product->type=="Souvenir")
@@ -103,7 +161,7 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="typeProduct">Tipo de producto: </label>
-                            <select class="form-control" name="typeProduct" id="typeProduct">
+                            <select name="typeProduct" id="typeProduct">
                                 <option value="Deals" class="text-center">Promoción</option>
                                 <option value="Packages" class="text-center">Paquete</option>
                                 <option value="Souvenir" class="text-center">Mercancía</option>
@@ -164,20 +222,21 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <label for="descriptionInput" class="font-weight-light text-center mx-auto" style="font-size: 14px">(máximo 20 caracteres)</label>
                     </div>
+
                     {{-- Product's Day Availables --}}
                     <div class="form-group row mb-3" id="divClassAvailableDays">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="availableDays" class="mr-sm-2">Días disponibles:</label>
-                            <div class="input-group">
-                                <select class="form-control" name="availableDays" id="availableDays" multiple>
-                                    <option value="0" {{--in_array(0, $availableDays) ? "selected" : ""--}}>Domingo</option>
-                                    <option value="1" {{--in_array(1, $availableDays) ? "selected" : ""--}}>Lunes</option>
-                                    <option value="2" {{--in_array(2, $availableDays) ? "selected" : ""--}}>Martes</option>
-                                    <option value="3" {{--in_array(3, $availableDays) ? "selected" : ""--}}>Miércoles</option>
-                                    <option value="4" {{--in_array(4, $availableDays) ? "selected" : ""--}}>Jueves</option>
-                                    <option value="5" {{--in_array(5, $availableDays) ? "selected" : ""--}}>Viernes</option>
-                                    <option value="6" {{--in_array(6, $availableDays) ? "selected" : ""--}}>Sábado</option>
+                            <div class="form-group">
+                                <select name="availableDays" id="availableDays" multiple>
+                                    <option value="0">Domingo</option>
+                                    <option value="1">Lunes</option>
+                                    <option value="2">Martes</option>
+                                    <option value="3">Miércoles</option>
+                                    <option value="4">Jueves</option>
+                                    <option value="5">Viernes</option>
+                                    <option value="6">Sábado</option>
                                 </select>
                                 @if ($errors->has('availableDays'))
                                     <span class="invalid-feedback" role="alert">
@@ -188,38 +247,38 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
+
                     {{-- Product's schedules --}}
                     <div class="form-group row mb-3" id="divClassSchedule">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto group-inline" id="editDivClassScheduleContainer">
                             <label for="schedule" class="mr-sm-2">Horario:</label>
-                            <div class="input-group">
-                                <select class="form-control" name="beginAt" id="beginAt">
-                                    @php
-                                        for($i=0; $i<24; $i++) {
-                                            $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
-                                            printf("<option value='{$i}'>{$hours}:00</option>");
-                                        }
-                                    @endphp
-                                </select>
-
-                                <select class="form-control" name="endAt" id="endAt">
-                                    @php
-                                        for($i=0; $i<24; $i++) {
-                                            $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
-                                            printf("<option value='{$i}'>{$hours}:00</option>");
-                                        }
-                                    @endphp
-                                </select>
-                                @if ($errors->has('schedule'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('schedule') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <select name="beginAt" id="beginAt">
+                                        @php
+                                            for($i=0; $i<24; $i++) {
+                                                $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
+                                                printf("<option value='{$i}'>{$hours}:00</option>");
+                                            }
+                                        @endphp
+                                    </select>
+                                </div>
+                                <div class="form-group col-6">
+                                    <select name="endAt" id="endAt">
+                                        @php
+                                            for($i=0; $i<24; $i++) {
+                                                $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
+                                                printf("<option value='{$i}'>{$hours}:00</option>");
+                                            }
+                                        @endphp
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
+
                     {{-- Product's Expiration --}}
                     <div class="form-group row mb-3" id="divClassesExpiration">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -291,6 +350,7 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
+
                     {{-- Product's Price --}}
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -313,6 +373,7 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
+
                     {{-- Product's Description --}}
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -328,20 +389,21 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <label for="descriptionInput" class="font-weight-light text-center mx-auto" style="font-size: 14px">(máximo 20 caracteres)</label>
                     </div>
+
                     {{-- Product's Day Availables --}}
                     <div class="form-group row mb-3" id="editDivClassAvailableDays">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="editAvailableDays" class="mr-sm-2">Días disponibles:</label>
-                            <div class="input-group">
-                                <select class="form-control" name="editAvailableDays" id="editAvailableDays" multiple>
-                                    <option value="0" {{--in_array(0, $availableDays) ? "selected" : ""--}}>Domingo</option>
-                                    <option value="1" {{--in_array(1, $availableDays) ? "selected" : ""--}}>Lunes</option>
-                                    <option value="2" {{--in_array(2, $availableDays) ? "selected" : ""--}}>Martes</option>
-                                    <option value="3" {{--in_array(3, $availableDays) ? "selected" : ""--}}>Miércoles</option>
-                                    <option value="4" {{--in_array(4, $availableDays) ? "selected" : ""--}}>Jueves</option>
-                                    <option value="5" {{--in_array(5, $availableDays) ? "selected" : ""--}}>Viernes</option>
-                                    <option value="6" {{--in_array(6, $availableDays) ? "selected" : ""--}}>Sábado</option>
+                            <div class="form-group">
+                                <select name="editAvailableDays" id="editAvailableDays" multiple>
+                                    <option value="0">Domingo</option>
+                                    <option value="1">Lunes</option>
+                                    <option value="2">Martes</option>
+                                    <option value="3">Miércoles</option>
+                                    <option value="4">Jueves</option>
+                                    <option value="5">Viernes</option>
+                                    <option value="6">Sábado</option>
                                 </select>
                                 @if ($errors->has('availableDays'))
                                     <span class="invalid-feedback" role="alert">
@@ -352,38 +414,38 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
+
                     {{-- Product's schedules --}}
                     <div class="form-group row mb-3" id="editDivClassSchedule">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto group-inline" id="editDivClassScheduleContainer">
                             <label for="schedule" class="mr-sm-2">Horario:</label>
-                            <div class="input-group">
-                                <select class="form-control" name="editBeginAt" id="editBeginAt">
-                                    @php
-                                        for($i=0; $i<24; $i++) {
-                                            $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
-                                            printf("<option value='{$i}'>{$hours}:00</option>");
-                                        }
-                                    @endphp
-                                </select>
-
-                                <select class="form-control" name="editEndAt" id="editEndAt">
-                                    @php
-                                        for($i=0; $i<24; $i++) {
-                                            $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
-                                            printf("<option value='{$i}'>{$hours}:00</option>");
-                                        }
-                                    @endphp
-                                </select>
-                                @if ($errors->has('schedule'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('schedule') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <select name="editBeginAt" id="editBeginAt">
+                                        @php
+                                            for($i=0; $i<24; $i++) {
+                                                $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
+                                                printf("<option value='{$i}'>{$hours}:00</option>");
+                                            }
+                                        @endphp
+                                    </select>
+                                </div>
+                                <div class="form-group col-6">
+                                    <select name="editEndAt" id="editEndAt">
+                                        @php
+                                            for($i=0; $i<24; $i++) {
+                                                $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
+                                                printf("<option value='{$i}'>{$hours}:00</option>");
+                                            }
+                                        @endphp
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
+
                     {{-- Product'Expiration --}}
                     <div class="form-group row mb-3" id="editDivClassesExpiration">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -403,27 +465,13 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
-                    {{-- Product's Type --}}
-                    {{-- <div class="form-group row mb-3">
-                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="name" class="mr-sm-2">Tipo de Producto:</label>
-                            <input id="editTypeProduct" placeholder="Tipo de Producto" type="text" min="0" minlength="10" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required>
-                            @if ($errors->has('phone'))
-                                <span class="invalid-feedback" style="display: block !important" role="alert">
-                                    <strong>{{ $errors->first('phone') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                    </div> --}}
 
                     {{-- Product's Type v2.0 --}}
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="editTypeProduct">Tipo de producto: </label>
-                            <select class="form-control" name="editTypeProduct" id="editTypeProduct">
+                            <label for="editTypeProduct" class="control-label">Tipo de prodcuto: </label>
+                            <select name="editTypeProduct" id="editTypeProduct" >
                                 <option value="Deals" class="text-center">Promoción</option>
                                 <option value="Packages" class="text-center">Paquetes</option>
                                 <option value="Souvenir" class="text-center">Mercancia</option>
@@ -439,7 +487,7 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="statusProduct" class="mr-sm-2">Estatus</label>
-                            <select class="form-control" name="statusProduct" id="editStatusProduct">
+                            <select name="statusProduct" id="editStatusProduct">
                                 <option value="1" class="text-center">Habilitado</option>
                                 <option value="0" class="text-center">Deshabilitado</option>
                             </select>
@@ -458,6 +506,7 @@
 @stop
 
 @section('extra_scripts')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 {{-- Add, Delete & Edit Products Scripts --}}
 <script>
     $(document).ready(function (){
@@ -472,6 +521,7 @@
         // myid mynclasses myprice mydescription myexpiration mytype mystatus
         // product_id n_classes price description expiration_days type status
 
+        $('select').select2({theme: 'bootstrap'});
         // Hide Classes input & Classes expiration if Mercancía/Souvenir is selected
         $('#typeProduct').on('change', function(event){
             if( $('#typeProduct').val() == 'Souvenir' ){
@@ -517,86 +567,86 @@
             // $('#deleteProductButton').attr('disabled', true);
         })
 
-        //OnClick Edit Product Button
-        $('.editProduct').on('click', function (){
-            // $(this).prop('disabled', true);
-            event.preventDefault();
+        // //OnClick Edit Product Button
+        // $('.editProduct').on('click', function (){
+        //     // $(this).prop('disabled', true);
+        //     event.preventDefault();
 
-            //Get Full ID of the button (which contains the instructor ID)
-            var fullId = this.id;
-            //Split the ID of the fullId by his dash
-            var splitedId = fullId.split("-");
-            if(splitedId.length > 1){
-                // console.log(splitedId);
-                var instructorId = splitedId[1];
-                // editProduct(instructorId, this);
-            } else {
-                $(this).prop("disabled", false)
-                console.log("Malformed ID")
-            }
-        })
+        //     //Get Full ID of the button (which contains the instructor ID)
+        //     var fullId = this.id;
+        //     //Split the ID of the fullId by his dash
+        //     var splitedId = fullId.split("-");
+        //     if(splitedId.length > 1){
+        //         // console.log(splitedId);
+        //         var instructorId = splitedId[1];
+        //         // editProduct(instructorId, this);
+        //     } else {
+        //         $(this).prop("disabled", false)
+        //         console.log("Malformed ID")
+        //     }
+        // })
 
         //OnClick editProductModal Button
 
-        //When Edit Product Modal Opened...
-        $('#editProductModal').on('show.bs.modal', function (event) {
-            // Button that triggered the modal
-            var button = $(event.relatedTarget)
-            // Extract info from data-* attributes
-            product_id = button.data('myid')
-            nClasses = button.data('mynclasses') // Extract info from data-* attributes
-            price = button.data('myprice');
-            description = button.data('mydescription');
-            expiration_days = button.data('myexpiration');
-            type = button.data('mytype');
-            status = button.data('mystatus');
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        // When Edit Product Modal Opened...
+        // $('#editProductModal').on('show.bs.modal', function (event) {
+        //     // Button that triggered the modal
+        //     var button = $(event.relatedTarget)
+        //     // Extract info from data-* attributes
+        //     product_id = button.data('myid')
+        //     nClasses = button.data('mynclasses') // Extract info from data-* attributes
+        //     price = button.data('myprice');
+        //     description = button.data('mydescription');
+        //     expiration_days = button.data('myexpiration');
+        //     type = button.data('mytype');
+        //     status = button.data('mystatus');
+        //     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        //     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 
-            // Load the Inputs with the respective information depending on product type
-            if (type == "Souvenir" || nClasses == '' && expiration_days == ''){
-                var modal = $(this)
-                modal.find('.modal-body #editnclassesProduct').val(nClasses)
-                $('#editDivClassesQuantity').hide();
-                modal.find('.modal-body #editPriceProduct').val(price)
-                modal.find('.modal-body #editDescriptionProduct').val(description)
-                modal.find('.modal-body #editExpirationProduct').val(expiration_days)
-                $('#editDivClassesExpiration').hide();
-                $('#editDivClassAvailableDays').hide();
-                $('#editDivClassSchedule').hide();
-                modal.find('.modal-body #editTypeProduct').val(type)
-                // Modify the Select of product type to show Souvenir or Classes
-                $('#editTypeProduct > option').remove();
-                $('#editTypeProduct').append(
-                    '<option value="Souvenir" class="text-center">Mercancia</option>',
-                )
-                modal.find('.modal-body #editStatusProduct').val(status)
-            } else if(type == "Free") {
-                $('#editDivClassAvailableDays').hide();
-                $('#editDivClassSchedule').hide();
-            } else {
-                var modal = $(this)
-                modal.find('.modal-body #editnclassesProduct').val(nClasses)
-                $('#editDivClassesQuantity').show();
-                $('#editDivClassAvailableDays').show();
-                $('#editDivClassSchedule').show();
-                modal.find('.modal-body #editPriceProduct').val(price)
-                modal.find('.modal-body #editDescriptionProduct').val(description)
-                modal.find('.modal-body #editExpirationProduct').val(expiration_days)
-                $('#editDivClassesExpiration').show();
-                modal.find('.modal-body #editTypeProduct').val(type)
-                // Modify the Select of product type to show Souvenir or Classes
-                $('#editTypeProduct > option').remove();
-                $('#editTypeProduct').append(
-                    '<option value="Deals" class="text-center">Promoción</option>',
-                    '<option value="Packages" class="text-center">Paquetes</option>',
-                    '<option value="Free" class="text-center">Clase gratis</option>',
-                )
-                modal.find('.modal-body #editStatusProduct').val(status)
-            }
-        })
+        //     // Load the Inputs with the respective information depending on product type
+        //     if (type == "Souvenir" || nClasses == '' && expiration_days == ''){
+        //         var modal = $(this)
+        //         modal.find('.modal-body #editnclassesProduct').val(nClasses)
+        //         $('#editDivClassesQuantity').hide();
+        //         modal.find('.modal-body #editPriceProduct').val(price)
+        //         modal.find('.modal-body #editDescriptionProduct').val(description)
+        //         modal.find('.modal-body #editExpirationProduct').val(expiration_days)
+        //         $('#editDivClassesExpiration').hide();
+        //         $('#editDivClassAvailableDays').hide();
+        //         $('#editDivClassSchedule').hide();
+        //         modal.find('.modal-body #editTypeProduct').val(type)
+        //         // Modify the Select of product type to show Souvenir or Classes
+        //         $('#editTypeProduct > option').remove();
+        //         $('#editTypeProduct').append(
+        //             '<option value="Souvenir" class="text-center">Mercancia</option>',
+        //         )
+        //         modal.find('.modal-body #editStatusProduct').val(status)
+        //     } else if(type == "Free") {
+        //         $('#editDivClassAvailableDays').hide();
+        //         $('#editDivClassSchedule').hide();
+        //     } else {
+        //         var modal = $(this)
+        //         modal.find('.modal-body #editnclassesProduct').val(nClasses)
+        //         $('#editDivClassesQuantity').show();
+        //         $('#editDivClassAvailableDays').show();
+        //         $('#editDivClassSchedule').show();
+        //         modal.find('.modal-body #editPriceProduct').val(price)
+        //         modal.find('.modal-body #editDescriptionProduct').val(description)
+        //         modal.find('.modal-body #editExpirationProduct').val(expiration_days)
+        //         $('#editDivClassesExpiration').show();
+        //         modal.find('.modal-body #editTypeProduct').val(type)
+        //         // Modify the Select of product type to show Souvenir or Classes
+        //         $('#editTypeProduct > option').remove();
+        //         $('#editTypeProduct').append(
+        //             '<option value="Deals" class="text-center">Promoción</option>',
+        //             '<option value="Packages" class="text-center">Paquetes</option>',
+        //             '<option value="Free" class="text-center">Clase gratis</option>',
+        //         )
+        //         modal.find('.modal-body #editStatusProduct').val(status)
+        //     }
+        // })
 
-        //Edit Product Button Inside Modal
+        // Edit Product Button Inside Modal
         $('#editProductButton').on('click', function(){
             $('#editProductButton').prop("disabled", true)
             event.preventDefault();
@@ -612,70 +662,71 @@
             end_at = $('#editEndAt').val();
             var button = $(this);
 
-            editProduct(product_id, button);
+            editProduct(productId, button);
         })
 
-        function addProduct(){
-            nClasses = $('#nclassesProduct').val()
-            price = $('#priceProduct').val()
-            description = $('#Description').val()
-            expiration_days = $('#expirationProduct').val()
-            type = $('#typeProduct').val()
-            available_days = $('#availableDays').val();
-            beginAt = $('#beginAt').val();
-            endAt = $('#endAt').val();
-            status = 1
+        // function addProduct(){
+        //     nClasses = $('#nclassesProduct').val()
+        //     price = $('#priceProduct').val()
+        //     description = $('#Description').val()
+        //     expiration_days = $('#expirationProduct').val()
+        //     type = $('#typeProduct').val()
+        //     available_days = $('#availableDays').val();
+        //     beginAt = $('#beginAt').val();
+        //     endAt = $('#endAt').val();
+        //     status = 1
 
-            $.ajax({
-                url: '/addProduct',
-                type: 'POST',
-                cache: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    n_classes: nClasses,
-                    price: price,
-                    description: description,
-                    expiration_days: expiration_days,
-                    type: type,
-                    status: status,
-                    available_days: available_days,
-                    begin_at: beginAt,
-                    end_at: endAt,
-                },
-                success: function(result) {
-                    $.LoadingOverlay("hide");
-                    if(result.status == "OK"){
-                        $('.modal-backdrop').remove();
-                        // $('.active-menu').trigger('click');
-                        $('#addProductModal').modal('hide');
-                        Swal.fire({
-                            title: 'Producto añadido',
-                            text: result.message,
-                            type: 'success',
-                            confirmButtonText: 'Aceptar'
-                        })
-                    $('body').removeClass('modal-open');
-                    window.location.replace('/admin/products');
-                    }
-                    else {
-                        $.LoadingOverlay("hide");
-                        Swal.fire({
-                            title: 'Error',
-                            text: result.message,
-                            type: 'warning',
-                            confirmButtonText: 'Aceptar'
-                        })
-                        $('body').removeClass('modal-open');
-                    }
-                },
-                error: function(result){
-                    $.LoadingOverlay("hide");
-                    // alert(result);
-                }
-            });
-        }
+        //     $.ajax({
+        //         url: '/addProduct',
+        //         type: 'POST',
+        //         cache: false,
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         data: {
+        //             n_classes: nClasses,
+        //             price: price,
+        //             description: description,
+        //             expiration_days: expiration_days,
+        //             type: type,
+        //             status: status,
+        //             available_days: available_days,
+        //             begin_at: beginAt,
+        //             end_at: endAt,
+        //         },
+        //         success: function(result) {
+        //             $.LoadingOverlay("hide");
+        //             if(result.status == "OK"){
+        //                 $('.modal-backdrop').remove();
+        //                 // $('.active-menu').trigger('click');
+        //                 $('select').select2({theme: 'bootstrap'});
+        //                 $('#addProductModal').modal('hide');
+        //                 Swal.fire({
+        //                     title: 'Producto añadido',
+        //                     text: result.message,
+        //                     type: 'success',
+        //                     confirmButtonText: 'Aceptar'
+        //                 })
+        //             $('body').removeClass('modal-open');
+        //             window.location.replace('/admin/products');
+        //             }
+        //             else {
+        //                 $.LoadingOverlay("hide");
+        //                 Swal.fire({
+        //                     title: 'Error',
+        //                     text: result.message,
+        //                     type: 'warning',
+        //                     confirmButtonText: 'Aceptar'
+        //                 })
+        //                 $('body').removeClass('modal-open');
+        //             }
+        //         },
+        //         error: function(result){
+        //             $.LoadingOverlay("hide");
+        //             // alert(result);
+        //         }
+        //     });
+        // }
 
         function editProduct(product_id, button){
             $.ajax({
@@ -689,7 +740,7 @@
                     $.LoadingOverlay("show");
                 },
                 data: {
-                    product_id: product_id,
+                    product_id: productId,
                     n_classes: nClasses,
                     price: price,
                     description: description,
@@ -726,6 +777,10 @@
                         $('body').removeClass('modal-open');
                         $(button).prop('disabled', false);
                     }
+                    $('select').select2({theme: 'bootstrap'});
+                },
+                complete: function() {
+                    $('select').select2({theme: 'bootstrap'});
                 },
                 error: function(result){
                     $.LoadingOverlay("hide");
@@ -735,9 +790,9 @@
                         text: 'Ha ocurrido un error al procesar la petición.',
                         confirmButtonText: 'Aceptar',
                     });
-                    console.log(product_id, nClasses, price, description, expiration_days, type, status);
+                    $('select').select2({theme: 'bootstrap'});
                     $(button).prop('disabled', false);
-                }
+                },
             });
         };
 
@@ -805,6 +860,194 @@
             })
         }
     })
+
+    $('.editProduct').on('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        storeProduct($(this));
+    });
+
+    function storeProduct(element) {
+        productId = element.data('id');
+        url = '/products/'+productId;
+
+        formData = new FormData;
+        formData.append('product_id', productId);
+
+        ajaxCall(url, formData, 'GET', '.editProduct', function (response) {
+            if (response.status === 'OK') {
+                loadEditProductModal(response.data.product);
+            }
+        });
+    }
+
+    function loadEditProductModal(data) {
+        console.log("loadEditProductModal");
+        schedules = null;
+        daysAvailables = null;
+
+        type = data.type;
+        price = data.price;
+        productId = data.id;
+        status = data.status;
+        nClasses = data.n_classes;
+        description = data.description;
+        expirationDays = data.expiration_days;
+        productSchedules = data.product_schedule;
+
+        clearEditForm();
+        clearScheduleForm();
+
+        if (productSchedules) {
+            daysAvailables = productSchedules.available_days.split(",");
+            schedules = productSchedules.schedules.split(';');
+        }
+
+        $('#editPriceProduct').val(price);
+        $('#editStatusProduct').val(status);
+        $('#editnclassesProduct').val(nClasses);
+        $('#editDescriptionProduct').val(description);
+        $('#editExpirationProduct').val(expirationDays);
+
+
+        if (type === 'Sourvenir' || nClasses === '' && expirationDays === '') {
+            $('#editDivClassSchedule').hide();
+            $('#editDivClassesQuantity').hide();
+            $('#editDivClassesExpiration').hide();
+            $('#editDivClassAvailableDays').hide();
+        } else if (type === 'Free') {
+            $('#editDivClassAvailableDays').hide();
+            $('#editDivClassSchedule').hide();
+        } else {
+            $('#editDivClassSchedule').show();
+            $('#editDivClassesQuantity').show();
+            $('#editDivClassesExpiration').show();
+            $('#editDivClassAvailableDays').show();
+
+            if (daysAvailables || schedules) {
+                loadSchedulesForm(daysAvailables, schedules);
+            }
+        }
+
+        $('#editTypeProduct > option').each(function (key, element) {
+            if (element.getAttribute('value') == type) {
+                    element.setAttribute('selected', true);
+            } else {
+                element.removeAttribute('selected');
+            }
+        });
+        $('select').select2({theme: 'bootstrap'});
+        $('#editProductModal').modal();
+    }
+
+    function loadSchedulesForm(daysAvailables, schedules) {
+        var isFirstSchedule = true;
+
+        $('#editAvailableDays > option').each(function (key, element) {
+            if (daysAvailables.includes(element.getAttribute('value'))) {
+                element.setAttribute('selected', true);
+            }
+        });
+
+        schedules.forEach(function (schedule, scheduleKey) {
+            schedule = schedule.split('-');
+            if (isFirstSchedule) {
+                $('#editDivClassSchedule #editBeginAt > option').each(function (key, element) {
+
+                    if (schedule[0] == element.getAttribute('value')) {
+                        element.setAttribute('selected', true);
+                    }
+                });
+                $('#editDivClassSchedule #editEndAt > option').each(function (key, element) {
+                    if (schedule[1] === element.getAttribute('value')) {
+                        element.setAttribute('selected', true);
+                    }
+                });
+                isFirstSchedule = false;
+            } else {
+                options = "<div class='input-group'>"
+                options += "<select class='' name='editBeginAt"+scheduleKey+"' id='editBeginAt"+scheduleKey+"'>";
+                for(i = 0; i < 24; i++) {
+                    if (schedule[0] == i) {
+                        options += "<option value='"+i+"' selected>"+('0'+i).slice(-2)+":00</option>";
+                    } else {
+                        options += "<option value='"+i+"'>"+('0'+i).slice(-2)+":00</option>";
+                    }
+                }
+                options += "</select>";
+                options += "<select class='' name='editEndAt"+scheduleKey+"' id='editEndAt"+scheduleKey+"'>";
+                for(i = 0; i < 24; i++) {
+                    if (schedule[1] == i) {
+                        options += "<option value='"+i+"' selected>"+('0'+i).slice(-2)+":00</option>";
+                    } else {
+                        options += "<option value='"+i+"'>"+('0'+i).slice(-2)+":00</option>";
+                    }
+                }
+                options += "</select>";
+                options += "</div>";
+                $("#editDivClassSchedule > #editDivClassScheduleContainer").append(options);
+            }
+        });
+    }
+
+    function clearScheduleForm() {
+        $('#editAvailableDays > option').each(function (key, element) {
+            element.removeAttribute('selected');
+        });
+
+        $('#editDivClassSchedule #editBeginAt > option').each(function (key, element) {
+            element.removeAttribute('selected');
+        });
+        $('#editDivClassSchedule #editEndAt > option').each(function (key, element) {
+            element.removeAttribute('selected');
+        });
+    }
+
+    function clearEditForm() {
+        $('#editTypeProduct').val(null);
+        $('#editPriceProduct').val(null);
+        $('#editStatusProduct').val(null);
+        $('#editnclassesProduct').val(null);
+        $('#editExpirationProduct').val(null);
+        $('#editDescriptionProduct').val(null);
+        $('#editDivClassSchedule').val(null);
+        $('#editDivClassesQuantity').val(null);
+        $('#editDivClassesExpiration').val(null);
+        $('#editDivClassAvailableDays').val(null);
+        // $('#editTypeProduct > option').remove();
+    }
+
+    function ajaxCall(url, formData, method, disabledButton, callBack) {
+        $.ajax({
+            url: url,
+            method: method,
+            accepts: 'application/json',
+            data: formData,
+            cache: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            beforeSend: function() {
+                $.LoadingOverlay("show");
+                if(disabledButton) {
+                    $(disabledButton).addClass('disabled');
+                }
+            },
+            success: callBack,
+            error: function(header) {
+                //TODO: Mostrar toast de error
+                $('select').select2({theme: 'bootstrap'});
+            },
+            complete: function() {
+                $('select').select2({theme: 'bootstrap'});
+                if (disabledButton) {
+                    $(disabledButton).removeClass('disabled');
+                }
+                $.LoadingOverlay("hide");
+            }
+        });
+    }
 </script>
 
 {{-- Validate input number to only allow numbers --}}

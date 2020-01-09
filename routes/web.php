@@ -135,6 +135,7 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
     Route::post('editBranch', 'AdminController@editBranch');
     Route::post('deleteBranch', 'AdminController@deleteBranch');
     //Producto
+    Route::get('/products/{id}', 'ProductController@edit');
     Route::post('addProduct', 'AdminController@addProduct');
     Route::post('editProduct', 'AdminController@editProduct');
     Route::post('deleteProduct', 'AdminController@deleteProduct');
