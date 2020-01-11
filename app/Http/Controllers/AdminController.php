@@ -824,6 +824,11 @@ class AdminController extends Controller
                 'message' => 'La descripción no debe ser mayor a 20 caracteres.',
             ]);
         }
+
+        $endAt = $request->end_at;
+        $beginAt = $request->begin_at;
+        $availableDays = $request->available_days;
+
         DB::beginTransaction();
         $Product = Product::find($request->product_id);
         $Product->n_classes = $request->n_classes;
@@ -833,24 +838,34 @@ class AdminController extends Controller
         $Product->type = $request->type;
         $Product->status = $request->status;
         $Product->save();
-        $productSchedule = ProductSchedule::where('product_id', $Product->id)->first();
-        if ($productSchedule && $request->available_days) {
-            $productSchedule->available_days = implode(',', $request->available_days);
-            $productSchedule->schedules = "{$request->begin_at}-{$request->end_at}";
+
+        $productSchedule = ProductSchedule::withTrashed()->where('product_id', $Product->id)->first();
+        if ($productSchedule && $availableDays && $productSchedule->deleted_at) {
+            $productSchedule->available_days = implode(',', $availableDays);
+            $productSchedule->schedules = "{$beginAt}-{$endAt}";
             $productSchedule->save();
-        } elseif ($request->available_days) {
+            $productSchedule->restore();
+        } elseif ($productSchedule && !$availableDays) {
+            $productSchedule->delete();
+        } elseif($productSchedule && $availableDays) {
+            $productSchedule->available_days = implode(',', $availableDays);
+            $productSchedule->schedules = "{$beginAt}-{$endAt}";
+            $productSchedule->save();
+        } elseif ($availableDays) {
             ProductSchedule::create([
                 'product_id' => $Product->id,
-                'available_days' => implode(',', $request->available_days),
-                'schedules' => "{$request->begin_at}-{$request->end_at}",
+                'available_days' => implode(',', $availableDays),
+                'schedules' => "{$beginAt}-{$endAt}",
             ]);
         }
+
         DB::commit();
         return response()->json([
             'status' => 'OK',
             'message' => "Producto editado con éxito",
         ]);
     }
+
     public function deleteProduct(Request $request){
         DB::beginTransaction();
         $Product = Product::find($request->product_id);

@@ -118,21 +118,20 @@
                     <td>${{$product->price}}</td>
                     <td>{{$product->description}}</td>
                     <td>N/A</td>
-                    {{-- <td>{{$product->type}}</td> --}}
-                    @if ($product->type == 'Deals')
-                        <td>Promoción</td>
-                    @elseif ($product->type == 'Packages')
-                        <td>Paquete</td>
-                    @elseif ($product->type == 'Souvenir')
-                        <td>Mercancía</td>
-                    @endif
+                    <td>Mercancía</td>
+
+                    {{-- Horarios diponibles --}}
+                    <td>N/A</td>
+                    <td>N/A</td>
+
                     {{-- <td>{{$product->status}}</td> --}}
                     @if ($product->status != "1")
                         <td>Deshabilitado</td>
                     @else
                         <td>Habilitado</td>
                     @endif
-                    <td><button class="btn btn-primary btn-sm editProduct" id="editProduct-{{ $product->id }}" value="{{$product->id}}" data-myid="{{ $product->id }}" data-mynclasses="{{ $product->n_classes }}" data-myprice="{{ $product->price }}" data-mydescription="{{ $product->description }}" data-myexpiration="{{$product->expiration_days}}" data-mytype="{{ $product->type }}" data-mystatus="{{$product->status}}" data-toggle="modal" data-target="#editProductModal">Editar</button></td>
+
+                    <td><button class="btn btn-primary btn-sm editProduct" id="editProduct-{{ $product->id }}" value="{{$product->id}}" data-id="{{ $product->id }}" data-toggle="modal" data-target="#editProductModal">Editar</button></td>
                     <td><button class="btn btn-danger btn-sm deleteProduct" id="deleteProduct-{{ $product->id }}" value="{{$product->id}}">Eliminar</button></td>
                 </tr>
             @endif
@@ -298,22 +297,6 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
-
-                    {{-- Product's Status --}}
-                    {{-- <div class="form-group row mb-3">
-                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="status" class="mr-sm-2">Estatus</label>
-                            <input id="statusProduct" placeholder="Estatus" type="text" class="form-control{{ $errors->has('statusProduct') ? ' is-invalid' : '' }}" name="statusProduct" value="{{ old('statusProduct') }}" required autofocus></input>
-                            @if ($errors->has('statusProduct'))
-                                <span class="invalid-feedback" style="display: block !important" role="alert">
-                                    <strong>{{ $errors->first('statusProduct') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                    </div> --}}
-                {{-- </form> --}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -336,6 +319,22 @@
             <div class="modal-body">
                 {{-- <form method="POST" action="{{ route('addProduct') }}" class="registration"> --}}
                     @csrf
+
+                    {{-- Product's Type v2.0 --}}
+                    <div class="form-group row mb-3">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="editTypeProduct" class="control-label">Tipo de prodcuto: </label>
+                            <select name="editTypeProduct" id="editTypeProduct" >
+                                <option value="Deals" class="text-center">Promoción</option>
+                                <option value="Packages" class="text-center">Paquetes</option>
+                                <option value="Souvenir" class="text-center">Mercancia</option>
+                                <option value="Free" class="text-center">Clase gratis</option>
+                            </select>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+
                     {{-- Product's Classes --}}
                     <div class="form-group row mb-3" id="editDivClassesQuantity">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -466,21 +465,6 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
 
-                    {{-- Product's Type v2.0 --}}
-                    <div class="form-group row mb-3">
-                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="editTypeProduct" class="control-label">Tipo de prodcuto: </label>
-                            <select name="editTypeProduct" id="editTypeProduct" >
-                                <option value="Deals" class="text-center">Promoción</option>
-                                <option value="Packages" class="text-center">Paquetes</option>
-                                <option value="Souvenir" class="text-center">Mercancia</option>
-                                <option value="Free" class="text-center">Clase gratis</option>
-                            </select>
-                        </div>
-                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                    </div>
-
                     {{-- Product's Status --}}
                     {{-- TODO: Fix the Status Selector to show the correct type --}}
                     <div class="form-group row mb-3">
@@ -567,85 +551,6 @@
             // $('#deleteProductButton').attr('disabled', true);
         })
 
-        // //OnClick Edit Product Button
-        // $('.editProduct').on('click', function (){
-        //     // $(this).prop('disabled', true);
-        //     event.preventDefault();
-
-        //     //Get Full ID of the button (which contains the instructor ID)
-        //     var fullId = this.id;
-        //     //Split the ID of the fullId by his dash
-        //     var splitedId = fullId.split("-");
-        //     if(splitedId.length > 1){
-        //         // console.log(splitedId);
-        //         var instructorId = splitedId[1];
-        //         // editProduct(instructorId, this);
-        //     } else {
-        //         $(this).prop("disabled", false)
-        //         console.log("Malformed ID")
-        //     }
-        // })
-
-        //OnClick editProductModal Button
-
-        // When Edit Product Modal Opened...
-        // $('#editProductModal').on('show.bs.modal', function (event) {
-        //     // Button that triggered the modal
-        //     var button = $(event.relatedTarget)
-        //     // Extract info from data-* attributes
-        //     product_id = button.data('myid')
-        //     nClasses = button.data('mynclasses') // Extract info from data-* attributes
-        //     price = button.data('myprice');
-        //     description = button.data('mydescription');
-        //     expiration_days = button.data('myexpiration');
-        //     type = button.data('mytype');
-        //     status = button.data('mystatus');
-        //     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        //     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-
-        //     // Load the Inputs with the respective information depending on product type
-        //     if (type == "Souvenir" || nClasses == '' && expiration_days == ''){
-        //         var modal = $(this)
-        //         modal.find('.modal-body #editnclassesProduct').val(nClasses)
-        //         $('#editDivClassesQuantity').hide();
-        //         modal.find('.modal-body #editPriceProduct').val(price)
-        //         modal.find('.modal-body #editDescriptionProduct').val(description)
-        //         modal.find('.modal-body #editExpirationProduct').val(expiration_days)
-        //         $('#editDivClassesExpiration').hide();
-        //         $('#editDivClassAvailableDays').hide();
-        //         $('#editDivClassSchedule').hide();
-        //         modal.find('.modal-body #editTypeProduct').val(type)
-        //         // Modify the Select of product type to show Souvenir or Classes
-        //         $('#editTypeProduct > option').remove();
-        //         $('#editTypeProduct').append(
-        //             '<option value="Souvenir" class="text-center">Mercancia</option>',
-        //         )
-        //         modal.find('.modal-body #editStatusProduct').val(status)
-        //     } else if(type == "Free") {
-        //         $('#editDivClassAvailableDays').hide();
-        //         $('#editDivClassSchedule').hide();
-        //     } else {
-        //         var modal = $(this)
-        //         modal.find('.modal-body #editnclassesProduct').val(nClasses)
-        //         $('#editDivClassesQuantity').show();
-        //         $('#editDivClassAvailableDays').show();
-        //         $('#editDivClassSchedule').show();
-        //         modal.find('.modal-body #editPriceProduct').val(price)
-        //         modal.find('.modal-body #editDescriptionProduct').val(description)
-        //         modal.find('.modal-body #editExpirationProduct').val(expiration_days)
-        //         $('#editDivClassesExpiration').show();
-        //         modal.find('.modal-body #editTypeProduct').val(type)
-        //         // Modify the Select of product type to show Souvenir or Classes
-        //         $('#editTypeProduct > option').remove();
-        //         $('#editTypeProduct').append(
-        //             '<option value="Deals" class="text-center">Promoción</option>',
-        //             '<option value="Packages" class="text-center">Paquetes</option>',
-        //             '<option value="Free" class="text-center">Clase gratis</option>',
-        //         )
-        //         modal.find('.modal-body #editStatusProduct').val(status)
-        //     }
-        // })
-
         // Edit Product Button Inside Modal
         $('#editProductButton').on('click', function(){
             $('#editProductButton').prop("disabled", true)
@@ -665,68 +570,68 @@
             editProduct(productId, button);
         })
 
-        // function addProduct(){
-        //     nClasses = $('#nclassesProduct').val()
-        //     price = $('#priceProduct').val()
-        //     description = $('#Description').val()
-        //     expiration_days = $('#expirationProduct').val()
-        //     type = $('#typeProduct').val()
-        //     available_days = $('#availableDays').val();
-        //     beginAt = $('#beginAt').val();
-        //     endAt = $('#endAt').val();
-        //     status = 1
+        function addProduct(){
+            nClasses = $('#nclassesProduct').val()
+            price = $('#priceProduct').val()
+            description = $('#Description').val()
+            expiration_days = $('#expirationProduct').val()
+            type = $('#typeProduct').val()
+            available_days = $('#availableDays').val();
+            beginAt = $('#beginAt').val();
+            endAt = $('#endAt').val();
+            status = 1
 
-        //     $.ajax({
-        //         url: '/addProduct',
-        //         type: 'POST',
-        //         cache: false,
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         data: {
-        //             n_classes: nClasses,
-        //             price: price,
-        //             description: description,
-        //             expiration_days: expiration_days,
-        //             type: type,
-        //             status: status,
-        //             available_days: available_days,
-        //             begin_at: beginAt,
-        //             end_at: endAt,
-        //         },
-        //         success: function(result) {
-        //             $.LoadingOverlay("hide");
-        //             if(result.status == "OK"){
-        //                 $('.modal-backdrop').remove();
-        //                 // $('.active-menu').trigger('click');
-        //                 $('select').select2({theme: 'bootstrap'});
-        //                 $('#addProductModal').modal('hide');
-        //                 Swal.fire({
-        //                     title: 'Producto añadido',
-        //                     text: result.message,
-        //                     type: 'success',
-        //                     confirmButtonText: 'Aceptar'
-        //                 })
-        //             $('body').removeClass('modal-open');
-        //             window.location.replace('/admin/products');
-        //             }
-        //             else {
-        //                 $.LoadingOverlay("hide");
-        //                 Swal.fire({
-        //                     title: 'Error',
-        //                     text: result.message,
-        //                     type: 'warning',
-        //                     confirmButtonText: 'Aceptar'
-        //                 })
-        //                 $('body').removeClass('modal-open');
-        //             }
-        //         },
-        //         error: function(result){
-        //             $.LoadingOverlay("hide");
-        //             // alert(result);
-        //         }
-        //     });
-        // }
+            $.ajax({
+                url: '/addProduct',
+                type: 'POST',
+                cache: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    n_classes: nClasses,
+                    price: price,
+                    description: description,
+                    expiration_days: expiration_days,
+                    type: type,
+                    status: status,
+                    available_days: available_days,
+                    begin_at: beginAt,
+                    end_at: endAt,
+                },
+                success: function(result) {
+                    $.LoadingOverlay("hide");
+                    if(result.status == "OK"){
+                        $('.modal-backdrop').remove();
+                        // $('.active-menu').trigger('click');
+                        $('select').select2({theme: 'bootstrap'});
+                        $('#addProductModal').modal('hide');
+                        Swal.fire({
+                            title: 'Producto añadido',
+                            text: result.message,
+                            type: 'success',
+                            confirmButtonText: 'Aceptar'
+                        })
+                    $('body').removeClass('modal-open');
+                    window.location.replace('/admin/products');
+                    }
+                    else {
+                        $.LoadingOverlay("hide");
+                        Swal.fire({
+                            title: 'Error',
+                            text: result.message,
+                            type: 'warning',
+                            confirmButtonText: 'Aceptar'
+                        })
+                        $('body').removeClass('modal-open');
+                    }
+                },
+                error: function(result){
+                    $.LoadingOverlay("hide");
+                    // alert(result);
+                }
+            });
+        }
 
         function editProduct(product_id, button){
             $.ajax({
@@ -883,7 +788,6 @@
     }
 
     function loadEditProductModal(data) {
-        console.log("loadEditProductModal");
         schedules = null;
         daysAvailables = null;
 
@@ -910,16 +814,18 @@
         $('#editDescriptionProduct').val(description);
         $('#editExpirationProduct').val(expirationDays);
 
-
-        if (type === 'Sourvenir' || nClasses === '' && expirationDays === '') {
+        if (type === 'Souvenir' || nClasses === '' && expirationDays === '') {
             $('#editDivClassSchedule').hide();
             $('#editDivClassesQuantity').hide();
             $('#editDivClassesExpiration').hide();
             $('#editDivClassAvailableDays').hide();
+            drawSelectType('Souvenir');
         } else if (type === 'Free') {
+            drawSelectType(type);
             $('#editDivClassAvailableDays').hide();
             $('#editDivClassSchedule').hide();
         } else {
+            drawSelectType(type);
             $('#editDivClassSchedule').show();
             $('#editDivClassesQuantity').show();
             $('#editDivClassesExpiration').show();
@@ -932,7 +838,7 @@
 
         $('#editTypeProduct > option').each(function (key, element) {
             if (element.getAttribute('value') == type) {
-                    element.setAttribute('selected', true);
+                    $(element).prop('selected', true);
             } else {
                 element.removeAttribute('selected');
             }
@@ -941,12 +847,25 @@
         $('#editProductModal').modal();
     }
 
+    function drawSelectType(type) {
+        $('#editTypeProduct > option').remove();
+        var options = "";
+        if (type != "Souvenir") {
+            options += '<option value="Deals" class="text-center">Promoción</option>';
+            options += '<option value="Packages" class="text-center">Paquetes</option>';
+            options += '<option value="Free" class="text-center">Clase gratis</option>';
+        } else {
+            options += '<option value="Souvenir" class="text-center">Mercancia</option>';
+        }
+        $('#editTypeProduct').append(options);
+    }
+
     function loadSchedulesForm(daysAvailables, schedules) {
         var isFirstSchedule = true;
 
         $('#editAvailableDays > option').each(function (key, element) {
             if (daysAvailables.includes(element.getAttribute('value'))) {
-                element.setAttribute('selected', true);
+                $(element).prop('selected', true);
             }
         });
 
@@ -956,12 +875,12 @@
                 $('#editDivClassSchedule #editBeginAt > option').each(function (key, element) {
 
                     if (schedule[0] == element.getAttribute('value')) {
-                        element.setAttribute('selected', true);
+                        $(element).prop('selected', true);
                     }
                 });
                 $('#editDivClassSchedule #editEndAt > option').each(function (key, element) {
                     if (schedule[1] === element.getAttribute('value')) {
-                        element.setAttribute('selected', true);
+                        $(element).prop('selected', true);
                     }
                 });
                 isFirstSchedule = false;
