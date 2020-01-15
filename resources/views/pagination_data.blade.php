@@ -35,8 +35,6 @@
 </script>
 <script>
     function getUserInfoReports(user_id){
-        console.log("entró a getuserinfoReports");
-        console.log(user_id);
         $.ajax({
             url: "getUserInfoReports",
             method: 'POST',
@@ -63,7 +61,7 @@
                 "<tbody>"
                 result[3].forEach(function(element) {
                     var saleType = "";
-                    saleType += (element.saleType == null ? 'Mostrador' : 'Online');
+                    saleType += element.saleType;
                     purchases_table += "<tr>"+
                         "<td>"+element.saleDate+"</td>"+
                         "<td>"+element.product+"</td>"+

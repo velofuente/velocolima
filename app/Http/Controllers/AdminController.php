@@ -398,25 +398,19 @@ class AdminController extends Controller
     }
 
     public function getUserInfoReports(Request $request){
-        //prueba
-        log::info("entro al getUserInfoReports");
         $userInfo = [];
-        // nombre del cliente, clases disponibles, historial de compras, si el historial es largo debe de tener scrolling y como se compró (mostrador o web)
         $user = User::find($request->user_id);
-        log::info($user);
         $name = $user->name . " " . $user->last_name;
-        log::info($name);
         $numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$user->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
         $availableClasses = $numClases->clases;
         $lastClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$user->id}")->whereRaw("NOW() >= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
         $expiredClasses = ($lastClases->clases) ? $lastClases->clases : 0;
         $purchaseHistory = Purchase::join('products','purchases.product_id','=',"products.id")
-                            ->selectRaw('purchases.created_at AS saleDate,products.description AS product,products.n_classes AS purchasedClasses,DATE_ADD(purchases.created_at, INTERVAL purchases.expiration_days DAY) AS expiration,products.price AS price,purchases.card_id AS saleType')
+                            ->selectRaw('purchases.created_at AS saleDate,products.description AS product,products.n_classes AS purchasedClasses,DATE_ADD(purchases.created_at, INTERVAL purchases.expiration_days DAY) AS expiration,products.price AS price, IF(ISNULL(purchases.card_id), IF(products.type = "Free", "Sistema", "Mostrador"), "Online") AS saleType')
                             ->where('user_id', '=', "{$user->id}")
                             ->orderBy('purchases.created_at')
                             ->get()
                             ->toArray();
-        log::info($purchaseHistory);
         array_push($userInfo, $name, $availableClasses, $expiredClasses, $purchaseHistory);
         return $userInfo;
     }

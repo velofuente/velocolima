@@ -505,7 +505,7 @@
         // myid mynclasses myprice mydescription myexpiration mytype mystatus
         // product_id n_classes price description expiration_days type status
 
-        $('select').select2({theme: 'bootstrap'});
+        $('select:not(.swal2-select)').select2({theme: 'bootstrap'});
         // Hide Classes input & Classes expiration if Mercancía/Souvenir is selected
         $('#typeProduct').on('change', function(event){
             if( $('#typeProduct').val() == 'Souvenir' ){
@@ -604,7 +604,7 @@
                     if(result.status == "OK"){
                         $('.modal-backdrop').remove();
                         // $('.active-menu').trigger('click');
-                        $('select').select2({theme: 'bootstrap'});
+                        $('select:not(.swal2-select)').select2({theme: 'bootstrap'});
                         $('#addProductModal').modal('hide');
                         Swal.fire({
                             title: 'Producto añadido',
@@ -682,10 +682,9 @@
                         $('body').removeClass('modal-open');
                         $(button).prop('disabled', false);
                     }
-                    $('select').select2({theme: 'bootstrap'});
                 },
                 complete: function() {
-                    $('select').select2({theme: 'bootstrap'});
+                    $('select:not(.swal2-select)').select2({theme: 'bootstrap'});
                 },
                 error: function(result){
                     $.LoadingOverlay("hide");
@@ -695,7 +694,7 @@
                         text: 'Ha ocurrido un error al procesar la petición.',
                         confirmButtonText: 'Aceptar',
                     });
-                    $('select').select2({theme: 'bootstrap'});
+                    $('select:not(.swal2-select)').select2({theme: 'bootstrap'});
                     $(button).prop('disabled', false);
                 },
             });
@@ -843,7 +842,7 @@
                 element.removeAttribute('selected');
             }
         });
-        $('select').select2({theme: 'bootstrap'});
+        $('select:not(.swal2-select)').select2({theme: 'bootstrap'});
         $('#editProductModal').modal();
     }
 
@@ -956,10 +955,10 @@
             success: callBack,
             error: function(header) {
                 //TODO: Mostrar toast de error
-                $('select').select2({theme: 'bootstrap'});
+                $('select:not(.swal2-select)').select2({theme: 'bootstrap'});
             },
             complete: function() {
-                $('select').select2({theme: 'bootstrap'});
+                $('select:not(.swal2-select)').select2({theme: 'bootstrap'});
                 if (disabledButton) {
                     $(disabledButton).removeClass('disabled');
                 }
