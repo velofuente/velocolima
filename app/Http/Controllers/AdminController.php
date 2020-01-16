@@ -117,7 +117,20 @@ class AdminController extends Controller
     }
 
     public function showProducts(){
-        $products = Product::with('productSchedule')->get();
+        $products = Product::with('productSchedule')->catalog()->paginate(15);
+        $products->map(function($product) {
+            if ($product->productSchedule) {
+                $availableDaysText = self::availableDaysText($product->productSchedule->available_days);
+                $schedulesText = self::schedulesAvailableText($product->productSchedule->schedules);
+                $product->availableDays = $availableDaysText;
+                $product->schedules = $schedulesText;
+            } else {
+                $product->availableDays = "N/A";
+                $product->schedules = "N/A";
+            }
+            unset($product->productSchedule);
+            return $product;
+        });
         return view('/admin/products', compact ('products'));
     }
 
@@ -1077,5 +1090,55 @@ class AdminController extends Controller
             'status' => 'OK',
             'message' => "Cliente registrado con éxito",
         ]);
+    }
+
+    /*****************************************
+     *          PRIVATE METHODS
+     *****************************************
+     *
+     */
+    private function availableDaysText($availableDays)
+    {
+        $days = explode(',', $availableDays);
+        $daysText= [];
+        foreach ($days as $day) {
+            switch ($day) {
+                case 1:
+                    $daysText[] = "Lunes";
+                    break;
+                case 2:
+                    $daysText[] = "Martes";
+                    break;
+                case 3:
+                    $daysText[] = "Miércoles";
+                    break;
+                case 4:
+                    $daysText[] = "Jueves";
+                    break;
+                case 5:
+                    $daysText[] = "Viernes";
+                    break;
+                case 6:
+                    $daysText[] = "Sábado";
+                    break;
+                case 0:
+                    $daysText[] = "Domingo";
+                    break;
+            }
+        }
+        return $daysText = implode(',', $daysText);
+    }
+
+    private function schedulesAvailableText($schedules)
+    {
+        $times = "";
+        $schedules = explode(';', $schedules);
+        foreach ($schedules as $schedule) {
+            $time = explode('-', $schedule);
+            $time[0] = str_pad($time[0], 2, '0', STR_PAD_LEFT) . ":00";
+            $time[1] = str_pad($time[1], 2, '0', STR_PAD_LEFT) . ":00";
+            $times .= implode(' - ', $time) . "\n";
+        }
+        return $times;
     }
 }

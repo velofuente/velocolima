@@ -3,6 +3,12 @@
 @section('extra_styles')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet"/>
+    <style>
+        .pagination {
+            margin: 10px auto;
+            align-content: center;
+        }
+    </style>
 @stop
 
 @section('content')
@@ -31,113 +37,23 @@
         </thead>
         <tbody>
             @foreach ($products as $product)
-            @if ($product->type!="Souvenir")
                 <tr style="font-size: 0.9em;">
-                    {{-- <th scope="row">{{$product->id}}</th> --}}
                     <td>{{$product->id}}</td>
                     <td>{{$product->n_classes}}</td>
                     <td>${{$product->price}}</td>
                     <td>{{$product->description}}</td>
-                    <td>{{$product->expiration_days}} días</td>
-                    {{-- <td>{{$product->type}}</td> --}}
-                    @if ($product->type == 'Deals')
-                        <td>Promoción</td>
-                    @elseif ($product->type == 'Free')
-                        <td>Clase gratis</td>
-                    @else
-                        <td>Paquete</td>
-                    @endif
-                    @if($product->productSchedule)
-                        <td>
-                            @php
-                                $days = explode(',', $product->productSchedule->available_days);
-                                $daysText= [];
-                                foreach ($days as $day) {
-                                    switch ($day) {
-                                        case 1:
-                                            $daysText[] = "Lunes";
-                                            break;
-                                        case 2:
-                                            $daysText[] = "Martes";
-                                            break;
-                                        case 3:
-                                            $daysText[] = "Miércoles";
-                                            break;
-                                        case 4:
-                                            $daysText[] = "Jueves";
-                                            break;
-                                        case 5:
-                                            $daysText[] = "Viernes";
-                                            break;
-                                        case 6:
-                                            $daysText[] = "Sábado";
-                                            break;
-                                        case 0:
-                                            $daysText[] = "Domingo";
-                                            break;
-                                    }
-                                }
-                                $daysText = implode(',', $daysText);
-                                printf($daysText);
-                                $daysText = $product->productSchedule->available_days;
-                            @endphp
-                        </td>
-                    @else
-                        <td>N/A</td>
-                    @endif
-                    @if($product->productSchedule)
-                        <td>
-                            @php
-                                $schedules = explode(';', $product->productSchedule->schedules);
-                                foreach ($schedules as $schedule) {
-                                    $time = explode('-', $schedule);
-                                    $time[0] = str_pad($time[0], 2, '0', STR_PAD_LEFT) . ":00";
-                                    $time[1] = str_pad($time[1], 2, '0', STR_PAD_LEFT) . ":00";
-                                    printf(implode(' - ', $time) . "\n");
-                                }
-                                $dataSchedules = $product->productSchedule->schedules;
-                            @endphp
-                        </td>
-                    @else
-                        <td>N/A</td>
-                    @endif
-                    {{-- <td>{{$product->status}}</td> --}}
-                    @if ($product->status != "1")
-                        <td>Deshabilitado</td>
-                    @else
-                        <td>Habilitado</td>
-                    @endif
+                    <td>{{$product->expiration_days}}</td>
+                    <td>{{$product->type}}</td>
+                    <td>{{$product->availableDays}}</td>
+                    <td>{{$product->schedules}}</td>
+                    <td>{{$product->status}}</td>
                     <td><button class="btn btn-primary btn-sm editProduct" id="editProduct-{{ $product->id }}" value="{{$product->id}}" data-id="{{ $product->id }}" data-toggle="modal" data-target="#editProductModal">Editar</button></td>
                     <td><button class="btn btn-danger btn-sm deleteProduct" id="deleteProduct-{{ $product->id }}" value="{{$product->id}}">Eliminar</button></td>
                 </tr>
-            @elseif ($product->type=="Souvenir")
-                <tr style="font-size: 0.9em;">
-                    {{-- <th scope="row">{{$product->id}}</th> --}}
-                    <td>{{$product->id}}</td>
-                    <td>N/A</td>
-                    <td>${{$product->price}}</td>
-                    <td>{{$product->description}}</td>
-                    <td>N/A</td>
-                    <td>Mercancía</td>
-
-                    {{-- Horarios diponibles --}}
-                    <td>N/A</td>
-                    <td>N/A</td>
-
-                    {{-- <td>{{$product->status}}</td> --}}
-                    @if ($product->status != "1")
-                        <td>Deshabilitado</td>
-                    @else
-                        <td>Habilitado</td>
-                    @endif
-
-                    <td><button class="btn btn-primary btn-sm editProduct" id="editProduct-{{ $product->id }}" value="{{$product->id}}" data-id="{{ $product->id }}" data-toggle="modal" data-target="#editProductModal">Editar</button></td>
-                    <td><button class="btn btn-danger btn-sm deleteProduct" id="deleteProduct-{{ $product->id }}" value="{{$product->id}}">Eliminar</button></td>
-                </tr>
-            @endif
             @endforeach
         </tbody>
     </table>
+    <div class="pagination">{{$products}}</div>
 @else
     <h2 class="text-center">No hay productos agregados</h2>
 @endif
@@ -507,8 +423,8 @@
 
         $('select:not(.swal2-select)').select2({theme: 'bootstrap'});
         // Hide Classes input & Classes expiration if Mercancía/Souvenir is selected
-        $('#typeProduct').on('change', function(event){
-            if( $('#typeProduct').val() == 'Souvenir' ){
+        $('#typeProduct').on('change', function(event) {
+            if( $('#typeProduct').val() == 'Souvenir' ) {
                 $('#divClassesQuantity').hide('fast');
                 $('#divClassesExpiration').hide('fast');
                 $('#divClassAvailableDays').hide('fast');
@@ -603,7 +519,6 @@
                     $.LoadingOverlay("hide");
                     if(result.status == "OK"){
                         $('.modal-backdrop').remove();
-                        // $('.active-menu').trigger('click');
                         $('select:not(.swal2-select)').select2({theme: 'bootstrap'});
                         $('#addProductModal').modal('hide');
                         Swal.fire({
@@ -626,9 +541,8 @@
                         $('body').removeClass('modal-open');
                     }
                 },
-                error: function(result){
+                error: function(result) {
                     $.LoadingOverlay("hide");
-                    // alert(result);
                 }
             });
         }
@@ -641,7 +555,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                beforeSend: function(){
+                beforeSend: function() {
                     $.LoadingOverlay("show");
                 },
                 data: {
@@ -686,7 +600,7 @@
                 complete: function() {
                     $('select:not(.swal2-select)').select2({theme: 'bootstrap'});
                 },
-                error: function(result){
+                error: function(result) {
                     $.LoadingOverlay("hide");
                     Swal.fire({
                         title: 'Error',
@@ -746,7 +660,7 @@
                                 $(button).prop("disabled", false)
                             }
                         },
-                        error: function(result){
+                        error: function(result) {
                             $.LoadingOverlay("hide");
                             Swal.fire({
                                 title: 'Error',
@@ -755,7 +669,6 @@
                                 confirmButtonText: 'Aceptar'
                             });
                             $(button).prop("disabled", false)
-                            // alert(result);
                         }
                     });
                 } else {
@@ -933,7 +846,6 @@
         $('#editDivClassesQuantity').val(null);
         $('#editDivClassesExpiration').val(null);
         $('#editDivClassAvailableDays').val(null);
-        // $('#editTypeProduct > option').remove();
     }
 
     function ajaxCall(url, formData, method, disabledButton, callBack) {
