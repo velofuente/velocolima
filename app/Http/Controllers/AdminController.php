@@ -159,7 +159,6 @@ class AdminController extends Controller
             $client->bookedClasses = $bookedClasses;
             //array_push($temp,$numClases->clases);
         }
-        log::info($clients);
         // return  $temp;
         // return view('/admin-clients', compact ('clients'));
         return view('/admin/clients', compact ('clients','products'));
@@ -169,7 +168,7 @@ class AdminController extends Controller
         $products = Product::where('status',1)->get();
         // $users = User::where('role_id', 3)->get();
         $data = DB::table('users')->where('role_id', 3)->orderBy('id', 'asc')->paginate(10);
-        log::info($data);
+        // log::info($data);
         foreach ($data as $client){
             $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$client->id}")->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
             $bookedClasses = UserSchedule::with("schedule.instructor", "schedule.room", "schedule")->where('user_id', "{$client->id}")->where('status', 'active')->count();
@@ -319,14 +318,14 @@ class AdminController extends Controller
                                 where('user_schedules.schedule_id', $request->schedule_id)->
                                 where('user_schedules.status','<>','cancelled')->
                                 whereIn('user_schedules.user_id', $id)->get();
-        log::info($clients);
+        // log::info($clients);
         return $clients;
     }
 
     public function getOperationBikes(Request $request){
         $availableBikes = [];
         $schedule = Schedule::find($request->schedule_id);
-        log::info($schedule);
+        // log::info($schedule);
         $branch = Branch::find($schedule->branch_id);
         $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
         $unavailableBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedule->branch_id)->get()->pluck("position")->toArray());
@@ -371,11 +370,11 @@ class AdminController extends Controller
         $users = User::orderBy("id")->get();
         $temp = $users->count();
         $schedule = Schedule::find($request->schedule_id);
-        log::info('getNon: '.$schedule);
+        // log::info('getNon: '.$schedule);
         $instances = array_map('strval', UserSchedule::select("user_id")->where('schedule_id', $schedule->id)->orderBy("id")->get()->pluck("user_id")->toArray());
-        log::info($users);
-        log::info($instances);
-        log::info($temp);
+        // log::info($users);
+        // log::info($instances);
+        // log::info($temp);
         foreach ($users as $user) {
             if(!in_array($user->id, $instances)){
                 $nonScheduledUsers[] = $user;
@@ -385,12 +384,12 @@ class AdminController extends Controller
             if(!in_array($users[$i], $instances))
                 $nonScheduledUsers[] = $users[$i];
         }*/
-        log::info($nonScheduledUsers);
+        // log::info($nonScheduledUsers);
         return $nonScheduledUsers;
     }
 
     public function getUserInfo(Request $request){
-        log::info("entro al getUserInfo");
+        // log::info("entro al getUserInfo");
         $userInfo = [];
         // nombre del cliente, clases disponibles, historial de compras, si el historial es largo debe de tener scrolling y como se compró (mostrador o web)
         $booking = UserSchedule::where("id",$request->userSchedule_id)->where('status','<>','cancelled')->first();
@@ -405,7 +404,7 @@ class AdminController extends Controller
                             ->orderBy('purchases.created_at')
                             ->get()
                             ->toArray();
-        log::info($purchaseHistory);
+        // log::info($purchaseHistory);
         array_push($userInfo, $name, $availableClasses, $expiredClasses,$purchaseHistory);
         return $userInfo;
     }
@@ -506,7 +505,7 @@ class AdminController extends Controller
             'phone' => $request->phone,
             'bio' => $request->bio,
         ]);
-        log::info($instructor);
+        // log::info($instructor);
         //actulizando la foto de perfil del instructor
         if($request->profileImageAdd){
             $images = $request->profileImageAdd;
@@ -530,7 +529,7 @@ class AdminController extends Controller
     }
     public function editInstructor(Request $request){
         DB::beginTransaction();
-        log::info($request->all());
+        // log::info($request->all());
         $Instructor = Instructor::find($request->instructor_id);
         $Instructor->name = $request->name;
         $Instructor->last_name = $request->last_name;
@@ -676,7 +675,7 @@ class AdminController extends Controller
     }
     public function editSchedule(Request $request){
         if(strlen($request->description) > 27){
-            log::info(strlen($request->description));
+            // log::info(strlen($request->description));
             return response()->json([
                 'status' => 'Error',
                 'message' => 'La longitud de la descripción debe ser menor a 27 caracteres.'
@@ -715,7 +714,7 @@ class AdminController extends Controller
         ]);
     }
     public function addBranch(Request $request){
-        log::info($request->instructorBikes);
+        // log::info($request->instructorBikes);
         if (!isset($request->instructorBikes)) {
             return response()->json([
                 'status' => 'Error',
@@ -886,8 +885,8 @@ class AdminController extends Controller
     }
 
     public function addUser(Request $request){
-        log::info("========== addUser ==========");
-        log::info($request->all());
+        // log::info("========== addUser ==========");
+        // log::info($request->all());
 
         $password = substr($request->phone, -4);
         DB::beginTransaction();
@@ -963,14 +962,14 @@ class AdminController extends Controller
         ]);
     }
     public function sale(Request $request){
-        log::info($request);
+        // log::info($request);
         try {
             $admin = $request->user();
             $product = Product::where('id', "{$request->product_id}")->first();
             DB::beginTransaction();
             //promocion clase adicional
             /*$promotion = Purchase::where('user_id', $request->client_id)->where('status', 'pending')->latest()->first();
-            log::info($promotion);
+            // log::info($promotion);
             if($promotion != null){
                 if(Carbon::now() < Carbon::parse($promotion->created_at)->addDay() && $product->n_classes >= 10){
                     $promotion->status = 'active';
@@ -1045,7 +1044,7 @@ class AdminController extends Controller
             'last_name' => 'required',
             'email' => 'required|email|max:245|unique:users',
             'birth_date' => 'required',
-            'phone' => 'required|min:10|max:10|unique:users',
+            'phone' => 'required|digits:10|unique:users',
             'gender' => 'required|in:Hombre,Mujer',
             'shoe_size' => 'required',
         ];

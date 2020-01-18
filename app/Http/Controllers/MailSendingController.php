@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Mail\{CoachInfo, walkInRegister, addtionalFreeClass, BirthdayEmail};
+use App\Mail\{CoachInfo, walkInRegister, additionalFreeClass, BirthdayEmail};
 use Illuminate\Support\Facades\Log;
 
 class MailSendingController extends Controller
@@ -59,10 +59,10 @@ class MailSendingController extends Controller
             ]);
         }
     }
-    public function addtionalFreeClass($user_email, $user_name)
+    public function additionalFreeClass($user_email, $user_name)
     {
         try {
-            \Mail::to($user_email)->send(new addtionalFreeClass($user_name));
+            \Mail::to($user_email)->send(new additionalFreeClass($user_name));
             return response()->json([
                 'status' => 'OK',
                 'message' => "Informacion enviada con éxito!",

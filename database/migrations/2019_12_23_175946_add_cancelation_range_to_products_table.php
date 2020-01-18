@@ -14,7 +14,8 @@ class AddCancelationRangeToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('cancelation_range')->nullable();
+            $table->integer('cancelation_range')->nullable()->after('status');
+            $table->tinyInteger('is_refundable')->default(1)->after('cancelation_range');
         });
     }
 
@@ -27,6 +28,7 @@ class AddCancelationRangeToProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->dropColumn('cancelation_range');
+            $table->dropColumn('is_refundable');
         });
     }
 }

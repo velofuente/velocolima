@@ -31,4 +31,13 @@ class Schedule extends Model
         return $this->hasOne(Branch::class, 'id', 'branch_id');
     }
 
+    public function getTimeAttribute($value)
+    {
+        return new \DateTime($value);
+    }
+
+    public function getHourInstance()
+    {
+        return new \DateTime($this->hour);
+    }
 }

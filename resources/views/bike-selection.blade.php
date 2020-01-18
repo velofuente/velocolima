@@ -52,9 +52,10 @@
     @include('packages')
     @include('footer')
 @endsection
+
 @section('extraScripts')
     <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
-    <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
+    <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
     <script type="text/javascript">
         var crfsToken = '{{ csrf_token() }}';
         var selectedBike = "{{ $selectedBike }}";
@@ -72,6 +73,6 @@
         var cancelation_period = "{{ $schedules->branch->cancelation_period }}";
         var scheduleHourBeforeCancelation = "{{ $scheduleHourBeforeCancelation }}";
     </script>
-    <script src="{{asset('js/openpay-script.js')}}"></script>
+    <script src="{{asset('js/openpay-script.js')}}"></script> 
     <script src="{{asset('js/bike-selection-script.js')}}?{{ time() }}"></script>
 @endsection

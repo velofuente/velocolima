@@ -75,7 +75,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'max:100', 'confirmed'],
             'birth_date' => ['required', 'date'],
-            'phone' => ['required', 'int', 'max:10', 'min:10'],
+            'phone' => ['required', 'int', 'digits:10'],
             // 'weight' => ['required', 'numeric', 'between:0,999.99'],
             // 'height' => ['required', 'int', 'max:250'],
             'gender' => ['required', 'string', 'max:6', 'in:Hombre,Mujer'],
@@ -184,7 +184,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:60'],
             'last_name' => ['required', 'string', 'max:60'],
             // 'birth_date' => ['required', 'date'],
-            'phone' => ['required', 'int', 'max:10', 'min:10'],
+            'phone' => ['required', 'int', 'digits:10'],
             'shoe_size' => ['required'/*,'min:18','max:35'*/],
         ];
         $messages = [

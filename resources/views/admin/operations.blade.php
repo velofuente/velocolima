@@ -1,8 +1,5 @@
 @extends('admin.app')
 
-@section('extra_styles')
-@stop
-
 @section('content')
 {{-- Show the Schedules (ordered by Hour) for today --}}
 <input type="hidden" name="langUnix" value="{{date_default_timezone_set('America/Mexico_City')}}">
@@ -420,7 +417,7 @@
         </div>
     </div>
 </div>
-@stop
+@endsection
 
 @section('extra_scripts')
 {{-- Add, Delete & Edit Products Scripts --}}
@@ -1257,4 +1254,4 @@
         });
     }
 </script>
-@stop
+@endsection

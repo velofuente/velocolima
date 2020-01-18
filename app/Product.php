@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use SoftDeletes;
-    
+
     protected $fillable = [
         'n_classes', 'price', 'description', 'expiration_days', 'type', 'status', 'cancelation_range'
     ];
@@ -21,5 +21,9 @@ class Product extends Model
     public function scopeCatalog()
     {
         return $this->selectRaw("id, IF(NOT ISNULL(n_classes), n_classes, 'N/A') AS n_classes, price, description, IF(NOT ISNULL(expiration_days), CONCAT(expiration_days, ' días'), 'N/A') AS expiration_days, CASE type WHEN 'free' THEN 'Clase gratis'  WHEN 'Packages' THEN 'Paquete' WHEN 'Deals' THEN 'Promoción' ELSE 'Mercancía' END AS type, CASE status WHEN 1 THEN 'Habilitado' ELSE 'Deshabilitado' END AS status");
+    }
+
+    public function schedules() {
+        return $this->hasMany(ProductSchedule::class);
     }
 }
