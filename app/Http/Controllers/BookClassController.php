@@ -52,14 +52,15 @@ class BookClassController extends Controller
         if ($availablePurchase === false || empty($availablePurchase)) {
             return $this->returnResponse("ERROR", "No tienes clases compradas. Compra clases para poder hacer tu reservación.", $require_response);
         }
-        //Validar si la compra a validar es reembolsable
-        if (!$availablePurchase->is_refundable) {
-            return $this->returnResponse("OK", "Esta reservación no es reembolsable. Al cancelar esta reservación no se te reembolsará.", $require_response, ["purchaseId" => $availablePurchase->id]);
-        }
         //Obtener el producto de la compra
         $product = $availablePurchase->product;
         if (!$product) {
             return $this->returnResponse("ERROR", "No se puede reservar, (producto no válido).", $require_response);
+        }
+
+        //Validar si el producto de la compra a validar es reembolsable
+        if (!$product->is_refundable) {
+            return $this->returnResponse("OK", "Esta reservación no es reembolsable. Al cancelar esta reservación no se te reembolsará.", $require_response, ["purchaseId" => $availablePurchase->id]);
         }
         return $this->returnResponse("OK", $this->getPurchaseToValidateMessage($product, $remainingMinutes), $require_response, ["purchaseId" => $availablePurchase->id]);
     }
@@ -73,19 +74,32 @@ class BookClassController extends Controller
      */
     function getPurchaseToValidateMessage($product, $remainingMinutes)
     {
+        //Simular que faltan o que ya pasaron x minutos de una clase
+        // $remainingMinutes = 121;
         //Obtener tiempo de cancelación de la clase
         $cancelationMinutes = ($product->cancelation_range) ? $product->cancelation_range : config("constants.defaultCancelationMinutes");
         //Calcular si se puede obtener horas cerradas o minutos
         $timeType = "minutos";
+        $cancelationMinutesTime = $cancelationMinutes;
         if (($cancelationMinutes % 60) === 0) {
-            $cancelationMinutes = $cancelationMinutes / 60;
+            $cancelationMinutesTime = $cancelationMinutes / 60;
             $timeType = "horas";
         }
+        $timeRemainingType = "minutos";
+        $remainingMinutesTime = $remainingMinutes;
+        if (($remainingMinutes % 60) === 0) {
+            $remainingMinutesTime = $remainingMinutes / 60;
+            $timeRemainingType = "horas";
+        }
+        $beforeOrAfter = "se está reservando {$remainingMinutesTime} {$timeRemainingType} antes del inicio de la clase (Solo es reembolsable al reservar antes de {$cancelationMinutesTime} {$timeType}).";
         //Validar si está en tiempo de cancelación
-        if ($remainingMinutes <= $cancelationMinutes) {
-            $message = "Esta reservación no es reembolsable, debido a que se está realizando antes de {$cancelationMinutes} {$timeType} del inicio de la clase.";
+        if ($remainingMinutes < $cancelationMinutes) {
+            if ($remainingMinutes < 0) {
+                $beforeOrAfter = "ya inició la clase";
+            }
+            $message = "Esta reservación no será reembolsable debido a que {$beforeOrAfter}";
         } else {
-            $message = "Esta reservación sólo puede modificarse o cancelarse hasta {$cancelationMinutes} {$timeType} antes de la clase.";
+            $message = "Esta reservación sólo puede modificarse o cancelarse antes de {$cancelationMinutesTime} {$timeType} del inicio de la clase.";
         }
         return $message;
     }
