@@ -305,83 +305,86 @@ function diff_hours(dt2, dt1)
         },
         success: function(result) {
             $.LoadingOverlay("hide");
-            limitHour = result.hour;
-            if(timeDiff<=limitHour){
+
+            if (result.status == 'OK') {
+                if (!result.is_refundable) {
+                    Swal.fire({
+                        title: "Cancelación de clase",
+                        html: "<h6>Esta clase no es reembolsable debido a que está fuera del periodo de cancelación.</h6>",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonText: "Lo he pensado mejor y no la cancelaré",
+                        confirmButtonText: "Entiendo y aún la quiero cancelar",
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#4bb543',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
+                            $.ajax({
+                                url: "cancelClass",
+                                method: 'POST',
+                                data: {
+                                    _token: csrfToken,
+                                    id: bookedClass_id
+                                },
+                                beforeSend: function(){
+                                    $.LoadingOverlay("show");
+                                },
+                                success: function(result){
+                                    $.LoadingOverlay('hide');
+                                    Swal.fire({
+                                        title: 'Clase cancelada',
+                                        text: result.message,
+                                        type: 'success',
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: 'Aceptar'
+                                    }).then((result) => {
+                                        if (result.value) {
+                                        window.location.replace("/user");
+                                        }
+                                    })
+                                }
+                            });
+                        } else {
+                        swal("Cancelado", "Clase no cancelada.", "info");
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: "cancelClass",
+                        method: 'POST',
+                        data: {
+                            _token: csrfToken,
+                            id: bookedClass_id
+                        },
+                        beforeSend: function(){
+                            $.LoadingOverlay("show");
+                        },
+                        success: function(result){
+                            $.LoadingOverlay('hide');
+                            Swal.fire({
+                                title: 'Clase cancelada',
+                                text: result.message,
+                                type: 'success',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                if (result.value) {
+                                window.location.replace("/user");
+                                }
+                            })
+                        }
+                    });
+                }
+            } else {
                 Swal.fire({
                     title: "Cancelación de clase",
-                    html: "<h6>Esta clase no es reembolsable debido a que está fuera del periodo de cancelación.</h6>",
-                    type: "warning",
+                    html: "<h6>"+result.message+"</h6>",
+                    type: "error",
                     showCancelButton: true,
-                    cancelButtonText: "Lo he pensado mejor y no la cancelaré",
-                    confirmButtonText: "Entiendo y aún la quiero cancelar",
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#4bb543',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
-                        $.ajax({
-                            url: "cancelClass",
-                            method: 'POST',
-                            data: {
-                                _token: csrfToken,
-                                id: bookedClass_id
-                            },
-                            beforeSend: function(){
-                                $.LoadingOverlay("show");
-                            },
-                            success: function(result){
-                                $.LoadingOverlay('hide');
-                                // Swal.fire({
-                                //     title: 'Clase cancelada',
-                                //     text: result.message,
-                                //     type: 'success',
-                                //     confirmButtonText: 'Aceptar'
-                                // }),
-                                // window.location.replace("/user");
-                                Swal.fire({
-                                    title: 'Clase cancelada',
-                                    text: result.message,
-                                    type: 'success',
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: 'Aceptar'
-                                }).then((result) => {
-                                    if (result.value) {
-                                    window.location.replace("/user");
-                                    }
-                                })
-                            }
-                        });
-                    } else {
-                    swal("Cancelado", "Clase no cancelada.", "info");
-                    }
-                });
-            }else{
-                $.ajax({
-                    url: "cancelClass",
-                    method: 'POST',
-                    data: {
-                        _token: csrfToken,
-                        id: bookedClass_id
-                    },
-                    beforeSend: function(){
-                        $.LoadingOverlay("show");
-                    },
-                    success: function(result){
-                        $.LoadingOverlay('hide');
-                        Swal.fire({
-                            title: 'Clase cancelada',
-                            text: result.message,
-                            type: 'success',
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'Aceptar'
-                        }).then((result) => {
-                            if (result.value) {
-                            window.location.replace("/user");
-                            }
-                        })
-                    }
-                });
-            } 
+                    cancelButtonText: "Aceptar",
+                })
+            }
         },
         error: function(result){
         }

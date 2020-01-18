@@ -453,52 +453,39 @@ class BookClassController extends Controller
     public function cancelClass(Request $request)
     {
         $requestedClass = UserSchedule::find($request->id);
-        // log::info($requestedClass);
-        //obtiene el periodo de cancelacion de la ubicación
+        // Obtiene el periodo de cancelacion de la ubicación
         $schedule = Schedule::find($requestedClass->schedule_id);
-        // log::info($schedule);
-        $branch = Branch::find($schedule->branch_id);
-        $cancelationPeriod = $branch->cancelation_period;
-        //verificar el horario que agrego el admin para las clases  cancelables
-        $ClasshourLimit = Schedule::select('day', 'hour')->where('id', $requestedClass->schedule_id)->first();
+        // Verificar el horario que agrego el admin para las clases  cancelables
         $purchase = Purchase::find($requestedClass->purchase_id);
-        if ($requestedClass->status == 'cancelled') {
+        $product = $purchase->product;
+
+        if($requestedClass->status == 'cancelled'){
             return response()->json([
                 'status' => 'OK',
                 'message' => 'Clase cancelada con éxito.',
             ]);
         }
-        if ($requestedClass->status == 'active' || $requestedClass->status != 'active') {
-            if ($ClasshourLimit != null) {
-                $date = Carbon::parse($ClasshourLimit->day.' '.$ClasshourLimit->hour);
-                $now = Carbon::now();
-                $hours = $now->diffInHours($date);
-                //verificar si la clase aún esta disponible antes de las n horas si es asi cancelarla y regresarle la clase
-                if ($hours < $cancelationPeriod) {
-                    $requestedClass->status = 'cancelled';
-                    $requestedClass->changedSit = 0;
-                    $requestedClass->save();
-                    return response()->json([
-                        'status' => 'OK',
-                        'message' => "Clase cancelada con éxito.",
-                    ]);
-                }
-            }
-            $requestedClass->status = 'cancelled';
-            $requestedClass->changedSit = 0;
-            $requestedClass->save();
+
+        // Actualizar el estado a cancelado
+        $requestedClass->status = 'cancelled';
+        $requestedClass->changedSit = 0;
+        $requestedClass->save();
+        $scheduleDate = Carbon::parse("{$schedule->day} {$schedule->hour}");
+        $remainingTimeToClass = now()->diffInMinutes($scheduleDate);
+
+        if ($product->is_refundable && $remainingTimeToClass >= $product->cancelation_range) {
+            // Reembolsar compra
             $purchase->n_classes ++;
             $purchase->save();
-            return response()->json([
-                'status' => 'OK',
-                'message' => "Clase cancelada con éxito, se te reembolsará esta clase.",
-            ]);
+            $message = "Clase cancelada con éxito, se te reembolsará esta clase.";
         } else {
-            return response()->json([
-                'status' => 'ERROR',
-                'message' => "La clase que quieres cancelar ya ha sido cancelada. Intenta refrescando la página.",
-            ]);
+            $message = "Clase cancelada con éxito.";
         }
+
+        return response()->json([
+            'status' => 'OK',
+            'message' => $message,
+        ]);
     }
 
     public function waitList(Request $request)
@@ -635,17 +622,29 @@ class BookClassController extends Controller
             $requestedClass = UserSchedule::find($request->id);
             //obtiene el periodo de cancelacion de la ubicación
             $schedule = Schedule::find($requestedClass->schedule_id);
-            $branch = Branch::find($schedule->branch_id);
-            $cancelationPeriod = $branch->cancelation_period;
+            $purchase = Purchase::find($requestedClass->purchase_id);
+            $product = $purchase->product;
+
+            $scheduleDate = Carbon::parse("{$schedule->day} {$schedule->hour}");
+            $remainingTimeToClass = now()->diffInMinutes($scheduleDate);
+            logger("RemainingTime: ", [$remainingTimeToClass, $product->is_refundable, $product->cancelation_range, $product->id]);
+            if ($product->is_refundable && $remainingTimeToClass >= $product->cancelation_range) {
+                $isRefundable = true;
+                $message = "Clase cancelada con exitó.";
+            } else {
+                $isRefundable = false;
+                $message = "Esta clase no es reembolsable debido a que está fuera del periodo de cancelación.";
+            }
             return response()->json([
                 'status' => 'OK',
-                'hour' => $cancelationPeriod,
+                'is_refundable' => $isRefundable,
+                'message' => $message,
             ]);
         } catch (Exception $e) {
             Log::error("BookClassController@checkCancelLimit ".'line-'.$e->getLine().'  message'.$e->getMessage());
             return response()->json([
                 'status' => 'error',
-                'hour' =>2,
+                'message' => 'Ocurrió un error al procesar la solicitud, por favor intentalo nuevamente.',
             ]);
         }
     }
