@@ -215,7 +215,7 @@
                     </div>
 
                     {{-- product's refundable --}}
-                    <div class="form-group row mb-3" id="editDivClassesIsRefundable">
+                    <div class="form-group row mb-3" id="divClassesIsRefundable">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
                             <label for="is_refundable" class="mr-sm-2">Reembolsable</label>
@@ -492,14 +492,20 @@
                 $('#divClassesExpiration').hide('fast');
                 $('#divClassAvailableDays').hide('fast');
                 $('#divClassSchedule').hide('fast');
+                $('#divClassesIsRefundable').hide('fast');
+                $('#divClassesCancelationRange').hide('fast');
             } else if ($('#typeProduct').val() == 'Free') {
                 $('#divClassAvailableDays').hide('fast');
                 $('#divClassSchedule').hide('fast');
+                $('#divClassesIsRefundable').show('fast');
+                $('#divClassesCancelationRange').show('fast');
             } else {
                 $('#divClassesQuantity').show('fast');
                 $('#divClassesExpiration').show('fast');
                 $('#divClassAvailableDays').show('fast');
                 $('#divClassSchedule').show('fast');
+                $('#divClassesIsRefundable').show('fast');
+                $('#divClassesCancelationRange').show('fast');
             }
         });
 
@@ -560,7 +566,7 @@
             available_days = $('#availableDays').val();
             beginAt = $('#beginAt').val();
             endAt = $('#endAt').val();
-            isRefundable = $('#isRefundable').prop('checked') ? 1 : 0;
+            isRefundable = $('#isRefundable').val();
             cancelationRange = $('#cancelationRange').val();
             status = 1
 
@@ -710,9 +716,7 @@
                         success: function(result) {
                             $.LoadingOverlay("hide");
                             if (result.status == "OK") {
-                                console.log(result.status);
                                 $('.modal-backdrop').remove();
-                                // $('.active-menu').trigger('click');
                                 Swal.fire({
                                     title: 'Producto Eliminado',
                                     text: result.message,
@@ -947,7 +951,7 @@
             beforeSend: function() {
                 $.LoadingOverlay("show");
                 if(disabledButton) {
-                    $(disabledButton).addClass('disabled');
+                    $(disabledButton).prop('disabled', true);
                 }
             },
             success: callBack,
@@ -958,7 +962,7 @@
             complete: function() {
                 $('select:not(.swal2-select)').select2({theme: 'bootstrap'});
                 if (disabledButton) {
-                    $(disabledButton).removeClass('disabled');
+                    $(disabledButton).prop('disabled', false);
                 }
                 $.LoadingOverlay("hide");
             }
