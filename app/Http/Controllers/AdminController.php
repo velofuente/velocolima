@@ -801,14 +801,19 @@ class AdminController extends Controller
             ]);
         }
         DB::beginTransaction();
-        $product = Product::create([
+        $dataProduct = [
             'n_classes' => $request->n_classes,
             'price' => $request->price,
             'description' => $request->description,
             'expiration_days' => $request->expiration_days,
             'type' => $request->type,
             'status' => $request->status,
-        ]);
+            'is_refundable' => $request->is_refundable,
+        ];
+        if ($request->cancelation_range) {
+            $dataProduct['cancelation_range'] = $request->cancelation_range;
+        }
+        $product = Product::create($dataProduct);
         if ($request->available_days) {
             ProductSchedule::create([
                 'product_id' => $product->id,
@@ -843,6 +848,10 @@ class AdminController extends Controller
         $Product->expiration_days = $request->expiration_days;
         $Product->type = $request->type;
         $Product->status = $request->status;
+        $Product->is_refundable = $request->is_refundable;
+        if ($request->cancelation_range) {
+            $Product->cancelation_range = $request->cancelation_range;
+        }
         $Product->save();
 
         $productSchedule = ProductSchedule::withTrashed()->where('product_id', $Product->id)->first();
