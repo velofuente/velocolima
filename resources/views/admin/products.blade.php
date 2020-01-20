@@ -213,6 +213,36 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
+
+                    {{-- product's refundable --}}
+                    <div class="form-group row mb-3" id="editDivClassesIsRefundable">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="is_refundable" class="mr-sm-2">Reembolsable</label>
+                            <select name="is_refundable" id="isRefundable">
+                                <option value="1" class="text-center">Reembolsable</option>
+                                <option value="0" class="text-center">No reembolsable</option>
+                            </select>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+
+                    {{-- Cancelation Range --}}
+                    <div class="form-group row mb-3" id="divClassesCancelationRange">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="cancelation_range" class="mr-sm-2">Tiempo de cancelación para aplicar reembolso (mins):</label>
+                            <div class="input-group">
+                                <input id="cancelationRange" type="number" class="form-control{{ $errors->has('cancelation_range') ? ' is-invalid' : '' }}" name="cancelation_range" value="{{ old('cancelation_range') }}" required >
+                                @if ($errors->has('cancelation_range'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('cancelation_range') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -394,6 +424,37 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
+
+                    {{-- product's refundable --}}
+                    <div class="form-group row mb-3" id="editDivClassesIsRefundable">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="is_refundable" class="mr-sm-2">Reembolsable</label>
+                            <select name="is_refundable" id="editIsRefundable">
+                                <option value="1" class="text-center">Reembolsable</option>
+                                <option value="0" class="text-center">No reembolsable</option>
+                            </select>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+
+                    {{-- Cancelation Range --}}
+                    <div class="form-group row mb-3" id="editDivClassesCancelationRange">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="cancelation_range" class="mr-sm-2">Tiempo de cancelación para aplicar reembolso (mins):</label>
+                            <div class="input-group">
+                                <input id="editCancelationRange" type="number" class="form-control{{ $errors->has('cancelation_range') ? ' is-invalid' : '' }}" name="cancelation_range" value="{{ old('cancelation_range') }}" required >
+                                @if ($errors->has('cancelation_range'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('cancelation_range') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+
                 {{-- </form> --}}
             </div>
             <div class="modal-footer">
@@ -417,6 +478,8 @@
         var expiration_days = null;
         var type = null;
         var status = null;
+        var isRefundable = null;
+        var cancelationRange = null;
 
         // myid mynclasses myprice mydescription myexpiration mytype mystatus
         // product_id n_classes price description expiration_days type status
@@ -481,6 +544,8 @@
             available_days = $('#editAvailableDays').val();
             begin_at = $('#editBeginAt').val();
             end_at = $('#editEndAt').val();
+            cancelationRange = $('#editCancelationRange').val();
+            isRefundable = $('#editIsRefundable').val();
             var button = $(this);
 
             editProduct(productId, button);
@@ -495,6 +560,8 @@
             available_days = $('#availableDays').val();
             beginAt = $('#beginAt').val();
             endAt = $('#endAt').val();
+            isRefundable = $('#isRefundable').prop('checked') ? 1 : 0;
+            cancelationRange = $('#cancelationRange').val();
             status = 1
 
             $.ajax({
@@ -514,6 +581,8 @@
                     available_days: available_days,
                     begin_at: beginAt,
                     end_at: endAt,
+                    cancelation_range: cancelationRange,
+                    is_refundable: isRefundable,
                 },
                 success: function(result) {
                     $.LoadingOverlay("hide");
@@ -569,6 +638,8 @@
                     available_days: available_days,
                     begin_at: begin_at,
                     end_at: end_at,
+                    is_refundable: isRefundable,
+                    cancelation_range: cancelationRange,
                 },
                 success: function(result) {
                     $.LoadingOverlay("hide");
@@ -709,8 +780,11 @@
         status = data.status;
         nClasses = data.n_classes;
         description = data.description;
+        isRefundable = data.is_refundable;
+
         expirationDays = data.expiration_days;
         productSchedules = data.product_schedule;
+        cancelationRange = data.cancelation_range;
 
         clearEditForm();
         clearScheduleForm();
@@ -725,23 +799,32 @@
         $('#editnclassesProduct').val(nClasses);
         $('#editDescriptionProduct').val(description);
         $('#editExpirationProduct').val(expirationDays);
+        $('#editIsRefundable').val(isRefundable);
+        $('#editCancelationRange').val(cancelationRange);
+
 
         if (type === 'Souvenir' || nClasses === '' && expirationDays === '') {
             $('#editDivClassSchedule').hide();
             $('#editDivClassesQuantity').hide();
             $('#editDivClassesExpiration').hide();
             $('#editDivClassAvailableDays').hide();
+            $('#editDivClassesIsRefundable').hide();
+            $('#editDivClassesCancelationRange').hide();
             drawSelectType('Souvenir');
         } else if (type === 'Free') {
             drawSelectType(type);
-            $('#editDivClassAvailableDays').hide();
             $('#editDivClassSchedule').hide();
+            $('#editDivClassAvailableDays').hide();
+            $('#editDivClassesIsRefundable').show();
+            $('#editDivClassesCancelationRange').show();
         } else {
             drawSelectType(type);
             $('#editDivClassSchedule').show();
             $('#editDivClassesQuantity').show();
             $('#editDivClassesExpiration').show();
             $('#editDivClassAvailableDays').show();
+            $('#editDivClassesIsRefundable').show();
+            $('#editDivClassesCancelationRange').show();
 
             if (daysAvailables || schedules) {
                 loadSchedulesForm(daysAvailables, schedules);
@@ -846,6 +929,9 @@
         $('#editDivClassesQuantity').val(null);
         $('#editDivClassesExpiration').val(null);
         $('#editDivClassAvailableDays').val(null);
+        $('#editIsRefundable :nth-child(1n)').prop('selected', true);
+        $('#editIsRefundable :nth-child(2n)').prop('selected', false);
+        $('#editCancelationRange').val(null);
     }
 
     function ajaxCall(url, formData, method, disabledButton, callBack) {
