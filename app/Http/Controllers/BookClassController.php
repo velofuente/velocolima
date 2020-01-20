@@ -486,8 +486,11 @@ class BookClassController extends Controller
         $requestedClass->save();
         $scheduleDate = Carbon::parse("{$schedule->day} {$schedule->hour}");
         $remainingTimeToClass = now()->diffInMinutes($scheduleDate);
+        $cancelationRange = ($product->cancelation_range || $product->cancelation_range == 0)
+            ? $product->cancelation_range
+            : $schedule->branch->cancelation_period * 60;
 
-        if ($product->is_refundable && $remainingTimeToClass >= $product->cancelation_range) {
+        if ($product->is_refundable && $remainingTimeToClass >= $cancelationRange) {
             // Reembolsar compra
             $purchase->n_classes ++;
             $purchase->save();
@@ -641,8 +644,11 @@ class BookClassController extends Controller
 
             $scheduleDate = Carbon::parse("{$schedule->day} {$schedule->hour}");
             $remainingTimeToClass = now()->diffInMinutes($scheduleDate);
-            logger("RemainingTime: ", [$remainingTimeToClass, $product->is_refundable, $product->cancelation_range, $product->id]);
-            if ($product->is_refundable && $remainingTimeToClass >= $product->cancelation_range) {
+            $cancelationRange = ($product->cancelation_range || $product->cancelation_range == 0)
+                ? $product->cancelation_range
+                : $schedule->branch->cancelation_period * 60;
+
+            if ($product->is_refundable && $remainingTimeToClass >= $cancelationRange) {
                 $isRefundable = true;
                 $message = "Clase cancelada con exitó.";
             } else {
