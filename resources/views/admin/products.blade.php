@@ -164,7 +164,7 @@
                     </div>
 
                     {{-- Product's schedules --}}
-                    <div class="form-group row mb-3" id="divClassSchedule">
+                    <div class="form-group row mb-3" id="divClassSchedule" style="display: none;">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto group-inline" id="editDivClassScheduleContainer">
                             <label for="schedule" class="mr-sm-2">Horario:</label>
@@ -231,7 +231,7 @@
                     <div class="form-group row mb-3" id="divClassesCancelationRange">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="cancelation_range" class="mr-sm-2">Tiempo de cancelación para aplicar reembolso (mins):</label>
+                            <label for="cancelation_range" class="mr-sm-2">Tiempo de cancelación para aplicar reembolso (min):</label>
                             <div class="input-group">
                                 <input id="cancelationRange" type="number" class="form-control{{ $errors->has('cancelation_range') ? ' is-invalid' : '' }}" name="cancelation_range" value="{{ old('cancelation_range') }}" required >
                                 @if ($errors->has('cancelation_range'))
@@ -442,7 +442,7 @@
                     <div class="form-group row mb-3" id="editDivClassesCancelationRange">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="cancelation_range" class="mr-sm-2">Tiempo de cancelación para aplicar reembolso (mins):</label>
+                            <label for="cancelation_range" class="mr-sm-2">Tiempo de cancelación para aplicar reembolso (min):</label>
                             <div class="input-group">
                                 <input id="editCancelationRange" type="number" class="form-control{{ $errors->has('cancelation_range') ? ' is-invalid' : '' }}" name="cancelation_range" value="{{ old('cancelation_range') }}" required >
                                 @if ($errors->has('cancelation_range'))
@@ -531,7 +531,6 @@
                 deleteProduct(instructorId, this);
             } else {
                 $(this).prop("disabled", false)
-                console.log("Malformed ID")
             }
             // $('#deleteProductButton').attr('disabled', true);
         })
@@ -541,7 +540,7 @@
             $('#editProductButton').prop("disabled", true)
             event.preventDefault();
 
-            nClasses = $('#editnclassesProduct').val(); // Extract info from data-* attributes
+            nClasses = $('#editnclassesProduct').val();
             price = $('#editPriceProduct').val();
             description = $('#editDescriptionProduct').val();
             expiration_days = $('#editExpirationProduct').val();
@@ -692,7 +691,6 @@
         };
 
         function deleteProduct(product_id, button){
-            // product_id = $('#deleteProductButton').val();
             Swal.fire({
                 title: '¿Estás seguro?',
                 text: "¡No se podrán revertir los cambios!",
@@ -760,6 +758,38 @@
         storeProduct($(this));
     });
 
+    $('#isRefundable').on('change', function(event) {
+        if ($(this).val() == 1) {
+            $('#divClassesCancelationRange').show();
+        } else {
+            $('#divClassesCancelationRange').hide();
+        }
+    });
+
+    $('#editIsRefundable').on('change', function(event) {
+        if ($(this).val() == 1) {
+            $('#editDivClassesCancelationRange').show();
+        } else {
+            $('#editDivClassesCancelationRange').hide();
+        }
+    });
+
+    $('#availableDays').on('change', function(event) {
+        if ($(this).val()) {
+            $('#divClassSchedule').show();
+        } else {
+            $('#divClassSchedule').hide();
+        }
+    });
+
+    $('#editAvailableDays').on('change', function(event) {
+        if ($(this).val()) {
+            $('#editDivClassSchedule').show();
+        } else {
+            $('#editDivClassSchedule').hide();
+        }
+    });
+
     function storeProduct(element) {
         productId = element.data('id');
         url = '/products/'+productId;
@@ -819,8 +849,11 @@
             drawSelectType(type);
             $('#editDivClassSchedule').hide();
             $('#editDivClassAvailableDays').hide();
-            $('#editDivClassesIsRefundable').show();
-            $('#editDivClassesCancelationRange').show();
+            if (isRefundable) {
+                $('#editDivClassesIsRefundable').show();
+            } else {
+                $('#editDivClassesIsRefundable').hide();
+            }
         } else {
             drawSelectType(type);
             $('#editDivClassSchedule').show();
@@ -829,7 +862,16 @@
             $('#editDivClassAvailableDays').show();
             $('#editDivClassesIsRefundable').show();
             $('#editDivClassesCancelationRange').show();
-
+            if (productSchedules) {
+                $('#editDivClassSchedule').show();
+            } else {
+                $('#editDivClassSchedule').hide();
+            }
+            if (isRefundable) {
+                $('#editDivClassesIsRefundable').show();
+            } else {
+                $('#editDivClassesIsRefundable').hide();
+            }
             if (daysAvailables || schedules) {
                 loadSchedulesForm(daysAvailables, schedules);
             }

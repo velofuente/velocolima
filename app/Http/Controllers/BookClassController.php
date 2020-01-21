@@ -94,7 +94,7 @@ class BookClassController extends Controller
         $beforeOrAfter = "se está reservando {$remainingMinutesTime} {$timeRemainingType} antes del inicio de la clase (Solo es reembolsable al reservar antes de {$cancelationMinutesTime} {$timeType}).";
         //Validar si está en tiempo de cancelación
         if ($remainingMinutes < $cancelationMinutes) {
-            if ($remainingMinutes < 0) {
+            if ($remainingMinutes <= 0) {
                 $beforeOrAfter = "ya inició la clase";
             }
             $message = "Esta reservación no será reembolsable debido a que {$beforeOrAfter}";
@@ -486,7 +486,7 @@ class BookClassController extends Controller
         $requestedClass->save();
         $scheduleDate = Carbon::parse("{$schedule->day} {$schedule->hour}");
         $remainingTimeToClass = now()->diffInMinutes($scheduleDate);
-        $cancelationRange = ($product->cancelation_range || $product->cancelation_range == 0)
+        $cancelationRange = ($product->cancelation_range && $product->cancelation_range != 0)
             ? $product->cancelation_range
             : $schedule->branch->cancelation_period * 60;
 
@@ -644,7 +644,7 @@ class BookClassController extends Controller
 
             $scheduleDate = Carbon::parse("{$schedule->day} {$schedule->hour}");
             $remainingTimeToClass = now()->diffInMinutes($scheduleDate);
-            $cancelationRange = ($product->cancelation_range || $product->cancelation_range == 0)
+            $cancelationRange = ($product->cancelation_range && $product->cancelation_range != 0)
                 ? $product->cancelation_range
                 : $schedule->branch->cancelation_period * 60;
 
