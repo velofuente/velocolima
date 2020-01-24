@@ -850,9 +850,9 @@
             $('#editDivClassSchedule').hide();
             $('#editDivClassAvailableDays').hide();
             if (isRefundable) {
-                $('#editDivClassesIsRefundable').show();
+                $('#editDivClassesCancelationRange').show();
             } else {
-                $('#editDivClassesIsRefundable').hide();
+                $('#editDivClassesCancelationRange').hide();
             }
         } else {
             drawSelectType(type);
@@ -868,9 +868,9 @@
                 $('#editDivClassSchedule').hide();
             }
             if (isRefundable) {
-                $('#editDivClassesIsRefundable').show();
+                $('#editDivClassesCancelationRange').show();
             } else {
-                $('#editDivClassesIsRefundable').hide();
+                $('#editDivClassesCancelationRange').hide();
             }
             if (daysAvailables || schedules) {
                 loadSchedulesForm(daysAvailables, schedules);
