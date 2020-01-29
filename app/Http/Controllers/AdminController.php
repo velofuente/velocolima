@@ -1134,7 +1134,7 @@ class AdminController extends Controller
                     break;
             }
         }
-        return $daysText = implode(',', $daysText);
+        return $daysText = implode(', ', $daysText);
     }
 
     private function schedulesAvailableText($schedules)

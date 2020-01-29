@@ -528,7 +528,7 @@
             if(splitedId.length > 1){
                 // console.log(splitedId);
                 var instructorId = splitedId[1];
-                deleteProduct(instructorId, this);
+                deleteProduct(instructorId, '.deleteProduct');
             } else {
                 $(this).prop("disabled", false)
             }
@@ -553,7 +553,7 @@
             isRefundable = $('#editIsRefundable').val();
             var button = $(this);
 
-            editProduct(productId, button);
+            editProduct(productId, '#editProductButton');
         })
 
         function addProduct(){
@@ -600,9 +600,11 @@
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
-                        })
+                        }).then((result) => {
+                            $.LoadingOverlay("show");
+                            window.location.replace('/admin/products');
+                        });
                     $('body').removeClass('modal-open');
-                    window.location.replace('/admin/products');
                     }
                     else {
                         $.LoadingOverlay("hide");
@@ -613,9 +615,14 @@
                             confirmButtonText: 'Aceptar'
                         })
                         $('body').removeClass('modal-open');
+                        $('#addProductButton').prop('disabled', false);
                     }
                 },
+                beforeSend: function() {
+                    $.LoadingOverlay("show");
+                },
                 error: function(result) {
+                    $('#addProductButton').prop('disabled', false);
                     $.LoadingOverlay("hide");
                 }
             });
@@ -657,9 +664,11 @@
                             text: result.message,
                             type: 'success',
                             confirmButtonText: 'Aceptar'
-                        })
+                        }).then((result) => {
+                            $.LoadingOverlay("show");
+                            window.location.replace('/admin/products');
+                        });
                         $('body').removeClass('modal-open');
-                        window.location.replace('/admin/products');
                     }
                     else {
                         $.LoadingOverlay("hide");
@@ -720,8 +729,10 @@
                                     text: result.message,
                                     type: 'success',
                                     confirmButtonText: 'Aceptar'
-                                })
-                                window.location.replace('/admin/products');
+                                }).then((result) => {
+                                    $.LoadingOverlay("hide");
+                                    window.location.replace('/admin/products');
+                                });
                             } else {
                                 $.LoadingOverlay("hide");
                                 Swal.fire({
@@ -750,6 +761,12 @@
             })
         }
     })
+
+    $('.page-item').on('click', function(event) {
+        if (!$(this).hasClass('disabled')) {
+            $.LoadingOverlay("show");
+        }
+    });
 
     $('.editProduct').on('click', function (event) {
         event.preventDefault();
