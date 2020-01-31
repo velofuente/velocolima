@@ -11,6 +11,8 @@ use DB;
 class BookClassController extends Controller
 {
 
+    private $invalidity_reason = "";
+
     /**
      * Validar mensaje para cancelación de una reservación
      *
@@ -47,10 +49,14 @@ class BookClassController extends Controller
             return $this->returnResponse("ERROR", $remainingMinutes, $require_response);
         }
         //Obtener la clase próxima a vencer (Sin importar si tiene o no restricción)
-        $availablePurchase = $this->getAvailablePurchases($requestUser->id, $schedule, true);
+        $availablePurchase = $this->getAvailablePurchases($requestUser->id, $schedule, true); //asd
         //TODO: validar el motivo por el cual no deja reservar
         if ($availablePurchase === false || empty($availablePurchase)) {
-            return $this->returnResponse("ERROR", "No tienes clases compradas. Compra clases para poder hacer tu reservación.", $require_response);
+            $tempMessage = "No tienes clases compradas. Compra clases para poder hacer tu reservación.".$this->invalidity_reason;
+            if ($this->invalidity_reason != "") {
+                $tempMessage = $this->invalidity_reason;
+            }
+            return $this->returnResponse("ERROR", $tempMessage, $require_response, ["invalidation_message" => "true"]);
         }
         //Obtener el producto de la compra
         $product = $availablePurchase->product;
@@ -116,6 +122,23 @@ class BookClassController extends Controller
      */
     function getAvailablePurchases($user_id, $schedule, $closest = false)
     {
+        //Obtener la compra de la clase reservada
+        $userSchedule = UserSchedule::where("schedule_id", $schedule->id)->where("user_id", $user_id)->first();
+        if (!empty($userSchedule)) {
+            if ($userSchedule->status == "active") {
+                Log::info("USER SCHEDULE: ".$userSchedule);
+                $purchase = $userSchedule->purchase;
+                if ($closest) {
+                    return $purchase;
+                }
+                //TODO:Validar si es reservable o no
+                return [
+                    "scheduledPurchases" => collect([$purchase]),
+                    "noScheduledPurchases" => collect([])
+                ];
+            }
+        }
+        $invalidationMessage = "";
         //Obtener las compras con clases disponibles y restringidas por horario
         $scheduledPurchases = Purchase::with(["product.schedules"])
             ->selectRaw("*, DATE_ADD(created_at, INTERVAL expiration_days DAY) expirationDate")
@@ -142,15 +165,30 @@ class BookClassController extends Controller
         $reservationDate = Carbon::parse($schedule->day);
         $reservationDay = $reservationDate->dayOfWeek;
         //Filtrar las compras restringidas basadas en horario y día de reservación y vigencia de compra
+        $allScheduledPurchasesCount = Purchase::where('user_id', $user_id)->count();
+        $scheduledPurchasesAmount = count($scheduledPurchases);
         $scheduledPurchases = $scheduledPurchases->filter(function($scheduledPurchase) use ($reservationHour, $reservationDay){
             return $this->filterReservableSchedulePurchases($scheduledPurchase, $reservationHour, $reservationDay);
-        })->filter(function ($scheduledPurchase) use ($reservationDate){
+        });
+        $scheduledPurchasesAmountAfterScheduleValidation = count($scheduledPurchases);
+        if ($scheduledPurchasesAmountAfterScheduleValidation == 0 && $scheduledPurchasesAmount > 0 && $allScheduledPurchasesCount > 0) {
+            $invalidationMessage = "No tienes clases compradas disponibles para reservar en este horario.";
+        }
+        $scheduledPurchases = $scheduledPurchases->filter(function ($scheduledPurchase) use ($reservationDate){
             return $this->filterValidSchedulePurchases($scheduledPurchase, $reservationDate);
         });
+        if (count($scheduledPurchases) == 0 && ($scheduledPurchasesAmountAfterScheduleValidation > 0 || $allScheduledPurchasesCount > 0) && $invalidationMessage == "") {
+            $invalidationMessage = "No tienes clases compradas asdasd vigentes para reservar en esta fecha.";
+        }
+        $noScheduledPurchasesAmount = count($noScheduledPurchases);
         //Filtrar las compras sin restricciones que estén vigentes para ese día
         $noScheduledPurchases = $noScheduledPurchases->filter(function ($noScheduledPurchase) use ($reservationDate){
             return $this->filterValidSchedulePurchases($noScheduledPurchase, $reservationDate);
         });
+        if (count($noScheduledPurchases) == 0 && $noScheduledPurchasesAmount > 0 && $invalidationMessage == "") {
+            $invalidationMessage = "No tienes clases compradas vigentes para reservar en esta fecha.";
+        }
+        $this->invalidity_reason = $invalidationMessage;
         //Validar si tiene alguna compra con clases disponibles.
         if ((count($scheduledPurchases) + count($noScheduledPurchases)) < 1) {
             return false;
