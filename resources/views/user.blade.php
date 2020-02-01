@@ -740,7 +740,7 @@
     <script src="{{ asset('/js/user-script.js') }}?{{ time() }}"></script>
     <script>var crfsToken = '{{ csrf_token() }}';</script>
     <script>
-        $(document).ready(function() {
+        /* $(document).ready(function() {
             var nClasses = '{{ $classes }}';
             if(nClasses == 1){
                 Swal.fire({
@@ -750,7 +750,7 @@
                     confirmButtonText: 'Aceptar',
                   });
             }
-        })
+        }) */
     </script>
     <script>
         // // Jquery UI DatePicker (Safari)
