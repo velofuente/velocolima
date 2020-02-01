@@ -272,7 +272,7 @@ class OpenPayController extends Controller
                 }
             }*/
             //verificar si compro un paquete de mas o igual a 10 clases
-            if (intval($product->n_classes) >= 10) {
+            /* if (intval($product->n_classes) >= 10) {
                 //promocion clase adicional verificar si tiene 1 clase
                 $lastClassPurchase = Purchase::where('user_id', $requestUser->id)
                     ->where('n_classes', "<>", 0)
@@ -293,7 +293,7 @@ class OpenPayController extends Controller
                         ]);
                     }
                 }
-            }
+            } */
             $compra = Purchase::create($purchaseArray);
 
             //Inicializamos array de cargo (OpenPay)
@@ -417,7 +417,7 @@ class OpenPayController extends Controller
             //Obtenemos el token de la tarjeta
             $cardToken = $card->token_id;
             //verificar si compro un paquete de mas o igual a 10 clases
-            if(intval($product->n_classes) >= 10){
+            /* if(intval($product->n_classes) >= 10){
                 //promocion clase adicional verificar si tiene 1 clase
                 $lastClassPurchase = Purchase::where('user_id', $requestUser->id)
                 ->where('n_classes', "<>", 0)
@@ -435,7 +435,7 @@ class OpenPayController extends Controller
                         ]);
                     }
                 }
-            }
+            } */
              //Registramos la compra en el sistema
              $compra = Purchase::create($purchaseArray);
             /*$promotion = Purchase::where('user_id', $requestUser->id)->where('status', 'pending')->latest()->first();

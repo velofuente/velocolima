@@ -986,7 +986,7 @@ class AdminController extends Controller
                 }
             }*/
             //verificar si compro un paquete de mas o igual a 10 clases
-            if(intval($product->n_classes) >= 10){
+            /* if(intval($product->n_classes) >= 10){
                 //promocion clase adicional verificar si tiene 1 clase
                 $lastClassPurchase = Purchase::where('user_id', $request->client_id)
                 ->where('n_classes', "<>", 0)
@@ -1006,7 +1006,7 @@ class AdminController extends Controller
                         ]);
                     }
                 }
-            }
+            } */
             $purchase = Purchase::create([
                 'product_id' => $product->id,
                 'user_id' => $request->client_id,
