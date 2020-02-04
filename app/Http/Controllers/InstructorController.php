@@ -117,7 +117,7 @@ class InstructorController extends Controller
         //obtiene el numero de reservaciones que se han hecho a esa clase
         $instances = UserSchedule::where('schedule_id', $schedules->id)->count();
         $instructors = Instructor::all();
-        $instructor = Instructor::find($schedules->instructor_id)->first();
+        $instructor = Instructor::find($schedules->instructor_id);
         $branches = Branch::all();
         $products = Product::all();
         $selectedBike = UserSchedule::where("user_id", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->first();
