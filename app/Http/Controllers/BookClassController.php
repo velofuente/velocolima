@@ -49,7 +49,7 @@ class BookClassController extends Controller
             return $this->returnResponse("ERROR", $remainingMinutes, $require_response);
         }
         //Obtener la clase próxima a vencer (Sin importar si tiene o no restricción)
-        $availablePurchase = $this->getAvailablePurchases($requestUser->id, $schedule, true); //asd
+        $availablePurchase = $this->getAvailablePurchases($requestUser->id, $schedule, true);
         //TODO: validar el motivo por el cual no deja reservar
         if ($availablePurchase === false || empty($availablePurchase)) {
             $tempMessage = "No tienes clases compradas. Compra clases para poder hacer tu reservación.";
@@ -178,7 +178,7 @@ class BookClassController extends Controller
             return $this->filterValidSchedulePurchases($scheduledPurchase, $reservationDate);
         });
         if (count($scheduledPurchases) == 0 && ($scheduledPurchasesAmountAfterScheduleValidation > 0 || $allScheduledPurchasesCount > 0) && $invalidationMessage == "") {
-            $invalidationMessage = "No tienes clases compradas asdasd vigentes para reservar en esta fecha.";
+            $invalidationMessage = "No tienes clases compradas vigentes para reservar en esta fecha.";
         }
         $noScheduledPurchasesAmount = count($noScheduledPurchases);
         //Filtrar las compras sin restricciones que estén vigentes para ese día
