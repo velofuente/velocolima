@@ -53,6 +53,7 @@
                         "<th>Fecha de compra</th>"+
                         "<th>Producto</th>"+
                         "<th>Horas compradas</th>"+
+                        "<th>Clases Disponibles</th>"+
                         "<th>Vigencia</th>"+
                         "<th>Importe</th>"+
                         "<th>Tipo de compra</th>"+
@@ -66,6 +67,7 @@
                         "<td>"+element.saleDate+"</td>"+
                         "<td>"+element.product+"</td>"+
                         "<td>"+element.purchasedClasses+"</td>"+
+                        "<td>"+element.remainingClasses+"</td>"+
                         "<td>"+element.expiration+"</td>"+
                         "<td>"+element.price+"</td>"+
                         "<td>"+saleType+"</td>"+

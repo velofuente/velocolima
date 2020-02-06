@@ -418,7 +418,7 @@ class AdminController extends Controller
         $lastClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$user->id}")->whereRaw("NOW() >= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->first();
         $expiredClasses = ($lastClases->clases) ? $lastClases->clases : 0;
         $purchaseHistory = Purchase::join('products','purchases.product_id','=',"products.id")
-                            ->selectRaw('purchases.created_at AS saleDate,products.description AS product,products.n_classes AS purchasedClasses,DATE_ADD(purchases.created_at, INTERVAL purchases.expiration_days DAY) AS expiration,products.price AS price, IF(ISNULL(purchases.card_id), IF(products.type = "Free", "Sistema", "Mostrador"), "Online") AS saleType')
+                            ->selectRaw('purchases.created_at AS saleDate, products.description AS product, purchases.n_classes AS remainingClasses,products.n_classes AS purchasedClasses, DATE_ADD(purchases.created_at, INTERVAL purchases.expiration_days DAY) AS expiration, products.price AS price, IF(ISNULL(purchases.card_id), IF(ISNULL(card_token), IF(products.type = "Free", "Sistema", "Mostrador"), "Online"), "Online") AS saleType')
                             ->where('user_id', '=', "{$user->id}")
                             ->orderBy('purchases.created_at')
                             ->get()

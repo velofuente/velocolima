@@ -155,7 +155,7 @@
                     console.log(value);
                     var admin ="N/A"; 
                     var saleText  = "Mostrador";
-                    if(value.card_id){
+                    if(value.card_id || value.card_token){
                         saleText  = "Online";
                     }
                     

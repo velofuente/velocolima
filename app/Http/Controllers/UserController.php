@@ -87,7 +87,7 @@ class UserController extends Controller
             "required" => "Este campo es requerido",
             "numeric" => "Este campo solo acepta numeros",
             "int" => "Este campo solo acepta numeros",
-            "confirmed" => "Las contraseñas o coinciden",
+            "confirmed" => "Las contraseñas no coinciden",
             "unique" => "Este usuario ya existe",
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
