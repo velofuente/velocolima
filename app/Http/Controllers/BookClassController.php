@@ -44,7 +44,7 @@ class BookClassController extends Controller
             return $this->returnResponse("ERROR", "No se puede reservar, (horario no válido).", $require_response);
         }
         //Validar cuantos minutos han pasado de la clase
-        $remainingMinutes = $this->validateTimeReservation($now, $schedule, true);
+        $remainingMinutes = $this->validateTimeReservation($now, $schedule);
         if (is_string($remainingMinutes)) {
             return $this->returnResponse("ERROR", $remainingMinutes, $require_response);
         }
@@ -140,7 +140,12 @@ class BookClassController extends Controller
         }
         $invalidationMessage = "";
         //Obtener las compras con clases disponibles y restringidas por horario
-        $scheduledPurchases = Purchase::with(["product.schedules"])
+        $scheduledPurchases = Purchase::with([
+            "product" => function($query){
+                return $query->withTrashed();
+            },
+            "product.schedules"
+            ])
             ->selectRaw("*, DATE_ADD(created_at, INTERVAL expiration_days DAY) expirationDate")
             // ->where('product_id', 22)
             ->where('user_id', $user_id)
@@ -150,7 +155,12 @@ class BookClassController extends Controller
             ->whereHas('product.schedules')
             ->get();
         //Obtener compras con clases disponibles sin restricciones de horario
-        $noScheduledPurchases = Purchase::with(["product.schedules"])
+        $noScheduledPurchases = Purchase::with([
+            "product" => function($query){
+                return $query->withTrashed();
+            },
+            "product.schedules"
+            ])
             ->selectRaw("*, DATE_ADD(created_at, INTERVAL expiration_days DAY) expirationDate")
             // ->where('product_id', 22)
             ->where('user_id', $user_id)
@@ -339,7 +349,7 @@ class BookClassController extends Controller
             return $this->returnResponse("ERROR", "No se puede reservar, (horario no válido).", true);
         }
         //Validar cuantos minutos han pasado de la clase
-        $remainingMinutes = $this->validateTimeReservation($now, $schedule, true);
+        $remainingMinutes = $this->validateTimeReservation($now, $schedule);
         if (is_string($remainingMinutes)) {
             return $this->returnResponse("ERROR", $remainingMinutes, true);
         }
@@ -445,22 +455,23 @@ class BookClassController extends Controller
                     'status' => 'OK',
                     'message' => "Lugar reservado con éxito.",
                 ]);
-            } else{
+            } else {
                 return response()->json([
                     'status' => 'ERROR',
                     'message' => "No hay cupo disponible.",
                 ]);
             }
-        } else{
-            if($bookedClass->changedSit == 0){
-                if($alreadyReserved && $alreadyReserved->status!='cancelled'){
+        } else {
+            if ($bookedClass->changedSit == 0) {
+                if ($alreadyReserved && $alreadyReserved->status!='cancelled') {
                     DB::commit();
                     return response()->json([
                         'status' => 'ERROR',
                         'message' => "Ese lugar ya ha sido reservado.",
                     ]);
                 }
-                if($bookedClass->status == 'cancelled'){
+                $changedSiteMessage = "Lugar cambiado con éxito.";
+                if ($bookedClass->status == 'cancelled') {
                     $bookedClass->status = 'active';
                     $bookedClass->bike = $request->bike;
                     $bookedClass->changedSit = 0;
@@ -469,6 +480,7 @@ class BookClassController extends Controller
                     //Resta una clase a la compra del usuario y actualiza ese campo en la base de datos
                     $purchase->n_classes -= 1;
                     $purchase->save();
+                    $changedSiteMessage = "Lugar reservado con éxito.";
                 } else {
                     $bookedClass->bike = $request->bike;
                     $bookedClass->purchase_id = $purchase->id;
@@ -478,9 +490,9 @@ class BookClassController extends Controller
                 DB::commit();
                 return response()->json([
                     'status' => 'OK',
-                    'message' => "Lugar cambiado con éxito.",
+                    'message' => $changedSiteMessage,
                 ]);
-            } else{
+            } else {
                 return response()->json([
                     'status' => 'ERROR',
                     'message' => "Solo puedes cambiar de lugar una vez.",
@@ -516,7 +528,7 @@ class BookClassController extends Controller
         // Obtiene el periodo de cancelacion de la ubicación
         $schedule = Schedule::find($requestedClass->schedule_id);
         // Verificar el horario que agrego el admin para las clases  cancelables
-        $purchase = Purchase::find($requestedClass->purchase_id);
+        $purchase = Purchase::with(["product" => function($query){$query->withTrashed();}])->find($requestedClass->purchase_id);
         $product = $purchase->product;
 
         if($requestedClass->status == 'cancelled'){
@@ -685,7 +697,7 @@ class BookClassController extends Controller
             $requestedClass = UserSchedule::find($request->id);
             //obtiene el periodo de cancelacion de la ubicación
             $schedule = Schedule::find($requestedClass->schedule_id);
-            $purchase = Purchase::find($requestedClass->purchase_id);
+            $purchase = Purchase::with(["product" => function($query){$query->withTrashed();}])->find($requestedClass->purchase_id);
             $product = $purchase->product;
 
             $scheduleDate = Carbon::parse("{$schedule->day} {$schedule->hour}");

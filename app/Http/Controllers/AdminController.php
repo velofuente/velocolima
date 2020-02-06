@@ -936,6 +936,15 @@ class AdminController extends Controller
             'role_id' => 1,
             'branch_id' => $user->branch_id,
         ]);
+        //Agregar clase gratis
+        $product = DB::table('products')->where('id', 1)->first();
+        $deal = new Purchase([
+            'product_id' => $product->id,
+            'user_id' => $newUser->id,
+            'n_classes' => $product->n_classes,
+            'expiration_days' => $product->expiration_days,
+        ]);
+        $deal->save();
         DB::commit();
         app('App\Http\Controllers\MailSendingController')->walkInRegister($newUser->email,$newUser->name, $password);
         return response()->json([

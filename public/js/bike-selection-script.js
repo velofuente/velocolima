@@ -213,11 +213,7 @@ function reservePlace(id, elementBall, instructor){
                         "</ul>",
                     type: "warning",
                     showCancelButton: true,
-                    // confirmButtonClass: "btn-danger",
                     confirmButtonText: "Reservar"
-                    // cancelButtonText: "Cancelar",
-                    // closeOnConfirm: false,
-                    // closeOnCancel: false
                 }).then((result) => {
                     if (result.value) {
                         $.ajax({
@@ -255,58 +251,53 @@ function reservePlace(id, elementBall, instructor){
                                     });
                                 } else {
                                     $.LoadingOverlay("hide");
+                                    let showPurchase = true;
                                     if (typeof result.updateClass != "undefined") {
                                         if (result.updateClass == 1) {
+                                            // showPurchase = false;
                                             $("#ball-" + id).removeClass("bikes")
                                             $("#ball-" + id).addClass("occupied")
                                         }
                                     }
-                                    showSwalError("Error", result.message);
+                                    showSwalError("Error", result.message, showPurchase);
                                 }
                             }
-                        });
-                    } else {
-                        swal.fire({
-                            title: "Cancelado",
-                            text: "Clase no reservada.",
-                            type: "info"
                         });
                     }
                 });
             } else {
                 $.LoadingOverlay("hide");
-                console.log("STATUS ERROR");
-                showSwalError("Error", result.message);
-                // if(typeof result.updateClass != "undefined"){
-                //     if (result.updateClass == 1) {
-                //         $("#ball-" + id).removeClass("bikes")
-                //         $("#ball-" + id).addClass("occupied")
-                //     }
-                // }
-                // swal.fire({
-                //     title: 'Error',
-                //     text: result.message,
-                //     type: 'error',
-                //     confirmButtonText: 'Aceptar'
-                // })
+                showSwalError("Error", result.message, true);
             }
         },
         error: function(error){
             $.LoadingOverlay("hide");
-            console.log("ERROR");
-            // return processError(error);
             showSwalError();
             return;
         }
     });
 
-    function showSwalError(title = "Error", message = "No fue posible procesar tu reservación, inténtalo de nuevo.") {
-        swal.fire({
-            title: title,
-            text: message,
-            type: 'error',
-            confirmButtonText: 'Aceptar'
-        });
+    function showSwalError(title = "Error", message = "No fue posible procesar tu reservación, inténtalo de nuevo.", showBuyClasses = false) {
+        if (showBuyClasses) {
+            swal.fire({
+                title: title,
+                text: message,
+                type: 'error',
+                confirmButtonText: 'Comprar clases'
+            }).then((result) => {
+                if (result.value) {
+                    $.LoadingOverlay("show");
+                    window.location.replace("/schedule#packages");
+                }
+            });
+        } else {
+            swal.fire({
+                title: title,
+                text: message,
+                type: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+        }
     }
 
 }
