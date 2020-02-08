@@ -268,4 +268,19 @@ class UserController extends Controller
         return response()->json(compact('user'));
     }
 
+    public function showPromotionalMessage(Request $request)
+    {
+        $user = $request->user;
+        $userId = $user->id;
+        $promotionalMessages = PromotionalMessages::where('user_id', $userId)->first();
+        if ($promotionalMessages) {
+            return response()->json([
+                'status' => 'OK',
+                'code' => '400',
+                'message' => config('constants.promitional_message'),
+            ]);
+        }
+        return false;
+    }
+
 }

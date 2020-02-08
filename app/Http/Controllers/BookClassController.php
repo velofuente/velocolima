@@ -126,7 +126,6 @@ class BookClassController extends Controller
         $userSchedule = UserSchedule::where("schedule_id", $schedule->id)->where("user_id", $user_id)->first();
         if (!empty($userSchedule)) {
             if ($userSchedule->status == "active") {
-                Log::info("USER SCHEDULE: ".$userSchedule);
                 $purchase = $userSchedule->purchase;
                 if ($closest) {
                     return $purchase;
@@ -138,6 +137,15 @@ class BookClassController extends Controller
                 ];
             }
         }
+        // Obtener reservaciones del día
+        $reservations = UserSchedule::whereHas('schedule', function($query) use ($schedule) {
+            $query->where('day', $schedule->day);
+        })->where('user_id', $user_id)->first();
+        if ($reservations && config('constants.reservationDayCountLimit')) {
+            $this->invalidity_reason = config('constants.reservationDayMessage');
+            return false;
+        }
+
         $invalidationMessage = "";
         //Obtener las compras con clases disponibles y restringidas por horario
         $scheduledPurchases = Purchase::with([
