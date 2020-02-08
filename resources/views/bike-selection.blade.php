@@ -37,7 +37,6 @@
                 {{-- <img class="resClass" src="/img/iconos/2.png" alt=""> --}}
                 <span class="text-center text_gradient_bike_selection"> Reserva tu clase </span>
             </div>
-            {{Log::info($instructor)}}
             @if(strlen($instructor->profile_image) > 0)
                 <img  id="profilePic" src="{{$instructor->profile_image}}" class="card-img-top" alt="{{$instructor->name}}">
             @else
@@ -53,9 +52,10 @@
     @include('packages')
     @include('footer')
 @endsection
+
 @section('extraScripts')
     <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
-    <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
+    <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
     <script type="text/javascript">
         var crfsToken = '{{ csrf_token() }}';
         var selectedBike = "{{ $selectedBike }}";
@@ -73,6 +73,6 @@
         var cancelation_period = "{{ $schedules->branch->cancelation_period }}";
         var scheduleHourBeforeCancelation = "{{ $scheduleHourBeforeCancelation }}";
     </script>
-    <script src="{{asset('js/openpay-script.js')}}"></script>
+    <script src="{{asset('js/openpay-script.js')}}"></script> 
     <script src="{{asset('js/bike-selection-script.js')}}?{{ time() }}"></script>
 @endsection

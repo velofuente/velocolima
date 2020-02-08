@@ -40,23 +40,24 @@ class BirthdayEmail extends Command
      */
     public function handle()
     {
-        /*$user = User::where('email','pjimenez0@ucol.mx');
-        $name = $user->name;
-        $email = $user->email;*/
-        $birthdayUsers = User::whereRaw("DATE_FORMAT(birth_date, '%m-%d') = " . Carbon::today()->format('m-d'))->get();
+        $currentMonthDay = Carbon::today()->format('m-d');
+        $birthdayUsers = User::whereRaw("DATE_FORMAT(birth_date, '%m-%d') = '{$currentMonthDay}'")->get();
         foreach($birthdayUsers as $user){
             DB::beginTransaction();
             $name = $user->name;
             $email = $user->email;
-            // ID del producto "Cumpleaños" en Pruebas  es id = 11, en Prod. es id = 12
             $product = Product::where('id', 12)->first();
-            $purchase = Purchase::create([
-                'product_id' => $product->id,
-                'user_id' => $user->id,
-                'n_classes' => $product->n_classes,
-                'expiration_days' => $product->expiration_days,
-                'status' => 0,
-            ]);
+            $currentDate = Carbon::today()->format('Y-m-d');
+            $purchase = Purchase::where('product_id', 12)->whereRaw("DATE_FORMAT(created_at, '%Y-%m-%d') = '{$currentDate}'")->first();
+            if (!$purchase) {
+                $purchase = Purchase::create([
+                    'product_id' => $product->id,
+                    'user_id' => $user->id,
+                    'n_classes' => $product->n_classes,
+                    'expiration_days' => $product->expiration_days,
+                    'status' => 0,
+                ]);
+            }
             app('App\Http\Controllers\MailSendingController')->birthdayEmail($email, $name);
             DB::commit();
         }

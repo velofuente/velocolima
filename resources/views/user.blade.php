@@ -295,7 +295,6 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {{logger($previousClasses)}}
                                                         @foreach ($previousClasses as $previousClass)
                                                             <tr>
                                                                 <td>{{date('d-M-Y', strtotime($previousClass->scheduleWithTrashed->day))}}</td>
@@ -741,7 +740,7 @@
     <script src="{{ asset('/js/user-script.js') }}?{{ time() }}"></script>
     <script>var crfsToken = '{{ csrf_token() }}';</script>
     <script>
-        $(document).ready(function() {
+        /* $(document).ready(function() {
             var nClasses = '{{ $classes }}';
             if(nClasses == 1){
                 Swal.fire({
@@ -751,7 +750,7 @@
                     confirmButtonText: 'Aceptar',
                   });
             }
-        })
+        }) */
     </script>
     <script>
         // // Jquery UI DatePicker (Safari)
@@ -766,7 +765,7 @@
                 currentText: "Hoy",
                 changeMonth: true,
                 changeYear: true,
-                yearRange: '1920:2019',
+                yearRange: '-110:+0',
                 dateFormat: 'yy-mm-dd',
                 onSelect: function(dateText, inst) {
                     $(inst).val(dateText); // Write the value in the input

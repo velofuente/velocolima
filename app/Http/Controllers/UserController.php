@@ -75,7 +75,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'max:100', 'confirmed'],
             'birth_date' => ['required', 'date'],
-            'phone' => ['required', 'int', 'max:10', 'min:10'],
+            'phone' => ['required', 'int', 'digits:10'],
             // 'weight' => ['required', 'numeric', 'between:0,999.99'],
             // 'height' => ['required', 'int', 'max:250'],
             'gender' => ['required', 'string', 'max:6', 'in:Hombre,Mujer'],
@@ -87,7 +87,7 @@ class UserController extends Controller
             "required" => "Este campo es requerido",
             "numeric" => "Este campo solo acepta numeros",
             "int" => "Este campo solo acepta numeros",
-            "confirmed" => "Las contraseñas o coinciden",
+            "confirmed" => "Las contraseñas no coinciden",
             "unique" => "Este usuario ya existe",
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -135,7 +135,7 @@ class UserController extends Controller
         Session::flash('alertType', "success");
         // Session::flash('alertButton', "Aceptar");
         Auth::login($user);
-        Log::info("Entra pre Mail Send");
+        // Log::info("Entra pre Mail Send");
         // Mail::send([], [], function ($message) use ($request){
         //     $message->to($request->email)
         //       ->subject("Welcome")
@@ -144,7 +144,7 @@ class UserController extends Controller
         //       // or:
         //       ->setBody('<h1>Hi, welcome user!</h1>', 'text/html'); // for HTML rich messages
         //   });
-          Log::info("Entra pos Mail Send");
+        //   Log::info("Entra pos Mail Send");
         return redirect()->route('home')->with('success','Data Added');
     }
 
@@ -184,7 +184,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:60'],
             'last_name' => ['required', 'string', 'max:60'],
             // 'birth_date' => ['required', 'date'],
-            'phone' => ['required', 'int', 'max:10', 'min:10'],
+            'phone' => ['required', 'int', 'digits:10'],
             'shoe_size' => ['required'/*,'min:18','max:35'*/],
         ];
         $messages = [
@@ -267,5 +267,20 @@ class UserController extends Controller
 
         return response()->json(compact('user'));
     }
+
+    // public function showPromotionalMessage(Request $request)
+    // {
+    //     $user = $request->user;
+    //     $userId = $user->id;
+    //     $promotionalMessages = PromotionalMessages::where('user_id', $userId)->first();
+    //     if ($promotionalMessages) {
+    //         return response()->json([
+    //             'status' => 'OK',
+    //             'code' => '400',
+    //             'message' => config('constants.promitional_message'),
+    //         ]);
+    //     }
+    //     return false;
+    // }
 
 }

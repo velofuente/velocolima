@@ -242,7 +242,7 @@ function makeCharge(){
 function makeChargeSavedCard(){
     tokenBearer = $('#tokenBearer').val();
     $.ajax({
-        url: "makeChargeCard",
+        url: "/makeChargeCard",
         method: 'POST',
         data: {
             _token: crfsToken,

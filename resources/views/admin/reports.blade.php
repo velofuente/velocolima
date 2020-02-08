@@ -109,7 +109,7 @@
             currentText: "Hoy",
             changeMonth: true,
             changeYear: true,
-            yearRange: '1920:2019',
+            yearRange: '-110:+0',
             dateFormat: 'yy-mm-dd',
             onSelect: function(dateText, inst) {
                 $(inst).val(dateText); // Write the value in the input
@@ -155,7 +155,7 @@
                     console.log(value);
                     var admin ="N/A"; 
                     var saleText  = "Mostrador";
-                    if(value.card_id){
+                    if(value.card_id || value.card_token){
                         saleText  = "Online";
                     }
                     
@@ -189,8 +189,6 @@
 </script>
 <script>
     function getUserInfoReports(user_id){
-        console.log("entró a getuserinfoReports");
-        console.log(user_id);
         $.ajax({
             url: "getUserInfoReports",
             method: 'POST',
@@ -217,7 +215,7 @@
                 "<tbody>"
                 result[3].forEach(function(element) {
                     var saleType = "";
-                    saleType += (element.saleType == null ? 'Mostrador' : 'Online');
+                    saleType += element.saleType;
                     purchases_table += "<tr>"+
                         "<td>"+element.saleDate+"</td>"+
                         "<td>"+element.product+"</td>"+
@@ -226,13 +224,6 @@
                         "<td>"+element.price+"</td>"+
                         "<td>"+saleType+"</td>"+
                     "</tr>"
-                    //     "<li><ul>" +
-                    //     "<li>"+element.product_id+"</li>"+
-                    //     "<li>Venta: "+typeSale+"</li>"+
-                    //     "<li>Clases restantes: "+element.n_classes+"</li>"+
-                    //     "<li>Exipra en "+element.expiration_days+" dias</li>"+
-                    //     "<li>Realizada el:"+element.created_at+"</li>"+
-                    // "</ul></li>"
                 });
                 purchases_table +="</tbody></table>";
                 saleType = "";

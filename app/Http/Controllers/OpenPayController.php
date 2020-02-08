@@ -92,9 +92,7 @@ class OpenPayController extends Controller
                             "message" => "Tu tarjeta fue guardada exitosamente"
                         ];
                     }catch(\OpenpayApiTransactionError $e){
-                        Log::info(json_encode($e->getErrorCode()));
-                        Log::info(json_encode($e->getDescription()));
-                        Log::info(json_encode($e->getFraudRules()));
+                        Log::info("OpenPayController@addCustomerCard | Code: " . json_encode($e->getErrorCode()) . " | Description: " . json_encode($e->getDescription()) . " | Fraud rules: " . json_encode($e->getFraudRules()));
                         switch ($e->getErrorCode()) {
                             case 2005:
                                 $message = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
@@ -274,7 +272,7 @@ class OpenPayController extends Controller
                 }
             }*/
             //verificar si compro un paquete de mas o igual a 10 clases
-            if (intval($product->n_classes) >= 10) {
+            /* if (intval($product->n_classes) >= 10) {
                 //promocion clase adicional verificar si tiene 1 clase
                 $lastClassPurchase = Purchase::where('user_id', $requestUser->id)
                     ->where('n_classes', "<>", 0)
@@ -295,7 +293,7 @@ class OpenPayController extends Controller
                         ]);
                     }
                 }
-            }
+            } */
             $compra = Purchase::create($purchaseArray);
 
             //Inicializamos array de cargo (OpenPay)
@@ -321,10 +319,7 @@ class OpenPayController extends Controller
                 // ]
             ];
         }catch(\OpenpayApiTransactionError $e){
-            Log::info('OpenPayController@makeChargeCustomer');
-            Log::info(json_encode($e->getErrorCode()));
-            Log::info(json_encode($e->getDescription()));
-            Log::info(json_encode($e->getFraudRules()));
+            Log::info("OpenPayController@makeChargeCustomer | Code: " . json_encode($e->getErrorCode()) . " | Description: " . json_encode($e->getDescription()) . " | Fraud rules: " . json_encode($e->getFraudRules()));
             switch ($e->getErrorCode()) {
                 case "2005":
                     $message = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
@@ -367,7 +362,7 @@ class OpenPayController extends Controller
         } catch (Exception $e){
             $message = "No se pudo agregar la tarjeta, inténtalo nuevamente.";
         }
-        log::info($message);
+        // log::info($message);
         DB::rollback();
         return [
             "status" => "error",
@@ -422,7 +417,7 @@ class OpenPayController extends Controller
             //Obtenemos el token de la tarjeta
             $cardToken = $card->token_id;
             //verificar si compro un paquete de mas o igual a 10 clases
-            if(intval($product->n_classes) >= 10){
+            /* if(intval($product->n_classes) >= 10){
                 //promocion clase adicional verificar si tiene 1 clase
                 $lastClassPurchase = Purchase::where('user_id', $requestUser->id)
                 ->where('n_classes', "<>", 0)
@@ -440,7 +435,7 @@ class OpenPayController extends Controller
                         ]);
                     }
                 }
-            }
+            } */
              //Registramos la compra en el sistema
              $compra = Purchase::create($purchaseArray);
             /*$promotion = Purchase::where('user_id', $requestUser->id)->where('status', 'pending')->latest()->first();
@@ -474,10 +469,7 @@ class OpenPayController extends Controller
                 // ]
             ];
         }catch(\OpenpayApiTransactionError $e){
-            Log::info('OpenPayController@makeChargeCustomer');
-            Log::info(json_encode($e->getErrorCode()));
-            Log::info(json_encode($e->getDescription()));
-            Log::info(json_encode($e->getFraudRules()));
+            Log::info("OpenPayController@makeChargeCard | Code: " . json_encode($e->getErrorCode()) . " | Description: " . json_encode($e->getDescription()) . " | Fraud rules: " . json_encode($e->getFraudRules()));
             switch ($e->getErrorCode()) {
                 case "2005":
                     $message = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
@@ -520,7 +512,7 @@ class OpenPayController extends Controller
         } catch (Exception $e){
             $message = "No se pudo agregar la tarjeta, inténtalo nuevamente.";
         }
-        log::info($message);
+        //log::info("OpenPayController@makeChargeCard | User ID: {$requestUser->id} | Card ID: {$card->id} | Message: {$message}");
         DB::rollback();
         return [
             "status" => "error",

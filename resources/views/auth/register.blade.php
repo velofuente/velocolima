@@ -87,9 +87,9 @@
                                 <input id="password" placeholder="Contraseña" minlength="7" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
                                 <ul class="input-requirements">
                                     <li id="passwordError1">Mínimo 7 caracteres (máximo 100 caracteres)</li>
-                                    <li id="passwordError2">Debe contener al menos un número</li>
+                                    {{-- <li id="passwordError2">Debe contener al menos un número</li>
                                     <li id="passwordError3">Debe contener al menos una letra minúscula</li>
-                                    <li id="passwordError4">Debe contener al menos una letra mayúscula</li>
+                                    <li id="passwordError4">Debe contener al menos una letra mayúscula</li> --}}
                                 </ul>
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
@@ -275,7 +275,7 @@
                     dateFormat: 'yy/mm/dd',
                     changeMonth: true,
                     changeYear: true,
-                    yearRange: '1920:2019',
+                    yearRange: '-110:+0',
                     onSelect: function(dateText, inst) {
                         $(inst).val(dateText); // Write the value in the input
                     }
@@ -306,7 +306,7 @@
                     currentText: "Hoy",
                     changeMonth: true,
                     changeYear: true,
-                    yearRange: '1920:2019',
+                    yearRange: '-110:+0',
                         onSelect: function(dateText, inst) {
                             $(inst).val(dateText); // Write the value in the input
                         }

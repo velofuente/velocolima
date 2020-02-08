@@ -332,10 +332,11 @@
             register();
         });
 
-    if ( $('[type="date"]').prop('type') != 'date' ) {
-        $('[type="date"]').attr('placeholder', 'yyyy-mm-dd')
-        // Use datepicker on the date inputs
-        $("input[type=date]").datepicker({
+    // Jquery UI DatePicker (Safari)
+    if ($('[type="date"]').prop('type') != 'date' ) {
+        $('[type="date"]').datepicker("destroy");
+        $('[type="date"]').attr('placeholder', 'dd-mm-yy')
+        $('[type="date"]').datepicker({
             dateFormat: 'yy/mm/dd',
             dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
             dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
@@ -345,11 +346,12 @@
             currentText: "Hoy",
             changeMonth: true,
             changeYear: true,
-            yearRange: '1920:2019',
+            // minDate: 0,
+            yearRange: '-110:+0',
             onSelect: function(dateText, inst) {
                 $(inst).val(dateText); // Write the value in the input
             }
-        });
+            });
     }
 
     // Fetch Data from Query

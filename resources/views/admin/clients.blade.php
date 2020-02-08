@@ -258,7 +258,7 @@
                 currentText: "Hoy",
                 changeMonth: true,
                 changeYear: true,
-                yearRange: '1920:2019',
+                yearRange: '-110:+0',
                 onSelect: function(dateText, inst) {
                     $(inst).val(dateText); // Write the value in the input
                 }

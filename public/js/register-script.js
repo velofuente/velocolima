@@ -70,27 +70,27 @@ var passwordValidityChecks = [
         invalidityMessage: 'Este campo debe tener al menos 7 caracteres',
         element: document.querySelector('#passwordError1')
     },
-    {
-        isInvalid: function(input){
-            return !input.value.match((/[0-9]/g))
-        },
-        invalidityMessage: 'Este campo debe tener al menos un número',
-        element: document.querySelector('#passwordError2')
-    },
-    {
-        isInvalid: function(input){
-            return !input.value.match((/[a-z]/g))
-        },
-        invalidityMessage: 'Este campo debe tener al menos una letra minúscula',
-        element: document.querySelector('#passwordError3')
-    },
-    {
-        isInvalid: function(input){
-            return !input.value.match((/[A-Z]/g))
-        },
-        invalidityMessage: 'Este campo debe tener al menos una letra mayúscula',
-        element: document.querySelector('#passwordError4')
-    }
+    // {
+    //     isInvalid: function(input){
+    //         return !input.value.match((/[0-9]/g))
+    //     },
+    //     invalidityMessage: 'Este campo debe tener al menos un número',
+    //     element: document.querySelector('#passwordError2')
+    // },
+    // {
+    //     isInvalid: function(input){
+    //         return !input.value.match((/[a-z]/g))
+    //     },
+    //     invalidityMessage: 'Este campo debe tener al menos una letra minúscula',
+    //     element: document.querySelector('#passwordError3')
+    // },
+    // {
+    //     isInvalid: function(input){
+    //         return !input.value.match((/[A-Z]/g))
+    //     },
+    //     invalidityMessage: 'Este campo debe tener al menos una letra mayúscula',
+    //     element: document.querySelector('#passwordError4')
+    // }
 ]
 
 var legalValidate = [
