@@ -123,7 +123,12 @@ class BookClassController extends Controller
     function getAvailablePurchases($user_id, $schedule, $closest = false)
     {
         //Obtener la compra de la clase reservada
-        $userSchedule = UserSchedule::where("schedule_id", $schedule->id)->where("user_id", $user_id)->first();
+        $userSchedule = UserSchedule::with([
+            "purchase",
+            "purchase.product" => function($query){
+                return $query->withTrashed();
+            }
+            ])->where("schedule_id", $schedule->id)->where("user_id", $user_id)->first();
         if (!empty($userSchedule)) {
             if ($userSchedule->status == "active") {
                 $purchase = $userSchedule->purchase;

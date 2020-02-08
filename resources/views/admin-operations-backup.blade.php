@@ -479,7 +479,7 @@
             $('[type="date"]').datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: '1920:2019',
+                yearRange: '-110:+0',
                 dateFormat: 'yy-mm-dd',
                 // showButtonPanel: true,
             });
