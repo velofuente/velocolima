@@ -243,6 +243,23 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
+
+                    {{-- Day Count Limit --}}
+                    <div class="form-group row mb-3" id="divClassesDayCountLimit">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="day_count_limit" class="mr-sm-2">Reservaciones por día:</label>
+                            <div class="input-group">
+                                <input id="dayCountLimit" type="number" class="form-control{{ $errors->has('dayCountLimit') ? ' is-invalid' : '' }}" name="day_count_limit" value="{{ old('dayCountLimit') }}" required >
+                                @if ($errors->has('dayCountLimit'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('dayCountLimit') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -455,6 +472,23 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
 
+                    {{-- Day Count Limit --}}
+                    <div class="form-group row mb-3" id="editDivClassesDayCountLimit">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="day_count_limit" class="mr-sm-2">Reservaciones por día:</label>
+                            <div class="input-group">
+                                <input id="editDayCountLimit" type="number" class="form-control{{ $errors->has('dayCountLimit') ? ' is-invalid' : '' }}" name="day_count_limit" value="{{ old('dayCountLimit') }}" required >
+                                @if ($errors->has('dayCountLimit'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('dayCountLimit') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+
                 {{-- </form> --}}
             </div>
             <div class="modal-footer">
@@ -494,11 +528,13 @@
                 $('#divClassSchedule').hide('fast');
                 $('#divClassesIsRefundable').hide('fast');
                 $('#divClassesCancelationRange').hide('fast');
+                $('#divClassesDayCountLimit').hide('fast');
             } else if ($('#typeProduct').val() == 'Free') {
                 $('#divClassAvailableDays').hide('fast');
                 $('#divClassSchedule').hide('fast');
                 $('#divClassesIsRefundable').show('fast');
                 $('#divClassesCancelationRange').show('fast');
+                $('#divClassesDayCountLimit').show('fast');
             } else {
                 $('#divClassesQuantity').show('fast');
                 $('#divClassesExpiration').show('fast');
@@ -506,6 +542,7 @@
                 $('#divClassSchedule').show('fast');
                 $('#divClassesIsRefundable').show('fast');
                 $('#divClassesCancelationRange').show('fast');
+                $('#divClassesDayCountLimit').show('fast');
             }
         });
 
@@ -551,6 +588,7 @@
             end_at = $('#editEndAt').val();
             cancelationRange = $('#editCancelationRange').val();
             isRefundable = $('#editIsRefundable').val();
+            dayCountLimit = $('#editDayCountLimit').val();
             var button = $(this);
 
             editProduct(productId, '#editProductButton');
@@ -567,6 +605,7 @@
             endAt = $('#endAt').val();
             isRefundable = $('#isRefundable').val();
             cancelationRange = $('#cancelationRange').val();
+            dayCountLimit = $('#dayCountLimit').val();
             status = 1
 
             $.ajax({
@@ -588,6 +627,7 @@
                     end_at: endAt,
                     cancelation_range: cancelationRange,
                     is_refundable: isRefundable,
+                    day_count_limit: dayCountLimit,
                 },
                 success: function(result) {
                     $.LoadingOverlay("hide");
@@ -652,6 +692,7 @@
                     end_at: end_at,
                     is_refundable: isRefundable,
                     cancelation_range: cancelationRange,
+                    day_count_limit: dayCountLimit,
                 },
                 success: function(result) {
                     $.LoadingOverlay("hide");
@@ -836,6 +877,7 @@
         expirationDays = data.expiration_days;
         productSchedules = data.product_schedule;
         cancelationRange = data.cancelation_range;
+        dayCountLimit = data.day_count_limit;
 
         clearEditForm();
         clearScheduleForm();
@@ -852,7 +894,7 @@
         $('#editExpirationProduct').val(expirationDays);
         $('#editIsRefundable').val(isRefundable);
         $('#editCancelationRange').val(cancelationRange);
-
+        $('#editDayCountLimit').val(dayCountLimit);
 
         if (type === 'Souvenir' || nClasses === '' && expirationDays === '') {
             $('#editDivClassSchedule').hide();
@@ -861,11 +903,13 @@
             $('#editDivClassAvailableDays').hide();
             $('#editDivClassesIsRefundable').hide();
             $('#editDivClassesCancelationRange').hide();
+            $('#editDivClassesDayCountLimit').hide();
             drawSelectType('Souvenir');
         } else if (type === 'Free') {
             drawSelectType(type);
             $('#editDivClassSchedule').hide();
             $('#editDivClassAvailableDays').hide();
+            $('#editDivClassesDayCountLimit').show();
             if (isRefundable) {
                 $('#editDivClassesCancelationRange').show();
             } else {
@@ -879,6 +923,7 @@
             $('#editDivClassAvailableDays').show();
             $('#editDivClassesIsRefundable').show();
             $('#editDivClassesCancelationRange').show();
+            $('#editDivClassesDayCountLimit').show();
             if (productSchedules) {
                 $('#editDivClassSchedule').show();
             } else {
@@ -995,6 +1040,7 @@
         $('#editIsRefundable :nth-child(1n)').prop('selected', true);
         $('#editIsRefundable :nth-child(2n)').prop('selected', false);
         $('#editCancelationRange').val(null);
+        $('#editDayCountLimit').val(null);
     }
 
     function ajaxCall(url, formData, method, disabledButton, callBack) {

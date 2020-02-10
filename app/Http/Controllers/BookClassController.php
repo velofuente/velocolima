@@ -64,6 +64,22 @@ class BookClassController extends Controller
             return $this->returnResponse("ERROR", "No se puede reservar, (producto no válido).", $require_response);
         }
 
+        // Obtener reservaciones del día
+        $reservations = UserSchedule::whereHas('schedule', function($query) use ($schedule) {
+            $query->where('day', $schedule->day);
+        })->where('user_id', $$requestUser->id)->first();
+
+        $reservationsCount = $reservations->filter(function($reservation) use ($product) {
+            if (isset($reservation->purchase->productWithTrashed)) {
+                return $reservation->purchase->productWithTrashed->id == $product->id;
+            }
+            return false;
+        })->count();
+
+        if ($reservationsCount > 0 && $product->count_limit && $reservationsCount > $product->count_limit && config('constants.reservationDayCountLimit')) {
+            return $this->returnResponse("ERROR", config('constants.reservationDayMessage'));
+        }
+
         //Validar si el producto de la compra a validar es reembolsable
         if (!$product->is_refundable) {
             return $this->returnResponse("OK", "Esta reservación no es reembolsable. Al cancelar esta reservación no se te reembolsará.", $require_response, ["purchaseId" => $availablePurchase->id]);
@@ -141,14 +157,6 @@ class BookClassController extends Controller
                     "noScheduledPurchases" => collect([])
                 ];
             }
-        }
-        // Obtener reservaciones del día
-        $reservations = UserSchedule::whereHas('schedule', function($query) use ($schedule) {
-            $query->where('day', $schedule->day);
-        })->where('user_id', $user_id)->first();
-        if ($reservations && config('constants.reservationDayCountLimit')) {
-            $this->invalidity_reason = config('constants.reservationDayMessage');
-            return false;
         }
 
         $invalidationMessage = "";

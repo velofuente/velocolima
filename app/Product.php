@@ -10,7 +10,7 @@ class Product extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'n_classes', 'price', 'description', 'expiration_days', 'type', 'status', 'cancelation_range', 'is_refundable',
+        'n_classes', 'price', 'description', 'expiration_days', 'type', 'status', 'cancelation_range', 'is_refundable', 'day_count_limit'
     ];
 
     public function productSchedule()

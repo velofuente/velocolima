@@ -813,6 +813,9 @@ class AdminController extends Controller
         if ($request->cancelation_range) {
             $dataProduct['cancelation_range'] = $request->cancelation_range;
         }
+        if ($request->day_count_limit) {
+            $dataProduct['day_count_limit'] = $request->day_count_limit;
+        }
         $product = Product::create($dataProduct);
         if ($request->available_days) {
             ProductSchedule::create([
@@ -851,6 +854,9 @@ class AdminController extends Controller
         $Product->is_refundable = $request->is_refundable;
         if ($request->cancelation_range) {
             $Product->cancelation_range = $request->cancelation_range;
+        }
+        if ($request->day_count_limit) {
+            $Product = $request->day_count_limit;
         }
         $Product->save();
 
