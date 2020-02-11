@@ -856,7 +856,7 @@ class AdminController extends Controller
             $Product->cancelation_range = $request->cancelation_range;
         }
         if ($request->day_count_limit) {
-            $Product = $request->day_count_limit;
+            $Product->day_count_limit = $request->day_count_limit;
         }
         $Product->save();
 
