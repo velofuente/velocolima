@@ -594,8 +594,6 @@
     });
 
     function getUserInfo(userSchedule_id){
-        console.log("entró a getuserinfo");
-        console.log(userSchedule_id);
         $.ajax({
             url: "getUserInfo",
             method: 'POST',
@@ -621,15 +619,13 @@
                 "</thead>"+
                 "<tbody>"
                 result[3].forEach(function(element) {
-                    var saleType = "";
-                    saleType += (element.saleType == null ? 'Mostrador' : 'Online');
                     purchases_table += "<tr>"+
                         "<td>"+element.saleDate+"</td>"+
                         "<td>"+element.product+"</td>"+
                         "<td>"+element.purchasedClasses+"</td>"+
                         "<td>"+element.expiration+"</td>"+
                         "<td>"+element.price+"</td>"+
-                        "<td>"+saleType+"</td>"+
+                        "<td>"+element.saleType+"</td>"+
                     "</tr>"
                     //     "<li><ul>" +
                     //     "<li>"+element.product_id+"</li>"+

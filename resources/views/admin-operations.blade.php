@@ -619,14 +619,13 @@
                 "</thead>"+
                 "<tbody>"
                 result[2].forEach(function(element) {
-                    saleType += (element.saleType == null ? 'Mostrador' : 'Online');
                     purchases_table += "<tr>"+
                         "<td>"+element.saleDate+"</td>"+
                         "<td>"+element.product+"</td>"+
                         "<td>"+element.purchasedClasses+"</td>"+
                         "<td>"+element.expiration+"</td>"+
                         "<td>"+element.price+"</td>"+
-                        "<td>"+saleType+"</td>"+
+                        "<td>"+element.saleType+"</td>"+
                     "</tr>"
                     //     "<li><ul>" +
                     //     "<li>"+element.product_id+"</li>"+

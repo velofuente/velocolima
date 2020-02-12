@@ -73,6 +73,8 @@
 
                     @if($sale->card_id || $sale->card_token)
                         <td>Online</td>
+                    @elseif($sale->productWithTrashed->type == "Free")
+                        <td>Sistema</td>
                     @else
                         <td>Mostrador</td>
                     @endif
@@ -126,9 +128,7 @@
 
         //getuserinfo click
         $(document).on('click', '.userRow', function(event) {
-            console.log("clicked a row");
             var user_id = this.id;
-            console.log(user_id);
             getUserInfoReports(user_id);
         });
     });
@@ -149,16 +149,16 @@
                 toDate: toDate,
             },
             success: function(result) {
-                console.log(result);
                 $('#tableBody').empty();
                 $.each (result, function(index, value){
-                    console.log(value);
                     var admin ="N/A"; 
                     var saleText  = "Mostrador";
                     if(value.card_id || value.card_token){
                         saleText  = "Online";
+                    } else if (value.product_with_trashed.type == "Free") {
+                        saleText = "Sistema";
                     }
-                    
+
                     //verificar si fue administrador
                     if(value.sales){
                         admin = value.sales.admin.name+" "+value.sales.admin.last_name
@@ -181,8 +181,6 @@
                 sum();
             },
             error: function(result) {
-                console.log("error");
-                console.log(result);
             }
         });
     }
@@ -238,7 +236,6 @@
                 });
             },
             error: function(result){
-                console.log(result);
                 Swal.fire({
                     title: 'Error',
                     text: 'Ha ocurrido un error al procesar la solicitud.',
