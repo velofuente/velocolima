@@ -809,12 +809,10 @@ class AdminController extends Controller
             'type' => $request->type,
             'status' => $request->status,
             'is_refundable' => $request->is_refundable,
+            'day_count_limit' =>  $request->day_count_limit,
         ];
         if ($request->cancelation_range) {
             $dataProduct['cancelation_range'] = $request->cancelation_range;
-        }
-        if ($request->day_count_limit) {
-            $dataProduct['day_count_limit'] = $request->day_count_limit;
         }
         $product = Product::create($dataProduct);
         if ($request->available_days) {
@@ -852,11 +850,9 @@ class AdminController extends Controller
         $Product->type = $request->type;
         $Product->status = $request->status;
         $Product->is_refundable = $request->is_refundable;
+        $Product->day_count_limit = $request->day_count_limit;
         if ($request->cancelation_range) {
             $Product->cancelation_range = $request->cancelation_range;
-        }
-        if ($request->day_count_limit) {
-            $Product->day_count_limit = $request->day_count_limit;
         }
         $Product->save();
 

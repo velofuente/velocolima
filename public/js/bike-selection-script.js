@@ -123,7 +123,6 @@ drawMainBikes(x,y);
 var selected;
 $(document).on("click", ".bikes", function(e) {
     e.preventDefault();
-    console.log(this.id);
     if ($(this).hasClass('bikes')) {
         var fullId = this.id;
         var splitedId = fullId.split("-");
@@ -267,6 +266,10 @@ function reservePlace(id, elementBall, instructor){
                 });
             } else {
                 $.LoadingOverlay("hide");
+                if (result.data.classLimit) {
+                    showSwalError("Error", result.message, false);
+                    return false;
+                }
                 showSwalError("Error", result.message, true);
             }
         },

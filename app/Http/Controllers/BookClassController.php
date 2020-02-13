@@ -66,8 +66,9 @@ class BookClassController extends Controller
 
         // Obtener reservaciones del día
         $reservations = UserSchedule::whereHas('schedule', function($query) use ($schedule) {
-            $query->where('day', $schedule->day);
-        })->where('user_id', $$requestUser->id)->first();
+            $query->where('day', $schedule->day)
+                ->whereNotIn('id', [$schedule->id]);
+        })->where('user_id', $requestUser->id)->get();
 
         $reservationsCount = $reservations->filter(function($reservation) use ($product) {
             if (isset($reservation->purchase->productWithTrashed)) {
@@ -76,8 +77,8 @@ class BookClassController extends Controller
             return false;
         })->count();
 
-        if ($reservationsCount > 0 && $product->count_limit && $reservationsCount > $product->count_limit && config('constants.reservationDayCountLimit')) {
-            return $this->returnResponse("ERROR", config('constants.reservationDayMessage'));
+        if ($reservationsCount > 0 && $product->day_count_limit && $product->day_count_limit > 0 && $reservationsCount >= $product->day_count_limit && config('constants.reservationDayCountLimit')) {
+            return $this->returnResponse("ERROR", config('constants.reservationDayMessage'), $require_response, ["classLimit" => true]);
         }
 
         //Validar si el producto de la compra a validar es reembolsable
