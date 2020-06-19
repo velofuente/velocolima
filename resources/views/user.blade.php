@@ -209,50 +209,35 @@
                                                                                 <td>{{ date('d-M-Y', strtotime($bookedClass->schedule->day)) }}</td>
                                                                                 <td>{{ date('h:i A', strtotime($bookedClass->schedule->hour)) }}</td>
                                                                                 @switch($bookedClass->bike)
-                                                                                    @case(2)
+                                                                                    @case(1)
                                                                                         <td>1</td>
                                                                                         @break
-                                                                                    @case(10)
+                                                                                    @case(11)
                                                                                         <td>2</td>
                                                                                         @break
-                                                                                    @case(12)
+                                                                                    @case(13)
                                                                                         <td>3</td>
                                                                                         @break
-                                                                                    @case(14)
+                                                                                    @case(21)
                                                                                         <td>4</td>
                                                                                         @break
-                                                                                    @case(20)
+                                                                                    @case(27)
                                                                                         <td>5</td>
                                                                                         @break
-                                                                                    @case(22)
+                                                                                    @case(29)
                                                                                         <td>6</td>
                                                                                         @break
-                                                                                    @case(24)
+                                                                                    @case(33)
                                                                                         <td>7</td>
                                                                                         @break
-                                                                                    @case(26)
+                                                                                    @case(36)
                                                                                         <td>8</td>
                                                                                         @break
-                                                                                    @case(30)
+                                                                                    @case(42)
                                                                                         <td>9</td>
                                                                                         @break
-                                                                                    @case(32)
-                                                                                        <td>10</td>
-                                                                                        @break
-                                                                                    @case(36)
-                                                                                        <td>11</td>
-                                                                                        @break
-                                                                                    @case(38)
-                                                                                        <td>12</td>
-                                                                                        @break
-                                                                                    @case(40)
-                                                                                        <td>13</td>
-                                                                                        @break
-                                                                                    @case(42)
-                                                                                        <td>14</td>
-                                                                                        @break
                                                                                     @default
-                                                                                        <td>14</td>
+                                                                                        <td>9</td>
                                                                                 @endswitch
                                                                                 {{-- <td>{{ $bookedClass->bike }}</td> --}}
                                                                                 @if($bookedClass->status == 'active')
@@ -302,50 +287,35 @@
                                                                 <td>{{$previousClass->scheduleWithTrashed->instructorWithTrashed->name}}</td>
                                                                 {{-- <td>{{$previousClass->bike}}</td> --}}
                                                                 @switch($previousClass->bike)
-                                                                    @case(2)
+                                                                    @case(1)
                                                                         <td>1</td>
                                                                         @break
-                                                                    @case(10)
+                                                                    @case(11)
                                                                         <td>2</td>
                                                                         @break
-                                                                    @case(12)
+                                                                    @case(13)
                                                                         <td>3</td>
                                                                         @break
-                                                                    @case(14)
+                                                                    @case(21)
                                                                         <td>4</td>
                                                                         @break
-                                                                    @case(20)
+                                                                    @case(27)
                                                                         <td>5</td>
                                                                         @break
-                                                                    @case(22)
+                                                                    @case(29)
                                                                         <td>6</td>
                                                                         @break
-                                                                    @case(24)
+                                                                    @case(33)
                                                                         <td>7</td>
                                                                         @break
-                                                                    @case(26)
+                                                                    @case(36)
                                                                         <td>8</td>
                                                                         @break
-                                                                    @case(30)
+                                                                    @case(42)
                                                                         <td>9</td>
                                                                         @break
-                                                                    @case(32)
-                                                                        <td>10</td>
-                                                                        @break
-                                                                    @case(36)
-                                                                        <td>11</td>
-                                                                        @break
-                                                                    @case(38)
-                                                                        <td>12</td>
-                                                                        @break
-                                                                    @case(40)
-                                                                        <td>13</td>
-                                                                        @break
-                                                                    @case(42)
-                                                                        <td>14</td>
-                                                                        @break
                                                                     @default
-                                                                        <td>14</td>
+                                                                        <td>9</td>
                                                                 @endswitch
                                                                 @switch($previousClass->status)
                                                                     @case('cancelled')

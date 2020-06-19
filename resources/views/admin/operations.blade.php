@@ -85,50 +85,35 @@
                                 <td>{{$userSchedule->user->email}}</td>
                                 {{-- <td>{{$userSchedule->bike}}</td> --}}
                                 @switch($userSchedule->bike)
-                                    @case(2)
+                                    @case(1)
                                         <td>1</td>
                                         @break
-                                    @case(10)
+                                    @case(11)
                                         <td>2</td>
                                         @break
-                                    @case(12)
+                                    @case(13)
                                         <td>3</td>
                                         @break
-                                    @case(14)
+                                    @case(21)
                                         <td>4</td>
                                         @break
-                                    @case(20)
+                                    @case(27)
                                         <td>5</td>
                                         @break
-                                    @case(22)
+                                    @case(29)
                                         <td>6</td>
                                         @break
-                                    @case(24)
+                                    @case(33)
                                         <td>7</td>
                                         @break
-                                    @case(26)
+                                    @case(36)
                                         <td>8</td>
                                         @break
-                                    @case(30)
+                                    @case(42)
                                         <td>9</td>
                                         @break
-                                    @case(32)
-                                        <td>10</td>
-                                        @break
-                                    @case(36)
-                                        <td>11</td>
-                                        @break
-                                    @case(38)
-                                        <td>12</td>
-                                        @break
-                                    @case(40)
-                                        <td>13</td>
-                                        @break
-                                    @case(42)
-                                        <td>14</td>
-                                        @break
                                     @default
-                                        <td>14</td>
+                                        <td>9/td>
                                 @endswitch
                                 <td>{{$userSchedule->user->shoe_size}}</td>
                                 <td> {{$userSchedule->user->phone}} </td>
@@ -670,7 +655,7 @@
             name = tr[i].getElementsByTagName("td")[0];
             email = tr[i].getElementsByTagName("td")[1];
             if (name) {
-                if (name.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                if (removeDiacritics(name.innerHTML.toUpperCase()).indexOf(removeDiacritics(filter)) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
@@ -792,61 +777,41 @@
                     // $('#opRegBike').append('<option value="'+value+'">'+value+'</option>');
                     // $('#bikesSelect').append('<option value="'+value+'">'+value+'</option>');
                     switch (value) {
-                        case 2:
+                        case 1:
                             $('#opRegBike').append('<option value="'+value+'">'+1+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+1+'</option>');
                             break;
-                        case 10:
+                        case 11:
                             $('#opRegBike').append('<option value="'+value+'">'+2+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+2+'</option>');
                             break;
-                        case 12:
+                        case 13:
                             $('#opRegBike').append('<option value="'+value+'">'+3+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+3+'</option>');
                             break;
-                        case 14:
+                        case 21:
                             $('#opRegBike').append('<option value="'+value+'">'+4+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+4+'</option>');
                             break;
-                        case 20:
+                        case 27:
                             $('#opRegBike').append('<option value="'+value+'">'+5+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+5+'</option>');
                             break;
-                        case 22:
+                        case 29:
                             $('#opRegBike').append('<option value="'+value+'">'+6+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+6+'</option>');
                             break;
-                        case 24:
+                        case 33:
                             $('#opRegBike').append('<option value="'+value+'">'+7+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+7+'</option>');
                             break;
-                        case 26:
+                        case 36:
                             $('#opRegBike').append('<option value="'+value+'">'+8+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+8+'</option>');
                             break;
-                        case 30:
+                        case 42:
                             $('#opRegBike').append('<option value="'+value+'">'+9+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+9+'</option>');
-                            break;
-                        case 32:
-                            $('#opRegBike').append('<option value="'+value+'">'+10+'</option>');
-                            $('#bikesSelect').append('<option value="'+value+'">'+10+'</option>');
-                            break;
-                        case 36:
-                            $('#opRegBike').append('<option value="'+value+'">'+11+'</option>');
-                            $('#bikesSelect').append('<option value="'+value+'">'+11+'</option>');
-                            break;
-                        case 38:
-                            $('#opRegBike').append('<option value="'+value+'">'+12+'</option>');
-                            $('#bikesSelect').append('<option value="'+value+'">'+12+'</option>');
-                            break;
-                        case 40:
-                            $('#opRegBike').append('<option value="'+value+'">'+13+'</option>');
-                            $('#bikesSelect').append('<option value="'+value+'">'+13+'</option>');
-                            break;
-                        case 42:
-                            $('#opRegBike').append('<option value="'+value+'">'+14+'</option>');
-                            $('#bikesSelect').append('<option value="'+value+'">'+14+'</option>');
                             break;
                         default:
                             break;
@@ -1146,47 +1111,32 @@
         $.each($('.tdBikeNumber'), function( index, value ) {
             bikeNumber = $(value).text();
             switch (bikeNumber) {
-                case '2':
+                case '1':
                     $(value).text('1')
                     break;
-                case '10':
+                case '11':
                     $(value).text('2')
                     break;
-                case '12':
+                case '13':
                     $(value).text('3')
                     break;
-                case '14':
+                case '21':
                     $(value).text('4')
                     break;
-                case '20':
+                case '27':
                     $(value).text('5')
                     break;
-                case '22':
+                case '29':
                     $(value).text('6')
                     break;
-                case '24':
+                case '33':
                     $(value).text('7')
                     break;
-                case '26':
+                case '36':
                     $(value).text('8')
                     break;
-                case '30':
-                    $(value).text('9')
-                    break;
-                case '32':
-                    $(value).text('10')
-                    break;
-                case '36':
-                    $(value).text('11')
-                    break;
-                case '38':
-                    $(value).text('12')
-                    break;
-                case '40':
-                $(value).text('13')
-                    break;
                 case '42':
-                    $(value).text('14')
+                    $(value).text('9')
                     break;
                 default:
                     break;
