@@ -85,35 +85,50 @@
                                 <td>{{$userSchedule->user->email}}</td>
                                 {{-- <td>{{$userSchedule->bike}}</td> --}}
                                 @switch($userSchedule->bike)
-                                    @case(1)
+                                    @case(2)
                                         <td>1</td>
                                         @break
-                                    @case(11)
+                                    @case(9)
                                         <td>2</td>
                                         @break
                                     @case(13)
                                         <td>3</td>
                                         @break
-                                    @case(21)
+                                    @case(20)
                                         <td>4</td>
                                         @break
-                                    @case(27)
+                                    @case(26)
                                         <td>5</td>
                                         @break
-                                    @case(29)
+                                    @case(27)
                                         <td>6</td>
                                         @break
-                                    @case(33)
+                                    @case(28)
                                         <td>7</td>
                                         @break
-                                    @case(36)
+                                    @case(29)
                                         <td>8</td>
                                         @break
-                                    @case(42)
+                                    @case(30)
                                         <td>9</td>
                                         @break
+                                    @case(35)
+                                        <td>10</td>
+                                        @break
+                                    @case(36)
+                                        <td>11</td>
+                                        @break
+                                    @case(39)
+                                        <td>12</td>
+                                        @break
+                                    @case(40)
+                                        <td>13</td>
+                                        @break
+                                    @case(41)
+                                        <td>14</td>
+                                        @break
                                     @default
-                                        <td>9/td>
+                                        <td>14</td>
                                 @endswitch
                                 <td>{{$userSchedule->user->shoe_size}}</td>
                                 <td> {{$userSchedule->user->phone}} </td>
