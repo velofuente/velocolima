@@ -6,8 +6,8 @@
 @section('content')
 {{-- Table with the Info --}}
 <div class="row text-center mx-0 py-4">
-    <h3>Usuarios</h3>
-    <button class="btn btn-success btn-sm mx-4 justify-content-right" data-toggle="modal" data-target="#addUserModal">Añadir usuario</button>
+    <h3>Administradores</h3>
+    <button class="btn btn-success btn-sm mx-4 justify-content-right" data-toggle="modal" data-target="#addUserModal">Añadir administrador</button>
 </div>
 
 {{-- Table  --}}

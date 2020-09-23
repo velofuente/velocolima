@@ -48,5 +48,5 @@
             </div>
         </div>
     </body>
-    @include('footer')
+    @include('info_footer')
 @endsection

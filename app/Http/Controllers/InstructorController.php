@@ -129,6 +129,12 @@ class InstructorController extends Controller
             $selectedBike = 0;
         }
         $reservedPlaces = array_map('strval', UserSchedule::where("user_id", "<>", $request->user()->id)->where("schedule_id", $schedules->id)->where("status","<>","cancelled")->get()->pluck("bike")->toArray());
+        //->whereIn("id", explode(env("RESERVED_PLACES", []), ","))
+        if (env("RESERVED_PLACES")) {
+            foreach (explode(",", env("RESERVED_PLACES", [])) as $value) {
+                array_push($reservedPlaces, (Integer) $value);
+            }
+        }
         // dd($reservedPlaces);
         if($instances < ($schedules->branch->reserv_lim_x * $schedules->branch->reserv_lim_y))
             if(Auth::user()){

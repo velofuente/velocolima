@@ -61,6 +61,7 @@ class MailSendingController extends Controller
     }
     public function additionalFreeClass($user_email, $user_name)
     {
+        /*
         try {
             \Mail::to($user_email)->send(new additionalFreeClass($user_name));
             return response()->json([
@@ -73,6 +74,7 @@ class MailSendingController extends Controller
                 'message' => "Error". $e->getMessage()
             ]);
         }
+        */
     }
     public function birthdayEmail($user_email, $user_name)
     {

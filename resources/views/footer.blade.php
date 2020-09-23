@@ -25,7 +25,7 @@
                 <img class="d-block w-100" src="{{asset('/img/footer/2.jpg')}}" alt="First slide">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="{{asset('/img/footer/3.jpg')}}" alt="Second slide">
+                <img class="d-block w-100" src="{{asset('/img/footer/lateral.jpg')}}" alt="Second slide">
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

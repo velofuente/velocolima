@@ -206,8 +206,8 @@ function reservePlace(id, elementBall, instructor){
                         // "<h6>Esta reservación sólo puede modificarse o cancelarse hasta " + cancelation_period + " horas antes de la clase.</h6>" +
                         "<h6>Tips: </h6>" +
                         "<ul>" +
-                            "<li>Sé puntual, llega al menos 10 min antes de la clase.</li>" +
-                            "<li>Si llegarás tarde, avísanos para guardar tu lugar 15 minutos.</li>" +
+                            "<li>Sé puntual, llega al menos 10 minutos antes de la clase.</li>" +
+                            "<li>Tu reserva se respetará hasta 5 minutos después del horario reservado, pasado ese tiempo, asignaremos la bici a las personas que estén en lista de espera.</li>" +
                             "<li>Usa ropa cómoda que transpire y calcetas deportivas.</li>" +
                         "</ul>",
                     type: "warning",

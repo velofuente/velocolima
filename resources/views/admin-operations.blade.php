@@ -789,11 +789,11 @@
                     // $('#opRegBike').append('<option value="'+value+'">'+value+'</option>');
                     // $('#bikesSelect').append('<option value="'+value+'">'+value+'</option>');
                     switch (value) {
-                        case 1:
+                        case 2:
                             $('#opRegBike').append('<option value="'+value+'">'+1+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+1+'</option>');
                             break;
-                        case 11:
+                        case 9:
                             $('#opRegBike').append('<option value="'+value+'">'+2+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+2+'</option>');
                             break;
@@ -801,29 +801,49 @@
                             $('#opRegBike').append('<option value="'+value+'">'+3+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+3+'</option>');
                             break;
-                        case 21:
+                        case 20:
                             $('#opRegBike').append('<option value="'+value+'">'+4+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+4+'</option>');
                             break;
-                        case 27:
+                        case 26:
                             $('#opRegBike').append('<option value="'+value+'">'+5+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+5+'</option>');
                             break;
-                        case 29:
+                        case 27:
                             $('#opRegBike').append('<option value="'+value+'">'+6+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+6+'</option>');
                             break;
-                        case 33:
+                        case 28:
                             $('#opRegBike').append('<option value="'+value+'">'+7+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+7+'</option>');
                             break;
-                        case 36:
+                        case 29:
                             $('#opRegBike').append('<option value="'+value+'">'+8+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+8+'</option>');
                             break;
-                        case 42:
+                        case 30:
                             $('#opRegBike').append('<option value="'+value+'">'+9+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+9+'</option>');
+                            break;
+                        case 35:
+                            $('#opRegBike').append('<option value="'+value+'">'+10+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+10+'</option>');
+                            break;
+                        case 36:
+                            $('#opRegBike').append('<option value="'+value+'">'+11+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+11+'</option>');
+                            break;
+                        case 39:
+                            $('#opRegBike').append('<option value="'+value+'">'+12+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+12+'</option>');
+                            break;
+                        case 40:
+                            $('#opRegBike').append('<option value="'+value+'">'+13+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+13+'</option>');
+                            break;
+                        case 41:
+                            $('#opRegBike').append('<option value="'+value+'">'+14+'</option>');
+                            $('#bikesSelect').append('<option value="'+value+'">'+14+'</option>');
                             break;
                         default:
                             break;
@@ -1086,32 +1106,47 @@
         $.each($('.tdBikeNumber'), function( index, value ) {
             bikeNumber = $(value).text();
             switch (bikeNumber) {
-                case '1':
+                case '2':
                     $(value).text('1')
                     break;
-                case '11':
+                case '9':
                     $(value).text('2')
                     break;
                 case '13':
                     $(value).text('3')
                     break;
-                case '21':
+                case '20':
                     $(value).text('4')
                     break;
-                case '27':
+                case '26':
                     $(value).text('5')
                     break;
-                case '29':
+                case '27':
                     $(value).text('6')
                     break;
-                case '33':
+                case '28':
                     $(value).text('7')
                     break;
-                case '36':
+                case '29':
                     $(value).text('8')
                     break;
-                case '42':
+                case '30':
                     $(value).text('9')
+                    break;
+                case '35':
+                    $(value).text('10')
+                    break;
+                case '36':
+                    $(value).text('11')
+                    break;
+                case '39':
+                    $(value).text('12')
+                    break;
+                case '40':
+                    $(value).text('13')
+                    break;
+                case '41':
+                    $(value).text('14')
                     break;
                 default:
                     break;
