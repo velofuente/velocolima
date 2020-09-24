@@ -157,19 +157,19 @@ function reservePlace(id, elementBall, instructor){
     bike = null;
     switch (id) {
         case "2": bike = 1; break;
-        case "10": bike = 2; break;
-        case "12": bike = 3; break;
-        case "14": bike = 4; break;
-        case "20": bike = 5; break;
-        case "22": bike = 6; break;
-        case "24": bike = 7; break;
-        case "26": bike = 8; break;
+        case "9": bike = 2; break;
+        case "13": bike = 3; break;
+        case "20": bike = 4; break;
+        case "26": bike = 5; break;
+        case "27": bike = 6; break;
+        case "28": bike = 7; break;
+        case "29": bike = 8; break;
         case "30": bike = 9; break;
-        case "32": bike = 10; break;
+        case "35": bike = 10; break;
         case "36": bike = 11; break;
-        case "38": bike = 12; break;
+        case "39": bike = 12; break;
         case "40": bike = 13; break;
-        case "42": bike = 14; break;
+        case "41": bike = 14; break;
         default: bike = 14; break;
     }
 
@@ -206,8 +206,8 @@ function reservePlace(id, elementBall, instructor){
                         // "<h6>Esta reservación sólo puede modificarse o cancelarse hasta " + cancelation_period + " horas antes de la clase.</h6>" +
                         "<h6>Tips: </h6>" +
                         "<ul>" +
-                            "<li>Sé puntual, llega al menos 10 min antes de la clase.</li>" +
-                            "<li>Si llegarás tarde, avísanos para guardar tu lugar 15 minutos.</li>" +
+                            "<li>Sé puntual, llega al menos 10 minutos antes de la clase.</li>" +
+                            "<li>Tu reserva se respetará hasta 5 minutos después del horario reservado, pasado ese tiempo, asignaremos la bici a las personas que estén en lista de espera.</li>" +
                             "<li>Usa ropa cómoda que transpire y calcetas deportivas.</li>" +
                         "</ul>",
                     type: "warning",
@@ -253,7 +253,7 @@ function reservePlace(id, elementBall, instructor){
                                     let showPurchase = true;
                                     if (typeof result.updateClass != "undefined") {
                                         if (result.updateClass == 1) {
-                                            // showPurchase = false;
+                                            showPurchase = false;
                                             $("#ball-" + id).removeClass("bikes")
                                             $("#ball-" + id).addClass("occupied")
                                         }

@@ -181,6 +181,7 @@
                 sum();
             },
             error: function(result) {
+                console.log("getReportsError: ", result);
             }
         });
     }

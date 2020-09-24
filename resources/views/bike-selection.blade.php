@@ -6,6 +6,12 @@
 
 @section('extraStyles')
     <link rel="stylesheet" href="{{asset('css/style-bike.css')}}">
+    <style>
+        #profilePic {
+            border-radius: 0px !important;
+            height: auto !important;
+        }
+    </style>
 @endsection
 
 @section('content')

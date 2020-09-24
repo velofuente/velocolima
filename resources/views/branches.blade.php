@@ -53,5 +53,6 @@
                 </div>
             @endforeach
         </div>
+        @include("info_footer")
     </div>
 @endsection

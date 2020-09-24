@@ -20,9 +20,9 @@ Route::get('/emailTest', function () {
     return view('emails.birthday-free-class');
 });
 
-Route::get('prueba', function () {
-    return view('prueba');
-});
+// Route::get('prueba', function () {
+//     return view('prueba');
+// });
 
 Route::get('/', function () {
     if(Auth::check()){

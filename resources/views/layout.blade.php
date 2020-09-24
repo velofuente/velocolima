@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    {{-- {{ csrf_token() }} --}}
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <link rel="shortcut icon" href="favicon.png" type="img/favicon.png">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
     @include('header')
     <body>
@@ -39,81 +39,80 @@
                 </div>
             </div>
         </nav>
+
         <div class="mainContainer">
             @yield('content')
         </div>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
-        <script src="{{asset('/js/app.js')}}" charset="utf-8"></script>
-        <script src="{{asset('js/layout-scripts.js')}}"></script>
+        <script src="{{ asset('/js/app.js') }}" charset="utf-8"></script>
+        <script src="{{ asset('js/layout-scripts.js') }}"></script>
         <script>
-            {{-- var crfsToken = '{{ csrf_token() }}'; --}}
-        $('#buttonFormResponse').on('click', function(event) {
-            event.preventDefault();
-            formResponse();
-            $("#buttonFormResponse").attr("disabled", true);
-            // $("#buttonFormResponse").prop( "disabled", true);
-        });
-        function formResponse(){
-            // console.log('si entra a la funcion');
-            $.ajax({
-                method: 'POST',
-                url: '/sendMail',
-                data: {
-                    _token: crfsToken,
-                     name: $('#name').val(),
-                     email: $('#email').val(),
-                     phone: $('#phone').val(),
-                     instagram: $('#instagram').val()
-                },
-                beforeSend: function(){
-                    $.LoadingOverlay("show");
-                },
-                success: function (result) {
-                    $.LoadingOverlay("hide");
-                    if(result.status == "OK"){
+            $('#buttonFormResponse').on('click', function(event) {
+                event.preventDefault();
+                formResponse();
+                $("#buttonFormResponse").attr("disabled", true);
+                // $("#buttonFormResponse").prop( "disabled", true);
+            });
+            function formResponse(){
+                // console.log('si entra a la funcion');
+                $.ajax({
+                    method: 'POST',
+                    url: '/sendMail',
+                    data: {
+                        _token: crfsToken,
+                        name: $('#name').val(),
+                        email: $('#email').val(),
+                        phone: $('#phone').val(),
+                        instagram: $('#instagram').val()
+                    },
+                    beforeSend: function(){
+                        $.LoadingOverlay("show");
+                    },
+                    success: function (result) {
                         $.LoadingOverlay("hide");
-                        // console.log(result.status);
-                        $('#name').val('');
-                        $('#email').val('');
-                        $('#phone').val('');
-                        $('#instagram').val('');
-                        $("#buttonFormResponse").attr("disabled", false);
-                        Swal.fire({
-                            title: 'Email Enviado',
-                            text: result.message,
-                            type: 'success',
-                            confirmButtonText: 'Aceptar'
-                        })
-                    } else {
-                        $.LoadingOverlay("hide");
+                        if(result.status == "OK"){
+                            $.LoadingOverlay("hide");
+                            // console.log(result.status);
+                            $('#name').val('');
+                            $('#email').val('');
+                            $('#phone').val('');
+                            $('#instagram').val('');
+                            $("#buttonFormResponse").attr("disabled", false);
+                            Swal.fire({
+                                title: 'Email Enviado',
+                                text: result.message,
+                                type: 'success',
+                                confirmButtonText: 'Aceptar'
+                            })
+                        } else {
+                            $.LoadingOverlay("hide");
+                            Swal.fire({
+                                title: 'Error',
+                                text: result.message,
+                                type: 'warning',
+                                confirmButtonText: 'Aceptar'
+                            })
+                            $("#buttonFormResponse").attr("disabled", false);
+                        }
+                    },
+                    error: function() {
+                        $.LoadingOverlay('hide');
+                        $('#buttonFormResponse').prop('disabled', false);
                         Swal.fire({
                             title: 'Error',
-                            text: result.message,
-                            type: 'warning',
-                            confirmButtonText: 'Aceptar'
-                        })
-                        $("#buttonFormResponse").attr("disabled", false);
+                            text: 'Ha ocurrido un error al procesar la solicitud',
+                            type: 'error',
+                            confirmButtonText: 'Aceptar',
+                        });
                     }
-                },
-                error: function() {
-                    $.LoadingOverlay('hide');
-                    $('#buttonFormResponse').prop('disabled', false);
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Ha ocurrido un error al procesar la solicitud',
-                        type: 'error',
-                        confirmButtonText: 'Aceptar',
-                    });
-                }
-            });
-        }
+                });
+            }
         </script>
         @yield('extraScripts')
 

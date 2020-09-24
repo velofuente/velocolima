@@ -93,43 +93,43 @@
                                     @case(2)
                                         <td>1</td>
                                         @break
-                                    @case(10)
+                                    @case(9)
                                         <td>2</td>
                                         @break
-                                    @case(12)
+                                    @case(13)
                                         <td>3</td>
                                         @break
-                                    @case(14)
+                                    @case(20)
                                         <td>4</td>
                                         @break
-                                    @case(20)
+                                    @case(26)
                                         <td>5</td>
                                         @break
-                                    @case(22)
+                                    @case(27)
                                         <td>6</td>
                                         @break
-                                    @case(24)
+                                    @case(28)
                                         <td>7</td>
                                         @break
-                                    @case(26)
+                                    @case(29)
                                         <td>8</td>
                                         @break
                                     @case(30)
                                         <td>9</td>
                                         @break
-                                    @case(32)
+                                    @case(35)
                                         <td>10</td>
                                         @break
                                     @case(36)
                                         <td>11</td>
                                         @break
-                                    @case(38)
+                                    @case(39)
                                         <td>12</td>
                                         @break
                                     @case(40)
                                         <td>13</td>
                                         @break
-                                    @case(42)
+                                    @case(41)
                                         <td>14</td>
                                         @break
                                     @default
@@ -793,31 +793,31 @@
                             $('#opRegBike').append('<option value="'+value+'">'+1+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+1+'</option>');
                             break;
-                        case 10:
+                        case 9:
                             $('#opRegBike').append('<option value="'+value+'">'+2+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+2+'</option>');
                             break;
-                        case 12:
+                        case 13:
                             $('#opRegBike').append('<option value="'+value+'">'+3+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+3+'</option>');
                             break;
-                        case 14:
+                        case 20:
                             $('#opRegBike').append('<option value="'+value+'">'+4+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+4+'</option>');
                             break;
-                        case 20:
+                        case 26:
                             $('#opRegBike').append('<option value="'+value+'">'+5+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+5+'</option>');
                             break;
-                        case 22:
+                        case 27:
                             $('#opRegBike').append('<option value="'+value+'">'+6+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+6+'</option>');
                             break;
-                        case 24:
+                        case 28:
                             $('#opRegBike').append('<option value="'+value+'">'+7+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+7+'</option>');
                             break;
-                        case 26:
+                        case 29:
                             $('#opRegBike').append('<option value="'+value+'">'+8+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+8+'</option>');
                             break;
@@ -825,7 +825,7 @@
                             $('#opRegBike').append('<option value="'+value+'">'+9+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+9+'</option>');
                             break;
-                        case 32:
+                        case 35:
                             $('#opRegBike').append('<option value="'+value+'">'+10+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+10+'</option>');
                             break;
@@ -833,7 +833,7 @@
                             $('#opRegBike').append('<option value="'+value+'">'+11+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+11+'</option>');
                             break;
-                        case 38:
+                        case 39:
                             $('#opRegBike').append('<option value="'+value+'">'+12+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+12+'</option>');
                             break;
@@ -841,7 +841,7 @@
                             $('#opRegBike').append('<option value="'+value+'">'+13+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+13+'</option>');
                             break;
-                        case 42:
+                        case 41:
                             $('#opRegBike').append('<option value="'+value+'">'+14+'</option>');
                             $('#bikesSelect').append('<option value="'+value+'">'+14+'</option>');
                             break;
@@ -1109,43 +1109,43 @@
                 case '2':
                     $(value).text('1')
                     break;
-                case '10':
+                case '9':
                     $(value).text('2')
                     break;
-                case '12':
+                case '13':
                     $(value).text('3')
                     break;
-                case '14':
+                case '20':
                     $(value).text('4')
                     break;
-                case '20':
+                case '26':
                     $(value).text('5')
                     break;
-                case '22':
+                case '27':
                     $(value).text('6')
                     break;
-                case '24':
+                case '28':
                     $(value).text('7')
                     break;
-                case '26':
+                case '29':
                     $(value).text('8')
                     break;
                 case '30':
                     $(value).text('9')
                     break;
-                case '32':
+                case '35':
                     $(value).text('10')
                     break;
                 case '36':
                     $(value).text('11')
                     break;
-                case '38':
+                case '39':
                     $(value).text('12')
                     break;
                 case '40':
-                $(value).text('13')
+                    $(value).text('13')
                     break;
-                case '42':
+                case '41':
                     $(value).text('14')
                     break;
                 default:
