@@ -19,10 +19,6 @@
 </tr>
 <script>
     var user_id = null;
-    // var pagination_lastPage = "{{ $data->lastPage() }}";
-    // var pagination_nextPage = "{{ $data->nextPageUrl() }}";
-    // var pagination_prevPage = "{{ $data->previousPageUrl() }}";
-    // var pagination_firstPage = "{{ $data->url(1) }}";
     $(document).ready(function (){
         //getuserinfo click
         $('.userRow').on('click', function(event) {
@@ -72,13 +68,6 @@
                         "<td>"+element.price+"</td>"+
                         "<td>"+saleType+"</td>"+
                     "</tr>"
-                    //     "<li><ul>" +
-                    //     "<li>"+element.product_id+"</li>"+
-                    //     "<li>Venta: "+typeSale+"</li>"+
-                    //     "<li>Clases restantes: "+element.n_classes+"</li>"+
-                    //     "<li>Exipra en "+element.expiration_days+" dias</li>"+
-                    //     "<li>Realizada el:"+element.created_at+"</li>"+
-                    // "</ul></li>"
                 });
                 purchases_table +="</tbody></table>";
                 saleType = "";
