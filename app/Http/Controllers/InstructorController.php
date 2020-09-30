@@ -61,7 +61,7 @@ class InstructorController extends Controller
     public function bikeSelection(Request $request, Schedule $schedules)
     {
         if (!$request->user()) {
-            return redirect('login');
+            return redirect('/login');
         }
         //Carbon::parse($schedules->hour)->subHours($schedules->branch->cancelation_period)->format('H:i:s');
         $scheduleHourBeforeCancelation = $schedules->day.'T'.$schedules->hour;

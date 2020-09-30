@@ -11,17 +11,13 @@ body{
     margin: 0px;
     padding: 0px;
     background-color: #eeeeee;
-    /* color: #FFF;
-    background-color: #000; */
 }
 
 /* Part of the Screen for the Displayed Pages */
 .rightSpan {
-  /* width: 80%; */
   height: auto;
   position: absolute;
   right: 34% !important;
-  /* outline: 1px solid; */
 }
 
 /* Part of the Screen for Verical Navigation Bar */
@@ -29,7 +25,6 @@ body{
   width: 15% !important;
   height: 100%;
   position: fixed;
-  /* outline: 1px solid; */
 }
 
 #tableNextClasses {

@@ -35,6 +35,7 @@
             <div class="col-12 description info-top">
                 <a class="navbar-brand" href="{{ url('/') }}"><img src="/img/iconos/LOGO.png" alt="logo" width="120px" height="65px"></a>
             </div>
+
             <div class="col-12 description">
                 <div class="row">
                     <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
@@ -46,6 +47,7 @@
                             <h5>rueda@velocycling.mx</h5>
                         </a>
                     </div>
+
                     <div class="col-xs-6 col-sm-12 col-md-4 col-lg-4">
                         <img src="/img/iconos/UBICACION.png" alt="ubi" width="110px" height="110px">
                         <h5 class="p-info">UBICACIÓN</h5>
@@ -57,6 +59,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-12 text-center" style="font-size: 13px;">
                 Sistema desarrollado por <a class="witann" href="http://witann.com/" target="blank"> Witann Technologies.</a>

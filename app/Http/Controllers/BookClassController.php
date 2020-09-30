@@ -535,6 +535,7 @@ class BookClassController extends Controller
 
     public function absentUserClass(Request $request){
         // TODO: Revisar la condición if($requestedClass=='active' || $requestedClass!='active') en esta función, cancelClass y attendClass
+        //Recibir valor para indicar si se debe de consumir o no la clase
         $requestedClass = UserSchedule::find($request->schedule_id);
         if ($requestedClass == 'active' || $requestedClass != 'active') {
             $requestedClass->status = 'absent';
@@ -545,13 +546,11 @@ class BookClassController extends Controller
                 'message' => 'El usuario no asistió a la clase.',
             ]);
         } else {
-            // log::info($requestedClass);
             return response()->json([
                 'status' => 'ERROR',
                 'message' => 'Ocurrió un error al procesar la solicitud. Intenta refrescando la página.',
             ]);
         }
-        // log::info($requestedClass);
     }
 
     public function cancelClass(Request $request)
@@ -563,7 +562,7 @@ class BookClassController extends Controller
         $purchase = Purchase::with(["product" => function($query){$query->withTrashed();}])->find($requestedClass->purchase_id);
         $product = $purchase->product;
 
-        if($requestedClass->status == 'cancelled'){
+        if ($requestedClass->status == 'cancelled') {
             return response()->json([
                 'status' => 'OK',
                 'message' => 'Clase cancelada con éxito.',

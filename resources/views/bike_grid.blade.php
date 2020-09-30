@@ -4,9 +4,6 @@
     Reservar bici
 @endsection
 
-@section('extraStyles')
-    <link rel="stylesheet" href="{{asset('css/style-bike.css')}}">
-@endsection
 @section('content')
     X: <input type="text" name="x" id="x">
     Y: <input type="text" name="y" id="y">
@@ -17,6 +14,11 @@
         </div>
     </div>
 @endsection
+
+@section('extraStyles')
+    <link rel="stylesheet" href="{{asset('css/style-bike.css')}}">
+@endsection
+
 @section('extraScripts')
     <script type="text/javascript">
         var crfsToken = '{{ csrf_token() }}';

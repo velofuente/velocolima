@@ -1,0 +1,100 @@
+/* fonts */
+@font-face {
+    font-family: "Avenir";
+    src: url("fonts/velo/AvenirNextLTPro-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Avenir Next";
+    src: url("fonts/velo/AvenirNextLTPro-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextCondensed Bold";
+    src: url("fonts/velo/AvenirNextCondensed-Bold.ttf");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro Bold";
+    src: url("fonts/velo/AvenirNextLTPro-Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro BoldCn";
+    src: url("fonts/velo/AvenirNextLTPro-BoldCn.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro BoldCnlt";
+    src: url("fonts/velo/AvenirNextLTPro-BoldCnlt.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro Cn";
+    src: url("fonts/velo/AvenirNextLTPro-Cn.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro Cnlt";
+    src: url("fonts/velo/AvenirNextLTPro-Cnlt.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro Demi";
+    src: url("fonts/velo/AvenirNextLTPro-Demi.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro DemiCn";
+    src: url("fonts/velo/AvenirNextLTPro-DemiCn.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro DemiCnlt";
+    src: url("fonts/velo/AvenirNextLTPro-DemiCnlt.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro DemiIt";
+    src: url("fonts/velo/AvenirNextLTPro-DemiIt.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro HeavyCn";
+    src: url("fonts/velo/AvenirNextLTPro-HeavyCn.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro HeavyCnlt";
+    src: url("fonts/velo/AvenirNextLTPro-HeavyCnlt.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro It";
+    src: url("fonts/velo/AvenirNextLTPro-It.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro MediumCn";
+    src: url("fonts/velo/AvenirNextLTPro-MediumCn.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro MediumCnlt";
+    src: url("fonts/velo/AvenirNextLTPro-MediumCnlt.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro Regular";
+    src: url("fonts/velo/AvenirNextLTPro-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro UltLtCn";
+    src: url("fonts/velo/AvenirNextLTPro-UltLtCn.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "AvenirNextLTPro UltLtCnIt";
+    src: url("fonts/velo/AvenirNextLTPro-UltLtCnIt.otf") format("opentype");
+}

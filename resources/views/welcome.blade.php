@@ -56,7 +56,7 @@
             background-repeat: no-repeat;
             background-position: center;
         }
-        
+
         .left-image {
             background-image: url('img/iconos/ICONO_O.png');
             right: 65%;

@@ -21,12 +21,6 @@ class AdminController extends Controller
 
     public function index()
     {
-        // $instructors = Instructor::all();
-        // $schedules = Schedule::all();
-        // $products = Product::all();
-        // $branches = Branch::all();
-        // return view('/admin', compact ('instructors', 'schedules', 'products', 'branches'));
-        // return view('/admin');
         return view('/admin/app');
     }
     public function showInstructors(){

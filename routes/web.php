@@ -28,12 +28,12 @@ Auth::routes();
 
 Route::resource('instructors', 'InstructorController');
 Route::post('/sendMail', 'MailSendingController@coachInfo');
-Route::post('/charge', 'PurchaseController@store');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('/register', 'UserController@store');
 Route::get('/schedule', 'InstructorController@schedule');
 Route::get('/branches', 'BranchesController@index');
 Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Grupo de Middleware para Administradores

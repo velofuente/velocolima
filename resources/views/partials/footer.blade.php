@@ -16,7 +16,7 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
-      </div>
+    </div>
 
     <div class="footer container-fluid">
         <div class="row info-footer">
