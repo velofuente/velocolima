@@ -1,4 +1,4 @@
-@extends('admin.app')
+@extends('admin.layouts.main')
 
 @section('extra_styles')
     <link rel="stylesheet" type="text/css" href="{{asset('css/admin-schedules-styles.css')}}">

@@ -1,6 +1,6 @@
 <div class="col-6 mx-0 px-0 leftSpan" style="z-index: 1000">
     <div class="nav-side-menu">
-        <div class="brand">
+        <div class="brand" id="admin_brand">
             <img src="{{ asset('img/iconos/CroppedLogo.png') }}" width="60px" height="25px" id="welcomeLogo">
         </div>
 

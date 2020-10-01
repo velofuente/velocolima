@@ -9,14 +9,10 @@ a.deleteUserCard:link {
 }
 
 .brandSavedCards {
-    /* width:60px;
-    height:35px; */
     width: 15%;
     height: 10%;
     min-width: 2.7em;
     min-height: 1.5em;
-    /* max-width: 2.7em;
-    max-height: 1.5em; */
     opacity: 0.9;
 }
 
@@ -25,7 +21,6 @@ a.deleteUserCard:link {
     padding: 0px;
     border-radius: 4%;
     font-family: 'Avenir Next';
-    /* font-weight: 300; */
     font-size: 17px;
 }
 
@@ -155,10 +150,6 @@ body {
     border-radius: 100%;
 }
 
-.main {
-    /* margin-top: 6em; */
-}
-
 #media_icon {
     columns: #282828;
 }
@@ -229,10 +220,6 @@ th {
 }
 
 @media screen and (max-width: 600px) {
-
-    /* .registerContainer{
-        margin-top: 6.5em;
-    } */
     .addCardButton {
         font-size: 15px;
         margin-top: 0em;

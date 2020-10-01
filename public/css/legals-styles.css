@@ -1,26 +1,25 @@
-.mainContainer{
+.mainContainer {
     margin-left: 4%;
     margin-right: 4%;
 }
 
-.title{
+.title {
     font-family: 'Avenir Next' !important;
     font-size: 70px;
     font-weight: 250;
-    /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
     background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.header{
+.header {
     color: #fff;
     text-align: center;
     font-weight: 100 !important;
     font-size: 1.7em;
 }
 
-.bodyText{
+.bodyText {
     color: #fff;
     text-align: justify;
     text-justify: inter-word;
@@ -29,25 +28,24 @@
     margin-bottom: 3%;
 }
 
-@media screen and (max-width: 600px){
-    .title{
+@media screen and (max-width: 600px) {
+    .title {
         font-family: 'Avenir Next';
         font-size: 40px;
         font-weight: 250;
-        /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
         background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
-    .header{
+    .header {
         color: #fff;
         text-align: center;
         font-weight: 100;
         font-size: 1em;
     }
 
-    .bodyText{
+    .bodyText {
         color: #fff;
         text-align: justify;
         text-justify: inter-word;

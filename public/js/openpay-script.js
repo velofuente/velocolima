@@ -12,8 +12,6 @@ var globalDataError = null;
 //ID de la Tarjeta
 var card_id = null;
 $(document).ready(function() {
-    // OpenPay.setId('mq3srrs4flndbb8qu1mm');
-    // OpenPay.setApiKey('pk_1241cb6ad90940ca8c2970818786c8ad');
     OpenPay.setId(opId);
     OpenPay.setApiKey(opPublicKey);
     OpenPay.setSandboxMode(opSandbox);
@@ -43,7 +41,6 @@ $('#pay-button').on('click', function(event) {
 $('#pay-selected-card-button').on('click', function(event) {
     event.preventDefault();
     $("#pay-selected-card-button").prop( "disabled", true);
-    // OpenPay.token.extractFormAndCreate('payment-form-unsaved-card', sucess_callback, error_callback);
     conditions = document.getElementsByClassName("buy-conditions")[0].checked;
     card_id = $('#selectSavedCard').val();
     makeChargeSavedCard();
@@ -53,22 +50,15 @@ var sucess_callbak = function(response) {
     token_id = response.data.id;
     conditions = document.getElementsByClassName('buy-customer-conditions')[0].checked;
     $('#token_id').val(token_id);
-    // product_id = $('#product_id').val();
-    // console.log(product_id);
-    // Submit Form
-    // makeCharge();
     checkbox = document.getElementById('dataCard');
     if(checkbox.checked)
     {
-        //alert('Checked');
         saveCard();
     }
     else {
-        //alert('Not Checked');
         makeCharge();
 
     };
-    // $('#payment-form').submit();
 
     console.log("cargo realizado");
 };
@@ -153,19 +143,12 @@ function getErrorCodeOP(errorCode){
     console.log(errorCode);
     return message;
 }
-// Evitar que recargue la página
-// $('#payment-form').on('submit', function(e){
-//     e.preventDefault();
-// });
 
 function saveCard(){
     tokenBearer = $('#tokenBearer').val();
     $.ajax({
         url: "/addCard",
         method: 'POST',
-        /*headers: {
-            'Authorization': `Bearer ${tokenBearer}`
-        },*/
         data: {
             _token: crfsToken,
             token_id: token_id,
@@ -182,10 +165,6 @@ function saveCard(){
             makeCharge();
         }
     });
-    // console.log('token_id: ', token_id);
-    // console.log('device_session_id: ', device_session_id);
-    // console.log('Token CRSF: ', csrfToken);
-    // console.log('Bearer: ', tokenBearer);
 };
 
 //Make Charge: New Card
@@ -208,8 +187,6 @@ function makeCharge(){
             $.LoadingOverlay("hide");
             $("#pay-button").prop( "disabled", false);
             if (result.status == "OK") {
-                //swal success
-                // alert(result.message);
                 window.location.replace("/user");
             } else {
                 $("#pay-selected-card-button").prop( "disabled", false);
@@ -232,10 +209,6 @@ function makeCharge(){
             alert("Ocurrió un error en el pago, por favor intente de nuevo");
         }
     });
-    // console.log('token_id: ', token_id);
-    // console.log('device_session_id: ', device_session_id);
-    // console.log('Token CRSF: ', crfsToken);
-    // console.log('Bearer: ', tokenBearer);
 }
 
 //Make Charge: Saved Card
@@ -257,8 +230,6 @@ function makeChargeSavedCard(){
         success: function(result){
             $.LoadingOverlay("hide");
             if (result.status == "OK") {
-                //swal success
-                // alert(result.message);
                 window.location.replace("/user");
             } else {
                 $("#pay-selected-card-button").prop( "disabled", false);
@@ -281,10 +252,6 @@ function makeChargeSavedCard(){
             alert("Ocurrió un error en el pago, por favor intente de nuevo");
         }
     });
-    // console.log('token_id: ', token_id);
-    // console.log('device_session_id: ', device_session_id);
-    // console.log('Token CRSF: ', crfsToken);
-    // console.log('Bearer: ', tokenBearer);
 }
 
 
@@ -294,8 +261,3 @@ $(document).on("click", ".pickClass", function(e) {
     product_id = elementExploded[1];
     console.log(product_id);
 })
-
-// $(document).on("click", ".places", function(e) {
-//     e.preventDefault();
-//     console.log(this.id);
-// })

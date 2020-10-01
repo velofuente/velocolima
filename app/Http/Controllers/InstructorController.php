@@ -79,7 +79,7 @@ class InstructorController extends Controller
         } else {
             $selectedBike = 0;
         }
-        $reservedPlaces = array_map('strval', UserSchedule::where("user_id", "<>", $request->user()->id)->where("schedule_id", $schedules->id)->where("status", "<>", "cancelled")->get()->pluck("bike")->toArray());
+        $reservedPlaces = array_map('strval', UserSchedule::where("user_id", "<>", $request->user()->id)->where("schedule_id", $schedules->id)->where("status", "<>", "cancelled")->where("status", "<>", "absent")->get()->pluck("bike")->toArray());
         if (env("RESERVED_PLACES")) {
             foreach (explode(", ", env("RESERVED_PLACES", [])) as $value) {
                 array_push($reservedPlaces, (Integer) $value);

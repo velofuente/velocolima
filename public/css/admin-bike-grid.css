@@ -12,7 +12,6 @@
     font-family: 'Avenir Next' !important;
     font-size: 70px;
     font-weight: 250;
-    /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
     background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -223,7 +222,6 @@
         font-family: 'Avenir Next' !important;
         font-size: 43px !important;
         font-weight: 250 !important;
-        /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
         background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff) !important;
         -webkit-background-clip: text !important;
         -webkit-text-fill-color: transparent !important;
@@ -285,9 +283,7 @@
     width: 47px;
     height: 47px;
     margin: 5px 5px;
-    /* display: contents; */
     justify-content: center;
-    /* align-items: center; */
 }
 
 .centeredDiv {

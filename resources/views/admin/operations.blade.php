@@ -1,4 +1,4 @@
-@extends('admin.app')
+@extends('admin.layouts.main')
 
 @section('content')
     {{-- Show the Schedules (ordered by Hour) for today --}}

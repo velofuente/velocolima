@@ -6,7 +6,6 @@ body {
 }
 
 .justify-content-center {
-    /* margin-top: 15%; */
     margin-top: 3%;
 }
 
@@ -125,7 +124,6 @@ input:not([type="submit"]):active+.input-requirements {
 }
 
 /* End Input Requirements List */
-
 @media screen and (max-width: 600px) {
     .submitButton {
         padding: .4em 3em;

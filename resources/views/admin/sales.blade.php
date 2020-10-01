@@ -1,4 +1,4 @@
-@extends('admin.app')
+@extends('admin.layouts.main')
 
 @section('content')
     {{-- Search Input --}}

@@ -1,26 +1,20 @@
-/* body{
-    font-family: 'Avenir' !important;
-    color: #F11635 !important;
-    background-color: #000 !important;
-} */
-
 .title {
-	background: linear-gradient(0.25turn, #961260, #BE1131, #9100FE) !important;
+    background: linear-gradient(0.25turn, #961260, #BE1131, #9100FE) !important;
     -webkit-background-clip: text !important;
-	-webkit-text-fill-color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
 }
 
 #instructorName {
     color: #F4113A !important;
 }
 
-.card{
+.card {
     background-color: #000;
     color: #000;
     transition: 0.3s;
 }
 
-.card:hover{
+.card:hover {
     background-color: #c72744cd;
     background-color: #282828;
     color: #FFF;
