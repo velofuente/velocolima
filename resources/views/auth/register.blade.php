@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.main')
 
 @section('extraStyles')
     <link rel="stylesheet" type="text/css" href="{{asset('css/register-styles.css')}}">

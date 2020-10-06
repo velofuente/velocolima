@@ -8,13 +8,8 @@
     border-radius: 3px;
     margin: 20px;
 }
-.margin-topMain {
-    /* padding-top: 7em !important; */
-}
 
 #branchImage {
-    /* width: 100%;
-    height: 30%; */
     vertical-align: baseline;
     max-width: 100%;
     height: auto;
@@ -33,7 +28,7 @@
     font-weight: 400;
 }
 
-.btnReservar{
+.btnReservar {
     font-family: 'Avenir Next' !important;
     font-size: 17px;
     color: #FFF;
@@ -48,15 +43,15 @@
     background-image: linear-gradient(0.25turn, #fd0d3dc7 0%, #9000ffd3 51%, #fd0d3dc7 100%);
 }
 
-.btnReservar:hover{
+.btnReservar:hover {
     background-position: right center;
     color: #FFF;
 }
 
-a:link{
+a:link {
     text-decoration: none;
 }
 
-a:hover{
+a:hover {
     text-decoration: none;
 }

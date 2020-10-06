@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\{User, Card, Purchase, userSchedule, UserWaitList, waitList, Schedule, Instructor};
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+
+use App\{User, Purchase, userSchedule, UserWaitList};
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Illuminate\Support\Carbon;
-use App\Mail\Welcome;
-use Auth, Log, JWTAuth, DB, Validator, Session;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Auth, JWTAuth, DB, Validator, Session;
 
 class UserController extends Controller
 {
@@ -20,11 +19,11 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $requestUser = $request->user();
+        if ($requestUser->role_id == 1) {
+            return redirect("/admin");
+        }
         $purchaseHistory = Purchase::with(['product'])->select("*", DB::raw("DATE_ADD(created_at, INTERVAL expiration_days DAY) finalDate"))->where('user_id', '=', "{$requestUser->id}")->get()->sortByDesc('created_at');
-        //return $purchaseHistory = DB::table('purchases')->select("*", DB::raw("DATE_ADD(created_at, INTERVAL expiration_days DAY) finalDate"))->where('user_id', '=', "{$requestUser->id}")->get();
         $cards = DB::table('cards')->where('user_id', '=', "{$requestUser->id}")->get();
-        //$numClases = DB::table('purchases')->select(DB::raw('SUM(n_classes) as clases'))->where('user_id', '=', "{$requestUser->id}")->first();
-        //$classes = $numClases->clases;
         $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->whereRaw("NOW() <= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->where('user_id', '=', "{$requestUser->id}")->groupBy("id")->get();
         $classes = $numClases->sum("clases");
         $bookedClasses = UserSchedule::with("schedule.instructor", "schedule.room", "schedule")->where('user_id', "{$requestUser->id}")->where('status', 'active')->get();
@@ -55,10 +54,6 @@ class UserController extends Controller
     public function create()
     {
         return view('/register');
-    }
-    public function tesst()
-    {
-        // return User::select(DB::raw("created_at, DATE_ADD(created_at, INTERVAL 50 HOUR) finalDate"))->get();
     }
 
     /**
@@ -133,30 +128,8 @@ class UserController extends Controller
         Session::flash('alertTitle', "Clase gratis");
         Session::flash('alertMessage', "Gracias por unirte a Vèlo, tu primera clase va por nuestra cuenta");
         Session::flash('alertType', "success");
-        // Session::flash('alertButton', "Aceptar");
         Auth::login($user);
-        // Log::info("Entra pre Mail Send");
-        // Mail::send([], [], function ($message) use ($request){
-        //     $message->to($request->email)
-        //       ->subject("Welcome")
-        //       // here comes what you want
-        //     //   ->setBody('Hi, welcome user!'); // assuming text/plain
-        //       // or:
-        //       ->setBody('<h1>Hi, welcome user!</h1>', 'text/html'); // for HTML rich messages
-        //   });
-        //   Log::info("Entra pos Mail Send");
         return redirect()->route('home')->with('success','Data Added');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -191,33 +164,20 @@ class UserController extends Controller
             "required" => "El campo es requerido",
             "shoe_size.min" => "La talla de tu calzado no es válida"
         ];
-        $validator = Validator::make($request->all(), $rules, $messages);
 
+        $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
-            return back()
-                        ->withErrors($validator)
-                        ->withInput();
+            return back()->withErrors($validator)->withInput();
         }
         $user = $request->user();
         $user->name = $request->name;
         $user->last_name = $request->last_name;
-        // $user->birth_date = $request->birth_date;
         $user->phone = $request->phone;
         $user->shoe_size = $request->shoe_size;
         $user->save();
         return redirect('user')->with('success', 'Data has been updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
     public function updatePassword(Request $request)
     {
         //dd($request->get('password'));
@@ -229,10 +189,10 @@ class UserController extends Controller
         $user->save();
         return redirect('user')->with('success', 'Data has been updated');
     }
+
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
         try {
             if (! $token = JWTAuth::attempt($credentials)) {
                 return response()->json(['error' => 'invalid_credentials'], 400);
@@ -240,47 +200,23 @@ class UserController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-
         return $token;
     }
+
     public function getAuthenticatedUser()
     {
         try {
-
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
             }
-
         } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-
             return response()->json(['token_expired'], $e->getStatusCode());
-
         } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-
             return response()->json(['token_invalid'], $e->getStatusCode());
-
         } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-
             return response()->json(['token_absent'], $e->getStatusCode());
-
         }
 
         return response()->json(compact('user'));
     }
-
-    // public function showPromotionalMessage(Request $request)
-    // {
-    //     $user = $request->user;
-    //     $userId = $user->id;
-    //     $promotionalMessages = PromotionalMessages::where('user_id', $userId)->first();
-    //     if ($promotionalMessages) {
-    //         return response()->json([
-    //             'status' => 'OK',
-    //             'code' => '400',
-    //             'message' => config('constants.promitional_message'),
-    //         ]);
-    //     }
-    //     return false;
-    // }
-
 }

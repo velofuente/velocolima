@@ -1,10 +1,8 @@
-.branch{
-    background-image:url(/img/branch.png);
+.branch {
+    background-image: url(/img/branch.png);
     background-size: 450px 300px;
 }
-#branch-col{
+
+#branch-col {
     display: inline-grid;
 }
-/* .main{
-    margin-top: 6em;
-} */

@@ -1,64 +1,60 @@
-@extends('admin.app')
-
-@section('extra_styles')
-@stop
+@extends('admin.layouts.main')
 
 @section('content')
-{{-- Table with the Info --}}
-<div class="row text-center mx-0 py-4">
-    <h3>Clientes</h3>
-    <button class="btn btn-success btn-sm mx-4 justify-content-right" data-toggle="modal" data-target="#registerClientModal">Añadir cliente</button>
-</div>
+    {{-- Table with the Info --}}
+    <div class="row text-center mx-0 py-4">
+        <h3>Clientes</h3>
+        <button class="btn btn-success btn-sm mx-4 justify-content-right" data-toggle="modal" data-target="#registerClientModal">Añadir cliente</button>
+    </div>
 
-{{-- Table  --}}
-@if (count($clients) > 0)
-    <table class="table table-striped table-hover">
-        <thead style="font-size: 1em;">
-            <tr style="font-size: 1em;">
-                <th scope="col">ID</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Correo</th>
-                <th scope="col">Fecha de nacimiento</th>
-                <th scope="col">Teléfono</th>
-                <th scope="col">Talla de calzado</th>
-                <th scope="col">Clases disponibles</th>
-                <th scope="col">Clases reservadas</th>
-            </tr>
-        </thead>
-        <tbody id="table-clients">
-            @foreach ($clients as $client)
-                <tr style="font-size: 0.9em;">
-                    <td>{{$client->id}}</td>
-                    <td>{{$client->name}}</td>
-                    <td>{{$client->last_name}}</td>
-                    <td>{{$client->email}}</td>
-                    <td>{{$client->birth_date}}</td>
-                    <td>{{$client->phone}}</td>
-                    <td>{{$client->shoe_size}}</td>
-                    <td>{{($client->availableClasses->clases) ? $client->availableClasses->clases : 'N/D'}}</td>
-                    <td>{{($client->bookedClasses) ? $client->bookedClasses : 'N/D'}}</td>
+    {{-- Table  --}}
+    @if (count($clients) > 0)
+        <table class="table table-striped table-hover">
+            <thead style="font-size: 1em;">
+                <tr style="font-size: 1em;">
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Fecha de nacimiento</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Talla de calzado</th>
+                    <th scope="col">Clases disponibles</th>
+                    <th scope="col">Clases reservadas</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-@else
-    <h2 class="text-center">No hay clientes agregados</h2>
-@endif
-{{-- /Table  --}}
-{{-- Modal Register New Client --}}
-<div class="modal fade" id="registerClientModal" tabindex="-1" role="dialog" aria-labelledby="registerClientModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="registerClientModalLabel">Registrar nuevo Cliente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                {{-- <form method="POST" action="{{ route('addInstructor') }}" class="registration"> --}}
-                    @csrf
+            </thead>
+            <tbody id="table-clients">
+                @foreach ($clients as $client)
+                    <tr style="font-size: 0.9em;">
+                        <td>{{$client->id}}</td>
+                        <td>{{$client->name}}</td>
+                        <td>{{$client->last_name}}</td>
+                        <td>{{$client->email}}</td>
+                        <td>{{$client->birth_date}}</td>
+                        <td>{{$client->phone}}</td>
+                        <td>{{$client->shoe_size}}</td>
+                        <td>{{($client->availableClasses->clases) ? $client->availableClasses->clases : 'N/D'}}</td>
+                        <td>{{($client->bookedClasses) ? $client->bookedClasses : 'N/D'}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <h2 class="text-center">No hay clientes agregados</h2>
+    @endif
+
+    {{-- /Table  --}}
+    {{-- Modal Register New Client --}}
+    <div class="modal fade" id="registerClientModal" tabindex="-1" role="dialog" aria-labelledby="registerClientModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerClientModalLabel">Registrar nuevo Cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
@@ -108,29 +104,6 @@
                         </div>
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
-
-                    {{-- <div class="form-group row mb-3">
-                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                            <label for="password" class="mr-sm-2">Password:</label>
-                            <input id="RegPassword" placeholder="Contraseña" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-                            @if ($errors->has('password'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                    </div>
-
-                    <div class="form-group row mb-3">
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                            <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                                <label for="password-confirm" class="mr-sm-2">Confirmar Contraseña:</label>
-                                <input id="password-confirm" placeholder="Confirmar Contraseña" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                    </div> --}}
 
                     <div class="form-group row mb-3">
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
@@ -218,121 +191,121 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
                 </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                {{-- <button type="button" class="btn btn-success" id="addInstructorButton">Añadir Instructor</button> --}}
-                <button type="button" class="btn btn-primary" id="registerClientButton">Registrar usuario</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="registerClientButton">Registrar usuario</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-@stop
+@endsection
 
 @section('extra_scripts')
-<script>
-    var name = null;
-    var last_name = null;
-    var email = null;
-    var password = null;
-    var birth_date = null;
-    var gender = null;
-    var phone = null;
-    var shoe_size = null;
+    <script>
+        $("#clients").children().addClass('active');
+        var name = null;
+        var last_name = null;
+        var email = null;
+        var password = null;
+        var birth_date = null;
+        var gender = null;
+        var phone = null;
+        var shoe_size = null;
 
-    $(document).ready(function (){
-        // On Click Register New User to Schedule
-        $('#registerClientButton').on('click', function(){
-            register();
-        });
-
-        if ( $('[type="date"]').prop('type') != 'date' ) {
-            $('[type="date"]').attr('placeholder', 'yyyy-mm-dd')
-            // Use datepicker on the date inputs
-            $("input[type=date]").datepicker({
-                dateFormat: 'yy/mm/dd',
-                dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
-                dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
-                dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
-                monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-                monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-                currentText: "Hoy",
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '-110:+0',
-                onSelect: function(dateText, inst) {
-                    $(inst).val(dateText); // Write the value in the input
-                }
+        $(document).ready(function (){
+            // On Click Register New User to Schedule
+            $('#registerClientButton').on('click', function(){
+                register();
             });
-            // Code below to avoid the classic date-picker
-            // $("input[type=date]").on('click', function() {
-            // return false;
-            // });
-        }
-    });
-    // AJAX Register New User
-    function register(){
-        name = $('#RegName').val()
-        last_name = $('#RegLastName').val()
-        email = $('#RegEmail').val()
-        password = $('#RegPassword').val()
-        birth_date = $('#RegBirthDate').val()
-        phone = $('#RegPhone').val()
-        gender = $('#RegGender').val()
-        shoe_size = $('#RegShoeSize').val()
-        $.ajax({
-            url: '/addClient',
-            type: 'POST',
-            cache: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                name: name,
-                last_name: last_name,
-                email: email,
-                password: password,
-                birth_date: birth_date,
-                phone: phone,
-                gender: gender,
-                shoe_size: shoe_size,
-            },
-            beforeSend: function(){
-                $.LoadingOverlay("show");
-            },
-            success: function(result) {
-                $.LoadingOverlay("hide");
-                if(result.status == "OK"){
-                    $('.modal-backdrop').remove();
-                    // $('.active-menu').trigger('click');
-                    $('#registerClientModal').modal('hide');
-                    Swal.fire({
-                        title: 'Cliente Registrado',
-                        text: result.message,
-                        type: 'success',
-                        confirmButtonText: 'Aceptar'
-                    })
-                    window.location.replace('/admin/clients');
-                }
-                else {
+
+            if ( $('[type="date"]').prop('type') != 'date' ) {
+                $('[type="date"]').attr('placeholder', 'yyyy-mm-dd')
+                // Use datepicker on the date inputs
+                $("input[type=date]").datepicker({
+                    dateFormat: 'yy/mm/dd',
+                    dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+                    dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+                    dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+                    monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                    currentText: "Hoy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: '-110:+0',
+                    onSelect: function(dateText, inst) {
+                        $(inst).val(dateText); // Write the value in the input
+                    }
+                });
+                // Code below to avoid the classic date-picker
+                // $("input[type=date]").on('click', function() {
+                // return false;
+                // });
+            }
+        });
+        // AJAX Register New User
+        function register(){
+            name = $('#RegName').val()
+            last_name = $('#RegLastName').val()
+            email = $('#RegEmail').val()
+            password = $('#RegPassword').val()
+            birth_date = $('#RegBirthDate').val()
+            phone = $('#RegPhone').val()
+            gender = $('#RegGender').val()
+            shoe_size = $('#RegShoeSize').val()
+            $.ajax({
+                url: '/addClient',
+                type: 'POST',
+                cache: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    name: name,
+                    last_name: last_name,
+                    email: email,
+                    password: password,
+                    birth_date: birth_date,
+                    phone: phone,
+                    gender: gender,
+                    shoe_size: shoe_size,
+                },
+                beforeSend: function(){
+                    $.LoadingOverlay("show");
+                },
+                success: function(result) {
+                    $.LoadingOverlay("hide");
+                    if(result.status == "OK"){
+                        $('.modal-backdrop').remove();
+                        // $('.active-menu').trigger('click');
+                        $('#registerClientModal').modal('hide');
+                        Swal.fire({
+                            title: 'Cliente Registrado',
+                            text: result.message,
+                            type: 'success',
+                            confirmButtonText: 'Aceptar'
+                        })
+                        window.location.replace('/admin/clients');
+                    }
+                    else {
+                        $.LoadingOverlay("hide");
+                        Swal.fire({
+                            title: 'Error',
+                            text: result.message,
+                            type: 'warning',
+                            confirmButtonText: 'Aceptar'
+                        })
+                    }
+                },
+                error: function(result){
                     $.LoadingOverlay("hide");
                     Swal.fire({
                         title: 'Error',
-                        text: result.message,
+                        text: "No se pudo procesar la solicitud.",
                         type: 'warning',
                         confirmButtonText: 'Aceptar'
                     })
                 }
-            },
-            error: function(result){
-                $.LoadingOverlay("hide");
-                Swal.fire({
-                    title: 'Error',
-                    text: "No se pudo procesar la solicitud.",
-                    type: 'warning',
-                    confirmButtonText: 'Aceptar'
-                })
-            }
-        });
-    }
-</script>
-@stop
+            });
+        }
+    </script>
+@endsection

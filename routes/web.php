@@ -1,10 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PurchaseController;
-use Monolog\Handler\RotatingFileHandler;
-use App\Http\Controllers\BookClassController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,24 +13,12 @@ use App\Http\Controllers\BookClassController;
 |
 */
 
-Route::get('/emailTest', function () {
-    return view('emails.birthday-free-class');
-});
-
-// Route::get('prueba', function () {
-//     return view('prueba');
-// });
-
 Route::get('/', function () {
-    if(Auth::check()){
+    if (Auth::check()) {
         return redirect('/user');
     }
     return view('welcome');
 });
-
-Route::get('/client', function(){
-    return view('client');
-})->middleware('auth');
 
 Route::get('/legales', function () {
     return view('legales');
@@ -42,44 +27,18 @@ Route::get('/legales', function () {
 Auth::routes();
 
 Route::resource('instructors', 'InstructorController');
-Route::get('/schedule', 'InstructorController@schedule');
-// Route::get('/scheduleBackup', 'InstructorController@scheduleBackup');
-Route::get('/branches', 'BranchesController@index');
 Route::post('/sendMail', 'MailSendingController@coachInfo');
-Route::post('/charge', 'PurchaseController@store');
-//Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('/register', 'UserController@store');
+Route::get('/schedule', 'InstructorController@schedule');
+Route::get('/branches', 'BranchesController@index');
 Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
 
-//siento qe va hacer un midd podría preguntarle a paul si le movió a algo de eso porque funcionaba perfectamente antes
-// de echo le pregunte  me dijo que no le mv nada el mmmm entonces fue wil?
-// Route::get('/addCard', 'OpenPayController@addCustomerCard');
-// Route::get('/', 'HomeController@index');
-// Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 Route::get('/home', 'HomeController@index')->name('home');
-// Route::get('test', 'UserController@test');
-
-// Route::get('/schedule', function(){
-//     return view ('schedule');
-// });
-
-// Route::get('/book', function(){
-//     return view('book');
-// });
-
-// Route::get('/who-are-we', function(){
-//     return view('who-are-we');
-// });
-
-// Route::get('/first-visit', function (){
-//     return view('first-visit');
-// });
 
 // Grupo de Middleware para Administradores
 Route::group(['middleware' => ['auth','admin.access']], function(){
     // Admin Index
-    // Route::get('admin', 'AdminController@index')->name('admin');
     Route::get('/admin', 'AdminController@index')->name('admin');
     // Show Pages (NEW STRUCTURE)
     Route::get('/admin/instructors', 'AdminController@showInstructors')->name('admin/instructors');
@@ -88,19 +47,9 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
     Route::get('/admin/products', 'AdminController@showProducts')->name('admin/products');
     Route::get('/admin/users', 'AdminController@showUsers')->name('admin/users');
     Route::get('/admin/clients', 'AdminController@showClients')->name('admin/clients');
-    // Route::get('admin/operations/{$id}', 'AdminController@showOperationsGrid')->name('admin/operations');
     Route::get('/admin/operations/{selected_schedule}', 'AdminController@showOperationsGrid');
     Route::get('/admin/operations', 'AdminController@showOperationsGrid');
     Route::get('/admin/reports', 'AdminController@showReports')->name('admin/reports');
-    // Show Pages (DEPRECATED)
-    // Route::get('admin/operations', 'AdminController@showOperationsGrid')->name('admin/operations');
-    // Route::get('admin-instructors', 'AdminController@showInstructors')->name('admin-instructors');
-    // Route::get('admin-schedules', 'AdminController@showSchedules')->name('admin-schedules');
-    // Route::get('admin-products', 'AdminController@showProducts')->name('admin-products');
-    // Route::get('admin-branches', 'AdminController@showBranches')->name('admin-branches');
-    // Route::get('admin-users', 'AdminController@showUsers')->name('admin-users');
-    // Route::get('admin-clients', 'AdminController@showClients')->name('admin-clients');
-    // Route::get('admin-sales', 'AdminController@showSales')->name('admin-sales');
     Route::post('/preRegister', 'BookClassController@preRegister');
     Route::post('/attendClass', 'BookClassController@attendClass');
     Route::post('/getNonScheduledUsers', 'AdminController@getNonScheduledUsers');
@@ -139,7 +88,6 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
     Route::post('/editProduct', 'AdminController@editProduct');
     Route::post('/deleteProduct', 'AdminController@deleteProduct');
     Route::get('/products/{id}', 'ProductController@edit');
-
     Route::post('/addProduct', 'AdminController@addProduct');
     Route::post('/editProduct', 'AdminController@editProduct');
     Route::post('/deleteProduct', 'AdminController@deleteProduct');
@@ -165,7 +113,6 @@ Route::group(['middleware' => ['auth','user.access']], function(){
     Route::post('/checkCancelLimit', 'BookClassController@checkCancelLimit');
     Route::post('/claimClass', 'BookClassController@claimClass');
     //OPENPAY
-    //Route::get('user', 'UserController@getAuthenticatedUser');
     Route::post('/addCard','OpenPayController@addCustomerCard');
     Route::post('/makeCharge', 'OpenPayController@makeChargeCustomer');
     Route::post('/makeChargeCard', 'OpenPayController@makeChargeCard');
