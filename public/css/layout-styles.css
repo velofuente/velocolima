@@ -273,6 +273,35 @@ select:focus {
     transition: 0.5s;
 }
 
+@media screen and (max-width: 700px) {
+    .overlay-content {
+        left: 20% !important;
+        width: 80% !important;
+    }
+}
+
+
+@media screen and (min-width: 700px) {
+    .overlay-content {
+        left: 50% !important;
+        width: 50% !important;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .overlay-content {
+        left: 60% !important;
+        width: 40% !important;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .overlay-content {
+        left: 60% !important;
+        width: 40% !important;
+    }
+}
+
 @media screen and (max-height: 500px) {
     .overlay-content {
         display: flex;
