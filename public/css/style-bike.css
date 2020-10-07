@@ -1,38 +1,23 @@
-.main{
+.main {
     color: #6133AB;
     font-family: 'AvenirNextLTPro Regular' !important;
 }
-.select{
+
+.select {
     color: black;
     margin-top: 8em;
 }
-/*
-#goBack{
-    color:white;
-    text-decoration: none;
-    padding: .6em 5em .6em 5em;
-    background: linear-gradient(0.25turn, #fd0d3dc7, #9000ffd3);
-    border-radius: 120px;
-    margin: 0 1em 0 1em;
-    font-family: 'AvenirNextLTPro Regular';
-    font-size: 1.1em;
-}
 
-#goBack:hover{
-    background-color: #5dd4dc;
-}*/
-
-.text_gradient_bike_selection{
+.text_gradient_bike_selection {
     font-family: 'Avenir Next' !important;
     font-size: 70px;
     font-weight: 250;
-    /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
     background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-#goBack{
+#goBack {
     font-family: 'Avenir Next' !important;
     font-size: 1.1em;
     text-decoration: none;
@@ -44,25 +29,31 @@
     padding: .6em 5em;
     background-image: linear-gradient(0.25turn, #fd0d3dc7 0%, #9000ffd3 51%, #fd0d3dc7 100%);
 }
-#goBack:hover{
+
+#goBack:hover {
     background-position: right center;
 }
-#sel{
-    color:#efeeee;
+
+#sel {
+    color: #efeeee;
     text-align: center;
     text-size-adjust: 90px;
 }
-#selection{
+
+#selection {
     text-align: center;
     font-family: 'Gotham Thin';
 }
-#selection > span{
+
+#selection>span {
     color: #89e0e5;
 }
-.description{
+
+.description {
     margin-top: 1em;
 }
-#profilePic{
+
+#profilePic {
     border-radius: 120px;
     display: block;
     margin-left: auto;
@@ -71,7 +62,7 @@
     height: 120px;
 }
 
-.showBallFree{
+.showBallFree {
     width: 70px;
     height: 70px;
     margin: 1px !important;
@@ -87,11 +78,13 @@
     font-size: 1.2em;
     margin: 0;
 }
-.showBallFree:hover{
+
+.showBallFree:hover {
     color: #FFF;
     background: #FF0E3B;
 }
-.showBallDisabled{
+
+.showBallDisabled {
     width: 70px;
     height: 70px;
     margin: 1px !important;
@@ -107,7 +100,8 @@
     font-size: 1.2em;
     margin: 0;
 }
-.showBallInstructor{
+
+.showBallInstructor {
     cursor: pointer;
     width: 70px;
     height: 70px;
@@ -124,15 +118,14 @@
     font-size: 1.2em;
     margin: 0;
 }
-.showBallInstructor:hover{
+
+.showBallInstructor:hover {
     color: #FFF;
     background: greenyellow;
 }
 
-.bikes{
+.bikes {
     cursor: pointer;
-    /* width: 65px;
-    height: 65px; */
     width: 65px;
     height: 65px;
     margin: 1px !important;
@@ -150,25 +143,7 @@
 }
 
 .occupied {
-    /* width: 65px;
-    height: 65px;
-    margin: 1px !important;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid gray;
-    border-radius: 100%;
-    background: gray;
-    color: #bababa;
-    text-align: center;
-    transition: .3s ease;
-    font-size: 1.2em;
-    margin: 0; */
-
-
     cursor: pointer;
-    /* width: 65px;
-    height: 65px; */
     width: 65px;
     height: 65px;
     margin: 1px !important;
@@ -186,7 +161,6 @@
 }
 
 .disabled {
-    /* cursor: pointer; */
     width: 30px;
     height: 30px;
     margin: 1px !important;
@@ -196,7 +170,6 @@
     border-radius: 100%;
     border: 1px solid black;
     background: none;
-    /* color: #bababa; */
     color: black;
     text-align: center;
     transition: .3s ease;
@@ -222,7 +195,7 @@
     margin: 0;
 }
 
-.selected{
+.selected {
     width: 65px;
     height: 65px;
     margin: 1px !important;
@@ -241,35 +214,37 @@
 
 
 @media screen and (max-width: 1500px) {
-    .first{
+    .first {
         font-size: 1em !important;
     }
-    .main-bikes{
+
+    .main-bikes {
         margin: 2em 35% 0em 35%;
     }
 }
 
 @media screen and (max-width: 1300px) {
-    .first{
+    .first {
         font-size: .9em !important;
     }
-    .main-bikes{
+
+    .main-bikes {
         margin: 2em 25% 0em 25%;
     }
-    #date{
+
+    #date {
         margin-top: -1em;
         margin-left: 12em;
     }
 }
 
 @media screen and (max-width: 969px) {
-    .main-bikes{
+    .main-bikes {
         margin: 2em 15% 0em 15%;
     }
-    .bikes{
+
+    .bikes {
         cursor: pointer;
-        /* width: 65px;
-        height: 65px; */
         width: 55px;
         height: 55px;
         margin: 1px !important;
@@ -285,6 +260,7 @@
         font-size: 1.2em;
         margin: 0;
     }
+
     .occupied {
         width: 55px;
         height: 55px;
@@ -301,8 +277,8 @@
         font-size: 1.2em;
         margin: 0;
     }
+
     .disabled {
-        /* cursor: pointer; */
         width: 10px;
         height: 10px;
         margin: 1px !important;
@@ -312,13 +288,13 @@
         border-radius: 100%;
         border: 1px solid black;
         background: none;
-        /* color: #bababa; */
         color: transparent;
         text-align: center;
         transition: .3s ease;
         font-size: 1.2em;
         margin: 0;
     }
+
     .instructor {
         cursor: pointer;
         width: 55px;
@@ -336,7 +312,8 @@
         font-size: 1.2em;
         margin: 0;
     }
-    .selected{
+
+    .selected {
         width: 55px;
         height: 55px;
         margin: 1px !important;
@@ -355,26 +332,29 @@
 }
 
 @media screen and (max-width: 600px) {
-    .main-bikes{
+    .main-bikes {
         margin: 2em 4% 0em 4% !important;
     }
-    #placeDate{
+
+    #placeDate {
         margin-top: .3em;
         padding-left: 0px;
     }
-    .text_gradient_bike_selection{
+
+    .text_gradient_bike_selection {
         font-family: 'Avenir Next' !important;
         font-size: 43px !important;
         font-weight: 250 !important;
-        /* background: -webkit-linear-gradient(40deg, #F80F12, #B102C0); */
         background: -webkit-linear-gradient(40deg, #9d1268, #e50f20, #a002da, #9100ff) !important;
         -webkit-background-clip: text !important;
         -webkit-text-fill-color: transparent !important;
     }
-    #selectBikeLogo{
+
+    #selectBikeLogo {
         display: none;
     }
-    #goBack{
+
+    #goBack {
         display: block;
         font-family: 'Avenir Next' !important;
         font-size: 1.1em !important;
@@ -388,13 +368,13 @@
         padding: .4em 3em;
         background-image: linear-gradient(0.25turn, #fd0d3dc7 0%, #9000ffd3 51%, #fd0d3dc7 100%);
     }
-    #goBack:hover{
+
+    #goBack:hover {
         background-position: right center;
     }
-    .bikes{
+
+    .bikes {
         cursor: pointer;
-        /* width: 65px;
-        height: 65px; */
         width: 45px;
         height: 45px;
         margin: 3px !important;
@@ -410,6 +390,7 @@
         font-size: 1.2em;
         margin: 0;
     }
+
     .occupied {
         width: 45px;
         height: 45px;
@@ -426,8 +407,8 @@
         font-size: 1.2em;
         margin: 0;
     }
+
     .disabled {
-        /* cursor: pointer; */
         width: 10px;
         height: 10px;
         margin: 1px !important;
@@ -438,13 +419,13 @@
         border-radius: 100%;
         border: 1px solid black;
         background: none;
-        /* color: #bababa; */
         color: transparent;
         text-align: center;
         transition: .3s ease;
         font-size: 1.2em;
         margin: 0;
     }
+
     .instructor {
         cursor: pointer;
         width: 45px;
@@ -462,7 +443,8 @@
         font-size: 1.2em;
         margin: 0;
     }
-    .selected{
+
+    .selected {
         width: 45px;
         height: 45px;
         margin: 1px !important;
@@ -481,28 +463,33 @@
 }
 
 @media screen and (min-width: 1501px) {
-    .main-bikes{
+    .main-bikes {
         margin: 2em 35% 0em 35%;
     }
+
     .ent {
         color: white;
         font-size: 1.6em;
     }
-    #goBack{
+
+    #goBack {
         font-size: 1.3em;
     }
 }
-.table{
+
+.table {
     margin: 0 auto;
     width: 70%;
 }
-.table td{
+
+.table td {
     border: 1px solid transparent !important;
     height: 2em;
     margin-left: auto;
     margin-right: auto;
 }
-.places{
+
+.places {
     text-align: center;
     width: 47px;
     height: 47px;
@@ -512,23 +499,23 @@
     /* align-items: center; */
 }
 
-.centeredDiv{
+.centeredDiv {
     margin: auto;
     width: 50%;
     text-align: center;
 }
 
-.bikes:hover{
+.bikes:hover {
     background-color: #FF0E3B;
     color: white;
 }
 
-.instructor:hover{
+.instructor:hover {
     background-color: greenyellow;
     color: white;
 }
 
-.details{
+.details {
     font-family: 'AvenirNextLTPro DemiCn' !important;
     color: white;
     text-align: center;
@@ -537,7 +524,7 @@
     margin-right: 15em;
 }
 
-.first{
+.first {
     font-family: 'AvenirNextLTPro DemiCn' !important;
     color: #FF0E3B;
     margin-top: 2em;
@@ -546,21 +533,24 @@
     font-weight: bold;
 }
 
-.first > span{
-    color: white;
-}
-.bnd{
-    margin-top: 3em;
-}
-#date{
-    margin-top: -1.7em;
-    margin-left: 14em;
-}
-.ent{
+.first>span {
     color: white;
 }
 
-.cropLogo{
+.bnd {
+    margin-top: 3em;
+}
+
+#date {
+    margin-top: -1.7em;
+    margin-left: 14em;
+}
+
+.ent {
+    color: white;
+}
+
+.cropLogo {
     width: 50px;
     height: 20px;
     margin-bottom: .1em;

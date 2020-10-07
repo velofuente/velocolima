@@ -1,19 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-use Auth, Session;
+
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Log;
-use function GuzzleHttp\json_encode;
 use App\User;
+use Auth;
 
 class LoginController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('guest', ['only' => 'showLoginForm']);
         $this->middleware('guest', ['only' => 'showLoginForm'])->except('logout');
     }
 
@@ -37,44 +34,26 @@ class LoginController extends Controller
             'email' => 'email|required|string',
             'password' => 'required|string'
         ]);
-        //return $credentials;
         if (Auth::attempt($credentials)) {
-            //Bearer Token
-            //$tokenBearer = app('App\Http\Controllers\UserController')->authenticate($request);
-            //Session::push("tokenBearer", $tokenBearer);
-            //dd($tokenBearer);
-
-            // $_SESSION["tokenasd"] = $tokenBearer->getData();
-            // dd($_SESSION["tokenasd"]);
-
-            // $value = session('key');
-            // $value = session('key', 'default');
-            // session(['key' => $_SESSION["tokenasd"]]);
-            // //En Vista
-            // $value = $request->session()->get('key');
-            // dd($value);
             $user = User::where('email', $request->email)->first();
             if($user->role_id == 1){
-                // log::info($user->role_id);
                 return redirect("/admin");
-                // return redirect("/admin");
             }
-            else
-                return redirect("/user");
+            return redirect("/user");
         }
-        return back()
-            ->withErrors([
-                // 'email' => "Formato de e-mail no valido",
-                'required' => "Campo requerido",
-                'password' => "Credenciales no válidas",
-            ])
-            ->withInput(request(['email']));
+        return back()->withErrors([
+            // 'email' => "Formato de e-mail no valido",
+            'required' => "Campo requerido",
+            'password' => "Credenciales no válidas",
+        ])->withInput(request(['email']));
     }
+
     public function logout()
     {
         Auth::logout();
         return redirect('/');
     }
+
     /**
     * The user has been authenticated.
     *

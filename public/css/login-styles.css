@@ -1,25 +1,4 @@
-@font-face {
-    font-family: Avenir;
-    src: url("css/fonts/velo/AvenirNextCondensed-Bold.ttf");
-    src: url("css/fonts/velo/AvenirNextLTPro-Bold.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-BoldCn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-BoldCnlt.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-Cn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-Cnlt.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-Demi.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-DemiCn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-DemiCnlt.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCnlt.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-It.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-MediumCn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-MediumCnlt.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-Regular.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCn.oto") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCnlt.otf") format("opentype");
-}
-
-body{
+body {
     background: #000;
     font-family: 'Avenir Next' !important;
     font-weight: 400;
@@ -46,25 +25,29 @@ body{
     font-weight: 300;
 }
 
-.form-group{
+.form-group {
     font-family: 'Avenir Next';
     margin-bottom: 1em;
 }
+
 #welcomeLogo {
     width: 6%;
     height: 6%;
 }
 
-.forgot-password, .register-account {
+.forgot-password,
+.register-account {
     color: #FFF;
     text-decoration: none;
 }
 
-.forgot-password:link, .register-account:link {
+.forgot-password:link,
+.register-account:link {
     color: #FFF;
     text-decoration: none;
 }
-.centerBtn{
+
+.centerBtn {
     text-align: center;
     padding: 0;
 }
@@ -87,11 +70,8 @@ body{
     background-position: right center;
 }
 
-@media screen and (max-width: 600px){
-    /* .loginContainer{
-        margin-top: 6.5em;
-    } */
-    #submitButton{
+@media screen and (max-width: 600px) {
+    #submitButton {
         padding: .4em 3.5em;
     }
 
@@ -102,11 +82,8 @@ body{
     }
 }
 
-@media screen and (max-width: 990px){
-    /* .loginContainer{
-        margin-top: 6.5em;
-    } */
-    #submitButton{
+@media screen and (max-width: 990px) {
+    #submitButton {
         padding: .4em 4em;
     }
 

@@ -1,32 +1,24 @@
-@extends('layout')
+@extends('layouts.main')
 
 @section('title')
     Horario
-@endsection
-
-@section('extraStyles')
-    <link rel="stylesheet" type="text/css" href="{{asset('css/schedule-styles.css')}}">
 @endsection
 
 @section('content')
     <div class="container-fluid pt-4 mb-4 main">
         <div class="row" id="topNavBar">
             {{-- Empty Section at the Far LeftNavBar --}}
-            {{-- xs: phones
-                sm: tablets
-                md: notebooks
-                lg: laptops --}}
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                 <span class="weekShown">
                 </span>
             </div>
             {{-- Message Actual Week --}}
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3">
-                <input type="hidden" name="timezoneSet" value="{{setlocale(LC_TIME,'es_MX.utf8')}}">
-                <input type="hidden" name="WeekShown" value="{{$weekShown=now()}}">
-                <input type="hidden" name="setMonth" value="{{$month=strftime('%B', strtotime($weekShown))}}">
+                <input type="hidden" name="timezoneSet" value="{{ setlocale(LC_TIME,'es_MX.utf8') }}">
+                <input type="hidden" name="WeekShown" value="{{ $weekShown=now() }}">
+                <input type="hidden" name="setMonth" value="{{ $month=strftime('%B', strtotime($weekShown)) }}">
                 <span class="weekShown">
-                    del {{date('d')}} al {{date('d', strtotime($weekShown->modify("+6 days")))}} de {{$month}}
+                    del {{date('d')}} al {{date('d', strtotime($weekShown->modify("+6 days")))}} de {{ $month}}
                 </span>
             </div>
             {{-- Empty Section at the Middle of the NavBar --}}
@@ -40,7 +32,7 @@
                     <select class="dropdown" id="ScheduleInstructor" onchange="scheduleByInstructor()">
                         <option value="allInstructors" selected="selected">Instructores</option>
                         @foreach ($instructors as $instructor)
-                            <option value="{{$instructor->name}}">{{$instructor->name}}</option>
+                            <option value="{{ $instructor->name }}">{{ $instructor->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -53,9 +45,9 @@
         </div>
 
         {{-- Schedule Section --}}
-        <input type="hidden" name="timezoneSet" value="{{date_default_timezone_set('America/Mexico_City')}}">
-        <input type="hidden" name="actualDay" value="{{$today=now()}}">
-        <input type="hidden" name="thisDay" value="{{$thisDay=now()}}">
+        <input type="hidden" name="timezoneSet" value="{{ date_default_timezone_set('America/Mexico_City') }}">
+        <input type="hidden" name="actualDay" value="{{ $today=now() }}">
+        <input type="hidden" name="thisDay" value="{{ $thisDay=now() }}">
         <div class="container" id="calendario" name="calendar">
             {{-- <h1 class="text-center text-white">SCHEDULE BACKUP</h1> --}}
             @if(count($schedules) > 0)
@@ -66,21 +58,20 @@
                             <li class="scheduleDayText">
                                 <input type="hidden" name="langLocal" value="<?php setlocale(LC_TIME,'es_MX.utf8'); $dayNumber=strftime('%d', strtotime($today));?>">
                                 <input type="hidden" name="langLocal" value="<?php $dayName = strftime("%a", strtotime($today));?>">
-                            <span class="number"> {{$dayName}}.{{$dayNumber}}</span>
+                            <span class="number"> {{ $dayName}}.{{ $dayNumber}}</span>
                             </li>
                             @foreach ($schedules as $schedule)
                                 @if ($schedule->day == $today->format('Y-m-d'))
                                     {{-- If the Schedule Day == Actual (Real) Day of the Week then check the hour scheduled --}}
                                     @if ($schedule->day == $thisDay->format('Y-m-d'))
                                         @if ($schedule->hour < $today->format('H:i:s'))
-                                            @if($schedule->description == null)
+                                            @if ($schedule->description == null)
                                                 {{-- Disabled Boxes || No Description--}}
                                                 <span class="scheduleItemLinkDisabled">
-                                                    {{-- <li class="scheduleItemDisabled" id="{{$schedule->instructor->name}}"> --}}
-                                                    <li class="scheduleItemDisabled" id="{{$schedule->instructor->name}}">
+                                                    <li class="scheduleItemDisabled" id="{{ $schedule->instructor->name }}">
                                                         <section class="scheduleItemContainer">
                                                             <p class="scheduleItemTextInstructor">
-                                                                {{$schedule->instructor->name}}
+                                                                {{ $schedule->instructor->name}}
                                                             </p>
                                                             <p class="scheduleItemTextHourDisabled">
                                                                 {{ date('g:i A', strtotime($schedule->hour)) }}
@@ -91,13 +82,12 @@
                                             @else
                                                 {{-- Disabled Boxes || No Description--}}
                                                 <span class="scheduleItemLinkDisabled">
-                                                        {{-- <li class="scheduleItemDisabled" id="{{$schedule->instructor->name}}"> --}}
-                                                        <li class="scheduleItemDisabled" id="{{$schedule->instructor->name}}">
+                                                        <li class="scheduleItemDisabled" id="{{ $schedule->instructor->name }}">
                                                             <section class="scheduleItemContainerDescription">
                                                                 <p class="scheduleItemTextInstructor">
-                                                                    {{$schedule->instructor->name}}
+                                                                    {{ $schedule->instructor->name}}
                                                                 </p>
-                                                                <p class="scheduleDescription">{{$schedule->description}}</p>
+                                                                <p class="scheduleDescription">{{ $schedule->description }}</p>
                                                                 <p class="scheduleItemTextHourDisabled">
                                                                     {{ date('g:i A', strtotime($schedule->hour)) }}
                                                                 </p>
@@ -108,11 +98,11 @@
                                         @else
                                             @if($schedule->description == null)
                                                 {{-- Enabled Boxes from Today || No Description --}}
-                                                <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
-                                                    <li class="scheduleItem" id="{{$schedule->instructor->name}}">
+                                                <a href="/bike-selection/{{ $schedule->id }}" class="scheduleItemLink">
+                                                    <li class="scheduleItem" id="{{ $schedule->instructor->name }}">
                                                         <section class="scheduleItemContainer">
                                                             <p class="scheduleItemTextInstructor">
-                                                                {{$schedule->instructor->name}}
+                                                                {{ $schedule->instructor->name}}
                                                             </p>
                                                             <p class="scheduleItemTextHour">
                                                                 {{ date('g:i A', strtotime($schedule->hour)) }}
@@ -122,13 +112,13 @@
                                                 </a>
                                             @else
                                                 {{-- Enabled Boxes from Today || With Description--}}
-                                                <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
-                                                    <li class="scheduleItem" id="{{$schedule->instructor->name}}">
+                                                <a href="/bike-selection/{{ $schedule->id }}" class="scheduleItemLink">
+                                                    <li class="scheduleItem" id="{{ $schedule->instructor->name }}">
                                                         <section class="scheduleItemContainerDescription">
                                                             <p class="scheduleItemTextInstructor">
-                                                                {{$schedule->instructor->name}}
+                                                                {{ $schedule->instructor->name}}
                                                             </p>
-                                                            <p class="scheduleDescription">{{$schedule->description}}</p>
+                                                            <p class="scheduleDescription">{{ $schedule->description}}</p>
                                                             <p class="scheduleItemTextHour">
                                                                 {{ date('g:i A', strtotime($schedule->hour)) }}
                                                             </p>
@@ -140,11 +130,11 @@
                                     @else
                                         @if($schedule->description == null)
                                             {{-- Enabled Boxes day by day || No Description --}}
-                                            <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
-                                                <li class="scheduleItem" id="{{$schedule->instructor->name}}">
+                                            <a href="/bike-selection/{{ $schedule->id }}" class="scheduleItemLink">
+                                                <li class="scheduleItem" id="{{ $schedule->instructor->name }}">
                                                     <section class="scheduleItemContainer">
                                                         <p class="scheduleItemTextInstructor">
-                                                            {{$schedule->instructor->name}}
+                                                            {{ $schedule->instructor->name }}
                                                         </p>
                                                         <p class="scheduleItemTextHour">
                                                             {{ date('g:i A', strtotime($schedule->hour)) }}
@@ -154,14 +144,13 @@
                                             </a>
                                         @else
                                             {{-- Enabled Boxes day by day || No Description --}}
-                                            <a href="/bike-selection/{{$schedule->id}}" class="scheduleItemLink">
-                                                <li class="scheduleItem" id="{{$schedule->instructor->name}}">
+                                            <a href="/bike-selection/{{ $schedule->id }}" class="scheduleItemLink">
+                                                <li class="scheduleItem" id="{{ $schedule->instructor->name }}">
                                                     <section class="scheduleItemContainerDescription">
                                                         <p class="scheduleItemTextInstructor">
-                                                            {{$schedule->instructor->name}}
+                                                            {{ $schedule->instructor->name }}
                                                         </p>
-                                                        {{-- <p class="scheduleDescription">Techno Bachata Cumbia Poder</p> --}}
-                                                        <p class="scheduleDescription">{{$schedule->description}}</p>
+                                                        <p class="scheduleDescription">{{ $schedule->description}}</p>
                                                         <p class="scheduleItemTextHour">
                                                             {{ date('g:i A', strtotime($schedule->hour)) }}
                                                         </p>
@@ -174,7 +163,7 @@
                             @endforeach
                         </ul>
                     </section>
-                    <input type="hidden" value="{{$today->modify('+1 day')}}">
+                    <input type="hidden" value="{{ $today->modify('+1 day') }}">
                     @endfor
                 </div>
             @else
@@ -183,7 +172,11 @@
         </div>
     </div>
     @include('packages')
-    @include('footer')
+    @include('partials.footer')
+@endsection
+
+@section('extraStyles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/schedule-styles.css') }}">
 @endsection
 
 @section('extraScripts')
@@ -195,6 +188,6 @@
         var opPublicKey = "{{ env('OPENPAY_PUBLIC_KEY') }}";
         var opSandbox = "{{ env('OPENPAY_SANDBOX') }}";
     </script>
-    <script src="{{asset('js/openpay-script.js')}}"></script>
+    <script src="{{ asset('js/openpay-script.js') }}"></script>
     <script src="{{ asset('/js/schedule-script.js') }}"></script>
 @endsection

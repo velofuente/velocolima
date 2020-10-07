@@ -1,71 +1,41 @@
-@font-face {
-    font-family: Avenir;
-    src: url("css/fonts/velo/AvenirNextCondensed-Bold.ttf");
-    src: url("css/fonts/velo/AvenirNextLTPro-Bold.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-BoldCn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-BoldCnlt.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-Cn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-Cnlt.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-Demi.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-DemiCn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-DemiCnlt.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-HeavyCnlt.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-It.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-MediumCn.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-MediumCnlt.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-Regular.otf") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCn.oto") format("opentype");
-    src: url("css/fonts/velo/AvenirNextLTPro-UltLtCnlt.otf") format("opentype");
-}
-
-a.deleteUserCard{
+a.deleteUserCard {
     text-decoration: none;
     color: #fff;
 }
 
-a.deleteUserCard:link{
+a.deleteUserCard:link {
     text-decoration: none;
     color: #fff;
 }
 
-.brandSavedCards{
-    /* width:60px;
-    height:35px; */
-    width:15%;
-    height:10%;
+.brandSavedCards {
+    width: 15%;
+    height: 10%;
     min-width: 2.7em;
     min-height: 1.5em;
-    /* max-width: 2.7em;
-    max-height: 1.5em; */
     opacity: 0.9;
 }
 
-.userCards{
+.userCards {
     margin: 0.4em 0em;
     padding: 0px;
     border-radius: 4%;
     font-family: 'Avenir Next';
-    /* font-weight: 300; */
     font-size: 17px;
 }
 
-.userCards:hover{
+.userCards:hover {
     background-color: rgb(37, 37, 37);
     transition: 0.3s;
 }
 
-body{
+body {
     background: #000;
     font-family: 'Avenir' !important;
     color: #FFF;
 }
 
-.main_div{
-    /* margin-top: 10em; */
-}
-
-.text_gradient{
+.text_gradient {
     font-size: 32px;
     font-weight: bold;
     background: -webkit-linear-gradient(40deg, #F80F12, #B102C0);
@@ -73,25 +43,25 @@ body{
     -webkit-text-fill-color: transparent;
 }
 
-.user_name{
+.user_name {
     color: #FFF;
     font-size: 32px;
     font-weight: 500;
     border-bottom: solid 2px #bd0f12;
 }
 
-.text_share_code{
+.text_share_code {
     font-family: 'Avenir Next' !important;
     font-size: 24px;
 }
 
-.share_code{
+.share_code {
     font-family: 'Avenir' !important;
     font-size: 24px;
     font-weight: bold;
 }
 
-.text_my_classes{
+.text_my_classes {
     color: #961029;
     text-transform: uppercase;
     text-align: left;
@@ -99,16 +69,16 @@ body{
     font-weight: 600;
 }
 
-.available_classes{
+.available_classes {
     font-size: 100px;
     font-weight: bold;
 }
 
-.classes_message{
+.classes_message {
     font-size: 17px;
 }
 
-.gradient_button{
+.gradient_button {
     font-family: 'Avenir Next' !important;
     font-size: 17px;
     color: #FFF;
@@ -116,7 +86,7 @@ body{
     border-radius: 120px;
     background-size: 200% auto;
     border-style: none;
-    padding: .6em 5em;
+    padding: .6em 3em;
     margin-top: 1em;
     background-image: linear-gradient(0.25turn, #fd0d3dc7 0%, #9000ffd3 51%, #fd0d3dc7 100%);
 }
@@ -126,7 +96,7 @@ body{
     color: #FFF;
 }
 
-.addCardButton{
+.addCardButton {
     font-family: 'Avenir Next' !important;
     font-size: 12px;
     color: #FFF;
@@ -144,7 +114,7 @@ body{
     color: #FFF;
 }
 
-.regular_button{
+.regular_button {
     font-family: 'Avenir Next' !important;
     font-size: 15px;
     background-color: #FFF;
@@ -161,13 +131,15 @@ body{
     color: #FFF;
 }
 
-.myclss{
+.myclss {
     color: #FF0E3B;
 }
-.invite{
+
+.invite {
     color: #6133AB !important;
 }
-.circleDiv{
+
+.circleDiv {
     height: 0;
     padding: 19% 0;
     width: 50%;
@@ -177,78 +149,84 @@ body{
     text-align: center;
     border-radius: 100%;
 }
-.main{
-    /* margin-top: 6em; */
-}
-#media_icon{
+
+#media_icon {
     columns: #282828;
 }
-.input_custom{
+
+.input_custom {
     background-color: #282828;
 }
 
-#show_user_data, #divWait{
+#show_user_data,
+#divWait {
     font-family: 'Avenir' !important;
     font-weight: 500;
     background-color: #000;
     color: #9701a8;
 }
 
-.nav-link{
+.nav-link {
     color: #000;
     background-color: #FFF;
     text-decoration: none;
     border: 0px 2em;
 }
 
-.table-striped > thead{
+.table-striped>thead {
     background-color: #000000 !important;
     color: #FFF !important;
- }
+}
 
-.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
     background-color: #191919;
- }
+}
 
-.table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th {
+.table-striped>tbody>tr:nth-child(even)>td,
+.table-striped>tbody>tr:nth-child(even)>th {
     background-color: #000000;
 }
-.project-tab #tabs h6.section-title{
+
+.project-tab #tabs h6.section-title {
     color: #eee;
 }
-.project-tab #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+
+.project-tab #tabs .nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
     color: #ffffff;
     background-color: #9701a8;
     transition: 0.3s;
 }
+
 .project-tab .nav-link {
     color: #000000;
 }
+
 .project-tab .nav-link:hover {
     color: #ffffff;
     background-color: #9701a8;
     transition: 0.3s;
 }
-.project-tab a{
+
+.project-tab a {
     text-decoration: none;
     color: #333;
 }
 
-td,th {
+td,
+th {
     text-align: center;
 }
 
-/* @media screen and (max-width: 600px){
-    /* .registerContainer{
-        margin-top: 6.5em;
-    } */
-    .addCardButton{
+@media screen and (max-width: 600px) {
+    .addCardButton {
         font-size: 15px;
         margin-top: 0em;
         padding: .4em 1.2em;
     }
 
-    .closeBtn{
+    .closeBtn {
         padding: .4em 4em;
         margin-top: 0em;
     }
@@ -258,4 +236,4 @@ td,th {
         width: 12%;
         height: 12%;
     }
-} */
+}

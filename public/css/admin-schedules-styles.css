@@ -1,9 +1,4 @@
-/* table, th, td {
-    width: 1180px !important;
-    width: 100% !important;
-} */
-
-#addErrorsList{
+#addErrorsList {
     margin-top: 0.8em;
     margin-bottom: 0px;
     color: #a70000;

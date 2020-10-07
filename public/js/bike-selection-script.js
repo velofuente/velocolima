@@ -4,28 +4,9 @@ function drawMainBikes(x,y){
     var bikesContainer = $("#bikes-div");
     var number_of_rows = x;
     var number_of_cols = y;
-    // var tbody = $("<tbody>").attr("id", "bodyTableBicis");
-    // var firstChar = "a";
-
-    // console.log( disabledBikes );
-    // console.log( instructorBikes );
-
-    //Run into the DisabledBikes to obtain only the numbers
-    // for (var index = 0; index < disabledBikes.length; index++) {
-    //     console.log(Object.values(disabledBikes[index]));
-    // }
-    // function prueba(){
-    //     if($.inArray("1", disabledBikes) != -1){
-    //         return "encontrado";
-    //     } else{
-    //         return "pues no";
-    //     }
-    // }
-    // console.log("tipo:" + typeof Array.from(disabledBikes));
     var count = 1;
     var bikeNum = 1;
     for (var i = 0; i < number_of_rows; i++) {
-        // var trow = $("<tr>").attr("id", firstChar);
         var divr = $("<div>").attr("id", "divr" + i).attr("class", "col-md-12");
         for (var j = 0; j < number_of_cols; j++) {
             var classes = "bikes";
@@ -56,20 +37,9 @@ function drawMainBikes(x,y){
                 }
             }
             count++;
-            // var td = $("<td>").attr("id", firstChar + "" + j);
-            // var bicycle = $("<p>").attr("class", "bikes").text(firstChar + "" + j);
-            // td.append(bicycle);
-            // trow.append(td);
-            // console.log(j);
         }
-        // console.log(i);
         bikesContainer.append(divr);
-        // firstChar = nextChar(firstChar);
-        // tbody.append(trow);
     }
-    // console.log('ReservedPlaces: ' + reservedPlaces);
-    // console.log('DisabledBikes: ' + disabledBikes);
-    // console.log('InstructorBikes: ' + instructorBikes);
 }
 
 function tableCreate() {
@@ -96,30 +66,11 @@ function tableCreate() {
 
     table.append(tbody);
     $("#dinamicTable").append(table);
-    // for(var i = 0; i < 3; i++){
-    //     var tr = tbl.insertRow();
-    //     for(var j = 0; j < 2; j++){
-    //         if(i == 2 && j == 1){
-    //             break;
-    //         } else {
-    //             var td = tr.insertCell();
-    //             td.appendChild(document.createTextNode('Cell'));
-    //             td.style.border = '1px solid transparent';
-    //             if(i == 1 && j == 1){
-    //                 td.setAttribute('rowSpan', '2');
-    //                 td.id = 12;
-    //             }
-    //         }
-    //     }
-    // }
-    // body.appendChild(tbl);
 }
-// tableCreate();
 
 //IMPORTANTE
 drawMainBikes(x,y);
 
-// var bikes = $('.bikes');
 var selected;
 $(document).on("click", ".bikes", function(e) {
     e.preventDefault();
@@ -127,18 +78,10 @@ $(document).on("click", ".bikes", function(e) {
         var fullId = this.id;
         var splitedId = fullId.split("-");
         var ballId = splitedId[1];
-        // selected = $('.selected');
-        // selected.removeClass('selected');
-        // selected.addClass('bikes');
-        // $(this).removeClass('bikes');
-        // $(this).addClass('selected');
-        // $('#placeNum').html($(this).text());
         reservePlace(ballId, $(this), instructor);
-        // location.href='#packages';
     } else {
         $(this).removeClass('selected');
         $(this).addClass('bikes');
-        // $('#placeNum').html('--');
     }
 });
 

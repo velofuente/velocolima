@@ -432,7 +432,7 @@ class BookClassController extends Controller
                         'updateClass' => 1
                     ]);
                 }
-                if ($alreadyReserved && $alreadyReserved->status!='cancelled'){
+                if ($alreadyReserved && !in_array($alreadyReserved->status, ['cancelled', 'absent'])){
                     DB::commit();
                     return response()->json([
                         'status' => 'ERROR',
@@ -456,32 +456,6 @@ class BookClassController extends Controller
                 //obtiene el numero total de clases
                 $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->whereRaw("NOW() <= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->where('user_id', '=', "{$requestUser->id}")->groupBy("id")->get();
                 $classes = $numClases->sum("clases");
-                // log::info("B234");
-                /* if($classes == 1){
-                    // log::info("B234");
-                    $lastClassPurchase = Purchase::where('user_id', $requestUser->id)
-                    ->where('n_classes', "<>", 0)
-                    //->whereRaw("created_at < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
-                    //->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
-                    //->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
-                    ->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
-                    ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
-                    //verificar si el producto es diferente a clase
-                    if ($lastClassPurchase) {
-                        if($lastClassPurchase->product->id != 1){
-                            // log::info("ENVIANDO UN MENSAJE");
-                            //$promocion = Product::where('description', 'Clase adicional')->first();
-                            // Purchase::create([
-                            //     'product_id' => $promocion->id,
-                            //     'user_id' => $requestUser->id,
-                            //     'n_classes' => $promocion->n_classes,
-                            //     'expiration_days' => $promocion->expiration_days,
-                            //     'status' => 'pending',
-                            // ]);
-                            app('App\Http\Controllers\MailSendingController')->additionalFreeClass($requestUser->email,$requestUser->name);
-                        }
-                    }
-                } */
                 DB::commit();
                 return response()->json([
                     'status' => 'OK',
@@ -495,7 +469,7 @@ class BookClassController extends Controller
             }
         } else {
             if ($bookedClass->changedSit == 0) {
-                if ($alreadyReserved && $alreadyReserved->status!='cancelled') {
+                if ($alreadyReserved && !in_array($alreadyReserved->status, ['cancelled', 'absent'])) {
                     DB::commit();
                     return response()->json([
                         'status' => 'ERROR',
@@ -535,6 +509,7 @@ class BookClassController extends Controller
 
     public function absentUserClass(Request $request){
         // TODO: Revisar la condición if($requestedClass=='active' || $requestedClass!='active') en esta función, cancelClass y attendClass
+        //Recibir valor para indicar si se debe de consumir o no la clase
         $requestedClass = UserSchedule::find($request->schedule_id);
         if ($requestedClass == 'active' || $requestedClass != 'active') {
             $requestedClass->status = 'absent';
@@ -545,13 +520,11 @@ class BookClassController extends Controller
                 'message' => 'El usuario no asistió a la clase.',
             ]);
         } else {
-            // log::info($requestedClass);
             return response()->json([
                 'status' => 'ERROR',
                 'message' => 'Ocurrió un error al procesar la solicitud. Intenta refrescando la página.',
             ]);
         }
-        // log::info($requestedClass);
     }
 
     public function cancelClass(Request $request)
@@ -563,7 +536,7 @@ class BookClassController extends Controller
         $purchase = Purchase::with(["product" => function($query){$query->withTrashed();}])->find($requestedClass->purchase_id);
         $product = $purchase->product;
 
-        if($requestedClass->status == 'cancelled'){
+        if ($requestedClass->status == 'cancelled') {
             return response()->json([
                 'status' => 'OK',
                 'message' => 'Clase cancelada con éxito.',

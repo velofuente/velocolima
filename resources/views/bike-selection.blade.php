@@ -1,17 +1,7 @@
-@extends('layout')
+@extends('layouts.main')
 
 @section('title')
     Reservar Bici
-@endsection
-
-@section('extraStyles')
-    <link rel="stylesheet" href="{{asset('css/style-bike.css')}}">
-    <style>
-        #profilePic {
-            border-radius: 0px !important;
-            height: auto !important;
-        }
-    </style>
 @endsection
 
 @section('content')
@@ -21,12 +11,11 @@
     <div class="container-fluid main">
         <div class="select">
             <a href="/schedule" id="goBack">Volver al calendario</a>
-            <input type="hidden" id="schedule_id" value="{{$schedules->id}}">
+            <input type="hidden" id="schedule_id" value="{{ $schedules->id }}">
                 <div class="row">
                     <div class="col-md-6 col-xs-6 bnd" id="placeDate">
                         <?php setlocale(LC_TIME,'es_MX.utf8'); $dt = Carbon::now(); $inicio = strftime("%A %d de %B,", strtotime($schedules->day));?>
-                        <h6 class="col-md-6 col-xs-12 ml-0 first" id="branch">ESTUDIO: <span>{{$schedules->branch->name}}</span></h6>
-                        {{-- <h6 class="col-md-6 col-xs-12 first" id="date"> FECHA: <span>{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i A', strtotime($schedules->hour))}} </span></h6> --}}
+                        <h6 class="col-md-6 col-xs-12 ml-0 first" id="branch">ESTUDIO: <span>{{ $schedules->branch->name }}</span></h6>
                     </div>
                     <div class="col-2 col-xs-6"></div>
                     <div class="col col-xs-0" id="selectBikeLogo">
@@ -37,14 +26,13 @@
                 </div>
                 {{-- Displays the Date of the selected schedule on another row, now this can be displayed properly on mobile screens --}}
                 <div class="row">
-                    <h6 class="col-md-6 col-xs-12 first" id="date"> FECHA: <span>{{$inicio}}</span> <span> {{date('h', strtotime($schedules->hour))}}:{{date('i A', strtotime($schedules->hour))}} </span></h6>
+                    <h6 class="col-md-6 col-xs-12 first" id="date"> FECHA: <span>{{ $inicio }}</span> <span> {{ date('h', strtotime($schedules->hour)) }}:{{ date('i A', strtotime($schedules->hour)) }} </span></h6>
                 </div>
             <div class="description">
-                {{-- <img class="resClass" src="/img/iconos/2.png" alt=""> --}}
                 <span class="text-center text_gradient_bike_selection"> Reserva tu clase </span>
             </div>
-            @if(strlen($instructor->profile_image) > 0)
-                <img  id="profilePic" src="{{$instructor->profile_image}}" class="card-img-top" alt="{{$instructor->name}}">
+            @if (strlen($instructor->profile_image) > 0)
+                <img  id="profilePic" src="{{ $instructor->profile_image }}" class="card-img-top" alt="{{ $instructor->name }}">
             @else
                 <img id="profilePic" src="{{ asset('img/instructors/Instructor-Head.png') }}" alt="">
             @endif
@@ -56,7 +44,18 @@
         </div>
     </div>
     @include('packages')
-    @include('footer')
+    @include('partials.footer')
+@endsection
+
+
+@section('extraStyles')
+    <link rel="stylesheet" href="{{ asset('css/style-bike.css') }}">
+    <style>
+        #profilePic {
+            border-radius: 0px !important;
+            height: auto !important;
+        }
+    </style>
 @endsection
 
 @section('extraScripts')
@@ -79,6 +78,6 @@
         var cancelation_period = "{{ $schedules->branch->cancelation_period }}";
         var scheduleHourBeforeCancelation = "{{ $scheduleHourBeforeCancelation }}";
     </script>
-    <script src="{{asset('js/openpay-script.js')}}"></script> 
-    <script src="{{asset('js/bike-selection-script.js')}}?{{ time() }}"></script>
+    <script src="{{ asset('js/openpay-script.js') }}"></script>
+    <script src="{{ asset('js/bike-selection-script.js') }}?{{ time() }}"></script>
 @endsection
