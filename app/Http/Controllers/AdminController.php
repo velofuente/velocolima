@@ -308,10 +308,10 @@ class AdminController extends Controller
         $branch = Branch::find($schedule->branch_id);
         $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
         $unavailableBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedule->branch_id)->get()->pluck("position")->toArray());
-        $reservedPlaces = array_map('strval', UserSchedule::where("schedule_id", $schedule->id)->where("status", "<>", "cancelled")->get()->pluck("bike")->toArray());
+        $reservedPlaces = array_map('strval', UserSchedule::where("schedule_id", $schedule->id)->where("status", "<>", "cancelled")->where("status", "<>", "absent")->get()->pluck("bike")->toArray());
         for ($i = 1; $i < $temp; $i++) {
-            if (!in_array($i, $unavailableBikes))
-                if (!in_array($i, $reservedPlaces))
+            if(!in_array($i, $unavailableBikes))
+                if(!in_array($i, $reservedPlaces))
                     array_push($availableBikes, $i);
         }
         return $availableBikes;

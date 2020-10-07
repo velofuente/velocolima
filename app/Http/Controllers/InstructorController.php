@@ -71,7 +71,7 @@ class InstructorController extends Controller
         $instructor = Instructor::find($schedules->instructor_id);
         $branches = Branch::all();
         $products = Product::all();
-        $selectedBike = UserSchedule::where("user_id", $request->user()->id)->where("schedule_id", $schedules->id)->where("status", "<>", "cancelled")->first();
+        $selectedBike = UserSchedule::where("user_id", $request->user()->id)->where("schedule_id", $schedules->id)->where("status", "<>", "cancelled")->where("status", "<>", "absent")->first();
         $instructorBikes = Tool::select("position")->where("branch_id", $schedules->branch_id)->where("type", "instructor")->get()->pluck("position");
         $disabledBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedules->branch_id)->where("type", "disabled")->get()->pluck("position")->toArray());
         if ($selectedBike) {

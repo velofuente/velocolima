@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="col-xs-0 col-sm-0 col-md-1 col-lg-1 mx-auto"></div>
-        <button class="col-xs-12 col-sm-12 col-md-3 col-lg-3 btn btn-success mx-4" id="addOpUserButton" data-toggle="modal" data-target="#addOpUserModal">Añadir</button>
+        <button class="col-xs-12 col-sm-12 col-md-3 col-lg-3 btn btn-success mx-4" id="addOpUserButton" >Añadir</button>
     </div>
 
     {{-- Bike Grid & Table of Users--}}
@@ -394,12 +394,6 @@
                 $('a[id="'+schedule_id+'"]').addClass('active');
                 selected_schedule = null;
             }
-            // if (scheduleOperations){
-            //     schedule_id = scheduleOperations;
-            //     showClientsTable(scheduleOperations);
-            //     $('a[id="'+schedule_id+'"]').addClass('active');
-            //     scheduleOperations = null;
-            // }
 
             // Dropdown Selected Option
             $('.dropdown-menu a').click(function(){
@@ -436,6 +430,23 @@
                     $(this).prop("disabled", false);
                     console.log("Malformed ID");
                 }
+            });
+
+            $(document).on('click', '#addOpUserButton', function(e) {
+                console.log('clickAddOpUserButton');
+                if (schedule_id) {
+                    $.LoadingOverlay("show");
+                    getOperationBikes(schedule_id, true);
+                } else {
+                    Swal.fire({
+                        title: 'Selecciona una clase',
+                        text: 'Debes de seleccionar primero un horario',
+                        type: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+                //TODO: Obtener las sillas disponibles
+                //TODO: Mostrar el modal
             });
 
             //getuserinfo click
@@ -528,7 +539,6 @@
                     changeYear: true,
                     yearRange: '-110:+0',
                     dateFormat: 'yy-mm-dd',
-                    // showButtonPanel: true,
                 });
             }
 
@@ -568,13 +578,6 @@
                             "<td>"+element.price+"</td>"+
                             "<td>"+element.saleType+"</td>"+
                         "</tr>"
-                        //     "<li><ul>" +
-                        //     "<li>"+element.product_id+"</li>"+
-                        //     "<li>Venta: "+typeSale+"</li>"+
-                        //     "<li>Clases restantes: "+element.n_classes+"</li>"+
-                        //     "<li>Exipra en "+element.expiration_days+" dias</li>"+
-                        //     "<li>Realizada el:"+element.created_at+"</li>"+
-                        // "</ul></li>"
                     });
                     purchases_table +="</tbody></table>";
                     saleType = "";
@@ -643,10 +646,8 @@
             cols.forEach(element => {
                 // Hide a Column, which contains the Id of the User
                 cols[i].cells[5].style.display = 'none';
-                // cols[i].cells[6].style.display = 'none';
                 if (cols[i].cells[5].innerText != id) {
                     cols.item(i).style.display = 'none';
-                    // cols.item(i).remove();
                 } else {
                     // Array that contains the ID of the scheduled users
                     scheduled_users.push(cols[i].cells[6].innerText);
@@ -715,7 +716,7 @@
         }
 
         //AJAX Get Available Bikes
-        function getOperationBikes(id){
+        function getOperationBikes(id, showModal = false){
             $.ajax({
                 url: '/getOperationBikes',
                 type: 'POST',
@@ -730,8 +731,6 @@
                     $('#bikesSelect').empty();
                     $('#opRegBike').empty();
                     $.each(response, function(index, value){
-                        // $('#opRegBike').append('<option value="'+value+'">'+value+'</option>');
-                        // $('#bikesSelect').append('<option value="'+value+'">'+value+'</option>');
                         switch (value) {
                             case 2:
                                 $('#opRegBike').append('<option value="'+value+'">'+1+'</option>');
@@ -792,7 +791,11 @@
                             default:
                                 break;
                         }
-                    })
+                    });
+                    if (showModal) {
+                        $('#addOpUserModal').modal('show');
+                    }
+                    $.LoadingOverlay("hide");
                 },
                 error: function(response){
                     $.LoadingOverlay("hide");
@@ -877,6 +880,7 @@
                 }
             });
         }
+
         function attendClass(reservation_id, button){
             $.ajax({
                 url: '/attendClass',

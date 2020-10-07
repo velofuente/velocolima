@@ -40,7 +40,6 @@
                                     }
                                 @endphp
                                 @if ($profilePath)
-                                    <h1 style="color:white;"> @php echo $instructor->profile_image; @endphp</h1> --}}
                                     <img src="{{ $profilePath }}" class="card-img-top instructor-head" alt="{{ $instructor->name }}" onerror="this.src='/img/instructors/instructor-head-tall.png'; this.className='card-img-top'">
                                 @else
                                     <img src="/img/instructors/instructor-head-tall.png" class="card-img-top" alt="{{ $instructor->name }}">
