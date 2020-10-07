@@ -23,6 +23,7 @@
                                     unset($exists);
                                     $originalImage = str_replace('.png', '', $instructor->profile_image);
                                     $originalImage = str_replace('.jpg', '', $originalImage);
+                                    $originalImage = str_replace('.jpeg', '', $originalImage);
                                     $existsPng = file_exists(public_path().$originalImage.'.png');
                                     $existsJpg = file_exists(public_path().$originalImage.'.jpg');
                                     $existsJpeg = file_exists(public_path().$originalImage.'.jpeg');
@@ -39,7 +40,6 @@
                                     }
                                 @endphp
                                 @if ($profilePath)
-                                    {{-- <h1 style="color:white;"> @php echo json_encode($exists); @endphp</h1>
                                     <h1 style="color:white;"> @php echo $instructor->profile_image; @endphp</h1> --}}
                                     <img src="{{ $profilePath }}" class="card-img-top instructor-head" alt="{{ $instructor->name }}" onerror="this.src='/img/instructors/instructor-head-tall.png'; this.className='card-img-top'">
                                 @else
@@ -47,7 +47,7 @@
                                 @endif
                                 <div class="card-body">
                                     <p class="card-text text-center" id="instructorName">
-                                        {{ $instructor->name }} - {{ $instructor->id }}
+                                        {{ $instructor->name }}
                                     </p>
                                 </div>
                             </div>
