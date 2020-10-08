@@ -477,7 +477,7 @@ class BookClassController extends Controller
                     ]);
                 }
                 $changedSiteMessage = "Lugar cambiado con éxito.";
-                if ($bookedClass->status == 'cancelled') {
+                if (in_array($alreadyReserved->status, ['cancelled', 'absent'])) {
                     $bookedClass->status = 'active';
                     $bookedClass->bike = $request->bike;
                     $bookedClass->changedSit = 0;
@@ -614,7 +614,7 @@ class BookClassController extends Controller
             ->where('n_classes', "<>", 0)
             ->whereRaw("NOW() < DATE_ADD(created_at, INTERVAL expiration_days DAY)")
             ->orderByRaw('DATE_ADD(created_at, INTERVAL expiration_days DAY)')->first();
-            if ($alreadyReserved && $alreadyReserved->status != 'cancelled') {
+            if ($alreadyReserved && !in_array($alreadyReserved->status, ['cancelled', 'absent'])) {
                 DB::commit();
                 return response()->json([
                     'status' => 'ERROR',

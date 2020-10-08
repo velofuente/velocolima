@@ -209,9 +209,11 @@ function reservePlace(id, elementBall, instructor){
                 });
             } else {
                 $.LoadingOverlay("hide");
-                if (result.data.classLimit) {
-                    showSwalError("Error", result.message, false);
-                    return false;
+                if (typeof result.data != "undefined") {
+                    if (result.data.classLimit) {
+                        showSwalError("Error", result.message, false);
+                        return false;
+                    }
                 }
                 showSwalError("Error", result.message, true);
             }
