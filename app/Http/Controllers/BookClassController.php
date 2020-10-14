@@ -477,7 +477,7 @@ class BookClassController extends Controller
                     ]);
                 }
                 $changedSiteMessage = "Lugar cambiado con éxito.";
-                if (in_array($alreadyReserved->status, ['cancelled', 'absent'])) {
+                if (in_array($bookedClass->status, ['cancelled', 'absent'])) {
                     $bookedClass->status = 'active';
                     $bookedClass->bike = $request->bike;
                     $bookedClass->changedSit = 0;

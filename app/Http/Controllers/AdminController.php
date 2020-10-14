@@ -347,9 +347,8 @@ class AdminController extends Controller
     {
         $nonScheduledUsers = [];
         $users = User::orderBy("id")->get();
-        $temp = $users->count();
         $schedule = Schedule::find($request->schedule_id);
-        $instances = array_map('strval', UserSchedule::select("user_id")->where('schedule_id', $schedule->id)->orderBy("id")->get()->pluck("user_id")->toArray());
+        $instances = array_map('strval', UserSchedule::select("user_id")->where('schedule_id', $schedule->id)->whereNotIn('status', ['cancelled'])->orderBy("id")->get()->pluck("user_id")->toArray());
         foreach ($users as $user) {
             if (!in_array($user->id, $instances)) {
                 $nonScheduledUsers[] = $user;
