@@ -37,7 +37,7 @@ Route::get('/bike-selection/{schedules}', 'InstructorController@bikeSelection');
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Grupo de Middleware para Administradores
-Route::group(['middleware' => ['auth','admin.access']], function(){
+Route::group(['middleware' => ['auth', 'admin.access']], function () {
     // Admin Index
     Route::get('/admin', 'AdminController@index')->name('admin');
     // Show Pages (NEW STRUCTURE)
@@ -102,7 +102,7 @@ Route::group(['middleware' => ['auth','admin.access']], function(){
 });
 
 // Grupo de Middeleware para Usuarios Promedio
-Route::group(['middleware' => ['auth','user.access']], function(){
+Route::group(['middleware' => ['auth', 'user.access']], function () {
     Route::post('/api/validatePackageReservation', 'BookClassController@validatePackageReservation');
     Route::get('/user', 'UserController@index')->name('user')->middleware('auth');
     Route::resource('/user', 'UserController');
@@ -113,7 +113,7 @@ Route::group(['middleware' => ['auth','user.access']], function(){
     Route::post('/checkCancelLimit', 'BookClassController@checkCancelLimit');
     Route::post('/claimClass', 'BookClassController@claimClass');
     //OPENPAY
-    Route::post('/addCard','OpenPayController@addCustomerCard');
+    Route::post('/addCard', 'OpenPayController@addCustomerCard');
     Route::post('/makeCharge', 'OpenPayController@makeChargeCustomer');
     Route::post('/makeChargeCard', 'OpenPayController@makeChargeCard');
     Route::post('/deleteUserCard', 'CardController@deleteUserCard');
