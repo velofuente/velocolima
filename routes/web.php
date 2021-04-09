@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth', 'admin.access']], function () {
     Route::get('/admin/branches', 'AdminController@showBranches')->name('admin/branches');
     Route::get('/admin/products', 'AdminController@showProducts')->name('admin/products');
     Route::get('/admin/users', 'AdminController@showUsers')->name('admin/users');
+    Route::get('/admin/all-users', 'AdminController@showAllUsers')->name('admin/all-users');
     Route::get('/admin/clients', 'AdminController@showClients')->name('admin/clients');
     Route::get('/admin/operations/{selected_schedule}', 'AdminController@showOperationsGrid');
     Route::get('/admin/operations', 'AdminController@showOperationsGrid');
@@ -99,6 +100,9 @@ Route::group(['middleware' => ['auth', 'admin.access']], function () {
     Route::post('/sale', 'AdminController@sale');
     //Clientes
     Route::post('/addClient', 'AdminController@addClient');
+
+    //DataTables ajax
+    Route::get('datatable/users','DatatableController@user')->name('datatable.users');
 });
 
 // Grupo de Middeleware para Usuarios Promedio

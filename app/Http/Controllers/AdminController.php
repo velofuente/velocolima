@@ -142,6 +142,12 @@ class AdminController extends Controller
         return view('/admin/users', compact('users'));
     }
 
+    public function showAllUsers()
+    {
+        $users = User::where('role_id', 3)->get();
+        return view('/admin/all-users', compact('users'));
+    }
+
     public function showClients()
     {
         $products = Product::where('status', 1)->get();
@@ -858,7 +864,7 @@ class AdminController extends Controller
         ]);
     }
     public function deleteUser(Request $request)
-    {
+    {  
         DB::beginTransaction();
         $User = User::find($request->user_id);
         $User->delete();

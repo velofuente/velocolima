@@ -14,6 +14,7 @@
                 <a id="operations"><li>Operaciones</li></a>
                 <a id="sales"><li>Ventas</li></a>
                 <a id="reports"><li>Reportes</li></a>
+                <a id="all-users"><li>Clientes</li></a>
                 <br style="cursor: none;">
                 <br style="cursor: none;">
                 <a id="logout-button">
