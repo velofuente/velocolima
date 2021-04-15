@@ -847,21 +847,23 @@ class AdminController extends Controller
         ]);
     }
     public function editUser(Request $request)
-    {
-        DB::beginTransaction();
-        $User = User::find($request->user_id);
-        $User->name = $request->name;
-        $User->last_name = $request->last_name;
-        $User->email = $request->email;
-        $User->phone = $request->phone;
-        $User->birth_date = $request->birth_date;
-        $User->gender = $request->gender;
-        $User->save();
-        DB::commit();
-        return response()->json([
-            'status' => 'OK',
-            'message' => "Usuario editado con éxito",
-        ]);
+    {    
+            DB::beginTransaction();
+            $User = User::find($request->user_id);
+            $User->name = $request->name;
+            $User->last_name = $request->last_name;
+            $User->gender = $request->gender;
+            $User->password = Hash::make($request->password);
+            // $User->password = $request->password;
+            $User->email = $request->email;
+            $User->birth_date = $request->birth_date;
+            $User->phone = $request->phone;
+            $User->save();
+            DB::commit();
+            return response()->json([
+                'status' => 'OK',
+                'message' => "Usuario editado con éxito",
+            ]);
     }
     public function deleteUser(Request $request)
     {  

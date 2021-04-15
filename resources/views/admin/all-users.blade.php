@@ -735,19 +735,33 @@ $(document).ready(function (){
                     var pass2 = $('#editUserPassword2').val();
                     //console.log(pass1);
                     //console.log(pass2);
-                    if (pass1 == pass2 &&  pass1 != '' && pass2 != '' ) {
-                        $('#mensaje_error').hide();
-                        $('#mensaje_error').attr("class", "control-label valid-feedback");
-                        $('#mensaje_error').show();
-                        $('#mensaje_error').html("&#10004;");
-                        $('#editUserButton').prop("disabled", false)
-                    }else if(pass1 == '' && pass2 == ''){
-                        $('#mensaje_error').hide();
-                    }
-                    else {
-                        $('#mensaje_error').attr("class", "control-label col-md-12 invalid-feedback");
-                        $('#mensaje_error').html("Las contraseñas no coinciden");
-                        $('#mensaje_error').show();
+
+                    if (pass1 != '' && pass2 != '') {
+                        
+                        if (pass1.length >= 6 && pass2.length >= 6){
+
+                            if(pass1 != pass2){
+                                $('#mensaje_error').attr("class", "control-label col-md-12 invalid-feedback");
+                                $('#mensaje_error').html("Las contraseñas no coinciden");
+                                $('#mensaje_error').show();
+                                $('#editUserButton').prop("disabled", true)
+                            }else{
+                                $('#mensaje_error').hide();
+                                $('#mensaje_error').attr("class", "control-label valid-feedback");
+                                $('#mensaje_error').show();
+                                $('#mensaje_error').html("&#10004;");
+                                $('#editUserButton').prop("disabled", false)
+                            }
+
+                        }else{
+                            $('#mensaje_error').attr("class", "control-label col-md-12 invalid-feedback");
+                            $('#mensaje_error').html("Debe tener mínimo 6 caracteres");
+                            $('#mensaje_error').show();
+                            $('#editUserButton').prop("disabled", true)
+                        }
+                        
+                    }else {
+                        $('#mensaje_error').hide();    
                         $('#editUserButton').prop("disabled", true)
                     }
                 }
