@@ -116,18 +116,10 @@ class UserController extends Controller
             'customer_id' => null,
             'role_id' => 3,
         ]);
-        $user->save();
-        $product = DB::table('products')->where('id', 1)->first();
-        $deal = new Purchase([
-            'product_id' => $product->id,
-            'user_id' => $user->id,
-            'n_classes' => $product->n_classes,
-            'expiration_days' => $product->expiration_days,
-        ]);
-        $deal->save();
-        Session::flash('alertTitle', "Clase gratis");
-        Session::flash('alertMessage', "Gracias por unirte a Vèlo, tu primera clase va por nuestra cuenta");
-        Session::flash('alertType', "success");
+        $user->save();        
+        Session::flash('alertTitle', "Registro exitoso");
+        Session::flash('alertMessage', "Gracias por unirte a Vèlo");
+        Session::flash('alertType', "success");        
         Auth::login($user);
         return redirect()->route('home')->with('success','Data Added');
     }
