@@ -180,8 +180,82 @@
 @endsection
 
 @section('extraScripts')
-    <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
-    <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
+<script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
+<script type="text/javascript">
+    $(document).ready(()=>{
+        let product_id = null;
+        $(document).on("click", ".pickClass", function(e) {
+            var elementId = this.id;
+            elementExploded = elementId.split("-");
+            product_id  = elementExploded[1];
+            console.log(product_id);
+        })
+        Conekta.setPublicKey('{{ env('CONEKTA_PUBLIC_KEY') }}');
+      
+      
+        let conektaSuccessResponseHandler = function(token) {
+          let $form = $("#card-form");
+          //Inserta el token_id en la forma para que se envíe al servidor
+          $form.append($('<input type="hidden" name="conektaTokenId" id="conektaTokenId">').val(token.id));
+          $form.append($('<input type="hidden" name="brand_card" id="brand_card">').val(Conekta.card.getBrand($("#cardNumber").val())));
+          $form.append($('<input type="hidden" name="product_id" id="product_id">').val(product_id));
+          $.ajax({
+            beforeSend: function(){
+                $("#payment-button").prop("disabled", true);
+                $.LoadingOverlay("show");
+            },
+            url: "/conekta/checkout",
+            method:'POST',
+            data: $form.serialize(),
+          }).done((response) => {
+            if(response.status == true){
+                $("#payment-button").prop("disabled", false);
+                $.LoadingOverlay("hide");
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }else{
+                Swal.fire({
+                    title: 'Error',
+                    text: response.message,
+                    type: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+          });
+/*           $form.get(0).submit();   *////Hace submit
+        };
+        let conektaErrorResponseHandler = function(response) {
+          let $form = $("#card-form");
+          $form.find(".card-errors").text(response.message_to_purchaser);
+          $form.find("button").prop("disabled", false);
+        };
+      
+      $("#payment-button").click(()=>{
+        if($("#cardOwner").val() && $("#cardNumber").val() && $("#Code").val() && $("#monthExpiration").val() && $("#yearExpiration").val()){
+            $("#card-form").submit();
+        }else{
+           $(".card-errors").text('No deje campos vacíos');
+        } 
+      });
+        //jQuery para que genere el token después de dar click en submit
+        $(function () {
+          $("#card-form").submit(function(event) {
+            let $form = $(this);
+            // Previene hacer submit más de una vez
+            $form.find("button").prop("disabled", true);
+            Conekta.Token.create($form, conektaSuccessResponseHandler, conektaErrorResponseHandler);
+            return false;
+          });
+        });
+    });
+  </script>
+{{-- <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
+<script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
     <script type="text/javascript">
         var crfsToken = '{{ csrf_token() }}';
         var opId = "{{ env('OPENPAY_ID') }}";
@@ -189,5 +263,5 @@
         var opSandbox = "{{ env('OPENPAY_SANDBOX') }}";
     </script>
     <script src="{{ asset('js/openpay-script.js') }}"></script>
-    <script src="{{ asset('/js/schedule-script.js') }}"></script>
+    <script src="{{ asset('/js/schedule-script.js') }}"></script> --}}
 @endsection

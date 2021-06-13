@@ -116,6 +116,8 @@ Route::group(['middleware' => ['auth', 'user.access']], function () {
     Route::post('/cancelClass', 'BookClassController@cancelClass');
     Route::post('/checkCancelLimit', 'BookClassController@checkCancelLimit');
     Route::post('/claimClass', 'BookClassController@claimClass');
+    //CONEKTA
+    Route::post('/conekta/checkout', 'ConektaController@checkout');
     //OPENPAY
     Route::post('/addCard', 'OpenPayController@addCustomerCard');
     Route::post('/makeCharge', 'OpenPayController@makeChargeCustomer');

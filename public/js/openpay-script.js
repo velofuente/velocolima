@@ -255,9 +255,10 @@ function makeChargeSavedCard(){
 }
 
 
-$(document).on("click", ".pickClass", function(e) {
+/* $(document).on("click", ".pickClass", function(e) {
     var elementId = this.id;
     elementExploded = elementId.split("-")
-    product_id = elementExploded[1];
+    
+     = elementExploded[1];
     console.log(product_id);
-})
+}) */
