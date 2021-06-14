@@ -182,8 +182,8 @@
 @section('extraScripts')
 <script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
 <script type="text/javascript">
+    let product_id = null;
     $(document).ready(()=>{
-        let product_id = null;
         $(document).on("click", ".pickClass", function(e) {
             var elementId = this.id;
             elementExploded = elementId.split("-");
@@ -212,13 +212,22 @@
                 $("#payment-button").prop("disabled", false);
                 $.LoadingOverlay("hide");
                 $('#newCardChargeModal').modal('hide');
-                Swal.fire({
+                const Toast = Swal.mixin({
+                    toast: true,
                     position: 'top-end',
-                    icon: 'success',
-                    title: response.message,
                     showConfirmButton: false,
-                    timer: 1500
-                })
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+
+                Toast.fire({
+                    icon: 'success',
+                    title: response.message
+                });
             }else{
                 $.LoadingOverlay("hide");
                 Swal.fire({
@@ -254,7 +263,75 @@
             return false;
           });
         });
+
+        $('#pay-selected-card-button').click(()=> {
+            makeCharge();
+        });
+
+        $('#use-new-card-button').click(() => {
+            $('#savedCardsModal').modal('hide');
+            $('#newCardChargeModal').modal('show');
+        });
+
+            
     });
+
+    function makeCharge(){
+        const card_id = $('#selectSavedCard').val();
+        $.ajax({
+            url: "/conekta/charge/create",
+            method: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}",
+                product_id: product_id,
+                card_id:  card_id
+            },
+            beforeSend: function(){
+                $.LoadingOverlay("show");
+            },
+            success: function(response){
+            $.LoadingOverlay("hide");
+            $("#pay-button").prop( "disabled", false);
+            if(response.status == true){
+                $("#payment-button").prop("disabled", false);
+                $.LoadingOverlay("hide");
+                $('#savedCardsModal').modal('hide');
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+
+                Toast.fire({
+                    icon: 'success',
+                    title: response.message
+                });
+            }else{
+                $.LoadingOverlay("hide");
+                Swal.fire({
+                    title: 'Error',
+                    text: response.message,
+                    type: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+            },
+            error: function (result) {
+                $("#pay-selected-card-button").prop( "disabled", false);
+            },
+            failure: function (result) {
+                $("#pay-selected-card-button").prop( "disabled", false);
+                //swal error de comunicación
+                alert("Ocurrió un error en el pago, por favor intente de nuevo");
+            }
+        });
+    }
   </script>
 {{-- <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
 <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>

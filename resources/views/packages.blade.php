@@ -144,8 +144,7 @@
                                     <button type="button" class="button" id="use-new-card-button">Usar nueva tarjeta</button>
                                 </div>
                                 <div class="">
-                                    <input type="checkbox" class="buy-conditions" name="conditions" id="conditions" required>
-                                    <label for="conditions" class="conditions">Acepto <a href="/legales" target="_blank">términos y condiciones</a></label>
+                                    <label for="conditions" class="conditions">AL dar click en "Comprar" acepta nuestros <a href="/legales" target="_blank">términos y condiciones</a></label>
                                 </div>
 
                                 <div class="OpenpayAdvice">
