@@ -126,7 +126,7 @@
                         @endforeach
                     </div>
                     {{-- End Print Card --}}
-                    <a class="btn bg-white text-dark text-center mb-2 mt-3 w-75 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></a>
+ {{--                    <a class="btn bg-white text-dark text-center mb-2 mt-3 w-75 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></a> --}}
                 </div>
             </div>
             {{-- Classes Buttons --}}

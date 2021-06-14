@@ -229,6 +229,8 @@
                     title: response.message
                 });
             }else{
+                $("#payment-button").prop("disabled", false);
+                $('#newCardChargeModal').modal('hide');
                 $.LoadingOverlay("hide");
                 Swal.fire({
                     title: 'Error',
@@ -313,6 +315,8 @@
                     title: response.message
                 });
             }else{
+                $("#payment-button").prop("disabled", false);
+                $('#savedCardsModal').modal('hide');
                 $.LoadingOverlay("hide");
                 Swal.fire({
                     title: 'Error',
