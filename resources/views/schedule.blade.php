@@ -211,6 +211,7 @@
             if(response.status == true){
                 $("#payment-button").prop("disabled", false);
                 $.LoadingOverlay("hide");
+                $('#newCardChargeModal').modal('hide');
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -219,6 +220,7 @@
                     timer: 1500
                 })
             }else{
+                $.LoadingOverlay("hide");
                 Swal.fire({
                     title: 'Error',
                     text: response.message,

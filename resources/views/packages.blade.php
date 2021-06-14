@@ -149,8 +149,8 @@
                                 </div>
 
                                 <div class="OpenpayAdvice">
-                                    <img style="width: 30%; height: 30%" name="Openpay" src="/img/iconos/OPENPAY_oscuro.png" alt="Openpay"><br />
-                                    <label for="Openpay" style="font-size: 14px;">Transacciones realizadas vía Openpay</label>
+                                    <img style="width: 30%; height: 30%" name="Openpay" src="/img/iconos/conekta-logo-fondo-negro.png" alt="Openpay"><br />
+                                    <label for="Openpay" style="font-size: 14px;">Transacciones realizadas vía Conekta</label>
                                 </div>
 
                             </form>
@@ -224,7 +224,7 @@
 
                                 <div class="OpenpayAdvice">
                                     <img style="width: 30%; height: 30%" name="CONEKTA" src="/img/iconos/conekta-logo-fondo-negro.png" alt="Openpay"><br />
-                                    <label for="Openpay" style="font-size: 14px;">Transacciones realizadas vía CONEKTA</label>
+                                    <label for="Openpay" style="font-size: 14px;">Transacciones realizadas vía Conekta</label>
                                 </div>
                             </form>
                     </div>

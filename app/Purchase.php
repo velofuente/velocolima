@@ -25,4 +25,8 @@ class Purchase extends Model
     public function sales() {
         return $this->hasOne(Sale::class, 'purchase_id', 'id');
     }
+
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
 }
