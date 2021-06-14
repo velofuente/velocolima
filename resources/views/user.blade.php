@@ -126,7 +126,7 @@
                         @endforeach
                     </div>
                     {{-- End Print Card --}}
-                    <a class="btn bg-white text-dark text-center mb-2 mt-3 w-75 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></a>
+ {{--                    <a class="btn bg-white text-dark text-center mb-2 mt-3 w-75 d-block mx-auto" data-toggle="modal" data-target="#addCardModal" role="button"><span>+ Añadir tarjeta</span></a> --}}
                 </div>
             </div>
             {{-- Classes Buttons --}}
@@ -451,8 +451,8 @@
                                 @csrf
                                 <input type="hidden" name="token_id" id="token_id">
                                 <input type="hidden" name="device_session_id" id="device_session_id">
-                                <input type="hidden" name="tokenBearer" id="tokenBearer" value="{{ Session::get("tokenBearer")[0]}}">
-                                <input type="hidden" name="tokenBearer" id="csrfToken" value="{{ csrf_token() }}">
+                                {{-- <input type="hidden" name="tokenBearer" id="tokenBearer" value="{{ Session::get("tokenBearer")[0]}}"> --}}
+                                {{-- <input type="hidden" name="tokenBearer" id="csrfToken" value="{{ csrf_token() }}"> --}}
                             <div class="row justify-content-center">
                                 <img class="cards" src="/img/iconos/VISA.png" alt="visa">
                                 <img class="cards" src="/img/iconos/MASTER.png" alt="mastercard" >

@@ -21,7 +21,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'last_name', 'email', 'password', 'birth_date', 'phone', 'gender', 'shoe_size', 'role_id', 'id_cart', 'share_code','customer_id',//'weight', 'height',
+        'name', 'last_name', 'email', 'password', 'birth_date', 'phone', 'gender', 'shoe_size', 'role_id', 'id_cart', 'share_code','customer_id','conekta_token_user_id'//'weight', 'height',
     ];
 
     /**
@@ -53,5 +53,13 @@ class User extends Authenticatable implements JWTSubject
     }
     public function purchase(){
         return $this->hasMany(Purchase::class, 'user_id', 'id');
+    }
+
+    public function cards(){
+        return $this->hasMany(Card::class);
+    }
+
+    public function attempts(){
+        return $this->hasMany(CardAttempt::class);
     }
 }

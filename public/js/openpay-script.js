@@ -27,10 +27,10 @@ $('#device_session_id').val(device_session_id);
 //Bearer en Variable del Script
 
 // Close Select Card Modal and Open No-Card Modal
-$('#use-new-card-button').on('click', function(event) {
+/* $('#use-new-card-button').on('click', function(event) {
     $('#savedCardsModal').modal('hide');
     $('#newCardChargeModal').modal('show');
-});
+}); */
 
 $('#pay-button').on('click', function(event) {
     event.preventDefault();
@@ -38,13 +38,13 @@ $('#pay-button').on('click', function(event) {
     OpenPay.token.extractFormAndCreate('payment-form', sucess_callbak, error_callbak);
 });
 
-$('#pay-selected-card-button').on('click', function(event) {
+/* $('#pay-selected-card-button').on('click', function(event) {
     event.preventDefault();
     $("#pay-selected-card-button").prop( "disabled", true);
     conditions = document.getElementsByClassName("buy-conditions")[0].checked;
     card_id = $('#selectSavedCard').val();
     makeChargeSavedCard();
-});
+}); */
 
 var sucess_callbak = function(response) {
     token_id = response.data.id;
@@ -255,9 +255,10 @@ function makeChargeSavedCard(){
 }
 
 
-$(document).on("click", ".pickClass", function(e) {
+/* $(document).on("click", ".pickClass", function(e) {
     var elementId = this.id;
     elementExploded = elementId.split("-")
-    product_id = elementExploded[1];
+    
+     = elementExploded[1];
     console.log(product_id);
-})
+}) */

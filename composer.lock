@@ -4,8 +4,60 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "346baa9303f77ed743c1bf0fcbeda45c",
+    "content-hash": "eb36113b5c2347eabebb7075a5d81b47",
     "packages": [
+        {
+            "name": "conekta/conekta-php",
+            "version": "v4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/conekta/conekta-php.git",
+                "reference": "6122a1a532cc0d8940a334b3f9375152431d0781"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/conekta/conekta-php/zipball/6122a1a532cc0d8940a334b3f9375152431d0781",
+                "reference": "6122a1a532cc0d8940a334b3f9375152431d0781",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~8"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/Conekta/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Conekta  and contributors",
+                    "homepage": "https://github.com/conekta/conekta-php/contributors"
+                }
+            ],
+            "description": "Conekta PHP Library",
+            "homepage": "https://www.conekta.io/",
+            "keywords": [
+                "api",
+                "conekta",
+                "payment processing"
+            ],
+            "support": {
+                "issues": "https://github.com/conekta/conekta-php/issues",
+                "source": "https://github.com/conekta/conekta-php/tree/v4.3.0"
+            },
+            "time": "2020-09-23T20:21:49+00:00"
+        },
         {
             "name": "defuse/php-encryption",
             "version": "v2.2.1",
@@ -6936,5 +6988,5 @@
         "php": "^7.1.3"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
