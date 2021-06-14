@@ -881,6 +881,8 @@ class AdminController extends Controller
         try {
             $admin = $request->user();
             $product = Product::where('id', "{$request->product_id}")->first();
+            logger()->info('sale');
+            logger()->info($request);
             DB::beginTransaction();
             $purchase = Purchase::create([
                 'product_id' => $product->id,

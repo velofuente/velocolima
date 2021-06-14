@@ -9,7 +9,7 @@
         <td class='userRow' id='{{$row->id}}'>{{ $row->shoe_size }}</td>
         <td class='userRow' id='{{$row->id}}'>{{ ($row->availableClasses->clases) ? $row->availableClasses->clases : 'N/D' }}</td>
         <td class='userRow' id='{{$row->id}}'>{{ ($row->bookedClasses) ? $row->bookedClasses : 'N/D' }}</td>
-        <td><button class="btn btn-success btn-sm salesUser" id="salesUser-{{ $row->id }}" value="{{$row->id}}" data-toggle="modal" data-target="#addSaleUserModal">Venta</button></td>
+        <td><button class="btn btn-success btn-sm salesUser" onclick="client_id = {{$row->id}}" id="salesUser-{{ $row->id }}" value="{{$row->id}}" data-toggle="modal" data-target="#addSaleUserModal">Venta</button></td>
     </tr>
 @endforeach
 <tr>
@@ -108,6 +108,7 @@
             // console.log(splitedId);
             var userId = splitedId[1];
             client_id = userId;
+            console.log('cliente id' +  client_id);
         } else {
             $(this).prop("disabled", false)
             console.log("Malformed ID")
