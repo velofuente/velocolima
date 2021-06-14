@@ -146,7 +146,7 @@
             electrónico que usted haya proporcionado a través del Sitio Web. El costo de los Servicios
             causa Impuesto al Valor Agregado. En todo caso, usted será responsable del pago puntual de
             todos los Servicios que solicite. Los pagos y cargos realizados no son reembolsables. VELO
-            Cycling podrá utilizar procesadores de pagos de terceros (OpenPay) para vincular
+            Cycling podrá utilizar procesadores de pagos de terceros (Conekta) para vincular
             su tarjeta de crédito o el medio de pago electrónico que nos proporcione a su nombre de
             usuario y contraseña en el Sitio Web. El procesamiento de pagos, con respecto al uso que
             haga de los Servicios estará sujeto a las condiciones y políticas de privacidad del Procesador

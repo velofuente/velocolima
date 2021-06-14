@@ -15,7 +15,6 @@ class CreateCardAttemptsTable extends Migration
     {
         Schema::create('card_attempts', function (Blueprint $table) {
             $table->smallIncrements('id');
-            $table->string('card_number')->nullable(false)->unique();
             $table->integer('user_id')->nullable(false);
             $table->tinyInteger('attempts')->default(0);
             $table->date('date')->nullable(false);

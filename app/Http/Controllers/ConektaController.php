@@ -21,7 +21,7 @@ class ConektaController extends Controller
       $source;
       Conekta::setApiKey(env('CONEKTA_PRIVATE_KEY'));
       Conekta::setApiVersion("2.0.0");
-      if($this->isCardAbleToProcess($request->number)){
+      if($this->isCardAbleToProcess($user->id)){
         if($product){
           if(!$user->conekta_token_user_id){
             try {
@@ -106,12 +106,12 @@ class ConektaController extends Controller
           return ['status' => false, 'code' => 404 ,'message' => 'No se encontró el producto', 'data' => ''];
         }
       }else{
-        return ['status' => false, 'code' => 404 ,'message' => 'Ha superado el limite de intentos por tarjeta, vuelva intetar nuevamente en 24 horas (Después de: '.Carbon::now()->addHours(24)->format('d/m/Y H:i').') o prueba con otro tarjeta', 'data' => ''];
+        return ['status' => false, 'code' => 404 ,'message' => 'Ha superado el limite de intentos por día, vuelva intetar nuevamente en 24 horas (Después de: '.Carbon::now()->addHours(24)->format('d/m/Y h:i a').') o prueba con otro tarjeta', 'data' => ''];
       }
     }
 
-    private function isCardAbleToProcess($cardNumber){
-      $attemptsCard = CardAttempt::where('card_number', $cardNumber)->whereDate('date', Carbon::now())->first();
+    private function isCardAbleToProcess($userId){
+      $attemptsCard = CardAttempt::where('user_id', $userId)->whereDate('date', Carbon::now())->first();
       if(!$attemptsCard){
         return true;
       }else if($attemptsCard->attempts < env('ATTEMPTS_ALLOWED_CARD', 3)){
@@ -121,7 +121,7 @@ class ConektaController extends Controller
       }
     }
     private function addAttemptCard($request, $user){
-      $cardAttempt = CardAttempt::where('card_number', $request->number)->first();
+      $cardAttempt = CardAttempt::where('user_id', $user->id)->first();
       if($cardAttempt){
         if($cardAttempt->date->format('Y-m-d') == Carbon::now()->format('Y-m-d')){
           $cardAttempt->attempts += 1;
@@ -132,7 +132,7 @@ class ConektaController extends Controller
           $cardAttempt->save();
         }
       }else{
-        CardAttempt::create(['card_number' => $request->number, 'user_id' => $user->id, 'attempts' => 1, 'date' => Carbon::now()]);
+        CardAttempt::create(['user_id' => $user->id, 'attempts' => 1, 'date' => Carbon::now()]);
       } 
     }
 
@@ -172,11 +172,11 @@ class ConektaController extends Controller
               ]
             );
           } catch (\Conekta\ProcessingError $error){
-          return ['status' => false, 'code' => $error->getCode() ,'message' => $error, 'data' => ''];
+          return ['status' => false, 'code' => $error->getCode() ,'message' =>  json_decode($error->errorStack)->details[0]->message, 'data' => ''];
           } catch (\Conekta\ParameterValidationError $error){
-          return ['status' => false, 'code' => $error->getCode() ,'message' =>$error, 'data' => ''];
+          return ['status' => false, 'code' => $error->getCode() ,'message' => json_decode($error->errorStack)->details[0]->message, 'data' => ''];
           } catch (\Conekta\Handler $error){
-          return ['status' => false, 'code' => $error->getCode() ,'message' =>$error, 'data' => ''];
+          return ['status' => false, 'code' => $error->getCode() ,'message' => 'Ocurrió un error al procesar el pago, intente más tarde o use otra tarjeta', 'data' => ''];
           } 
           $purchase = $this->createPurchase($user, $product, $card);
           $this->createOrder($purchase, $order);
