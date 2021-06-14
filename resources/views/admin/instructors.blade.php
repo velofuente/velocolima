@@ -384,20 +384,16 @@
                 //Split the ID of the fullId by his dash
                 var splitedId = fullId.split("-");
                 if (splitedId.length > 1) {
-                    // console.log(splitedId);
                     var instructorId = splitedId[1];
                     getInstructorSchedule(instructorId, this);
-                    // deleteInstructor(instructorId, this);
                 } else {
                     $(this).prop("disabled", false)
                     console.log("Malformed ID")
                 }
-                // $('#deleteInstructorButton').attr('disabled', true);
             })
 
             //OnClick editInstructor Button
             $('.editInstructor').on('click', function () {
-                // $(this).prop('disabled', true);
                 event.preventDefault();
 
                 //Get Full ID of the button (which contains the instructor ID)
@@ -405,9 +401,7 @@
                 //Split the ID of the fullId by his dash
                 var splitedId = fullId.split("-");
                 if (splitedId.length > 1) {
-                    // console.log(splitedId);
                     var instructorId = splitedId[1];
-                    // editInstructor(instructorId, this);
                 } else {
                     $(this).prop("disabled", false)
                     console.log("Malformed ID")
@@ -483,7 +477,6 @@
                         $.LoadingOverlay("hide");
                         if(result.status == "OK"){
                             $('.modal-backdrop').remove();
-                            // $('.active-menu').trigger('click');
                             $('#addInstructorModal').modal('hide');
                             // Clear the modal inputs
                             $('#nameInstructor').val('');
@@ -561,7 +554,6 @@
             }
 
             function deleteInstructor(instructor_id, button){
-                // instructor_id = $('#deleteInstructorButton').val();
                 Swal.fire({
                     title: '¿Estás seguro?',
                     text: "¡No se podrán revertir los cambios!",
@@ -589,7 +581,6 @@
                                 $.LoadingOverlay("hide");
                                 if (result.status == "OK") {
                                     $('.modal-backdrop').remove();
-                                    // $('.active-menu').trigger('click');
                                     Swal.fire({
                                         title: 'Instructor Eliminado',
                                         text: result.message,

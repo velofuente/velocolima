@@ -69,197 +69,215 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{-- <form method="POST" action="{{ route('addProduct') }}" class="registration"> --}}
-                        @csrf
-                        {{-- Product's Type --}}
-                        <div class="form-group row mb-3">
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                            <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                                <label for="typeProduct">Tipo de producto: </label>
-                                <select name="typeProduct" id="typeProduct">
-                                    <option value="Deals" class="text-center">Promoción</option>
-                                    <option value="Packages" class="text-center">Paquete</option>
-                                    <option value="Souvenir" class="text-center">Mercancía</option>
-                                    <option value="Free" class="text-center">Clase Gratis</option>
-                                </select>
-                            </div>
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    {{-- Product's Type --}}
+                    <div class="form-group row mb-3">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="typeProduct">Tipo de producto: </label>
+                            <select name="typeProduct" id="typeProduct">
+                                <option value="Deals" class="text-center">Promoción</option>
+                                <option value="Packages" class="text-center">Paquete</option>
+                                <option value="Souvenir" class="text-center">Mercancía</option>
+                                <option value="Free" class="text-center">Clase Gratis</option>
+                            </select>
                         </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
 
-                        {{-- Product's n_classes --}}
-                        <div class="form-group row mb-1" id="divClassesQuantity">
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                            <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                                <label for="nClasses" class="mr-sm-2">Cantidad de clases:</label>
-                                <input id="nclassesProduct" type="number" placeholder="Cantidad de Clases" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus >
-                                @if ($errors->has('name'))
+                    {{-- Product's n_classes --}}
+                    <div class="form-group row mb-1" id="divClassesQuantity">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="nClasses" class="mr-sm-2">Cantidad de clases:</label>
+                            <input id="nclassesProduct" type="number" placeholder="Cantidad de Clases" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus >
+                            @if ($errors->has('name'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+
+                    {{-- Product's Price --}}
+                    <div class="form-group row mb-3">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="price" class="mr-sm-2">Precio:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-secondary bg-white">$</span>
+                                </div>
+                                <input id="priceProduct" placeholder="Precio" type="number" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{ old('price') }}" required autofocus>
+                                @if ($errors->has('price'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('price') }}</strong>
                                     </span>
                                 @endif
-                            </div>
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                        </div>
-                        {{-- Product's Price --}}
-                        <div class="form-group row mb-3">
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                            <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                                <label for="price" class="mr-sm-2">Precio:</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text text-secondary bg-white">$</span>
-                                    </div>
-                                    <input id="priceProduct" placeholder="Precio" type="number" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{ old('price') }}" required autofocus>
-                                    @if ($errors->has('price'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('price') }}</strong>
-                                        </span>
-                                    @endif
-                                    <div class="input-group-append">
-                                        <span class="input-group-text text-secondary bg-white">MX</span>
-                                    </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text text-secondary bg-white">MX</span>
                                 </div>
                             </div>
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         </div>
-                        {{-- Product's Description --}}
-                        <div class="form-group row mb-3">
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                            <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                                <label for="description" class="mr-sm-2">Descripción:</label>
-                                <input id="Description" placeholder="Descripción" type="text" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" value="{{ old('description') }}" required>
-                                @if ($errors->has('description'))
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+
+                    {{-- Product's Description --}}
+                    <div class="form-group row mb-3">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="description" class="mr-sm-2">Descripción:</label>
+                            <input id="Description" placeholder="Descripción" type="text" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" value="{{ old('description') }}" required>
+                            @if ($errors->has('description'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('description') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <label for="descriptionInput" class="font-weight-light text-center mx-auto" style="font-size: 14px">(máximo 20 caracteres)</label>
+                    </div>
+
+                    {{-- Product's Day Availables --}}
+                    <div class="form-group row mb-3" id="divClassAvailableDays">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="availableDays" class="mr-sm-2">Días disponibles:</label>
+                            <div class="form-group">
+                                <select name="availableDays" id="availableDays" multiple>
+                                    <option value="0">Domingo</option>
+                                    <option value="1">Lunes</option>
+                                    <option value="2">Martes</option>
+                                    <option value="3">Miércoles</option>
+                                    <option value="4">Jueves</option>
+                                    <option value="5">Viernes</option>
+                                    <option value="6">Sábado</option>
+                                </select>
+                                @if ($errors->has('availableDays'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('description') }}</strong>
+                                        <strong>{{ $errors->first('availableDays') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                            <label for="descriptionInput" class="font-weight-light text-center mx-auto" style="font-size: 14px">(máximo 20 caracteres)</label>
                         </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
 
-                        {{-- Product's Day Availables --}}
-                        <div class="form-group row mb-3" id="divClassAvailableDays">
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                            <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                                <label for="availableDays" class="mr-sm-2">Días disponibles:</label>
-                                <div class="form-group">
-                                    <select name="availableDays" id="availableDays" multiple>
-                                        <option value="0">Domingo</option>
-                                        <option value="1">Lunes</option>
-                                        <option value="2">Martes</option>
-                                        <option value="3">Miércoles</option>
-                                        <option value="4">Jueves</option>
-                                        <option value="5">Viernes</option>
-                                        <option value="6">Sábado</option>
+                    {{-- Product's schedules --}}
+                    <div class="form-group row mb-3" id="divClassSchedule" style="display: none;">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto group-inline" id="editDivClassScheduleContainer">
+                            <label for="schedule" class="mr-sm-2">Horario:</label>
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <select name="beginAt" id="beginAt">
+                                        @php
+                                            for($i=0; $i<24; $i++) {
+                                                $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
+                                                printf("<option value='{$i}'>{$hours}:00</option>");
+                                            }
+                                        @endphp
                                     </select>
-                                    @if ($errors->has('availableDays'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('availableDays') }}</strong>
-                                        </span>
-                                    @endif
+                                </div>
+                                <div class="form-group col-6">
+                                    <select name="endAt" id="endAt">
+                                        @php
+                                            for($i=0; $i<24; $i++) {
+                                                $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
+                                                printf("<option value='{$i}'>{$hours}:00</option>");
+                                            }
+                                        @endphp
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
 
-                        {{-- Product's schedules --}}
-                        <div class="form-group row mb-3" id="divClassSchedule" style="display: none;">
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                            <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto group-inline" id="editDivClassScheduleContainer">
-                                <label for="schedule" class="mr-sm-2">Horario:</label>
-                                <div class="form-row">
-                                    <div class="form-group col-6">
-                                        <select name="beginAt" id="beginAt">
-                                            @php
-                                                for($i=0; $i<24; $i++) {
-                                                    $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
-                                                    printf("<option value='{$i}'>{$hours}:00</option>");
-                                                }
-                                            @endphp
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-6">
-                                        <select name="endAt" id="endAt">
-                                            @php
-                                                for($i=0; $i<24; $i++) {
-                                                    $hours = str_pad($i, 2, 0, STR_PAD_LEFT);
-                                                    printf("<option value='{$i}'>{$hours}:00</option>");
-                                                }
-                                            @endphp
-                                        </select>
-                                    </div>
+                    {{-- Product's Expiration --}}
+                    <div class="form-group row mb-3" id="divClassesExpiration">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="name" class="mr-sm-2">Vigencia:</label>
+                            <div class="input-group">
+                                <input id="expirationProduct" placeholder="Vigencia" type="number" class="form-control{{ $errors->has('expiration') ? ' is-invalid' : '' }}" name="expiration" value="{{ old('expiration') }}" required >
+                                @if ($errors->has('expiration'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('expiration') }}</strong>
+                                </span>
+                                @endif
+                                <div class="input-group-append">
+                                    <span class="input-group-text text-secondary bg-white">días</span>
                                 </div>
                             </div>
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
 
-                        {{-- Product's Expiration --}}
-                        <div class="form-group row mb-3" id="divClassesExpiration">
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                            <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                                <label for="name" class="mr-sm-2">Vigencia:</label>
-                                <div class="input-group">
-                                    <input id="expirationProduct" placeholder="Vigencia" type="number" class="form-control{{ $errors->has('expiration') ? ' is-invalid' : '' }}" name="expiration" value="{{ old('expiration') }}" required >
-                                    @if ($errors->has('expiration'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('expiration') }}</strong>
-                                    </span>
-                                    @endif
-                                    <div class="input-group-append">
-                                        <span class="input-group-text text-secondary bg-white">días</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    {{-- product's refundable --}}
+                    <div class="form-group row mb-3" id="divClassesIsRefundable">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="is_refundable" class="mr-sm-2">Reembolsable</label>
+                            <select name="is_refundable" id="isRefundable">
+                                <option value="1" class="text-center">Reembolsable</option>
+                                <option value="0" class="text-center">No reembolsable</option>
+                            </select>
                         </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
 
-                        {{-- product's refundable --}}
-                        <div class="form-group row mb-3" id="divClassesIsRefundable">
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                            <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                                <label for="is_refundable" class="mr-sm-2">Reembolsable</label>
-                                <select name="is_refundable" id="isRefundable">
-                                    <option value="1" class="text-center">Reembolsable</option>
-                                    <option value="0" class="text-center">No reembolsable</option>
-                                </select>
+                    {{-- Cancelation Range --}}
+                    <div class="form-group row mb-3" id="divClassesCancelationRange">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="cancelation_range" class="mr-sm-2">Tiempo de cancelación para aplicar reembolso (min):</label>
+                            <div class="input-group">
+                                <input id="cancelationRange" type="number" class="form-control{{ $errors->has('cancelation_range') ? ' is-invalid' : '' }}" name="cancelation_range" value="{{ old('cancelation_range') }}" required >
+                                @if ($errors->has('cancelation_range'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('cancelation_range') }}</strong>
+                                </span>
+                                @endif
                             </div>
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
 
-                        {{-- Cancelation Range --}}
-                        <div class="form-group row mb-3" id="divClassesCancelationRange">
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                            <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                                <label for="cancelation_range" class="mr-sm-2">Tiempo de cancelación para aplicar reembolso (min):</label>
-                                <div class="input-group">
-                                    <input id="cancelationRange" type="number" class="form-control{{ $errors->has('cancelation_range') ? ' is-invalid' : '' }}" name="cancelation_range" value="{{ old('cancelation_range') }}" required >
-                                    @if ($errors->has('cancelation_range'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('cancelation_range') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
+                    {{-- Day Count Limit --}}
+                    <div class="form-group row mb-3" id="divClassesDayCountLimit">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="day_count_limit" class="mr-sm-2">Reservaciones por día:</label>
+                            <div class="input-group">
+                                <input id="dayCountLimit" type="number" class="form-control{{ $errors->has('dayCountLimit') ? ' is-invalid' : '' }}" name="day_count_limit" value="{{ old('dayCountLimit') }}" required >
+                                @if ($errors->has('dayCountLimit'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('dayCountLimit') }}</strong>
+                                </span>
+                                @endif
                             </div>
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
 
-                        {{-- Day Count Limit --}}
-                        <div class="form-group row mb-3" id="divClassesDayCountLimit">
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
-                            <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
-                                <label for="day_count_limit" class="mr-sm-2">Reservaciones por día:</label>
-                                <div class="input-group">
-                                    <input id="dayCountLimit" type="number" class="form-control{{ $errors->has('dayCountLimit') ? ' is-invalid' : '' }}" name="day_count_limit" value="{{ old('dayCountLimit') }}" required >
-                                    @if ($errors->has('dayCountLimit'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('dayCountLimit') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
+                    {{-- Cooldown minutes --}}
+                    <div class="form-group row mb-3" id="divClassesCooldownMinutes">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="cooldown_minutes" class="mr-sm-2">Minutos de espera entre reservas:</label>
+                            <div class="input-group">
+                                <input id="cooldownMinutes" type="number" class="form-control{{ $errors->has('cooldownMinutes') ? ' is-invalid' : '' }}" name="cooldown_minutes" value="{{ old('cooldownMinutes') }}" required >
+                                @if ($errors->has('cooldownMinutes'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('cooldownMinutes') }}</strong>
+                                </span>
+                                @endif
                             </div>
-                            <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                         </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -486,7 +504,23 @@
                         <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
                     </div>
 
-                    {{-- </form> --}}
+                    {{-- Cooldown minutes --}}
+                    <div class="form-group row mb-3" id="editDivClassesCooldownMinutes">
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                        <div class="col-10 col-xs-10 col-sm-10 col-md-8 mx-auto">
+                            <label for="cooldown_minutes" class="mr-sm-2">Minutos de espera entre reservas:</label>
+                            <div class="input-group">
+                                <input id="editCooldownMinutes" type="number" class="form-control{{ $errors->has('cooldownMinutes') ? ' is-invalid' : '' }}" name="cooldown_minutes" value="{{ old('cooldownMinutes') }}" required >
+                                @if ($errors->has('cooldownMinutes'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('cooldownMinutes') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-1 col-xs-1 col-sm-1 col-md-2"></div>
+                    </div>
+
                 </div>
 
                 <div class="modal-footer">
@@ -559,13 +593,11 @@
                 //Split the ID of the fullId by his dash
                 var splitedId = fullId.split("-");
                 if(splitedId.length > 1){
-                    // console.log(splitedId);
                     var instructorId = splitedId[1];
                     deleteProduct(instructorId, '.deleteProduct');
                 } else {
                     $(this).prop("disabled", false)
                 }
-                // $('#deleteProductButton').attr('disabled', true);
             })
 
             // Edit Product Button Inside Modal
@@ -900,12 +932,14 @@
                 $('#editDivClassesIsRefundable').hide();
                 $('#editDivClassesCancelationRange').hide();
                 $('#editDivClassesDayCountLimit').hide();
+                $('#editDivClassesCooldownMinutes').hide();
                 drawSelectType('Souvenir');
             } else if (type === 'Free') {
                 drawSelectType(type);
                 $('#editDivClassSchedule').hide();
                 $('#editDivClassAvailableDays').hide();
                 $('#editDivClassesDayCountLimit').show();
+                $('#editDivClassesCooldownMinutes').show();
                 if (isRefundable) {
                     $('#editDivClassesCancelationRange').show();
                 } else {
@@ -920,6 +954,7 @@
                 $('#editDivClassesIsRefundable').show();
                 $('#editDivClassesCancelationRange').show();
                 $('#editDivClassesDayCountLimit').show();
+                $('#editDivClassesCooldownMinutes').show();
                 if (productSchedules) {
                     $('#editDivClassSchedule').show();
                 } else {

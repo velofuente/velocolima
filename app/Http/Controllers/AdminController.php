@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use DB;
 use Carbon\Carbon;
-use App\ProductSchedule;
 use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Storage, Hash, Validator};
-use App\{Instructor, Schedule, Branch, Product, Tool, User, Purchase, Sale, UserSchedule};
+use Illuminate\Support\Facades\{DB, Storage, Hash, Validator};
+use App\{Instructor, Schedule, Branch, Product, Tool, User, Purchase, Sale, UserSchedule, ProductSchedule};
 
 class AdminController extends Controller
 {
@@ -47,7 +45,7 @@ class AdminController extends Controller
                 'instructors.name AS instructor_name',
                 'branches.id AS branch_id',
                 'branches.name AS branch_name',
-                DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate")
+                DB::raw("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate")
             )
             ->whereNull('schedules.deleted_at')
             ->whereNull('instructors.deleted_at')
@@ -84,7 +82,7 @@ class AdminController extends Controller
 
     public function getPreviousClasses()
     {
-        $schedules = Schedule::with(['instructorWithTrashed', 'branchWithTrashed'])->select("*", DB::RAW("CONCAT(day, ' ', hour) fullDate"))->orderBy('fullDate', 'desc')->get();
+        $schedules = Schedule::with(['instructorWithTrashed', 'branchWithTrashed'])->select("*", DB::raw("CONCAT(day, ' ', hour) fullDate"))->orderBy('fullDate', 'desc')->get();
         $previousSchedules = [];
         foreach ($schedules as $schedule) {
             if (Carbon::parse($schedule->fullDate)->lt(now()->format('Y-m-d H:i:s'))) {
@@ -142,6 +140,12 @@ class AdminController extends Controller
     {
         $users = User::where('role_id', 1)->get();
         return view('/admin/users', compact('users'));
+    }
+
+    public function showAllUsers()
+    {
+        $users = User::where('role_id', 3)->get();
+        return view('/admin/all-users', compact('users'));
     }
 
     public function showClients()
@@ -310,8 +314,8 @@ class AdminController extends Controller
         $unavailableBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedule->branch_id)->get()->pluck("position")->toArray());
         $reservedPlaces = array_map('strval', UserSchedule::where("schedule_id", $schedule->id)->where("status", "<>", "cancelled")->where("status", "<>", "absent")->get()->pluck("bike")->toArray());
         for ($i = 1; $i < $temp; $i++) {
-            if(!in_array($i, $unavailableBikes))
-                if(!in_array($i, $reservedPlaces))
+            if (!in_array($i, $unavailableBikes))
+                if (!in_array($i, $reservedPlaces))
                     array_push($availableBikes, $i);
         }
         return $availableBikes;
@@ -349,9 +353,8 @@ class AdminController extends Controller
     {
         $nonScheduledUsers = [];
         $users = User::orderBy("id")->get();
-        $temp = $users->count();
         $schedule = Schedule::find($request->schedule_id);
-        $instances = array_map('strval', UserSchedule::select("user_id")->where('schedule_id', $schedule->id)->orderBy("id")->get()->pluck("user_id")->toArray());
+        $instances = array_map('strval', UserSchedule::select("user_id")->where('schedule_id', $schedule->id)->whereNotIn('status', ['cancelled'])->orderBy("id")->get()->pluck("user_id")->toArray());
         foreach ($users as $user) {
             if (!in_array($user->id, $instances)) {
                 $nonScheduledUsers[] = $user;
@@ -476,7 +479,7 @@ class AdminController extends Controller
     {
         $activeClasses = Instructor::join('schedules', 'instructors.id', '=', 'schedules.instructor_id')
             ->join('branches', 'schedules.branch_id', '=', 'branches.id')
-            ->select('instructors.id AS instructor', 'schedules.deleted_at AS schedules.deleted_at', 'branches.deleted_at AS branches.deleted_at', DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
+            ->select('instructors.id AS instructor', 'schedules.deleted_at AS schedules.deleted_at', 'branches.deleted_at AS branches.deleted_at', DB::raw("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
             ->where('instructors.id', '=', $request->instructor_id)
             ->whereNull('schedules.deleted_at')
             ->whereNull('branches.deleted_at')
@@ -503,7 +506,7 @@ class AdminController extends Controller
     {
         $activeClasses = Instructor::join('schedules', 'instructors.id', '=', 'schedules.instructor_id')
             ->join('branches', 'schedules.branch_id', '=', 'branches.id')
-            ->select('instructors.id AS instructor', 'schedules.deleted_at AS schedules.deleted_at', 'branches.deleted_at AS branches.deleted_at', DB::RAW("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
+            ->select('instructors.id AS instructor', 'schedules.deleted_at AS schedules.deleted_at', 'branches.deleted_at AS branches.deleted_at', DB::raw("CONCAT(schedules.day, ' ', schedules.hour) AS fullDate"))
             ->where('instructors.id', '=', $request->instructor_id)
             ->whereNull('schedules.deleted_at')
             ->whereNull('branches.deleted_at')
@@ -699,6 +702,7 @@ class AdminController extends Controller
             DB::commit();
         }
     }
+
     public function addProduct(Request $request)
     {
         if (strlen($request->description) > 20) {
@@ -720,6 +724,9 @@ class AdminController extends Controller
         ];
         if ($request->cancelation_range) {
             $dataProduct['cancelation_range'] = $request->cancelation_range;
+        }
+        if ($request->cooldown_minutes) {
+            $dataProduct['cooldown_minutes'] = $request->cooldown_minutes;
         }
         $product = Product::create($dataProduct);
         if ($request->available_days) {
@@ -759,6 +766,9 @@ class AdminController extends Controller
         $Product->status = $request->status;
         $Product->is_refundable = $request->is_refundable;
         $Product->day_count_limit = $request->day_count_limit;
+        if ($request->cooldown_minutes) {
+            $Product->cooldown_minutes = $request->cooldown_minutes;
+        }
         if ($request->cancelation_range) {
             $Product->cancelation_range = $request->cancelation_range;
         }
@@ -837,24 +847,26 @@ class AdminController extends Controller
         ]);
     }
     public function editUser(Request $request)
-    {
-        DB::beginTransaction();
-        $User = User::find($request->user_id);
-        $User->name = $request->name;
-        $User->last_name = $request->last_name;
-        $User->email = $request->email;
-        $User->phone = $request->phone;
-        $User->birth_date = $request->birth_date;
-        $User->gender = $request->gender;
-        $User->save();
-        DB::commit();
-        return response()->json([
-            'status' => 'OK',
-            'message' => "Usuario editado con éxito",
-        ]);
+    {    
+            DB::beginTransaction();
+            $User = User::find($request->user_id);
+            $User->name = $request->name;
+            $User->last_name = $request->last_name;
+            $User->gender = $request->gender;
+            $User->password = Hash::make($request->password);
+            // $User->password = $request->password;
+            $User->email = $request->email;
+            $User->birth_date = $request->birth_date;
+            $User->phone = $request->phone;
+            $User->save();
+            DB::commit();
+            return response()->json([
+                'status' => 'OK',
+                'message' => "Usuario editado con éxito",
+            ]);
     }
     public function deleteUser(Request $request)
-    {
+    {  
         DB::beginTransaction();
         $User = User::find($request->user_id);
         $User->delete();

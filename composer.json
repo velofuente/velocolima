@@ -16,7 +16,8 @@
         "laravel/tinker": "^1.0",
         "laraveles/spanish": "^1.2",
         "openpay/sdk": "dev-master",
-        "tymon/jwt-auth": "dev-develop"
+        "tymon/jwt-auth": "dev-develop",
+        "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

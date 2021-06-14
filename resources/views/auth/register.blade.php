@@ -24,8 +24,6 @@
             <div>
                 <div class="mx-auto" id="registerTitle">Registrar una nueva cuenta</div>
                 <div class="mx-auto" id="welcomeMessage">Bienvenido a <img src="{{asset('img/iconos/CroppedLogo.png')}}" id="welcomeLogo"></div>
-                <div class="mx-auto" id="firstClassFree"> ¡Tu primer clase será gratis al registrarte!</div>
-
                 <div class="card-body pt-0">
                     <form method="POST" action="{{ route('register') }}" class="registration">
                         @csrf

@@ -10,29 +10,6 @@
     </div>
 @endsection
 
-@section('extraScripts')
-    @if(!Auth::check())
-        <script>
-            $(document).ready(function () {
-                Swal.fire({
-                    title: '¡Obtén tu primera clase gratis!',
-                    text: "Completa tu registro para recibir una clase gratis",
-                    type: 'info',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    cancelButtonText: 'Cerrar',
-                    confirmButtonText: 'Ir al registro'
-                }).then(function (result) {
-                    if (result.value) {
-                        window.location.replace("/register");
-                    }
-                });
-            });
-        </script>
-    @endif
-@endSection
-
 @section('extraStyles')
     <style>
         .fill-height {
