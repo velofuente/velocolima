@@ -232,6 +232,7 @@
                 $("#payment-button").prop("disabled", false);
                 $('#newCardChargeModal').modal('hide');
                 $.LoadingOverlay("hide");
+                console.log(response.data);
                 Swal.fire({
                     title: 'Error',
                     text: response.message,
@@ -315,6 +316,7 @@
                     title: response.message
                 });
             }else{
+                console.log(response.data);
                 $("#payment-button").prop("disabled", false);
                 $('#savedCardsModal').modal('hide');
                 $.LoadingOverlay("hide");
