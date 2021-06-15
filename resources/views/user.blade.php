@@ -102,7 +102,7 @@
                                     </div>
                                 </a>
                             @elseif ($card->brand == "american_express")
-                                <a class="deleteUserCard" href="javascript:deleteUserCard({{$card->id}})">
+                                <a class="deleteUserCard" href="javascript:c({{$card->id}})">
                                     <div class="userCards">
                                         <img class="brandSavedCards" src="/img/iconos/AMERICAN.png" alt="express">
                                         <span style="margin-left: 3%">{{ substr($card->card_number, -4) }}</span>
@@ -452,7 +452,7 @@
                                 <input type="hidden" name="token_id" id="token_id">
                                 <input type="hidden" name="device_session_id" id="device_session_id">
                                 {{-- <input type="hidden" name="tokenBearer" id="tokenBearer" value="{{ Session::get("tokenBearer")[0]}}"> --}}
-                                {{-- <input type="hidden" name="tokenBearer" id="csrfToken" value="{{ csrf_token() }}"> --}}
+                                <input type="hidden" name="tokenBearer" id="csrfToken" value="{{ csrf_token() }}">
                             <div class="row justify-content-center">
                                 <img class="cards" src="/img/iconos/VISA.png" alt="visa">
                                 <img class="cards" src="/img/iconos/MASTER.png" alt="mastercard" >
