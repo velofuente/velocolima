@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{User, Purchase, userSchedule, UserWaitList};
+use App\{User, Purchase, userSchedule, UserWaitList, Card};
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -23,7 +23,7 @@ class UserController extends Controller
             return redirect("/admin");
         }
         $purchaseHistory = Purchase::with(['product'])->select("*", DB::raw("DATE_ADD(created_at, INTERVAL expiration_days DAY) finalDate"))->where('user_id', '=', "{$requestUser->id}")->get()->sortByDesc('created_at');
-        $cards = DB::table('cards')->where('user_id', '=', "{$requestUser->id}")->get();
+        $cards = Card::where('user_id', '=', "{$requestUser->id}")->get();
         $numClases = Purchase::select(DB::raw('SUM(n_classes) as clases'))->whereRaw("NOW() <= DATE_ADD(created_at, INTERVAL expiration_days DAY)")->where('user_id', '=', "{$requestUser->id}")->groupBy("id")->get();
         $classes = $numClases->sum("clases");
         $bookedClasses = UserSchedule::with("schedule.instructor", "schedule.room", "schedule")->where('user_id', "{$requestUser->id}")->where('status', 'active')->get();
