@@ -59,6 +59,165 @@
 @endsection
 
 @section('extraScripts')
+<script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
+<script type="text/javascript">
+    let product_id = null;
+    $(document).ready(()=>{
+        $(document).on("click", ".pickClass", function(e) {
+            var elementId = this.id;
+            elementExploded = elementId.split("-");
+            product_id  = elementExploded[1];
+            console.log(product_id);
+        })
+        Conekta.setPublicKey('{{ env('CONEKTA_PUBLIC_KEY') }}');
+      
+      
+        let conektaSuccessResponseHandler = function(token) {
+          let $form = $("#card-form");
+          //Inserta el token_id en la forma para que se envíe al servidor
+          $form.append($('<input type="hidden" name="conektaTokenId" id="conektaTokenId">').val(token.id));
+          $form.append($('<input type="hidden" name="brand_card" id="brand_card">').val(Conekta.card.getBrand($("#cardNumber").val())));
+          $form.append($('<input type="hidden" name="product_id" id="product_id">').val(product_id));
+          $.ajax({
+            beforeSend: function(){
+                $("#payment-button").prop("disabled", true);
+                $.LoadingOverlay("show");
+            },
+            url: "/conekta/checkout",
+            method:'POST',
+            data: $form.serialize(),
+          }).done((response) => {
+            if(response.status == true){
+                $("#payment-button").prop("disabled", false);
+                $.LoadingOverlay("hide");
+                $('#newCardChargeModal').modal('hide');
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+
+                Toast.fire({
+                    icon: 'success',
+                    title: response.message
+                });
+            }else{
+                $("#payment-button").prop("disabled", false);
+                $('#newCardChargeModal').modal('hide');
+                $.LoadingOverlay("hide");
+                console.log(response.data);
+                Swal.fire({
+                    title: 'Error',
+                    text: response.message,
+                    type: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+          });
+/*           $form.get(0).submit();   *////Hace submit
+        };
+        let conektaErrorResponseHandler = function(response) {
+          let $form = $("#card-form");
+          $form.find(".card-errors").text(response.message_to_purchaser);
+          $form.find("button").prop("disabled", false);
+        };
+      
+      $("#payment-button").click(()=>{
+        if($("#cardOwner").val() && $("#cardNumber").val() && $("#Code").val() && $("#monthExpiration").val() && $("#yearExpiration").val()){
+            $("#card-form").submit();
+        }else{
+           $(".card-errors").text('No deje campos vacíos');
+        } 
+      });
+        //jQuery para que genere el token después de dar click en submit
+        $(function () {
+          $("#card-form").submit(function(event) {
+            let $form = $(this);
+            // Previene hacer submit más de una vez
+            $form.find("button").prop("disabled", true);
+            Conekta.Token.create($form, conektaSuccessResponseHandler, conektaErrorResponseHandler);
+            return false;
+          });
+        });
+
+        $('#pay-selected-card-button').click(()=> {
+            makeCharge();
+        });
+
+        $('#use-new-card-button').click(() => {
+            $('#savedCardsModal').modal('hide');
+            $('#newCardChargeModal').modal('show');
+        });
+
+            
+    });
+
+    function makeCharge(){
+        const card_id = $('#selectSavedCard').val();
+        $.ajax({
+            url: "/conekta/charge/create",
+            method: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}",
+                product_id: product_id,
+                card_id:  card_id
+            },
+            beforeSend: function(){
+                $.LoadingOverlay("show");
+            },
+            success: function(response){
+            $.LoadingOverlay("hide");
+            $("#pay-button").prop( "disabled", false);
+            if(response.status == true){
+                $("#payment-button").prop("disabled", false);
+                $.LoadingOverlay("hide");
+                $('#savedCardsModal').modal('hide');
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+
+                Toast.fire({
+                    icon: 'success',
+                    title: response.message
+                });
+            }else{
+                console.log(response.data);
+                $("#payment-button").prop("disabled", false);
+                $('#savedCardsModal').modal('hide');
+                $.LoadingOverlay("hide");
+                Swal.fire({
+                    title: 'Error',
+                    text: response.message,
+                    type: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+            },
+            error: function (result) {
+                $("#pay-selected-card-button").prop( "disabled", false);
+            },
+            failure: function (result) {
+                $("#pay-selected-card-button").prop( "disabled", false);
+                //swal error de comunicación
+                alert("Ocurrió un error en el pago, por favor intente de nuevo");
+            }
+        });
+    }
+  </script>
     <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
     <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
     <script type="text/javascript">
