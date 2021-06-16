@@ -57,8 +57,8 @@
                 <tr style="font-size: 0.9em;">
                     <td>{{$sale->id}}</td>
                     <td>{{$sale->created_at}}</td>
-                    <td>{{$sale->client->name}} {{$sale->client->last_name}}</td>
-                    <td>{{$sale->client->email}}</td>
+                    <td>{{$sale->client ? $sale->client->name : 'No disponible'}} {{$sale->client ? $sale->client->last_name : ''}}</td>
+                    <td>{{$sale->client ? $sale->client->email : 'No disponible'}}</td>
                     <td>{{$sale->productWithTrashed->description}}</td>
                     <td>${{$sale->productWithTrashed->price}}</td>
                     @if($sale->sales)
