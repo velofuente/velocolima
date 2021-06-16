@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Mail\{CoachInfo, walkInRegister, additionalFreeClass, BirthdayEmail};
+use App\Mail\{CoachInfo, WalkInRegister, AdditionalFreeClass, BirthdayEmail};
 use Illuminate\Support\Facades\Log;
 
 class MailSendingController extends Controller

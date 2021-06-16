@@ -692,12 +692,14 @@ class AdminController extends Controller
                     'branch_id' => $branch->id,
                 ]);
             }
-            foreach ($disabledBikes as $bike) {
-                Tool::create([
-                    'type' => 'disabled',
-                    'position' => $bike,
-                    'branch_id' => $branch->id,
-                ]);
+            if($disabledBikes){
+                foreach ($disabledBikes as $bike) {
+                    Tool::create([
+                        'type' => 'disabled',
+                        'position' => $bike,
+                        'branch_id' => $branch->id,
+                    ]);
+                }
             }
             DB::commit();
         }

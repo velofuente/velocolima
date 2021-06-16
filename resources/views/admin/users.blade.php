@@ -439,7 +439,12 @@
                                 type: 'success',
                                 confirmButtonText: 'Aceptar'
                             })
-                            window.location.replace('/admin/users');
+                            setTimeout(() => {
+                                redirect(‘/admin/users’);
+                            }, 3000);
+                            function redirect(url) {
+                                window.location.replace(url);
+                            }
                         }
                         else {
                             $.LoadingOverlay("hide");
@@ -488,7 +493,12 @@
                                 type: 'success',
                                 confirmButtonText: 'Aceptar'
                             })
-                            window.location.replace('/admin/users');
+                            setTimeout(() => {
+                                redirect(‘/admin/users’);
+                            }, 3000);
+                            function redirect(url) {
+                                window.location.replace(url);
+                            }
                         }
                         else {
                             $.LoadingOverlay("hide");
@@ -538,7 +548,12 @@
                                         type: 'success',
                                         confirmButtonText: 'Aceptar'
                                     })
-                                    window.location.replace('/admin/users');
+                                    setTimeout(() => {
+                                        redirect(‘/admin/users’);
+                                    }, 3000);
+                                    function redirect(url) {
+                                        window.location.replace(url);
+                                    }
                                 } else {
                                     $.LoadingOverlay("hide");
                                     Swal.fire({
