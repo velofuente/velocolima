@@ -816,6 +816,14 @@ class AdminController extends Controller
 
     public function addUser(Request $request)
     {
+        $rules = ['email' => 'required|unique:users,email'];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'La dirección de correo ya existe.'
+            ]);
+        }
         $password = substr($request->phone, -4);
         DB::beginTransaction();
         $user = $request->user();

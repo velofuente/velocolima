@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{User, Purchase, userSchedule, UserWaitList, Card};
+use App\{User, Purchase, UserSchedule, UserWaitList, Card};
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
