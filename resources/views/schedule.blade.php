@@ -201,7 +201,6 @@
           $form.append($('<input type="hidden" name="product_id" id="product_id">').val(product_id));
           $.ajax({
             beforeSend: function(){
-                $("#payment-button").prop("disabled", true);
                 $.LoadingOverlay("show");
             },
             url: "/conekta/checkout",
@@ -209,25 +208,16 @@
             data: $form.serialize(),
           }).done((response) => {
             if(response.status == true){
-                $("#payment-button").prop("disabled", false);
                 $.LoadingOverlay("hide");
                 $('#newCardChargeModal').modal('hide');
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                });
-
-                Toast.fire({
-                    icon: 'success',
-                    title: response.message
-                });
+                Swal.fire(
+                    '¡Hecho!',
+                    response.message,
+                    'success'
+                )
+                setTimeout(() => {
+                    window.location.href = "/user";
+                }, 3500);
             }else{
                 $("#payment-button").prop("disabled", false);
                 $('#newCardChargeModal').modal('hide');
@@ -250,9 +240,11 @@
         };
       
       $("#payment-button").click(()=>{
+        $("#payment-button").prop("disabled", true);
         if($("#cardOwner").val() && $("#cardNumber").val() && $("#Code").val() && $("#monthExpiration").val() && $("#yearExpiration").val()){
             $("#card-form").submit();
         }else{
+            $("#payment-button").prop("disabled", false);
            $(".card-errors").text('No deje campos vacíos');
         } 
       });
@@ -268,6 +260,7 @@
         });
 
         $('#pay-selected-card-button').click(()=> {
+            $("#pay-selected-card-button").prop( "disabled", true);
             makeCharge();
         });
 
@@ -294,30 +287,20 @@
             },
             success: function(response){
             $.LoadingOverlay("hide");
-            $("#pay-button").prop( "disabled", false);
             if(response.status == true){
-                $("#payment-button").prop("disabled", false);
                 $.LoadingOverlay("hide");
                 $('#savedCardsModal').modal('hide');
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                });
-
-                Toast.fire({
-                    icon: 'success',
-                    title: response.message
-                });
+                Swal.fire(
+                    '¡Hecho!',
+                    response.message,
+                    'success'
+                )
+                setTimeout(() => {
+                    window.location.href = "/user";
+                }, 2000);
             }else{
                 console.log(response.data);
-                $("#payment-button").prop("disabled", false);
+                $("#pay-selected-card-button").prop("disabled", false);
                 $('#savedCardsModal').modal('hide');
                 $.LoadingOverlay("hide");
                 Swal.fire({
