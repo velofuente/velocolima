@@ -177,10 +177,13 @@ class ConektaController extends Controller
                 ]
               );
             } catch (\Conekta\ProcessingError $error){
+              $this->addAttemptCard($request, $user);
             return ['status' => false, 'code' => $error->getCode() ,'message' =>  json_decode($error->errorStack)->details[0]->message, 'data' => ''];
             } catch (\Conekta\ParameterValidationError $error){
+              $this->addAttemptCard($request, $user);
             return ['status' => false, 'code' => $error->getCode() ,'message' => json_decode($error->errorStack)->details[0]->message, 'data' => ''];
             } catch (\Conekta\Handler $error){
+              $this->addAttemptCard($request, $user);
             return ['status' => false, 'code' => $error->getCode() ,'message' => 'Ocurrió un error al procesar el pago, intente más tarde o use otra tarjeta', 'data' => ''];
             } 
             $purchase = $this->createPurchase($user, $product, $card);
