@@ -54,52 +54,7 @@
                                 <input type="hidden" value="{{$userSchedule->schedule_id}}" id="hiddenUsers">
                                 <td>{{$userSchedule->user->name}} {{$userSchedule->user->last_name}}</td>
                                 <td>{{$userSchedule->user->email}}</td>
-                                @switch($userSchedule->bike)
-                                    @case(2)
-                                        <td>1</td>
-                                        @break
-                                    @case(9)
-                                        <td>2</td>
-                                        @break
-                                    @case(13)
-                                        <td>3</td>
-                                        @break
-                                    @case(20)
-                                        <td>4</td>
-                                        @break
-                                    @case(26)
-                                        <td>5</td>
-                                        @break
-                                    @case(27)
-                                        <td>6</td>
-                                        @break
-                                    @case(28)
-                                        <td>7</td>
-                                        @break
-                                    @case(29)
-                                        <td>8</td>
-                                        @break
-                                    @case(30)
-                                        <td>9</td>
-                                        @break
-                                    @case(35)
-                                        <td>10</td>
-                                        @break
-                                    @case(36)
-                                        <td>11</td>
-                                        @break
-                                    @case(39)
-                                        <td>12</td>
-                                        @break
-                                    @case(40)
-                                        <td>13</td>
-                                        @break
-                                    @case(41)
-                                        <td>14</td>
-                                        @break
-                                    @default
-                                        <td>14</td>
-                                @endswitch
+                                <td>{{$userSchedule->index_position}}</td>
                                 <td>{{$userSchedule->user->shoe_size}}</td>
                                 <td> {{$userSchedule->user->phone}} </td>
                                 <td>{{$userSchedule->schedule_id}}</td>
@@ -546,7 +501,7 @@
 
         function getUserInfo(userSchedule_id){
             $.ajax({
-                url: "getUserInfo",
+                url: "/admin/getUserInfo",
                 method: 'POST',
                 cache: false,
                 headers: {
@@ -992,6 +947,7 @@
                 },
                 success: function(result) {
                     var today = new Date();
+                    console.log(result);
                     var dd = String(today.getDate()).padStart(2, '0');
                     var mm = String(today.getMonth() + 1).padStart(2, '0');
                     today = mm + "-" + dd;
@@ -1007,21 +963,21 @@
                                 if(value.birth_date.substr(5) == value.daySchedule.substr(5)){
                                     if(value.type == 'Free'){
                                         $('#tableBody').append(
-                                        '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
+                                        '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.index_position+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
                                         );
                                     }else{
                                         $('#tableBody').append(
-                                        '<tr class="tableBodyRow" id="'+value.id+'"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
+                                        '<tr class="tableBodyRow" id="'+value.id+'"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.index_position+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
                                         );
                                     }
                                 }else{
                                     if(value.type == 'Free'){
                                         $('#tableBody').append(
-                                            '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
+                                            '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.index_position+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
                                         );
                                     }else{
                                         $('#tableBody').append(
-                                            '<tr class="tableBodyRow" id="'+value.id+'"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
+                                            '<tr class="tableBodyRow" id="'+value.id+'"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.index_position+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Asistió</td><td></td></tr>',
                                         );
                                     }
                                 }
@@ -1029,21 +985,21 @@
                                 if(value.birth_date.substr(5) == value.daySchedule.substr(5)){
                                     if(value.type == 'Free'){
                                         $('#tableBody').append(
-                                            '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
+                                            '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.index_position+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
                                         );
                                     }else{
                                         $('#tableBody').append(
-                                            '<tr class="tableBodyRow" id="'+value.id+'"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
+                                            '<tr class="tableBodyRow" id="'+value.id+'"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.index_position+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
                                         );
                                     }
                                 }else{
                                     if(value.type == 'Free'){
                                         $('#tableBody').append(
-                                            '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
+                                            '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.index_position+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
                                         );
                                     }else{
                                         $('#tableBody').append(
-                                            '<tr class="tableBodyRow" id="'+value.id+'"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
+                                            '<tr class="tableBodyRow" id="'+value.id+'"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.index_position+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td></td><td>Ausente</td><td></td></tr>',
                                         );
                                     }
                                 }
@@ -1051,21 +1007,21 @@
                                 if(value.birth_date.substr(5) == value.daySchedule.substr(5)){
                                     if(value.type == 'Free'){
                                         $('#tableBody').append(
-                                            '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
+                                            '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.index_position+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
                                         );
                                     }else{
                                         $('#tableBody').append(
-                                            '<tr class="tableBodyRow" id="'+value.id+'"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
+                                            '<tr class="tableBodyRow" id="'+value.id+'"><td><img src="/img/iconos/cake.png" height="25" width="25">'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.index_position+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
                                         );
                                     }
                                 }else{
                                     if(value.type == 'Free'){
                                         $('#tableBody').append(
-                                            '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
+                                            '<tr class="tableBodyRow" id="'+value.id+'" style="background-color: #73e340;"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.index_position+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
                                         );
                                     }else{
                                         $('#tableBody').append(
-                                            '<tr class="tableBodyRow" id="'+value.id+'"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.bike+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
+                                            '<tr class="tableBodyRow" id="'+value.id+'"><td>'+value.name+' '+value.last_name+'</td><td>'+value.email+'</td><td class="tdBikeNumber">'+value.index_position+'</td><td>'+value.shoe_size+'</td><td>'+value.phone+'</td><td class="assistButton" id="assistButton-'+value.id+'"><button class="btn btn-success btn-sm userAssist" id="userAssist-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Asistencia</button></td><td class="absentButton" id="absentButton-'+value.id+'"><button class="btn btn-info    btn-sm userAbsent" id="userAbsent-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Ausente</button></td><td class="cancelButton" id="cancelButton-'+value.id+'"><button class="btn btn-danger  btn-sm userCancel" id="userCancel-'+value.id+'" value="'+value.id+'" data-id="'+value.id+'">Cancelar</button></td></tr>',
                                         );
                                     }
                                 }
@@ -1086,7 +1042,7 @@
             })
         }
 
-        function switchBike(){
+/*         function switchBike(){
             var bikeNumber = null;
             $.each($('.tdBikeNumber'), function( index, value ) {
                 bikeNumber = $(value).text();
@@ -1137,7 +1093,7 @@
                         break;
                 }
             });
-        }
+        } */
 
         function claimClass(schedule_id,bike,user_id, button){
             $.ajax({

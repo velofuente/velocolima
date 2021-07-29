@@ -7,7 +7,7 @@ function drawMainBikes(x,y){
     var count = 1;
     var bikeNum = 1;
     for (var i = 0; i < number_of_rows; i++) {
-        var divr = $("<div>").attr("id", "divr" + i).attr("class", "col-md-12");
+        var divr = $("<div>").attr("id", "divr" + i).attr("class", "col-md-12 my-4");
         for (var j = 0; j < number_of_cols; j++) {
             var classes = "bikes";
             if (selectedBike == count) {
@@ -23,15 +23,15 @@ function drawMainBikes(x,y){
                     bikeNum++;
                 } else if ($.inArray(count.toString(), JSON.parse(disabledBikes)) != -1) {
                     // Marca que el Occupied pertenece al array de DisabledBikes y no al ReservedPlaces
-                    classes = "disabled";
-                    var ball = $("<span>").attr("class", classes);
-                    divr.append(ball);
+/*                     classes = "disabled";
+                    var ball = $("<span>").attr("class", classes).text(count);
+                    divr.append(ball); */
                 } else if ($.inArray(count.toString(), JSON.parse(instructorBikes)) != -1) {
                     classes = "instructor";
                     var ball = $("<span>").attr("class", classes).text("I");
                     divr.append(ball);
                 } else {
-                    var ball = $("<span>").attr("class", classes).attr("id", "ball-" + count).text(bikeNum);
+                    var ball = $("<span>").attr("class", classes).attr("id", "ball-" + count).data('bike', bikeNum).text(bikeNum);
                     divr.append(ball);
                     bikeNum++;
                 }
@@ -78,7 +78,9 @@ $(document).on("click", ".bikes", function(e) {
         var fullId = this.id;
         var splitedId = fullId.split("-");
         var ballId = splitedId[1];
-        reservePlace(ballId, $(this), instructor);
+        const bikeNumber = $(this).data("bike");
+
+        reservePlace(ballId, bikeNumber, $(this), instructor);
     } else {
         $(this).removeClass('selected');
         $(this).addClass('bikes');
@@ -94,11 +96,11 @@ $('#profilePic').click(function() {
 });
 
 //TODO: modificar la variable hours
-function reservePlace(id, elementBall, instructor){
-    // console.log(instructor);
+function reservePlace(id, bikeNumber, elementBall, instructor){
+     console.log(instructor);
     // console.log(id);
-    bike = null;
-    switch (id) {
+    bike = id;
+/*     switch (id) {
         case "2": bike = 1; break;
         case "9": bike = 2; break;
         case "13": bike = 3; break;
@@ -114,7 +116,7 @@ function reservePlace(id, elementBall, instructor){
         case "40": bike = 13; break;
         case "41": bike = 14; break;
         default: bike = 14; break;
-    }
+    } */
 
     $.ajax({
         url: "/api/validatePackageReservation",
@@ -144,7 +146,7 @@ function reservePlace(id, elementBall, instructor){
                     title: "Tu reserva ",
                     html: "<h6>" + document.getElementById('branch').textContent + "</h6>"  +
                         "<h6>CON: " + instructor + " </h6>" +
-                        "<h6>BICI: " + bike + " </h6>" +
+                        "<h6>BICI: " + bikeNumber + " </h6>" +
                         "<h6>" + result.message + "</h6>" +
                         // "<h6>Esta reservación sólo puede modificarse o cancelarse hasta " + cancelation_period + " horas antes de la clase.</h6>" +
                         "<h6>Tips: </h6>" +
@@ -165,6 +167,7 @@ function reservePlace(id, elementBall, instructor){
                                 _token: crfsToken,
                                 schedule_id: $("#schedule_id").val(),
                                 bike: id,
+                                index_position: bikeNumber,
                                 originalPurchaseId: purchaseToValidateId,
                             },
                             beforeSend: function () {

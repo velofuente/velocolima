@@ -447,6 +447,7 @@ class BookClassController extends Controller
                     'purchase_id' => $purchase->id,
                     //'tool_schedule_id' => $request->tool_schedule_id,
                     'bike' => $request->bike,
+                    'index_position' => $request->index_position,
                     'status' => 'active',
                     'changedSit' => 0,
                 ]);
@@ -480,6 +481,7 @@ class BookClassController extends Controller
                 if (in_array($bookedClass->status, ['cancelled', 'absent'])) {
                     $bookedClass->status = 'active';
                     $bookedClass->bike = $request->bike;
+                    $bookedClass->index_position = $request->index_position;
                     $bookedClass->changedSit = 0;
                     $bookedClass->purchase_id = $purchase->id;
                     $bookedClass->save();
@@ -489,6 +491,7 @@ class BookClassController extends Controller
                     $changedSiteMessage = "Lugar reservado con éxito.";
                 } else {
                     $bookedClass->bike = $request->bike;
+                    $bookedClass->index_position = $request->index_position;
                     $bookedClass->purchase_id = $purchase->id;
                     $bookedClass->changedSit = 1;
                     $bookedClass->save();

@@ -297,10 +297,11 @@ class AdminController extends Controller
             ->join('purchases', 'user_schedules.purchase_id', 'purchases.id')
             ->join('products', 'purchases.product_id', 'products.id')
             ->join('schedules', 'schedules.id', 'user_schedules.schedule_id')
-            ->selectRaw('schedules.day as daySchedule, user_schedules.id AS id, user_schedules.status AS status, user_schedules.bike AS bike, users.name AS name, users.last_name AS last_name, users.birth_date AS birth_date, users.email AS email, users.shoe_size AS shoe_size, users.phone AS phone, products.type AS type')
+            ->selectRaw('schedules.day as daySchedule, user_schedules.id AS id, user_schedules.status AS status, user_schedules.bike AS bike, user_schedules.index_position as index_position, users.name AS name, users.last_name AS last_name, users.birth_date AS birth_date, users.email AS email, users.shoe_size AS shoe_size, users.phone AS phone, products.type AS type')
             ->where('user_schedules.schedule_id', $request->schedule_id)
             ->where('user_schedules.status', '<>', 'cancelled')
             ->whereIn('user_schedules.user_id', $id)
+            ->orderBy('index_position')
             ->get();
         return $clients;
     }

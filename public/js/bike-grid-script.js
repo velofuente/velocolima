@@ -5,7 +5,7 @@ function drawMainBikes(rows,cols){
     var number_of_cols = cols;
     var count = 1;
     for (var i = 0; i < number_of_rows; i++){
-        var divr = $("<div>").attr("id", "divr" + i).attr("class", "col-md-12");
+        var divr = $("<div>").attr("id", "divr" + i).attr("class", "col-md-12 my-4");
         for (var j = 0; j < number_of_cols; j++){
             var classes = "bikes common";
             var ball = $("<span>").attr("class", classes).attr("id", "ball-" + count).text(count);
