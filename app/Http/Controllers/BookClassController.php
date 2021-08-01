@@ -632,6 +632,7 @@ class BookClassController extends Controller
                 'purchase_id' => $compra->id,
                 //'tool_schedule_id' => $request->tool_schedule_id,
                 'bike' => $request->bike,
+                'index_position' => $request->index_position,
                 'status' => 'active',
                 'changedSit' => 0,
             ]);
@@ -689,6 +690,7 @@ class BookClassController extends Controller
             'schedule_id' => $request->schedule_id,
             'purchase_id' => $purchase->id,
             'bike' => $request->bike,
+            'index_position' => $request->index_position,
             'status' => 'active',
             'changedSit' => 0,
         ]);

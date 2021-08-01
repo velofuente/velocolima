@@ -77,7 +77,7 @@
                                                                 {{ date('g:i A', strtotime($schedule->hour)) }}
                                                             </p>
                                                             <p class="scheduleItemTextHourDisabled">
-                                                                {{ $schedule->branch_name }}
+                                                                Sucursal {{ $schedule->branch_name }}
                                                             </p>
                                                         </section>
                                                     </li>
@@ -95,7 +95,7 @@
                                                                     {{ date('g:i A', strtotime($schedule->hour)) }}
                                                                 </p>
                                                                 <p class="scheduleItemTextHourDisabled">
-                                                                    {{ $schedule->branch_name }}
+                                                                    Sucursal {{ $schedule->branch_name }}
                                                                 </p>
                                                             </section>
                                                         </li>
@@ -114,7 +114,7 @@
                                                                 {{ date('g:i A', strtotime($schedule->hour)) }}
                                                             </p>
                                                             <p class="scheduleItemTextHour">
-                                                                {{ $schedule->branch_name }}
+                                                                Sucursal {{ $schedule->branch_name }}
                                                             </p>
                                                         </section>
                                                     </li>
@@ -132,7 +132,7 @@
                                                                 {{ date('g:i A', strtotime($schedule->hour)) }}
                                                             </p>
                                                             <p class="scheduleItemTextHour">
-                                                                {{ $schedule->branch_name }}
+                                                                Sucursal {{ $schedule->branch_name }}
                                                             </p>
                                                         </section>
                                                     </li>
@@ -152,7 +152,7 @@
                                                             {{ date('g:i A', strtotime($schedule->hour)) }}
                                                         </p>
                                                         <p class="scheduleItemTextHour">
-                                                            {{ $schedule->branch_name }}
+                                                            Sucursal {{ $schedule->branch_name }}
                                                         </p>
                                                     </section>
                                                 </li>
@@ -170,7 +170,7 @@
                                                             {{ date('g:i A', strtotime($schedule->hour)) }}
                                                         </p>
                                                         <p class="scheduleItemTextHour">
-                                                            {{ $schedule->branch_name }}
+                                                            Sucursal {{ $schedule->branch_name }}
                                                         </p>
                                                     </section>
                                                 </li>

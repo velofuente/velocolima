@@ -61,7 +61,7 @@ class AdminController extends Controller
                 $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
                 $unavailableBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedule->branch_id)->get()->pluck("position")->toArray());
                 $reservedPlaces = array_map('strval', UserSchedule::where("schedule_id", $schedule->id)->where("status", "<>", "cancelled")->get()->pluck("bike")->toArray());
-                for ($i = 1; $i < $temp; $i++) {
+                for ($i = 1; $i <= $temp; $i++) {
                     if (!in_array($i, $unavailableBikes) &&  !in_array($i, $reservedPlaces))
                         array_push($availableBikes, $i);
                 }
@@ -92,7 +92,7 @@ class AdminController extends Controller
                 $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
                 $unavailableBikes = array_map('strval', Tool::select('position')->where('branch_id', $schedule->branch_id)->get()->pluck('position')->toArray());
                 $reservedPlaces = array_map('strval', UserSchedule::where("schedule_id", $schedule->id)->where('status', '<>', 'cancelled')->get()->pluck('bike')->toArray());
-                for ($i = 1; $i < $temp; $i++) {
+                for ($i = 1; $i <= $temp; $i++) {
                     if (!in_array($i, $unavailableBikes) && !in_array($i, $reservedPlaces))
                         array_push($availableBikes, $i);
                 }
@@ -312,12 +312,13 @@ class AdminController extends Controller
         $schedule = Schedule::find($request->schedule_id);
         $branch = Branch::find($schedule->branch_id);
         $temp = $branch->reserv_lim_x * $branch->reserv_lim_y;
+        $countTool = Tool::where("branch_id", $schedule->branch_id)->get()->count();
         $unavailableBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedule->branch_id)->get()->pluck("position")->toArray());
         $reservedPlaces = array_map('strval', UserSchedule::where("schedule_id", $schedule->id)->where("status", "<>", "cancelled")->where("status", "<>", "absent")->get()->pluck("bike")->toArray());
-        for ($i = 1; $i < $temp; $i++) {
+        for ($i = 1; $i <= $temp; $i++) {
             if (!in_array($i, $unavailableBikes))
                 if (!in_array($i, $reservedPlaces))
-                    array_push($availableBikes, $i);
+                    array_push($availableBikes, ['id' => $i, 'index_position' => $i - $countTool]);
         }
         return $availableBikes;
     }

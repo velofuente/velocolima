@@ -623,11 +623,12 @@
             $(this).prop("disabled", true)
             event.preventDefault();
             var bike = $('#bikesSelect').val();
+            const index_position = $("#bikesSelect option:selected" ).text();
             //Get Full ID of the button (which contains the instructor ID)
             var fullId = this.id;
             //Split the ID of the fullId by his dash
             if(user_id > 0){
-                claimClass(schedule_id,bike,user_id, this);
+                claimClass(schedule_id,bike,index_position,user_id, this);
             } else {
                 $(this).prop("disabled", false);
             }
@@ -686,66 +687,8 @@
                     $('#bikesSelect').empty();
                     $('#opRegBike').empty();
                     $.each(response, function(index, value){
-                        switch (value) {
-                            case 2:
-                                $('#opRegBike').append('<option value="'+value+'">'+1+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+1+'</option>');
-                                break;
-                            case 9:
-                                $('#opRegBike').append('<option value="'+value+'">'+2+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+2+'</option>');
-                                break;
-                            case 13:
-                                $('#opRegBike').append('<option value="'+value+'">'+3+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+3+'</option>');
-                                break;
-                            case 20:
-                                $('#opRegBike').append('<option value="'+value+'">'+4+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+4+'</option>');
-                                break;
-                            case 26:
-                                $('#opRegBike').append('<option value="'+value+'">'+5+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+5+'</option>');
-                                break;
-                            case 27:
-                                $('#opRegBike').append('<option value="'+value+'">'+6+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+6+'</option>');
-                                break;
-                            case 28:
-                                $('#opRegBike').append('<option value="'+value+'">'+7+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+7+'</option>');
-                                break;
-                            case 29:
-                                $('#opRegBike').append('<option value="'+value+'">'+8+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+8+'</option>');
-                                break;
-                            case 30:
-                                $('#opRegBike').append('<option value="'+value+'">'+9+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+9+'</option>');
-                                break;
-                            case 35:
-                                $('#opRegBike').append('<option value="'+value+'">'+10+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+10+'</option>');
-                                break;
-                            case 36:
-                                $('#opRegBike').append('<option value="'+value+'">'+11+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+11+'</option>');
-                                break;
-                            case 39:
-                                $('#opRegBike').append('<option value="'+value+'">'+12+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+12+'</option>');
-                                break;
-                            case 40:
-                                $('#opRegBike').append('<option value="'+value+'">'+13+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+13+'</option>');
-                                break;
-                            case 41:
-                                $('#opRegBike').append('<option value="'+value+'">'+14+'</option>');
-                                $('#bikesSelect').append('<option value="'+value+'">'+14+'</option>');
-                                break;
-                            default:
-                                break;
-                        }
+                        $('#opRegBike').append('<option value="'+value.id+'">'+value.index_position+'</option>');
+                        $('#bikesSelect').append('<option value="'+value.id+'">'+value.index_position+'</option>');
                     });
                     if (showModal) {
                         $('#addOpUserModal').modal('show');
@@ -767,14 +710,15 @@
 
         // AJAX Register New User
         function preRegister(){
-            name = $('#opRegName').val()
-            last_name = $('#opRegLastName').val()
-            email = $('#opRegEmail').val()
-            birth_date = $('#opRegBirthDate').val()
-            gender = $('#opRegGender').val()
-            phone = $('#opRegPhone').val()
-            shoe_size = $('#opRegShoeSize').val()
-            bike = $('#opRegBike').val()
+            name = $('#opRegName').val();
+            last_name = $('#opRegLastName').val();
+            email = $('#opRegEmail').val();
+            birth_date = $('#opRegBirthDate').val();
+            gender = $('#opRegGender').val();
+            phone = $('#opRegPhone').val();
+            shoe_size = $('#opRegShoeSize').val();
+            bike = $('#opRegBike').val();
+            index_position = $('#opRegBike option:selected').text();
             $.ajax({
                 url: '/preRegister',
                 type: 'POST',
@@ -792,6 +736,7 @@
                     shoe_size: shoe_size,
                     schedule_id: schedule_id,
                     bike: bike,
+                    index_position: index_position
                 },
                 beforeSend: function(){
                     $.LoadingOverlay("show");
@@ -1095,7 +1040,7 @@
             });
         } */
 
-        function claimClass(schedule_id,bike,user_id, button){
+        function claimClass(schedule_id,bike,index_position,user_id, button){
             $.ajax({
                 url: '/claimClass',
                 type: 'POST',
@@ -1106,7 +1051,8 @@
                 data: {
                     schedule_id: schedule_id,
                     bike: bike,
-                    user_id: user_id
+                    user_id: user_id,
+                    index_position: index_position
                 },
                 success: function(result) {
                     $.LoadingOverlay("hide");
