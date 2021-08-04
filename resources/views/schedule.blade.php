@@ -76,9 +76,6 @@
                                                             <p class="scheduleItemTextHourDisabled">
                                                                 {{ date('g:i A', strtotime($schedule->hour)) }}
                                                             </p>
-                                                            <p class="scheduleItemTextHourDisabled">
-                                                                Sucursal {{ $schedule->branch_name }}
-                                                            </p>
                                                         </section>
                                                     </li>
                                                 </span>
@@ -93,9 +90,6 @@
                                                                 <p class="scheduleDescription">{{ $schedule->description }}</p>
                                                                 <p class="scheduleItemTextHourDisabled">
                                                                     {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                                </p>
-                                                                <p class="scheduleItemTextHourDisabled">
-                                                                    Sucursal {{ $schedule->branch_name }}
                                                                 </p>
                                                             </section>
                                                         </li>
@@ -113,9 +107,6 @@
                                                             <p class="scheduleItemTextHour">
                                                                 {{ date('g:i A', strtotime($schedule->hour)) }}
                                                             </p>
-                                                            <p class="scheduleItemTextHour">
-                                                                Sucursal {{ $schedule->branch_name }}
-                                                            </p>
                                                         </section>
                                                     </li>
                                                 </a>
@@ -130,9 +121,6 @@
                                                             <p class="scheduleDescription">{{ $schedule->description}}</p>
                                                             <p class="scheduleItemTextHour">
                                                                 {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                            </p>
-                                                            <p class="scheduleItemTextHour">
-                                                                Sucursal {{ $schedule->branch_name }}
                                                             </p>
                                                         </section>
                                                     </li>
@@ -151,9 +139,6 @@
                                                         <p class="scheduleItemTextHour">
                                                             {{ date('g:i A', strtotime($schedule->hour)) }}
                                                         </p>
-                                                        <p class="scheduleItemTextHour">
-                                                            Sucursal {{ $schedule->branch_name }}
-                                                        </p>
                                                     </section>
                                                 </li>
                                             </a>
@@ -168,9 +153,6 @@
                                                         <p class="scheduleDescription">{{ $schedule->description}}</p>
                                                         <p class="scheduleItemTextHour">
                                                             {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                        </p>
-                                                        <p class="scheduleItemTextHour">
-                                                            Sucursal {{ $schedule->branch_name }}
                                                         </p>
                                                     </section>
                                                 </li>
