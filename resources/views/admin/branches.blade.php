@@ -227,11 +227,11 @@
                         </div>
                         <div class="col-3 col-xs-3 col-sm-3 col-md-3">
                             <label for="rows" class="mr-sm-2">Filas:</label>
-                            <input class="form-control" maxlength="2" placeholder="Filas" type="number" name="x" id="x">
+                            <input class="form-control" id="editBranchX" maxlength="2" placeholder="Filas" type="number" name="x">
                         </div>
                         <div class="col-3 col-xs-3 col-sm-3 col-md-3">
                             <label for="columns" class="mr-sm-2">Columnas:</label>
-                            <input class="form-control" maxlength="2" placeholder="Columnas" type="number" name="y" id="y">
+                            <input class="form-control" id="editBranchY" maxlength="2" placeholder="Columnas" type="number" name="y">
                         </div>
                     </div>
 
@@ -320,6 +320,19 @@
         });
         //OnClick editBranchModal Button
 
+        $('#editBranchButton').on('click', function(){
+            event.preventDefault();
+            name = $('#editBranchName').val();
+            address =  $('#editBranchAddress').val();
+            municipality =  $('#editBranchMunicipality').val();
+            state =  $('#editBranchState').val();
+            phone =  $('#editBranchPhone').val();
+            cancelation_period =  $('#editBranchCancelationPeriod').val();
+            reserv_lim_x =  $('#editBranchX').val();
+            reserv_lim_y =  $('#editBranchY').val();
+            updateBranch();
+        });
+
         //When Modal Opened
         $('#editBranchModal').on('show.bs.modal', function (event) {
             // Button that triggered the modal
@@ -343,8 +356,8 @@
             modal.find('.modal-body #editBranchState').val(state);
             modal.find('.modal-body #editBranchPhone').val(phone);
             modal.find('.modal-body #editBranchCancelationPeriod').val(cancelation_period);
-            modal.find('.modal-body #x').val(reserv_lim_x);
-            modal.find('.modal-body #y').val(reserv_lim_y);
+            modal.find('.modal-body #editBranchX').val(reserv_lim_x);
+            modal.find('.modal-body #editBranchY').val(reserv_lim_y);
         });
 
         //OnClick deleteBranch Button
@@ -419,6 +432,50 @@
                             confirmButtonText: 'Aceptar'
                         })
                         $('#addBranchButton').attr('disabled', false);
+                    }
+                }
+            });
+        }
+
+        function updateBranch(){
+            $.ajax({
+                url: "/editBranch",
+                method: 'POST',
+                beforeSend: function(){
+                    $.LoadingOverlay('show');
+                },
+                data: {
+                    _token: crfsToken,
+                    branch_id: branch_id,
+                    name: name,
+                    address: address,
+                    municipality: municipality,
+                    state: state,
+                    phone: phone,
+                    cancelation_period: cancelation_period,
+                    reserv_lim_x: reserv_lim_x,
+                    reserv_lim_y: reserv_lim_y
+                },
+                success: function(result){
+                    if(result.status == "OK"){
+                        $.LoadingOverlay('hide');
+                        $('.modal-backdrop').remove();
+                        $('#addBranchModal').modal('hide');
+                        Swal.fire({
+                            title: 'Sucursal actualizada con éxito',
+                            text: result.message,
+                            type: 'success',
+                            confirmButtonText: 'Aceptar'
+                        })
+                        window.location.replace("/admin/branches");
+                    } else {
+                        $.LoadingOverlay('hide');
+                        Swal.fire({
+                            title: 'Error',
+                            text: result.message,
+                            type: 'error',
+                            confirmButtonText: 'Aceptar'
+                        })
                     }
                 }
             });

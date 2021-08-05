@@ -654,7 +654,9 @@ class AdminController extends Controller
         $Branch->address = $request->address;
         $Branch->municipality = $request->municipality;
         $Branch->state = $request->state;
-        $Branch->phone = $request->phone;
+        if($request->phone != ''){
+            $Branch->phone = $request->phone;
+        }
         $Branch->reserv_lim_x = $request->reserv_lim_x;
         $Branch->reserv_lim_y = $request->reserv_lim_y;
         $Branch->cancelation_period = $request->cancelation_period;
