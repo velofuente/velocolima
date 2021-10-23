@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Mail;
 use Log;
-
+use Carbon\Carbon;
 class RegisterController extends Controller
 {
     /*
@@ -95,7 +95,7 @@ class RegisterController extends Controller
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'birth_date' => $data['birth_date'],
+            'birth_date' => Carbon::crateFromFormat('d/m/Y',$data['birth_date'])->format('Y-m-d'),
             'phone' => $data['phone'],
             'weight' => $data['weight'],
             'height' => $data['height'],
