@@ -66,7 +66,7 @@ class InstructorController extends Controller
         //Carbon::parse($schedules->hour)->subHours($schedules->branch->cancelation_period)->format('H:i:s');
         $scheduleHourBeforeCancelation = $schedules->day.'T'.$schedules->hour;
         //obtiene el numero de reservaciones que se han hecho a esa clase
-        $instances = UserSchedule::where('schedule_id', $schedules->id)->count();
+        $instances = UserSchedule::where('schedule_id', $schedules->id)->where('status','active')->count();
         $instructors = Instructor::all();
         $instructor = Instructor::find($schedules->instructor_id);
         $branches = Branch::all();
