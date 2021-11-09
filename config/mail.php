@@ -1,30 +1,31 @@
 <?php
 
-return [
-  "driver" => "smtp",
-  "host" => "smtp.sendgrid.net",
-  "port" => 2525,
-  "from" => array(
-      "address" => "rueda@velocycling.mx",
-      "name" => "Velo Cycling"
-  ),
-  "username" => "choferpro",
-  "password" => "@A3p7m35",
-  //"sendmail" => "/usr/sbin/sendmail -bs"
-];
-
 // return [
-//   "driver" => env('MAIL_DRIVER', 'smtp'),
-//   "host" => env('MAIL_HOST', 'smtp.mailtrap.org'),
-//   "port" => env('MAIL_PORT', 2525),
+//   "driver" => "smtp",
+//   "host" => "smtp.sendgrid.net",
+//   "port" => 2525,
 //   "from" => array(
 //       "address" => "rueda@velocycling.mx",
 //       "name" => "Velo Cycling"
 //   ),
-//   "username" => env('MAIL_USERNAME', 'e52665f643d276'),
-//   'password' => env('MAIL_PASSWORD', '612746e23e900b'),
+//   "username" => "choferpro",
+//   "password" => "@A3p7m35",
 //   //"sendmail" => "/usr/sbin/sendmail -bs"
 // ];
+
+return [
+  "driver" => env('MAIL_DRIVER', 'smtp'),
+  "host" => env('MAIL_HOST', 'smtp.mailtrap.org'),
+  "port" => env('MAIL_PORT', 2525),
+  "from" => array(
+      "address" => env('MAIL_FROM_ADDRESS', "rueda@velocycling.mx"),
+      "name" => env('MAIL_FROM_NAME', "Velo Cycling")
+  ),
+  "username" => env('MAIL_USERNAME', 'e52665f643d276'),
+  'password' => env('MAIL_PASSWORD', '612746e23e900b'),
+  'encryptation' => env('MAIL_ENCRYPTION', 'tls')
+  //"sendmail" => "/usr/sbin/sendmail -bs"
+];
 
 //return [
 
