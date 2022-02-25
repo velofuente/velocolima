@@ -51,8 +51,8 @@
                     <div class="col-xs-6 col-sm-12 col-md-4 col-lg-4">
                         <img src="/img/iconos/UBICACION.png" alt="ubi" width="110px" height="110px">
                         <h5 class="p-info">UBICACIÓN</h5>
-                        <h5>V. Carranza 1450 Local 26</h5>
-                        <h5>Sta Bárbara, 28017 Colima, Col.</h5>
+                        <h5>Av. Constitución 2510 Planta Alta</h5>
+                        <h5>Residencial Victoria, Colima, Col.</h5>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
                     </div>

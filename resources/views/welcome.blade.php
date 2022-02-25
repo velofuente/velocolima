@@ -5,8 +5,7 @@
 @section('content')
     <div class="mainPage fill-height" onclick="location.href='/schedule';">
         <div class="fill-height main-image image-fluid"></div>
-        <div class="fill-height right-image image-fluid"></div>
-        <div class="fill-height left-image image-fluid"></div>
+        <div class="left-image image-fluid"></div>
     </div>
 @endsection
 
@@ -35,11 +34,38 @@
         }
 
         .left-image {
-            background-image: url('img/iconos/ICONO_O.png');
-            right: 65%;
-            background-size: 80%;
+            position: fixed;
+            background-image: url('/img/iconos/ICONO_O.png');
+            width: 9em;
+            height: 9em;
+            z-index: 1;
+            right: 1.5em;
+            bottom: 1.5em;
+            background-size: 100%;
             background-repeat: no-repeat;
             background-position: center;
         }
+
+        .center-image {
+            background-image: url('/img/iconos/LOGO.png');
+            background-size: 60%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 600px) {
+            .main-image {
+                /* background-position-x: 25%; */
+            }
+        }
+
+        /* Medium devices (landscape tablets, 768px and up) */
+        @media only screen and (max-width: 768px) {
+            .main-image {
+                background-position-x: 25%;
+            }
+        }
+
     </style>
 @endsection

@@ -15,7 +15,7 @@
         <div class="bodyText">
             Los términos y condiciones descritos en el presente (“Condiciones del Usuario”) serán aplicables para el uso del sitio web www.velocycling.mx (“Sitio web”) y,
             en particular, para utilizar y recibir los Servicios (según dicho término se define más adelante).
-            LE ROGAMOS LEA LAS PRESENTES CONDICIONES DEL USUARIO ATENTAMENTE ANTES DE USAR NUESTROS SERVICIOS. VELO CYCLING Su parte contratante es Maria Magdalena Alarcón Martínez (“VELO Cycling”),
+            LE ROGAMOS LEA LAS PRESENTES CONDICIONES DEL USUARIO ATENTAMENTE ANTES DE USAR NUESTROS SERVICIOS. VELO CYCLING Su parte contratante es Andrés Preza MacKinney (“VELO Cycling”),
             una persona física con actividad empresarial. El domicilio de VELO Cycling para todo lo relativo a este Contrato es el ubicado en Avenida Ignacio Sandoval 1948 Int. A4 Fraccionamiento La Cantera, Colima, Colima, C.P. 28018.
         </div>
         <div class="header">
@@ -439,7 +439,7 @@
                     Mecanismos de Seguridad
                 </li>
                 Para garantizar el correcto resguardo de sus datos personales y para dar pleno cumplimiento a las obligaciones que la LFPDPPP establece en la materia, 
-                se le informa que MARIA MAGDALENA ALARCÓN MARTÍNEZ tiene implementadas las medidas de seguridad administrativas, 
+                se le informa que ANDRÉS PREZA MACKINNEY tiene implementadas las medidas de seguridad administrativas, 
                 técnicas y físicas necesarias y suficientes para la correcta protección de los datos.
                 <li>
                     Revocación del Consentimiento
@@ -502,7 +502,7 @@
                 <li>
                     Transferencias
                 </li>
-                MARIA MAGDALENA ALARCÓN MARTÍNEZ, 
+                ANDRÉS PREZA MACKINNEY, 
                 podrá transferir sus datos personales con sus empresas subsidiarias o 
                 filiales del mismo grupo empresarial para las finalidades comerciales y 
                 de promoción descritas en el punto 2 del presente Aviso de Privacidad. 

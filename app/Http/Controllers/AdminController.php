@@ -538,6 +538,19 @@ class AdminController extends Controller
 
     public function addSchedule(Request $request)
     {
+        $rules = [
+            'day' => 'date_format:Y-m-d',
+            'hour' => 'date_format:H:i'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'La fecha ingresada no es válida.'
+            ]);
+        }
+
         $availability_x = Branch::select('reserv_lim_x')->where('id', $request->branch_id)->first();
         $availability_y = Branch::select('reserv_lim_y')->where('id', $request->branch_id)->first();
         $instructorBikes = Tool::where("branch_id", $request->branch_id)->where("type", "instructor")->get();
@@ -578,6 +591,19 @@ class AdminController extends Controller
     }
     public function editSchedule(Request $request)
     {
+        $rules = [
+            'day' => 'date_format:Y-m-d',
+            'hour' => 'date_format:H:i:s'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'La fecha ingresada no es válida.'
+            ]);
+        }
+
         if (strlen($request->description) > 27) {
             return response()->json([
                 'status' => 'Error',
