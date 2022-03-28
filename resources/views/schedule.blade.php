@@ -67,7 +67,7 @@
         <div class="container" id="calendario" name="calendar">
             <h2 class="text-center text-white ">Reserva en</h2>
             <div class="row justify-content-center">
-                <div id="promotionalVelo" class="px-4 content-n promotional-branches" data-branch-id="{{ env('PROMOTIONAL_FORTE_BRANCH_ID', 3) }}">
+                <div id="promotionalVelo" class="px-4 content-n promotional-branches" data-branch-id="{{ env('PROMOTIONAL_VELO_BRANCH_ID', 3) }}">
                     {{-- <h4 id="package-description" class="mt-2 text-center">Forte</h4> --}}
                     <img class=" img-fluid rounded" src="{{ asset('img/iconos/LOGO.png')}}" />
                 </div>

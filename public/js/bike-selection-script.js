@@ -135,9 +135,10 @@ function reservePlace(id, bikeNumber, elementBall, instructor){
                 if (typeof result.data != "undefined") {
                     if (typeof result.data.purchaseId != "undefined") {
                         purchaseToValidateId = result.data.purchaseId;
-                        hasSelectedPlace = result.data.selectedPlace;
+                        hasSelectedPlace = result.data.hasSelectedPlace;
                     }
                 }
+                
                 $.LoadingOverlay("hide");
                 if (purchaseToValidateId == null) {
                     showSwalError();
@@ -152,7 +153,7 @@ function reservePlace(id, bikeNumber, elementBall, instructor){
                         // "<h6>Esta reservación sólo puede modificarse o cancelarse hasta " + cancelation_period + " horas antes de la clase.</h6>" +
                         "<h6>Tips: </h6>" +
                         "<ul>" +
-                            "<li>Sé puntual, llega al menos 10 minutos antes de la clase. No hay lugares asignados.</li>" +
+                            "<li>Sé puntual, llega al menos 10 minutos antes de la clase." + (!hasSelectedPlace ? ' No hay lugares asignados.' : '') + "</li>" +
                             "<li>Tu reserva se respetará hasta 5 minutos después del horario reservado, pasado ese tiempo, asignaremos " + (hasSelectedPlace ? 'la bici' : 'tu lugar') + " a las personas que estén en lista de espera.</li>" +
                             "<li>Usa ropa cómoda que transpire y calcetas deportivas.</li>" +
                         "</ul>",
