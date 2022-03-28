@@ -81,7 +81,9 @@
                 @endphp
             @endif
         @endforeach
+    </div>
 
+    <div class="row justify-content-center">
         <!-- LogIn Modal -->
         @guest
             <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalTitle" aria-hidden="true">

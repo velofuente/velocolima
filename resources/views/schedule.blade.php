@@ -22,31 +22,34 @@
                 </span>
             </div>
             {{-- Place Dropdown --}}
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
-                <div class="container-fluid">
+            {{-- <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"> --}}
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
+                {{-- <div class="container-fluid">
                     <select name="places" id="places" class="dropdown">
                         <option value="allPlaces">Ubicación</option>
                         @foreach ($places as $place)
                             <option value="{{$place->id}}">{{$place->name}}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
             </div>
 
             {{-- Brand dropdown --}}
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
+            {{-- <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
                 <div class="container-fluid">
                     <select name="brands" id="brands" class="dropdown">
                         <option value="allBrands">Estudio</option>
                     </select>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- Branch dropdown --}}
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
                 <div class="container-fluid">
                     <select class="dropdown" id="branches" name="branches">
-                        <option value="allBranches" selected="selected">Sucursal</option>
+                        <option value="allBranches" selected="selected"></option>
+                        <option value="{{ env('PROMOTIONAL_VELO_BRANCH_ID', 3) }}">Victoria</option>
+                        <option value="{{ env('PROMOTIONAL_FORTE_BRANCH_ID', 5) }}">Forte Victoria</option>
                     </select>
                 </div>
             </div>
@@ -62,7 +65,17 @@
         <input type="hidden" name="actualDay" value="{{ $today=now() }}">
         <input type="hidden" name="thisDay" value="{{ $thisDay=now() }}">
         <div class="container" id="calendario" name="calendar">
-            <h4 class="text-center text-white">Para ver las clases disponibles, selecciona la ubicación, el estudio y la sucursal.</h4>
+            <h2 class="text-center text-white ">Reserva en</h2>
+            <div class="row justify-content-center">
+                <div id="promotionalVelo" class="px-4 content-n promotional-branches" data-branch-id="{{ env('PROMOTIONAL_FORTE_BRANCH_ID', 3) }}">
+                    {{-- <h4 id="package-description" class="mt-2 text-center">Forte</h4> --}}
+                    <img class=" img-fluid rounded" src="{{ asset('img/iconos/LOGO.png')}}" />
+                </div>
+                <div id="promotionalForte" class="px-4 content-n promotional-branches" data-branch-id="{{ env('PROMOTIONAL_FORTE_BRANCH_ID', 5) }}">
+                    {{-- <h5 id="package-description" class="mt-2 text-center">Velo Cycling</h5> --}}
+                    <img class="mt-3 img-fluid rounded" src="{{ asset('img/iconos/logo_forte.png')}}" />
+                </div>
+            </div>
         </div>
     </div>
     @include('packages')
@@ -73,6 +86,18 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/schedule-styles.css') }}">
     <style>
         .hidden { display: none; }
+        .promotional-branches {
+            width: 40vh;
+            cursor: pointer;
+            padding: 1em;
+            border: 1px solid;
+            border-color: rgba(255, 255, 255, 0.3);
+            border-radius: 0.5em;
+            margin: 0 1em;
+        }
+        .promotional-branches:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
     </style>
 @endsection
 
@@ -80,6 +105,8 @@
 <script type="text/javascript" src="{{ asset('js/schedule-script.js') }}"></script>
 <script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
 <script type="text/javascript">
+    let veloBranchId = "{{ env('PROMOTIONAL_VELO_BRANCH_ID', 3) }}";
+    let forteBranchId = "{{ env('PROMOTIONAL_FORTE_BRANCH_ID', 5) }}";
     let product_id = null;
     let token = "{{ csrf_token() }}";
     $(document).ready(()=>{
@@ -90,8 +117,6 @@
             console.log(product_id);
         })
         Conekta.setPublicKey('{{ env('CONEKTA_PUBLIC_KEY') }}');
-      
-      
         let conektaSuccessResponseHandler = function(token) {
           let $form = $("#card-form");
           //Inserta el token_id en la forma para que se envíe al servidor
@@ -181,6 +206,14 @@
         $('#branches').on('change', function (e) {
             var branchId = $(this).val();
             getScheduleListByBranch(branchId);
+        });
+
+        $('.promotional-branches').on('click', function (e) {
+            var branchId = $(this).data('branch-id');
+            getScheduleListByBranch(branchId);
+            $('#branches').each(function () {
+                
+            });
         });
     });
 
