@@ -89,7 +89,7 @@ class BookClassController extends Controller
             return $this->returnResponse("OK", "Esta reservación no es reembolsable. Al cancelar esta reservación no se te reembolsará.", $require_response, ["purchaseId" => $availablePurchase->id,
         'hasSelectedPlace' => $hasSelectedPlace]);
         }
-        return $this->returnResponse("OK", $this->getPurchaseToValidateMessage($product, $remainingMinutes), $require_response, ["purchaseId" => $availablePurchase->id]);
+        return $this->returnResponse("OK", $this->getPurchaseToValidateMessage($product, $remainingMinutes), $require_response, ["purchaseId" => $availablePurchase->id, 'hasSelectedPlace' => $hasSelectedPlace]);
     }
 
     /**
