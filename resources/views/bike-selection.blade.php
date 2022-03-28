@@ -19,8 +19,8 @@
                     </div>
                     <div class="col-2 col-xs-6"></div>
                     <div class="col col-xs-0" id="selectBikeLogo">
-                        <h5 class="ent">Selecciona tu bici y entra a
-                            <img class="cropLogo" src="/img/iconos/CroppedLogo.png" alt="">
+                        <h5 class="ent">Selecciona tu {{ $hasSelectedPlace ? "bici" : "espacio" }} y entra a
+                            <img class="cropLogo" src="/img/iconos/{{ $hasSelectedPlace ? "CroppedLogo" : "CroppedForteLogo"}}.png" alt="">
                         </h5>
                     </div>
                 </div>

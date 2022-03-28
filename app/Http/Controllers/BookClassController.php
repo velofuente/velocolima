@@ -43,6 +43,9 @@ class BookClassController extends Controller
         if (!$schedule) {
             return $this->returnResponse("ERROR", "No se puede reservar, (horario no válido).", $require_response);
         }
+        $branch = $schedule->branch;
+        $brand = $branch->brands->first();
+        $hasSelectedPlace =$brand->id == 2 ? false : true;
         //Validar cuantos minutos han pasado de la clase
         $remainingMinutes = $this->validateTimeReservation($now, $schedule);
         if (is_string($remainingMinutes)) {
@@ -83,7 +86,8 @@ class BookClassController extends Controller
 
         //Validar si el producto de la compra a validar es reembolsable
         if (!$product->is_refundable) {
-            return $this->returnResponse("OK", "Esta reservación no es reembolsable. Al cancelar esta reservación no se te reembolsará.", $require_response, ["purchaseId" => $availablePurchase->id]);
+            return $this->returnResponse("OK", "Esta reservación no es reembolsable. Al cancelar esta reservación no se te reembolsará.", $require_response, ["purchaseId" => $availablePurchase->id,
+        'hasSelectedPlace' => $hasSelectedPlace]);
         }
         return $this->returnResponse("OK", $this->getPurchaseToValidateMessage($product, $remainingMinutes), $require_response, ["purchaseId" => $availablePurchase->id]);
     }

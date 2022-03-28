@@ -82,12 +82,14 @@ class InstructorController extends Controller
                 array_push($reservedPlaces, (Integer) $value);
             }
         }
+        $brand = $schedules->branch->brands->first();
+        $hasSelectedPlace = $brand->id == 1 ? true : false;
         if ($instances < ($schedules->branch->reserv_lim_x * $schedules->branch->reserv_lim_y)) {
             if (Auth::user()) {
                 $cards = Card::where('user_id', Auth::user()->id)->get();
-                return view('bike-selection', compact('instructors', 'instructor', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes", "cards", "scheduleHourBeforeCancelation"));
+                return view('bike-selection', compact('instructors', 'instructor', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes", "cards", "scheduleHourBeforeCancelation", 'hasSelectedPlace'));
             } else {
-                return view('bike-selection', compact('instructors', 'instructor', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes", "scheduleHourBeforeCancelation"));
+                return view('bike-selection', compact('instructors', 'instructor', 'branches', 'schedules', 'products', "selectedBike", "reservedPlaces", "instructorBikes", "disabledBikes", "scheduleHourBeforeCancelation", 'hasSelectedPlace'));
             }
         }
         return response()->json([
