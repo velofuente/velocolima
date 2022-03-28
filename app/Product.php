@@ -26,4 +26,9 @@ class Product extends Model
     public function schedules() {
         return $this->hasMany(ProductSchedule::class);
     }
+
+    public function branches()
+    {
+        return $this->belongsToMany(Product::class, 'product_branches', 'product_id');
+    }
 }

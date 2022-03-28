@@ -63,4 +63,9 @@ class User extends Authenticatable implements JWTSubject
     public function attempts(){
         return $this->hasMany(CardAttempt::class);
     }
+
+    public function branches()
+    {
+        return $this->belogsToMany(Branch::class, 'branch_users', 'user_id');
+    }
 }

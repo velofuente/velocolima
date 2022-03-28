@@ -1,4 +1,4 @@
-<div id="packages" class="packages container-fluid">
+<div id="packages" class="packages container-fluid hidden">
     <div class="description">
         <span class="text-center text_gradient"> Comprar Clases </span>
     </div>
@@ -23,7 +23,7 @@
 
         @foreach ($products as $product)
         {{-- Products == Deals --}}
-            @if ($product != $products[0] && $product->type == "Deals" && $product->status == 1)
+            @if ($product->type == "Deals" && $product->status == 1)
                 <div class="content-normal pickClass mx-2" id="prod-{{ $product->id }}">
                     @guest
                         <div id="content-normal-deal" class="px-4 content-n" data-toggle="modal" data-target="#loginModal">
@@ -53,7 +53,7 @@
         @endforeach
 
         @foreach ($products as $product)
-            @if ($product != $products[0] && $product->type != "Deals" && $product->type != "Souvenir" && $product->type != "Free" && $product->status == 1)
+            @if ($product->type != "Deals" && $product->type != "Souvenir" && $product->type != "Free" && $product->status == 1)
                 <div class="content-normal pickClass mx-2" id="prod-{{ $product->id }}">
                     @guest
                         <div id="content-normal" class="px-4 content-n" data-toggle="modal" data-target="#loginModal">

@@ -128,3 +128,9 @@ Route::group(['middleware' => ['auth', 'user.access']], function () {
     Route::post('/deleteClient', 'OpenPayController@deleteCustomer');
     Route::post('/walkInRegister', 'MailSendingController@walkInRegister');
 });
+
+Route::group(['prefix' => 'api'], function () {
+    Route::get('/brandList', 'ScheduleController@getBrandList')->name('brand.list');
+    Route::get('/branchesList', 'ScheduleController@getBranchList')->name('branch.list');
+    Route::get('/scheduleList/{branch}', 'ScheduleController@getScheduleList')->name('schedule.list');
+});

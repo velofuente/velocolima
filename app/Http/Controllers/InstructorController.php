@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Instructor,Branch,Schedule,Product, UserSchedule, Card, Tool};
+use App\{Instructor,Branch,Schedule,Product, UserSchedule,
+    Branches, Card, Tool};
+use App\Models\{Place, Brand};
 use Auth;
 
 class InstructorController extends Controller
@@ -32,6 +34,8 @@ class InstructorController extends Controller
 
     public function schedule()
     {
+        $places = Place::all();
+        $brands = Brand::all();
         $instructors = Instructor::all();
         $branches = Branch::all();
         $products = Product::all();
@@ -39,22 +43,14 @@ class InstructorController extends Controller
         date_default_timezone_set('America/Mexico_City');
 
         // TODO: Probar bien velo.test/schedule, no debería haber error al tener una clase cuyo instructor fuese eliminado
-        $schedules = Schedule::join('instructors', 'schedules.instructor_id', '=', 'instructors.id')
-            ->join('branches', 'schedules.branch_id', '=', 'branches.id')
-            ->select('schedules.id', 'schedules.day', 'schedules.hour', 'schedules.reservation_limit',
-            'schedules.instructor_id', 'schedules.class_id', 'schedules.room_id', 'schedules.branch_id', 'schedules.deleted_at',
-            'schedules.created_at', 'schedules.updated_at', 'schedules.description', 'instructors.id AS insId',
-            'instructors.name AS instructor_name', 'branches.id AS braId', 'branches.name AS branch_name')
-            ->whereNull('instructors.deleted_at')
-            ->whereNull('branches.deleted_at')
-            ->get()
-            ->sortBy('hour');
+        $schedules = [];
+        $products = [];
 
         if (Auth::user()) {
             $cards = Card::where('user_id', Auth::user()->id)->get();
-            return view('schedule', compact('instructors', 'branches', 'schedules', 'products', 'cards'));
+            return view('schedule', compact('instructors', 'places', 'products', 'cards'));
         } else {
-            return view('schedule', compact('instructors', 'branches', 'schedules', 'products'));
+            return view('schedule', compact('instructors', 'products', 'places'));
         }
     }
 
@@ -70,7 +66,8 @@ class InstructorController extends Controller
         $instructors = Instructor::all();
         $instructor = Instructor::find($schedules->instructor_id);
         $branches = Branch::all();
-        $products = Product::all();
+        $currentBranch = $schedules->branch;
+        $products = $currentBranch->products;
         $selectedBike = UserSchedule::where("user_id", $request->user()->id)->where("schedule_id", $schedules->id)->where("status", "<>", "cancelled")->where("status", "<>", "absent")->first();
         $instructorBikes = Tool::select("position")->where("branch_id", $schedules->branch_id)->where("type", "instructor")->get()->pluck("position");
         $disabledBikes = array_map('strval', Tool::select("position")->where("branch_id", $schedules->branch_id)->where("type", "disabled")->get()->pluck("position")->toArray());

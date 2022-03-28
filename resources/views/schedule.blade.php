@@ -8,12 +8,12 @@
     <div class="container-fluid pt-4 mb-4 main">
         <div class="row" id="topNavBar">
             {{-- Empty Section at the Far LeftNavBar --}}
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-2">
                 <span class="weekShown">
                 </span>
             </div>
             {{-- Message Actual Week --}}
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
                 <input type="hidden" name="timezoneSet" value="{{ setlocale(LC_TIME,'es_MX.utf8') }}">
                 <input type="hidden" name="WeekShown" value="{{ $weekShown=now() }}">
                 <input type="hidden" name="setMonth" value="{{ $month=strftime('%B', strtotime($weekShown)) }}">
@@ -21,24 +21,37 @@
                     del {{date('d')}} al {{date('d', strtotime($weekShown->modify("+6 days")))}} de {{ $month}}
                 </span>
             </div>
-            {{-- Empty Section at the Middle of the NavBar --}}
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-4">
-                <span class="weekShown">
-                </span>
-            </div>
-            {{-- Instructor Dropdown --}}
-            <div class="col-xs-4 ol-sm-4 col-md-4 col-lg-3">
+            {{-- Place Dropdown --}}
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
                 <div class="container-fluid">
-                    <select class="dropdown" id="ScheduleInstructor" onchange="scheduleByInstructor()">
-                        <option value="allInstructors" selected="selected">Instructores</option>
-                        @foreach ($instructors as $instructor)
-                            <option value="{{ $instructor->name }}">{{ $instructor->name}}</option>
+                    <select name="places" id="places" class="dropdown">
+                        <option value="allPlaces">Ubicación</option>
+                        @foreach ($places as $place)
+                            <option value="{{$place->id}}">{{$place->name}}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
+
+            {{-- Brand dropdown --}}
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
+                <div class="container-fluid">
+                    <select name="brands" id="brands" class="dropdown">
+                        <option value="allBrands">Estudio</option>
+                    </select>
+                </div>
+            </div>
+
+            {{-- Branch dropdown --}}
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
+                <div class="container-fluid">
+                    <select class="dropdown" id="branches" name="branches">
+                        <option value="allBranches" selected="selected">Sucursal</option>
+                    </select>
+                </div>
+            </div>
             {{-- Empty Section at the Far Right NavBar --}}
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-2">
                 <span class="weekShown">
                 </span>
             </div>
@@ -49,126 +62,7 @@
         <input type="hidden" name="actualDay" value="{{ $today=now() }}">
         <input type="hidden" name="thisDay" value="{{ $thisDay=now() }}">
         <div class="container" id="calendario" name="calendar">
-            {{-- <h1 class="text-center text-white">SCHEDULE BACKUP</h1> --}}
-            @if(count($schedules) > 0)
-                <div class="row" id="rowSchedule" name="dates">
-                    @for ($i = 0; $i < 7; $i++)
-                    <section class="col" id="scheduleDayColumn">
-                        <ul>
-                            <li class="scheduleDayText">
-                                <input type="hidden" name="langLocal" value="<?php setlocale(LC_TIME,'es_MX.utf8'); $dayNumber=strftime('%d', strtotime($today));?>">
-                                <input type="hidden" name="langLocal" value="<?php $dayName = strftime("%a", strtotime($today));?>">
-                            <span class="number"> {{ $dayName}}.{{ $dayNumber}}</span>
-                            </li>
-                            @foreach ($schedules as $schedule)
-                                @if ($schedule->day == $today->format('Y-m-d'))
-                                    {{-- If the Schedule Day == Actual (Real) Day of the Week then check the hour scheduled --}}
-                                    @if ($schedule->day == $thisDay->format('Y-m-d'))
-                                        @if ($schedule->hour < $today->format('H:i:s'))
-                                            @if ($schedule->description == null)
-                                                {{-- Disabled Boxes || No Description--}}
-                                                <span class="scheduleItemLinkDisabled">
-                                                    <li class="scheduleItemDisabled" id="{{ $schedule->instructor->name }}">
-                                                        <section class="scheduleItemContainer">
-                                                            <p class="scheduleItemTextInstructor">
-                                                                {{ $schedule->instructor->name}}
-                                                            </p>
-                                                            <p class="scheduleItemTextHourDisabled">
-                                                                {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                            </p>
-                                                        </section>
-                                                    </li>
-                                                </span>
-                                            @else
-                                                {{-- Disabled Boxes || No Description--}}
-                                                <span class="scheduleItemLinkDisabled">
-                                                        <li class="scheduleItemDisabled" id="{{ $schedule->instructor->name }}">
-                                                            <section class="scheduleItemContainerDescription">
-                                                                <p class="scheduleItemTextInstructor">
-                                                                    {{ $schedule->instructor->name}}
-                                                                </p>
-                                                                <p class="scheduleDescription">{{ $schedule->description }}</p>
-                                                                <p class="scheduleItemTextHourDisabled">
-                                                                    {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                                </p>
-                                                            </section>
-                                                        </li>
-                                                    </span>
-                                            @endif
-                                        @else
-                                            @if($schedule->description == null)
-                                                {{-- Enabled Boxes from Today || No Description --}}
-                                                <a href="/bike-selection/{{ $schedule->id }}" class="scheduleItemLink">
-                                                    <li class="scheduleItem" id="{{ $schedule->instructor->name }}">
-                                                        <section class="scheduleItemContainer">
-                                                            <p class="scheduleItemTextInstructor">
-                                                                {{ $schedule->instructor->name}}
-                                                            </p>
-                                                            <p class="scheduleItemTextHour">
-                                                                {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                            </p>
-                                                        </section>
-                                                    </li>
-                                                </a>
-                                            @else
-                                                {{-- Enabled Boxes from Today || With Description--}}
-                                                <a href="/bike-selection/{{ $schedule->id }}" class="scheduleItemLink">
-                                                    <li class="scheduleItem" id="{{ $schedule->instructor->name }}">
-                                                        <section class="scheduleItemContainerDescription">
-                                                            <p class="scheduleItemTextInstructor">
-                                                                {{ $schedule->instructor->name}}
-                                                            </p>
-                                                            <p class="scheduleDescription">{{ $schedule->description}}</p>
-                                                            <p class="scheduleItemTextHour">
-                                                                {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                            </p>
-                                                        </section>
-                                                    </li>
-                                                </a>
-                                            @endif
-                                        @endif
-                                    @else
-                                        @if($schedule->description == null)
-                                            {{-- Enabled Boxes day by day || No Description --}}
-                                            <a href="/bike-selection/{{ $schedule->id }}" class="scheduleItemLink">
-                                                <li class="scheduleItem" id="{{ $schedule->instructor->name }}">
-                                                    <section class="scheduleItemContainer">
-                                                        <p class="scheduleItemTextInstructor">
-                                                            {{ $schedule->instructor->name }}
-                                                        </p>
-                                                        <p class="scheduleItemTextHour">
-                                                            {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                        </p>
-                                                    </section>
-                                                </li>
-                                            </a>
-                                        @else
-                                            {{-- Enabled Boxes day by day || No Description --}}
-                                            <a href="/bike-selection/{{ $schedule->id }}" class="scheduleItemLink">
-                                                <li class="scheduleItem" id="{{ $schedule->instructor->name }}">
-                                                    <section class="scheduleItemContainerDescription">
-                                                        <p class="scheduleItemTextInstructor">
-                                                            {{ $schedule->instructor->name }}
-                                                        </p>
-                                                        <p class="scheduleDescription">{{ $schedule->description}}</p>
-                                                        <p class="scheduleItemTextHour">
-                                                            {{ date('g:i A', strtotime($schedule->hour)) }}
-                                                        </p>
-                                                    </section>
-                                                </li>
-                                            </a>
-                                        @endif
-                                    @endif
-                                @endif
-                            @endforeach
-                        </ul>
-                    </section>
-                    <input type="hidden" value="{{ $today->modify('+1 day') }}">
-                    @endfor
-                </div>
-            @else
-                <h4 class="text-center text-white">Aún no hay clases agendadas</h4>
-            @endif
+            <h4 class="text-center text-white">Para ver las clases disponibles, selecciona la ubicación, el estudio y la sucursal.</h4>
         </div>
     </div>
     @include('packages')
@@ -177,12 +71,17 @@
 
 @section('extraStyles')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/schedule-styles.css') }}">
+    <style>
+        .hidden { display: none; }
+    </style>
 @endsection
 
 @section('extraScripts')
+<script type="text/javascript" src="{{ asset('js/schedule-script.js') }}"></script>
 <script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
 <script type="text/javascript">
     let product_id = null;
+    let token = "{{ csrf_token() }}";
     $(document).ready(()=>{
         $(document).on("click", ".pickClass", function(e) {
             var elementId = this.id;
@@ -269,7 +168,20 @@
             $('#newCardChargeModal').modal('show');
         });
 
-            
+        $('#places').on('change', function (e) {
+           var selectedPlace = $(this).val();
+           getBrandListByPlace(selectedPlace);
+        });
+
+        $('#brands').on('change', function (e) {
+            var selectedBrand = $(this).val();
+            getBranchesListByBrand(selectedBrand);
+        });
+
+        $('#branches').on('change', function (e) {
+            var branchId = $(this).val();
+            getScheduleListByBranch(branchId);
+        });
     });
 
     function makeCharge(){
