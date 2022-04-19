@@ -157,8 +157,8 @@ function getScheduleListByBranch (selectedBranch) {
                         var modal = $(`<div id="${customClass}" class="px-4 content-n" data-toggle="modal" data-target="#newCardChargeModal"></div>`);
                     }
                 }
-                modal.append(`<h5 id="package-description" class="mt-0 text-center mx-auto">Promoción <br><span id="DBDescription" class="text-center mx-auto">${product.description}<span></h5>
-                <h3 id="${h3Id}">${product.n_classes}</h3><h4 class="class">${prefixClass}</h4><p class="precio" style="font-size: 17px; font-family: 'Avenir Next Condensed'; font-weight: 300;">$${product.price}</p><p class="exp" style="font-size: 17px;">Expira: ${product.expiration_days} días</p>`);
+                modal.append((product.promotional ? `<h5 id="package-description" class="mt-0 text-center mx-auto">Promoción <br><span id="DBDescription" class="text-center mx-auto">${product.description}<span></h5>` : '')
+                + `<h3 id="${h3Id}">${product.n_classes}</h3><h4 class="class">${prefixClass}</h4><p class="precio" style="font-size: 17px; font-family: 'Avenir Next Condensed'; font-weight: 300;">$${product.price}</p><p class="exp" style="font-size: 17px;">Expira: ${product.expiration_days} días</p>`);
                 productContainer.append(modal);
                 productSection.append(productContainer);
             });
