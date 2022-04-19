@@ -164,6 +164,7 @@ class ScheduleController extends Controller
                 "current_date" => $now->format('Y-m-d'),
                 "schedules" => $schedules,
                 "products" => $products->sortByDesc('promotional')->values(),
+                "brand" => $branch->brands->first(),
             ]
         ]);
     }

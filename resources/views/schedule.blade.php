@@ -24,6 +24,7 @@
             {{-- Place Dropdown --}}
             {{-- <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"> --}}
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
+                <span class="weekShown" id="branchTitle"></span>
                 {{-- <div class="container-fluid">
                     <select name="places" id="places" class="dropdown">
                         <option value="allPlaces">Ubicación</option>
@@ -65,17 +66,15 @@
         <input type="hidden" name="actualDay" value="{{ $today=now() }}">
         <input type="hidden" name="thisDay" value="{{ $thisDay=now() }}">
         <div class="container" id="calendario" name="calendar">
-            <h2 class="text-center text-white ">Reserva en</h2>
+            {{-- <h2 class="text-center text-white ">Reserva en</h2>
             <div class="row justify-content-center">
                 <div id="promotionalVelo" class="px-4 content-n promotional-branches" data-branch-id="{{ config('constants.promotionalVeloBranchId') }}">
-                    {{-- <h4 id="package-description" class="mt-2 text-center">Forte</h4> --}}
                     <img class=" img-fluid rounded" src="{{ asset('img/iconos/LOGO.png')}}" />
                 </div>
                 <div id="promotionalForte" class="px-4 content-n promotional-branches" data-branch-id="{{ config('constants.promotionalForteBranchId') }}">
-                    {{-- <h5 id="package-description" class="mt-2 text-center">Velo Cycling</h5> --}}
                     <img class="mt-3 img-fluid rounded" src="{{ asset('img/iconos/logo_forte.png')}}" />
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     @include('packages')

@@ -90,6 +90,7 @@ function getScheduleListByBranch (selectedBranch) {
         },
         success: function (response) {
             var data = response.data;
+            var brand = data.brand;
             var calendar = data.calendar;
             var products = data.products;
             var schedules = data.schedules;
@@ -137,7 +138,6 @@ function getScheduleListByBranch (selectedBranch) {
 
                     section.append(ul);
                     div.append(section);
-
                 });
                 $('#calendario').html(div);
             }
@@ -163,8 +163,16 @@ function getScheduleListByBranch (selectedBranch) {
                 productSection.append(productContainer);
             });
 
+            $('#branchTitle').html(brand.name);
             $('#packages').removeClass('hidden');
             $.LoadingOverlay("hide");
+            pathName = window.location.href;
+            var tags = pathName.split('#');
+            if (tags[tags.length - 1] == 'packages') {
+                $('html, body').animate({
+                    scrollTop: $("#packages").offset().top
+                }, 0);
+            }
         },
         failure: function () {
             $.LoadingOverlay("hide");

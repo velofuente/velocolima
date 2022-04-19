@@ -40,6 +40,16 @@ class InstructorController extends Controller
         $branches = Branch::all();
         $products = Product::all();
 
+        if (!$branchId) {
+            if (request()->session()->exists('branchId')) {
+                $branchId = session('branchId');
+            } else {
+                $branchId = config('constants.promotionalVeloBranchId');
+            }
+        }
+
+        session(['branchId' => $branchId]);
+
         date_default_timezone_set('America/Mexico_City');
 
         // TODO: Probar bien velo.test/schedule, no debería haber error al tener una clase cuyo instructor fuese eliminado
