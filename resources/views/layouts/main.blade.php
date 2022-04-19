@@ -32,6 +32,10 @@
     <script src="{{ asset('/js/app.js') }}" charset="utf-8"></script>
     <script src="{{ asset('js/layout-scripts.js') }}"></script>
     <script>
+        function openSchedule (branchId) {
+            document.location.href = '/schedule/' + branchId;
+         }
+
         $('#buttonFormResponse').on('click', function(event) {
             event.preventDefault();
             formResponse();

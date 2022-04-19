@@ -48,8 +48,8 @@
                 <div class="container-fluid">
                     <select class="dropdown" id="branches" name="branches">
                         <option value="allBranches" selected="selected"></option>
-                        <option value="{{ env('PROMOTIONAL_VELO_BRANCH_ID', 3) }}">Victoria</option>
-                        <option value="{{ env('PROMOTIONAL_FORTE_BRANCH_ID', 5) }}">Forte Victoria</option>
+                        <option value="{{ config('constants.promotionalVeloBranchId') }}">Victoria</option>
+                        <option value="{{ config('constants.promotionalForteBranchId') }}">Forte Victoria</option>
                     </select>
                 </div>
             </div>
@@ -67,11 +67,11 @@
         <div class="container" id="calendario" name="calendar">
             <h2 class="text-center text-white ">Reserva en</h2>
             <div class="row justify-content-center">
-                <div id="promotionalVelo" class="px-4 content-n promotional-branches" data-branch-id="{{ env('PROMOTIONAL_VELO_BRANCH_ID', 3) }}">
+                <div id="promotionalVelo" class="px-4 content-n promotional-branches" data-branch-id="{{ config('constants.promotionalVeloBranchId') }}">
                     {{-- <h4 id="package-description" class="mt-2 text-center">Forte</h4> --}}
                     <img class=" img-fluid rounded" src="{{ asset('img/iconos/LOGO.png')}}" />
                 </div>
-                <div id="promotionalForte" class="px-4 content-n promotional-branches" data-branch-id="{{ env('PROMOTIONAL_FORTE_BRANCH_ID', 5) }}">
+                <div id="promotionalForte" class="px-4 content-n promotional-branches" data-branch-id="{{ config('constants.promotionalForteBranchId') }}">
                     {{-- <h5 id="package-description" class="mt-2 text-center">Velo Cycling</h5> --}}
                     <img class="mt-3 img-fluid rounded" src="{{ asset('img/iconos/logo_forte.png')}}" />
                 </div>
@@ -105,11 +105,15 @@
 <script type="text/javascript" src="{{ asset('js/schedule-script.js') }}"></script>
 <script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
 <script type="text/javascript">
-    let veloBranchId = "{{ env('PROMOTIONAL_VELO_BRANCH_ID', 3) }}";
-    let forteBranchId = "{{ env('PROMOTIONAL_FORTE_BRANCH_ID', 5) }}";
+    let veloBranchId = "{{ config('constants.promotionalVeloBranchId') }}";
+    let forteBranchId = "{{ config('constants.promotionalForteBranchId') }}";
     let product_id = null;
     let token = "{{ csrf_token() }}";
+    let branchId = "{{ $branchId }}";
     $(document).ready(()=>{
+        if (branchId != "") {
+             getScheduleListByBranch(branchId);
+         }
         $(document).on("click", ".pickClass", function(e) {
             var elementId = this.id;
             elementExploded = elementId.split("-");

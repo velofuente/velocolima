@@ -32,7 +32,7 @@ class InstructorController extends Controller
         return view('instructor-info', compact('instructor'));
     }
 
-    public function schedule()
+    public function schedule($branchId = null)
     {
         $places = Place::all();
         $brands = Brand::all();
@@ -48,9 +48,9 @@ class InstructorController extends Controller
 
         if (Auth::user()) {
             $cards = Card::where('user_id', Auth::user()->id)->get();
-            return view('schedule', compact('instructors', 'places', 'products', 'cards'));
+            return view('schedule', compact('instructors', 'places', 'products', 'cards', 'branchId'));
         } else {
-            return view('schedule', compact('instructors', 'products', 'places'));
+            return view('schedule', compact('instructors', 'products', 'places', 'branchId'));
         }
     }
 

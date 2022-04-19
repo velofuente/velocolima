@@ -2,7 +2,8 @@
     <div class="container-fluid">
         <div class="home">
             <a class="navbar-brand homeIcon" href="{{ url('/') }}"><img src="/img/iconos/HOME.png" alt="logo" width="35px" height="35px"></a>
-            <a class="navbar-brand hicon" href="{{ url('/') }}"><img src="/img/iconos/LOGO.png" class="logoNavBar" alt="logo" width="100px" height="50px"></a>
+            <a class="navbar-brand hicon" onclick="openSchedule({{ config('constants.promotionalVeloBranchId') }})"><img src="/img/iconos/LOGO.png" class="logoNavBar" alt="logo" width="100px" height="50px"></a>
+             <a class="navbar-brand hicon forte" onclick="openSchedule({{ config('constants.promotionalForteBranchId') }})"><img src="/img/iconos/logo_forte.png" class="logoNavBar" alt="logo" width="100px" height="50px"></a>
         </div>
         @guest
             <div class="links guestLinks">

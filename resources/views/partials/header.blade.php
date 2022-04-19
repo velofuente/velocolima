@@ -25,6 +25,13 @@
         .mainContainer, .overlay-content {
             padding-top: 6em;
         }
+
+        /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 600px) {
+            .forte {
+                display: none;
+            }
+         }
     </style>
     @yield('extraStyles')
 </head>

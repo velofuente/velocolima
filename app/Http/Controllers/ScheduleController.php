@@ -105,8 +105,7 @@ class ScheduleController extends Controller
         $date = now();
         $user = request()->user();
         $numCards = $user ? $user->cards->count() : 0;
-        $products = $branch->products()
-            ->where('products.status', 1)
+        $products = Product::where('products.status', 1)
             ->where('products.id', '<>', 1)
             ->whereNotIn('products.type', ['Survenir', 'Free'])
             ->get();
