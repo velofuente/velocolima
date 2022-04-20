@@ -39,6 +39,7 @@ class InstructorController extends Controller
         $instructors = Instructor::all();
         $branches = Branch::all();
         $products = Product::all();
+        $tempBranchId = $branchId;
 
         if (!$branchId) {
             if (request()->session()->exists('branchId')) {
@@ -49,6 +50,10 @@ class InstructorController extends Controller
         }
 
         session(['branchId' => $branchId]);
+
+        if (request()->buy_packages) {
+            $branchId = $tempBranchId;
+        }
 
         date_default_timezone_set('America/Mexico_City');
 

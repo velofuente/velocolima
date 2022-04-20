@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid pt-4 mb-4 main">
+    <div id="listSchedule" class="container-fluid pt-4 mb-4 main">
         <div class="row" id="topNavBar">
             {{-- Empty Section at the Far LeftNavBar --}}
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-2">
@@ -66,7 +66,7 @@
         <input type="hidden" name="actualDay" value="{{ $today=now() }}">
         <input type="hidden" name="thisDay" value="{{ $thisDay=now() }}">
         <div class="container" id="calendario" name="calendar">
-            {{-- <h2 class="text-center text-white ">Reserva en</h2>
+            <h2 class="text-center text-white ">Reserva en</h2>
             <div class="row justify-content-center">
                 <div id="promotionalVelo" class="px-4 content-n promotional-branches" data-branch-id="{{ config('constants.promotionalVeloBranchId') }}">
                     <img class=" img-fluid rounded" src="{{ asset('img/iconos/LOGO.png')}}" />
@@ -74,7 +74,7 @@
                 <div id="promotionalForte" class="px-4 content-n promotional-branches" data-branch-id="{{ config('constants.promotionalForteBranchId') }}">
                     <img class="mt-3 img-fluid rounded" src="{{ asset('img/iconos/logo_forte.png')}}" />
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
     @include('packages')
@@ -109,10 +109,30 @@
     let product_id = null;
     let token = "{{ csrf_token() }}";
     let branchId = "{{ $branchId }}";
+    var url = window.location;
+    var divPackages = document.querySelector("#packages");
+    var divListSchedule = document.querySelector("#listSchedule");
+    pathName = window.location.href;
+    var tags = pathName.split('/');
+    console.log(tags[tags.length - 1]);
+
+    if(location.hash == "#packages") {
+        divListSchedule.style.cssText = "display: none"
+    } else {
+        divPackages.style.cssText = "display: none"
+    }
+
     $(document).ready(()=>{
-        if (branchId != "") {
-             getScheduleListByBranch(branchId);
-         }
+        var tag = location.hash;
+        var buyPackages = (tag == '#packages');
+
+        console.log('BuyPackages:', buyPackages);
+        if (buyPackages || branchId) {
+            if(tags[tags.length - 1] == "schedule"){
+                branchId = null;
+            }
+             getScheduleListByBranch(branchId, buyPackages);
+        }
         $(document).on("click", ".pickClass", function(e) {
             var elementId = this.id;
             elementExploded = elementId.split("-");

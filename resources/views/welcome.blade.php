@@ -6,7 +6,7 @@
     <div class="mainPage fill-height">
         <div class="fill-height main-image image-fluid"></div>
         <div class="left-image image-fluid"></div>
-        <div class="main-container">
+        {{-- <div class="main-container">
             <div class="row" style="padding: 1em;" onclick="openSchedule({{ config('constants.promotionalVeloBranchId') }})">
                 <div class="col-md-5" style="">
                     <img src="{{ asset('img/iconos/LOGO.png') }}" style="width: 80%;"/>
@@ -23,7 +23,7 @@
                     <h3>Functional Training</h3>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 @endsection
 

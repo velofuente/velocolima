@@ -24,9 +24,18 @@
     <link rel="stylesheet" href="{{ asset('css/packages.css?v=1.1.2') }}">
 
     <style>
+        .logoSchedule{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
         .mainContainer,
         .overlay-content {
             padding-top: 6em;
+        }
+
+        .logoNavBar{
+            cursor:pointer;
         }
 
         @media only screen and (min-width: 100px) and (max-width: 350px) {

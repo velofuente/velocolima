@@ -21,7 +21,7 @@
     <div class="footer container-fluid">
         <div class="row info-footer">
             <div class="col-12">
-                <h3>Se un coach Vèlo</h3>
+                <h3>Se un coach <span id="brandName">Vèlo</span></h3>
                 <h5>Mándanos tus datos y nosotros nos ponemos en contacto contigo.</h5>
             </div>
             <div class="col-12 form">

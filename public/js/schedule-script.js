@@ -78,12 +78,13 @@ function getBranchesListByBrand (selectedBrand) {
     });
 }
 
-function getScheduleListByBranch (selectedBranch) {
+function getScheduleListByBranch (selectedBranch, buyPackages = false) {
     $.ajax({
         url: `/api/scheduleList/${selectedBranch}`,
         method: 'GET',
         data: {
             _token: token,
+            buy_packages: buyPackages
         },
         beforeSend: function () {
             $.LoadingOverlay("show");
@@ -164,6 +165,9 @@ function getScheduleListByBranch (selectedBranch) {
             });
 
             $('#branchTitle').html(brand.name);
+            if(brand.name == "Forte"){
+                document.querySelector("#brandName").innerHTML = brand.name;
+            } 
             $('#packages').removeClass('hidden');
             $.LoadingOverlay("hide");
             pathName = window.location.href;
