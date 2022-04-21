@@ -97,7 +97,7 @@ function getScheduleListByBranch (selectedBranch, buyPackages = false) {
             var schedules = data.schedules;
 
             if (schedules.length === 0) {
-                $('#calendario').html('<h4 class="text-center text-white">No se encontrar clases disponibles para los próximos días.</h4>');
+                $('#calendario').html('<h4 class="text-center text-white">No se encontraron clases disponibles para los próximos días.</h4>');
             } else {
                 var div = $("<div id='rowSchedule' class='row' name='dates'></div>");
                 calendar.forEach(function (date) {

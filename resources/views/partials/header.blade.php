@@ -24,11 +24,16 @@
     <link rel="stylesheet" href="{{ asset('css/packages.css?v=1.1.2') }}">
 
     <style>
+        .reservation{
+            display:none;
+        }
+
         .logoSchedule{
             display: flex;
             justify-content: space-around;
             align-items: center;
         }
+        
         .mainContainer,
         .overlay-content {
             padding-top: 6em;

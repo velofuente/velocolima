@@ -66,8 +66,8 @@
         <input type="hidden" name="actualDay" value="{{ $today=now() }}">
         <input type="hidden" name="thisDay" value="{{ $thisDay=now() }}">
         <div class="container" id="calendario" name="calendar">
-            <h2 class="text-center text-white ">Reserva en</h2>
-            <div class="row justify-content-center">
+            <h2 class="text-center text-white display-reservation reservation">Reserva en</h2>
+            <div class="row justify-content-center display-reservation reservation">
                 <div id="promotionalVelo" class="px-4 content-n promotional-branches" data-branch-id="{{ config('constants.promotionalVeloBranchId') }}">
                     <img class=" img-fluid rounded" src="{{ asset('img/iconos/LOGO.png')}}" />
                 </div>
@@ -112,6 +112,7 @@
     var url = window.location;
     var divPackages = document.querySelector("#packages");
     var divListSchedule = document.querySelector("#listSchedule");
+    var divReservation = document.querySelectorAll(".display-reservation");
     pathName = window.location.href;
     var tags = pathName.split('/');
     console.log(tags[tags.length - 1]);
@@ -122,16 +123,22 @@
         divPackages.style.cssText = "display: none"
     }
 
+    if(tags[tags.length - 1] == "schedule#"){
+        divReservation.forEach(element => {
+            element.classList.remove("reservation");
+        });    
+    } 
+   
     $(document).ready(()=>{
         var tag = location.hash;
         var buyPackages = (tag == '#packages');
 
         console.log('BuyPackages:', buyPackages);
         if (buyPackages || branchId) {
-            if(tags[tags.length - 1] == "schedule"){
+            if(tags[tags.length - 1] == "schedule#"){
                 branchId = null;
-            }
-             getScheduleListByBranch(branchId, buyPackages);
+            } 
+            getScheduleListByBranch(branchId, buyPackages);
         }
         $(document).on("click", ".pickClass", function(e) {
             var elementId = this.id;
