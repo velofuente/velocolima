@@ -42,6 +42,20 @@
             $("#buttonFormResponse").attr("disabled", true);
         });
 
+        $('#booking').on('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            location.href = '/schedule#';
+            location.reload();
+        });
+
+        $('#buyPackages').on('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            location.href = '/schedule#packages';
+            location.reload();
+        });
+
         function formResponse(){
             $.ajax({
                 method: 'POST',

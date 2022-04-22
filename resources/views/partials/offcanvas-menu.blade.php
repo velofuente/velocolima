@@ -3,10 +3,10 @@
         <div class="col-md-12 overlay-links">
             <a href="{{ url('/branches') }}">Ubicación</a>
             <a href="{{ url('/instructors') }}">Instructores</a>
-            <a href="{{ url('/schedule') }}">Reservar</a>
+            <a id="booking" href="#">Reservar</a>
         </div>
         <div class="col-md-12 overlay-links">
-            <a href="{{ url('/schedule#packages') }}">Comprar clases</a>
+            <a id="buyPackages" href="#packages">Comprar clases</a>
             <a href="{{ url('/legales') }}">Legales</a>
             @guest
                 <a href="{{ url('/login')}}"> Login </a>
