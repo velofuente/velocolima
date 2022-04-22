@@ -46,14 +46,18 @@
             event.preventDefault();
             event.stopPropagation();
             location.href = '/schedule#';
-            location.reload();
+            if (location.pathname == '/schedule') {
+                location.reload();
+            }
         });
 
         $('#buyPackages').on('click', function(event) {
             event.preventDefault();
             event.stopPropagation();
             location.href = '/schedule#packages';
-            location.reload();
+            if (location.pathname == '/schedule') {
+                location.reload();
+            }
         });
 
         function formResponse(){

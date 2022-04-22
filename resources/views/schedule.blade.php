@@ -133,7 +133,6 @@
         var tag = location.hash;
         var buyPackages = (tag == '#packages');
 
-        console.log('BuyPackages:', buyPackages);
         if (buyPackages || branchId) {
             if(tags[tags.length - 1] == "schedule#"){
                 branchId = null;
